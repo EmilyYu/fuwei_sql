@@ -4,7 +4,7 @@ Source Host: localhost
 Source Database: dbo_fuwei
 Target Host: localhost
 Target Database: dbo_fuwei
-Date: 2014/6/19 10:32:45
+Date: 2014/6/23 19:02:41
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -185,7 +185,7 @@ CREATE TABLE `tb_role` (
   `name` varchar(255) DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_role_module
@@ -193,13 +193,13 @@ CREATE TABLE `tb_role` (
 DROP TABLE IF EXISTS `tb_role_module`;
 CREATE TABLE `tb_role_module` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `module_id` int(11) DEFAULT NULL,
-  `role_id` int(11) DEFAULT NULL,
+  `moduleId` int(11) DEFAULT NULL,
+  `roleId` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FKA5B50A04204B2756` (`role_id`),
-  KEY `FKA5B50A04C10DF496` (`module_id`),
-  CONSTRAINT `FKA5B50A04204B2756` FOREIGN KEY (`role_id`) REFERENCES `tb_role` (`id`),
-  CONSTRAINT `FKA5B50A04C10DF496` FOREIGN KEY (`module_id`) REFERENCES `tb_module` (`id`)
+  KEY `FKA5B50A049710D9E3` (`roleId`),
+  KEY `FKA5B50A04F98C994F` (`moduleId`),
+  CONSTRAINT `FKA5B50A049710D9E3` FOREIGN KEY (`roleId`) REFERENCES `tb_role` (`id`),
+  CONSTRAINT `FKA5B50A04F98C994F` FOREIGN KEY (`moduleId`) REFERENCES `tb_module` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -214,7 +214,9 @@ CREATE TABLE `tb_salesman` (
   `name` varchar(255) DEFAULT NULL,
   `tel` varchar(255) DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `FK7497AF7F2FD17BF9` (`companyId`),
+  CONSTRAINT `FK7497AF7F2FD17BF9` FOREIGN KEY (`companyId`) REFERENCES `tb_company` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -229,12 +231,15 @@ CREATE TABLE `tb_user` (
   `inUse` bit(1) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `qq` varchar(255) DEFAULT NULL,
-  `roleId` int(11) DEFAULT NULL,
   `tel` varchar(255) DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `username` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `password` varchar(255) DEFAULT NULL,
+  `roleId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKA4FF6AFC9710D9E3` (`roleId`),
+  CONSTRAINT `FKA4FF6AFC9710D9E3` FOREIGN KEY (`roleId`) REFERENCES `tb_role` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for unpricedsample
@@ -257,3 +262,5 @@ CREATE TABLE `unpricedsample` (
 -- ----------------------------
 -- Records 
 -- ----------------------------
+INSERT INTO `tb_role` VALUES ('1', '2014-06-20 17:04:36', '管理员', 'admin', '2014-06-20 17:04:56');
+INSERT INTO `tb_user` VALUES ('1', '2014-06-20 17:05:18', '675520238@qq.com', 'yf', '', '余芬', '675520238', '111114332322', '2014-06-20 17:05:46', 'yufen', '123456', '1');
