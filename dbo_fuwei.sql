@@ -4,7 +4,7 @@ Source Host: localhost
 Source Database: dbo_fuwei
 Target Host: localhost
 Target Database: dbo_fuwei
-Date: 2014/6/23 19:02:41
+Date: 2014/7/1 0:09:48
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -144,10 +144,10 @@ CREATE TABLE `tb_company` (
   `created_at` datetime DEFAULT NULL,
   `fullname` varchar(255) DEFAULT NULL,
   `level` int(11) NOT NULL,
-  `shortname` varchar(255) DEFAULT NULL,
+  `help_code` varchar(255) DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_gongxu
@@ -236,6 +236,7 @@ CREATE TABLE `tb_user` (
   `username` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `roleId` int(11) DEFAULT NULL,
+  `locked` bit(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKA4FF6AFC9710D9E3` (`roleId`),
   CONSTRAINT `FKA4FF6AFC9710D9E3` FOREIGN KEY (`roleId`) REFERENCES `tb_role` (`id`)
@@ -262,5 +263,7 @@ CREATE TABLE `unpricedsample` (
 -- ----------------------------
 -- Records 
 -- ----------------------------
+INSERT INTO `tb_company` VALUES ('1', 'v', 'df', null, null, null, 'v', '0', null, null);
+INSERT INTO `tb_company` VALUES ('2', 'rrrrrrr', '杭州', null, null, '2014-06-30 23:16:27', '杭州数创科技有限公司', '0', null, '2014-06-30 23:16:27');
 INSERT INTO `tb_role` VALUES ('1', '2014-06-20 17:04:36', '管理员', 'admin', '2014-06-20 17:04:56');
-INSERT INTO `tb_user` VALUES ('1', '2014-06-20 17:05:18', '675520238@qq.com', 'yf', '', '余芬', '675520238', '111114332322', '2014-06-20 17:05:46', 'yufen', '123456', '1');
+INSERT INTO `tb_user` VALUES ('1', '2014-06-20 17:05:18', '675520238@qq.com', 'yf', '', '余芬', '675520238', '111114332322', '2014-06-20 17:05:46', 'yufen', '123456', '1', '');
