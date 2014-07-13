@@ -4,7 +4,7 @@ Source Host: localhost
 Source Database: dbo_fuwei2
 Target Host: localhost
 Target Database: dbo_fuwei2
-Date: 2014/7/7 18:08:41
+Date: 2014/7/8 19:25:40
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -120,7 +120,7 @@ CREATE TABLE `tb_gongxu` (
   PRIMARY KEY (`id`),
   KEY `FK4AB8624F87AC0D3A` (`created_user`),
   CONSTRAINT `FK4AB8624F87AC0D3A` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_module
@@ -204,9 +204,9 @@ CREATE TABLE `tb_role_module` (
   KEY `FKA5B50A049710D9E3` (`roleId`),
   KEY `FKA5B50A0487AC0D3A` (`created_user`),
   KEY `FKA5B50A04F98C994F` (`moduleId`),
-  CONSTRAINT `FKA5B50A04F98C994F` FOREIGN KEY (`moduleId`) REFERENCES `tb_module` (`id`),
   CONSTRAINT `FKA5B50A0487AC0D3A` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`),
-  CONSTRAINT `FKA5B50A049710D9E3` FOREIGN KEY (`roleId`) REFERENCES `tb_role` (`id`)
+  CONSTRAINT `FKA5B50A049710D9E3` FOREIGN KEY (`roleId`) REFERENCES `tb_role` (`id`),
+  CONSTRAINT `FKA5B50A04F98C994F` FOREIGN KEY (`moduleId`) REFERENCES `tb_module` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -225,8 +225,8 @@ CREATE TABLE `tb_salesman` (
   PRIMARY KEY (`id`),
   KEY `FK7497AF7F2FD17BF9` (`companyId`),
   KEY `FK7497AF7F87AC0D3A` (`created_user`),
-  CONSTRAINT `FK7497AF7F87AC0D3A` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`),
-  CONSTRAINT `FK7497AF7F2FD17BF9` FOREIGN KEY (`companyId`) REFERENCES `tb_company` (`id`)
+  CONSTRAINT `FK7497AF7F2FD17BF9` FOREIGN KEY (`companyId`) REFERENCES `tb_company` (`id`),
+  CONSTRAINT `FK7497AF7F87AC0D3A` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -256,7 +256,7 @@ CREATE TABLE `tb_sample` (
   KEY `FK5E6CEC9B4D2DE8EE` (`charge_user`),
   CONSTRAINT `FK5E6CEC9B4D2DE8EE` FOREIGN KEY (`charge_user`) REFERENCES `tb_user` (`id`),
   CONSTRAINT `FK5E6CEC9B87AC0D3A` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_user
@@ -304,5 +304,13 @@ CREATE TABLE `unpricedsample` (
 -- ----------------------------
 INSERT INTO `tb_gongxu` VALUES ('1', '2014-07-07 17:18:04', 'v', '2014-07-07 17:18:04', '1');
 INSERT INTO `tb_gongxu` VALUES ('2', '2014-07-07 17:22:01', 'v', '2014-07-07 17:22:01', '1');
+INSERT INTO `tb_gongxu` VALUES ('3', '2014-07-07 19:53:12', 'c', '2014-07-07 19:53:12', '1');
 INSERT INTO `tb_role` VALUES ('1', '2014-07-07 17:15:33', null, 'name', '2014-07-07 17:15:43', '1');
-INSERT INTO `tb_user` VALUES ('1', null, null, null, '', '', '余芬', '123456', null, null, null, 'yf', '1');
+INSERT INTO `tb_sample` VALUES ('1', '213', '2014-07-07 20:13:13', null, '', 'mc', 'upload/1404735159880QQ图片20140313221759.jpg', '机织', '材料', '备注', '名称', '124', '尺寸', '2014-07-07 20:13:13', '1243', '1', '1');
+INSERT INTO `tb_sample` VALUES ('2', '1', '2014-07-07 22:00:38', null, '', '', 'upload/1404741638418DSC00103.JPG', '1', '1', '1', '1', '1', '1', '2014-07-07 22:00:38', '1', '1', '1');
+INSERT INTO `tb_sample` VALUES ('3', '1', '2014-07-07 22:09:03', null, '', '', 'upload\\1404742143164DSC00104.JPG', '1', '1', '1', '1', '1', '1', '2014-07-07 22:09:03', '1', '1', '1');
+INSERT INTO `tb_sample` VALUES ('4', '1', '2014-07-07 22:23:24', null, '', '', 'upload/QQ图片20140313221759.jpg', '1', '1', '2', '1', '1', '1', '2014-07-07 22:23:24', '1', '1', '1');
+INSERT INTO `tb_sample` VALUES ('5', '1', '2014-07-07 22:28:16', null, '', '', 'upload/1404743295966QQ图片20140313221759.jpg', '1', '1', '1', '1', '1', '1', '2014-07-07 22:28:16', '1', '1', '1');
+INSERT INTO `tb_sample` VALUES ('6', '1', '2014-07-07 22:35:12', null, '', '', 'upload/1404743711953QQ图片20140313221759.jpg', '1', '1', '1', '1', '1', '1', '2014-07-07 22:35:12', '1', '1', '1');
+INSERT INTO `tb_sample` VALUES ('7', '1', '2014-07-07 22:46:12', null, '', '', 'upload/1404744357661QQ图片20140314002141.jpg', '1', '1', '1', '15068821518', '1', '1', '2014-07-07 22:46:12', '1', '1', '1');
+INSERT INTO `tb_user` VALUES ('1', null, '6@qq.com', 'yf', '', '', '余芬', '123456', '123', '143333', '2014-07-07 19:54:08', 'yf', '1');
