@@ -5,6 +5,7 @@ Source Database: dbo_fuwei
 Target Host: localhost
 Target Database: dbo_fuwei
 Date: 2014/7/17 17:49:25
+
 */
 
 SET FOREIGN_KEY_CHECKS=0;
