@@ -4,7 +4,7 @@ Source Host: localhost
 Source Database: dbo_fuwei
 Target Host: localhost
 Target Database: dbo_fuwei
-Date: 2014/7/13 22:51:54
+Date: 2014/7/17 17:49:25
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -199,10 +199,10 @@ CREATE TABLE `tb_quote` (
   KEY `FKFAB6A56B87AC0D3A` (`created_user`),
   KEY `FKFAB6A56B88AC0D3A` (`quotePriceId`),
   KEY `FKFAB6A56B87AC0D4A` (`sampleId`),
-  CONSTRAINT `FKFAB6A56B87AC0D4A` FOREIGN KEY (`sampleId`) REFERENCES `tb_sample` (`id`),
   CONSTRAINT `FKFAB6A56B87AC0D3A` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`),
+  CONSTRAINT `FKFAB6A56B87AC0D4A` FOREIGN KEY (`sampleId`) REFERENCES `tb_sample` (`id`),
   CONSTRAINT `FKFAB6A56B88AC0D3A` FOREIGN KEY (`quotePriceId`) REFERENCES `tb_quoteprice` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_quoteorder
@@ -222,6 +222,36 @@ CREATE TABLE `tb_quoteorder` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Table structure for tb_quoteorder_quote
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_quoteorder_quote`;
+CREATE TABLE `tb_quoteorder_quote` (
+  `cost` double NOT NULL,
+  `detail` varchar(255) DEFAULT NULL,
+  `img` varchar(255) DEFAULT NULL,
+  `machine` varchar(255) DEFAULT NULL,
+  `material` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `productNumber` varchar(255) DEFAULT NULL,
+  `size` varchar(255) DEFAULT NULL,
+  `weight` double NOT NULL,
+  `charge_user` int(11) DEFAULT NULL,
+  `quoteOrderId` int(11) NOT NULL,
+  `sampleId` int(11) NOT NULL,
+  `memo` varchar(255) DEFAULT NULL,
+  `price` double NOT NULL,
+  `quoteId` int(11) NOT NULL DEFAULT '0',
+  `id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKQuote2` (`quoteId`),
+  KEY `FKSample2` (`sampleId`),
+  KEY `tb_quoteorder_quote_ibfk_2` (`quoteOrderId`),
+  CONSTRAINT `FKQuote2` FOREIGN KEY (`quoteId`) REFERENCES `tb_quote` (`id`),
+  CONSTRAINT `FKSample2` FOREIGN KEY (`sampleId`) REFERENCES `tb_sample` (`id`),
+  CONSTRAINT `tb_quoteorder_quote_ibfk_2` FOREIGN KEY (`quoteOrderId`) REFERENCES `tb_quote` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
 -- Table structure for tb_quoteprice
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_quoteprice`;
@@ -237,7 +267,7 @@ CREATE TABLE `tb_quoteprice` (
   PRIMARY KEY (`id`),
   KEY `FKFAB6A56B87AC0D4A` (`created_user`),
   CONSTRAINT `FKFAB6A56B87AC0D5A` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_role
@@ -320,7 +350,7 @@ CREATE TABLE `tb_sample` (
   KEY `FK5E6CEC9B4D2DE8EE` (`charge_user`),
   CONSTRAINT `FK5E6CEC9B4D2DE8EE` FOREIGN KEY (`charge_user`) REFERENCES `tb_user` (`id`),
   CONSTRAINT `FK5E6CEC9B87AC0D3A` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_user
@@ -372,10 +402,15 @@ INSERT INTO `tb_gongxu` VALUES ('1', '2014-07-07 17:18:04', '测试工序', '201
 INSERT INTO `tb_gongxu` VALUES ('2', '2014-07-07 17:22:01', '测试工序2', '2014-07-12 22:35:07', '1');
 INSERT INTO `tb_gongxu` VALUES ('3', '2014-07-07 19:53:12', '测试工序3', '2014-07-12 22:35:16', '1');
 INSERT INTO `tb_gongxu` VALUES ('4', '2014-07-08 21:01:53', '测试', '2014-07-08 21:01:53', '1');
-INSERT INTO `tb_quote` VALUES ('1', '2014-07-13 22:17:11', '2014-07-13 22:17:11', '1', '1', '3');
+INSERT INTO `tb_quote` VALUES ('2', '2014-07-13 22:53:39', '2014-07-13 22:53:39', '1', '3', '3');
+INSERT INTO `tb_quote` VALUES ('3', '2014-07-15 00:53:23', '2014-07-15 00:53:23', '1', '2', '3');
+INSERT INTO `tb_quote` VALUES ('4', '2014-07-15 00:53:26', '2014-07-15 00:53:26', '1', '1', '3');
+INSERT INTO `tb_quote` VALUES ('5', '2014-07-15 00:53:28', '2014-07-15 00:53:28', '1', '3', '3');
+INSERT INTO `tb_quote` VALUES ('6', '2014-07-15 00:53:41', '2014-07-15 00:53:41', '1', '3', '3');
 INSERT INTO `tb_quoteprice` VALUES ('1', '2014-07-13 20:08:52', 'hgh', '54', '1', '3', '2014-07-13 20:08:53', '1');
-INSERT INTO `tb_quoteprice` VALUES ('2', '2014-07-13 20:25:38', '新建公司报价备注', '14', '1', '3', '2014-07-13 20:25:38', '1');
+INSERT INTO `tb_quoteprice` VALUES ('2', '2014-07-13 20:25:38', '新建公司报价备注', '34', '1', '3', '2014-07-15 23:32:02', '1');
 INSERT INTO `tb_quoteprice` VALUES ('3', '2014-07-13 20:25:55', '备注', '15', '2', '3', '2014-07-13 20:25:55', '1');
+INSERT INTO `tb_quoteprice` VALUES ('4', '2014-07-15 23:15:22', 'gfd', '50', '1', '3', '2014-07-15 23:31:25', '1');
 INSERT INTO `tb_role` VALUES ('1', '2014-07-07 17:15:33', null, 'name', '2014-07-07 17:15:43', '1');
 INSERT INTO `tb_salesman` VALUES ('1', '2014-07-10 19:46:49', 'ywy', '业务员', '212455', '2014-07-10 19:46:49', '1', '1');
 INSERT INTO `tb_salesman` VALUES ('2', '2014-07-13 20:22:27', 'csywy', '测试业务员2', '15033747932', '2014-07-13 20:22:37', '2', '1');
@@ -384,5 +419,8 @@ INSERT INTO `tb_sample` VALUES ('3', '3.967', '2014-07-07 22:09:03', '材料1：
 INSERT INTO `tb_sample` VALUES ('4', '1', '2014-07-07 22:23:24', null, '', '', 'upload/QQ图片20140313221759.jpg', '1', '1', '2', '1', '1', '1', '2014-07-07 22:23:24', '1', '1', '1');
 INSERT INTO `tb_sample` VALUES ('5', '1', '2014-07-07 22:28:16', null, '', '', 'upload/1404743295966QQ图片20140313221759.jpg', '1', '1', '1', '1', '1', '1', '2014-07-07 22:28:16', '1', '1', '1');
 INSERT INTO `tb_sample` VALUES ('7', '1', '2014-07-07 22:46:12', null, '', '', 'upload/1404744357661QQ图片20140314002141.jpg', '1', '1', '1', '15068821518', '1', '1', '2014-07-07 22:46:12', '1', '1', '1');
+INSERT INTO `tb_sample` VALUES ('8', '100', '2014-07-14 22:16:53', null, '', 'csypm', 'upload/1405347413660loading.gif', '机织', '材料', '备注3', '测试样品名3', '3', '尺寸', '2014-07-14 22:16:53', '344', '1', '1');
+INSERT INTO `tb_sample` VALUES ('9', '30', '2014-07-14 22:17:26', null, '', 'csypm', 'upload/1405347446340QQ图片20140313221759.jpg', '机织', '材料', '备注4', '测试样品名4', '4', '尺寸', '2014-07-14 22:17:26', '45', '1', '1');
+INSERT INTO `tb_sample` VALUES ('10', '24', '2014-07-14 22:20:03', null, '', 'csypm', 'upload/1405347603880QQ图片20140313221759.jpg', '机织', '材料', '55', '测试样品名5', '5', '344', '2014-07-14 22:20:03', '45', '1', '1');
 INSERT INTO `tb_user` VALUES ('1', null, '6@qq.com', 'yf', '', '', '余芬', '123456', '123', '143333', '2014-07-07 19:54:08', 'yf', '1');
 INSERT INTO `tb_user` VALUES ('2', '2014-07-10 20:07:03', '345@qq.com', 'yf', '', '', '余芬2', '123456', '12335', '124577', '2014-07-10 20:07:03', 'yufen', '1');
