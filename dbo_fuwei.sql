@@ -4,7 +4,7 @@ Source Host: localhost
 Source Database: dbo_fuwei
 Target Host: localhost
 Target Database: dbo_fuwei
-Date: 2014/7/18 17:44:55
+Date: 2014/7/18 17:50:14
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -221,13 +221,13 @@ CREATE TABLE `tb_quoteorder` (
   KEY `FK3423222` (`salesmanId`),
   CONSTRAINT `FK3423222` FOREIGN KEY (`salesmanId`) REFERENCES `tb_salesman` (`id`),
   CONSTRAINT `FK93908CC387AC0D3A` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Table structure for tb_quoteorder_quote
+-- Table structure for tb_quoteorder_detail
 -- ----------------------------
-DROP TABLE IF EXISTS `tb_quoteorder_quote`;
-CREATE TABLE `tb_quoteorder_quote` (
+DROP TABLE IF EXISTS `tb_quoteorder_detail`;
+CREATE TABLE `tb_quoteorder_detail` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cost` double NOT NULL,
   `detail` varchar(255) DEFAULT NULL,
@@ -247,9 +247,9 @@ CREATE TABLE `tb_quoteorder_quote` (
   PRIMARY KEY (`id`),
   KEY `FKSample2` (`sampleId`),
   KEY `quoteOrderId` (`quoteOrderId`),
-  CONSTRAINT `tb_quoteorder_quote_ibfk_3` FOREIGN KEY (`quoteOrderId`) REFERENCES `tb_quoteorder` (`id`),
+  CONSTRAINT `tb_quoteorder_detail_ibfk_3` FOREIGN KEY (`quoteOrderId`) REFERENCES `tb_quoteorder` (`id`),
   CONSTRAINT `FKSample2` FOREIGN KEY (`sampleId`) REFERENCES `tb_sample` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_quoteprice
@@ -404,12 +404,11 @@ INSERT INTO `tb_gongxu` VALUES ('2', '2014-07-07 17:22:01', '测试工序2', '20
 INSERT INTO `tb_gongxu` VALUES ('3', '2014-07-07 19:53:12', '测试工序3', '2014-07-12 22:35:16', '1');
 INSERT INTO `tb_gongxu` VALUES ('4', '2014-07-08 21:01:53', '测试', '2014-07-08 21:01:53', '1');
 INSERT INTO `tb_quote` VALUES ('2', '2014-07-13 22:53:39', '2014-07-13 22:53:39', '1', '3', '3');
-INSERT INTO `tb_quote` VALUES ('3', '2014-07-15 00:53:23', '2014-07-15 00:53:23', '1', '2', '3');
 INSERT INTO `tb_quote` VALUES ('5', '2014-07-15 00:53:28', '2014-07-15 00:53:28', '1', '3', '3');
 INSERT INTO `tb_quote` VALUES ('6', '2014-07-15 00:53:41', '2014-07-15 00:53:41', '1', '3', '3');
 INSERT INTO `tb_quote` VALUES ('8', '2014-07-18 17:20:53', '2014-07-18 17:20:53', '1', '1', '3');
-INSERT INTO `tb_quoteorder` VALUES ('15', '2014-07-18 17:42:21', null, 'FWA10015', '2014-07-18 17:42:21', '1', '1');
-INSERT INTO `tb_quoteorder_quote` VALUES ('11', '3.967', '材料1：1*1*12*2÷ 1000=0.024\r\n材料2：1*3*12*4÷ 1000=0.144\r\n0.024+0.144=0.168+1=1.168\r\n0.036+0.18=0.216\r\n测试工序3:6.000\r\n测试工序2:8.000\r\n测试工序:9.000\r\n____________________________\r\n23+0.216\r\n=23.216*2\r\n=46.432+1.168\r\n=47.6÷12\r\n=3.967*3\r\n=11.901\r\n', 'upload\\1404742143164DSC00104.JPG', '1', '1', '1', '1', '1', '1', '1', '15', '3', 'hgh', '54', 'kuhao1');
+INSERT INTO `tb_quoteorder` VALUES ('1', '2014-07-18 17:48:06', null, 'FWA10001', '2014-07-18 17:48:06', '1', '1');
+INSERT INTO `tb_quoteorder_detail` VALUES ('1', '3.967', '材料1：1*1*12*2÷ 1000=0.024\r\n材料2：1*3*12*4÷ 1000=0.144\r\n0.024+0.144=0.168+1=1.168\r\n0.036+0.18=0.216\r\n测试工序3:6.000\r\n测试工序2:8.000\r\n测试工序:9.000\r\n____________________________\r\n23+0.216\r\n=23.216*2\r\n=46.432+1.168\r\n=47.6÷12\r\n=3.967*3\r\n=11.901\r\n', 'upload\\1404742143164DSC00104.JPG', '1', '1', '1', '1', '1', '1', '1', '1', '3', '新建公司报价备注', '34', null);
 INSERT INTO `tb_quoteprice` VALUES ('1', '2014-07-13 20:08:52', 'hgh', '54', '1', '3', '2014-07-18 17:19:34', '1', 'kuhao1');
 INSERT INTO `tb_quoteprice` VALUES ('2', '2014-07-13 20:25:38', '新建公司报价备注', '34', '1', '3', '2014-07-15 23:32:02', '1', null);
 INSERT INTO `tb_quoteprice` VALUES ('3', '2014-07-13 20:25:55', '备注', '15', '2', '3', '2014-07-18 17:19:23', '1', 'kuhao2');
