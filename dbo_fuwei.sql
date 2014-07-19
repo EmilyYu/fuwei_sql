@@ -4,7 +4,7 @@ Source Host: localhost
 Source Database: dbo_fuwei
 Target Host: localhost
 Target Database: dbo_fuwei
-Date: 2014/7/19 1:11:40
+Date: 2014/7/19 13:21:05
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -202,7 +202,7 @@ CREATE TABLE `tb_quote` (
   CONSTRAINT `FKFAB6A56B87AC0D3A` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`),
   CONSTRAINT `FKFAB6A56B87AC0D4A` FOREIGN KEY (`sampleId`) REFERENCES `tb_sample` (`id`),
   CONSTRAINT `FKFAB6A56B88AC0D3A` FOREIGN KEY (`quotePriceId`) REFERENCES `tb_quoteprice` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_quoteorder
@@ -408,6 +408,8 @@ INSERT INTO `tb_gongxu` VALUES ('2', '2014-07-07 17:22:01', '测试工序2', '20
 INSERT INTO `tb_gongxu` VALUES ('3', '2014-07-07 19:53:12', '测试工序3', '2014-07-12 22:35:16', '1');
 INSERT INTO `tb_gongxu` VALUES ('4', '2014-07-08 21:01:53', '测试', '2014-07-08 21:01:53', '1');
 INSERT INTO `tb_quote` VALUES ('12', '2014-07-19 00:33:21', '2014-07-19 00:33:21', '1', '5', '16');
+INSERT INTO `tb_quote` VALUES ('13', '2014-07-19 12:52:00', '2014-07-19 12:52:00', '1', '6', '19');
+INSERT INTO `tb_quote` VALUES ('14', '2014-07-19 12:52:03', '2014-07-19 12:52:03', '1', '6', '19');
 INSERT INTO `tb_quoteorder` VALUES ('1', '2014-07-18 17:48:06', null, 'FWA10001', '2014-07-18 17:48:06', '1', '1');
 INSERT INTO `tb_quoteorder` VALUES ('2', '2014-07-18 22:49:06', 'upload/excel/20140718224906_1405694946935.xls', 'FWA10002', '2014-07-18 22:49:06', '1', '2');
 INSERT INTO `tb_quoteorder` VALUES ('3', '2014-07-18 23:05:19', 'upload/excel/20140718230519_1405695919044.xls', 'FWA10003', '2014-07-18 23:05:19', '1', '2');
