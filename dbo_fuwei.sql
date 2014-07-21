@@ -4,37 +4,10 @@ Source Host: localhost
 Source Database: dbo_fuwei
 Target Host: localhost
 Target Database: dbo_fuwei
-Date: 2014/7/21 18:50:05
+Date: 2014/7/22 0:14:47
 */
 
 SET FOREIGN_KEY_CHECKS=0;
--- ----------------------------
--- Table structure for companyprice
--- ----------------------------
-DROP TABLE IF EXISTS `companyprice`;
-CREATE TABLE `companyprice` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `companyId` int(11) NOT NULL,
-  `memo` varchar(255) DEFAULT NULL,
-  `price` double NOT NULL,
-  `productName` varchar(255) DEFAULT NULL,
-  `salesManId` int(11) NOT NULL,
-  `sampleId` int(11) NOT NULL,
-  `time` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Table structure for developer
--- ----------------------------
-DROP TABLE IF EXISTS `developer`;
-CREATE TABLE `developer` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `jianChen` varchar(255) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 -- ----------------------------
 -- Table structure for fworder
 -- ----------------------------
@@ -68,66 +41,6 @@ CREATE TABLE `orderstatus` (
   `memo` varchar(255) DEFAULT NULL,
   `orderId` int(11) NOT NULL,
   `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Table structure for quotation
--- ----------------------------
-DROP TABLE IF EXISTS `quotation`;
-CREATE TABLE `quotation` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `companyPriceID` int(11) NOT NULL,
-  `createTime` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Table structure for quotationlist
--- ----------------------------
-DROP TABLE IF EXISTS `quotationlist`;
-CREATE TABLE `quotationlist` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `companyName` varchar(255) DEFAULT NULL,
-  `excelName` varchar(255) DEFAULT NULL,
-  `idString` varchar(255) DEFAULT NULL,
-  `quotationNumber` varchar(255) DEFAULT NULL,
-  `salesName` varchar(255) DEFAULT NULL,
-  `time` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Table structure for sample
--- ----------------------------
-DROP TABLE IF EXISTS `sample`;
-CREATE TABLE `sample` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `cost` double NOT NULL,
-  `date` datetime DEFAULT NULL,
-  `detail` varchar(255) DEFAULT NULL,
-  `developerId` int(11) NOT NULL,
-  `machine` varchar(255) DEFAULT NULL,
-  `material` varchar(255) DEFAULT NULL,
-  `memo` varchar(255) DEFAULT NULL,
-  `picturePath` varchar(255) DEFAULT NULL,
-  `productNumber` varchar(255) DEFAULT NULL,
-  `size` varchar(255) DEFAULT NULL,
-  `weight` double NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Table structure for sampleprice
--- ----------------------------
-DROP TABLE IF EXISTS `sampleprice`;
-CREATE TABLE `sampleprice` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `memo` varchar(255) DEFAULT NULL,
-  `orderId` int(11) NOT NULL,
-  `price` double NOT NULL,
-  `quantity` int(11) NOT NULL,
-  `sampleId` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -202,7 +115,7 @@ CREATE TABLE `tb_quote` (
   CONSTRAINT `FKFAB6A56B87AC0D3A` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`),
   CONSTRAINT `FKFAB6A56B87AC0D4A` FOREIGN KEY (`sampleId`) REFERENCES `tb_sample` (`id`),
   CONSTRAINT `FKFAB6A56B88AC0D3A` FOREIGN KEY (`quotePriceId`) REFERENCES `tb_quoteprice` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_quoteorder
@@ -221,7 +134,7 @@ CREATE TABLE `tb_quoteorder` (
   KEY `FK3423222` (`salesmanId`),
   CONSTRAINT `FK3423222` FOREIGN KEY (`salesmanId`) REFERENCES `tb_salesman` (`id`),
   CONSTRAINT `FK93908CC387AC0D3A` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_quoteorder_detail
@@ -251,7 +164,7 @@ CREATE TABLE `tb_quoteorder_detail` (
   KEY `quoteOrderId` (`quoteOrderId`),
   CONSTRAINT `tb_quoteorder_detail_ibfk_4` FOREIGN KEY (`quoteOrderId`) REFERENCES `tb_quoteorder` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FKSample2` FOREIGN KEY (`sampleId`) REFERENCES `tb_sample` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_quoteprice
@@ -272,7 +185,7 @@ CREATE TABLE `tb_quoteprice` (
   KEY `FKS` (`sampleId`),
   CONSTRAINT `FKS` FOREIGN KEY (`sampleId`) REFERENCES `tb_sample` (`id`),
   CONSTRAINT `FKFAB6A56B87AC0D5A` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_role
@@ -357,7 +270,7 @@ CREATE TABLE `tb_sample` (
   KEY `FK5E6CEC9B4D2DE8EE` (`charge_user`),
   CONSTRAINT `FK5E6CEC9B4D2DE8EE` FOREIGN KEY (`charge_user`) REFERENCES `tb_user` (`id`),
   CONSTRAINT `FK5E6CEC9B87AC0D3A` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_user
@@ -383,30 +296,12 @@ CREATE TABLE `tb_user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Table structure for unpricedsample
--- ----------------------------
-DROP TABLE IF EXISTS `unpricedsample`;
-CREATE TABLE `unpricedsample` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `date` datetime DEFAULT NULL,
-  `developerId` int(11) NOT NULL,
-  `machine` varchar(255) DEFAULT NULL,
-  `material` varchar(255) DEFAULT NULL,
-  `memo` varchar(255) DEFAULT NULL,
-  `picturePath` varchar(255) DEFAULT NULL,
-  `productNumber` varchar(255) DEFAULT NULL,
-  `size` varchar(255) DEFAULT NULL,
-  `weight` double NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
 -- Procedure structure for truncate
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `truncate`;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `truncate`()
-TRUNCATE TABLE tb_quoteorder_detail;;;
+TRUNCATE TABLE tb_quoteorder_detail;;
 DELIMITER ;
 
 -- ----------------------------
@@ -419,9 +314,14 @@ INSERT INTO `tb_gongxu` VALUES ('1', '2014-07-07 17:18:04', '测试工序', '201
 INSERT INTO `tb_gongxu` VALUES ('2', '2014-07-07 17:22:01', '测试工序2', '2014-07-12 22:35:07', '1');
 INSERT INTO `tb_gongxu` VALUES ('3', '2014-07-07 19:53:12', '测试工序3', '2014-07-12 22:35:16', '1');
 INSERT INTO `tb_gongxu` VALUES ('4', '2014-07-08 21:01:53', '测试', '2014-07-08 21:01:53', '1');
+INSERT INTO `tb_quote` VALUES ('7', '2014-07-21 22:56:04', '2014-07-21 22:56:04', '1', '1', '2');
+INSERT INTO `tb_quoteorder` VALUES ('1', '2014-07-21 22:56:54', 'resource.fuwei.com/excel/quote/1_报价单20140721225654.xls', 'FWA10001', '2014-07-21 22:56:54', '1', '1');
+INSERT INTO `tb_quoteorder_detail` VALUES ('1', '2.576', '100*1.1*12*10÷ 1000=13.2+10=23.2\r\n1.716\r\n测试工序:6.000\r\n____________________________\r\n6+1.716\r\n=7.716*1\r\n=7.716+23.2\r\n=30.916÷12\r\n=2.576*1.3\r\n=3.349\r\n', 'resource.fuwei.com/images/sample/140595351558420140716_230658.jpg', '机织', '材料', '测试', 'FWA30002', '尺寸', '100', '2', '1', '2', '', '40', 'AS1', 'resource.fuwei.com/images/sample/s/140595351558420140716_230658.jpg', 'resource.fuwei.com/images/sample/ss/140595351558420140716_230658.png');
+INSERT INTO `tb_quoteprice` VALUES ('1', '2014-07-21 22:56:01', '', '40', '1', '2', '2014-07-21 22:56:01', '1', 'AS1');
+INSERT INTO `tb_quoteprice` VALUES ('2', '2014-07-21 22:56:11', '', '50', '1', '2', '2014-07-21 22:56:11', '1', 'AS4');
 INSERT INTO `tb_role` VALUES ('1', '2014-07-07 17:15:33', null, 'name', '2014-07-07 17:15:43', '1');
 INSERT INTO `tb_salesman` VALUES ('1', '2014-07-10 19:46:49', 'ywy', '业务员', '212455', '2014-07-10 19:46:49', '1', '1');
 INSERT INTO `tb_salesman` VALUES ('2', '2014-07-13 20:22:27', 'csywy', '测试业务员2', '15033747932', '2014-07-13 20:22:37', '2', '1');
-INSERT INTO `tb_sample` VALUES ('1', '0', '2014-07-21 18:27:16', null, '', '', 'upload.fuwei.com/images/sample/1405938435045QQ图片20140717133813.jpg', '1', '1', '1', '1', 'FWA30001', '11', '2014-07-21 18:27:16', '1', '1', '1', 'upload.fuwei.com/images/sample/s/1405938435045QQ图片20140717133813.jpg', 'upload.fuwei.com/images/sample/ss/1405938435045QQ图片20140717133813.png');
+INSERT INTO `tb_sample` VALUES ('2', '2.576', '2014-07-21 22:38:38', '100*1.1*12*10÷ 1000=13.2+10=23.2\r\n1.716\r\n测试工序:6.000\r\n____________________________\r\n6+1.716\r\n=7.716*1\r\n=7.716+23.2\r\n=30.916÷12\r\n=2.576*1.3\r\n=3.349\r\n', '', 'cs', 'resource.fuwei.com/images/sample/140595351558420140716_230658.jpg', '机织', '材料', '', '测试', 'FWA30002', '尺寸', '2014-07-21 22:53:03', '100', '2', '1', 'resource.fuwei.com/images/sample/s/140595351558420140716_230658.png', 'resource.fuwei.com/images/sample/ss/140595351558420140716_230658.png');
 INSERT INTO `tb_user` VALUES ('1', null, '6@qq.com', 'yf', '', '', '余芬', '1', '123', '143333', '2014-07-21 11:46:25', 'yf', '1');
 INSERT INTO `tb_user` VALUES ('2', '2014-07-10 20:07:03', '345@qq.com', 'yf', '', '', '余芬2', '123456', '12335', '124577', '2014-07-10 20:07:03', 'yufen', '1');
