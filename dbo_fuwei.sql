@@ -4,37 +4,10 @@ Source Host: localhost
 Source Database: dbo_fuwei
 Target Host: localhost
 Target Database: dbo_fuwei
-Date: 2014/7/23 18:05:32
+Date: 2014/7/24 0:14:05
 */
 
 SET FOREIGN_KEY_CHECKS=0;
--- ----------------------------
--- Table structure for companyprice
--- ----------------------------
-DROP TABLE IF EXISTS `companyprice`;
-CREATE TABLE `companyprice` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `companyId` int(11) NOT NULL,
-  `memo` varchar(255) DEFAULT NULL,
-  `price` double NOT NULL,
-  `productName` varchar(255) DEFAULT NULL,
-  `salesManId` int(11) NOT NULL,
-  `sampleId` int(11) NOT NULL,
-  `time` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Table structure for developer
--- ----------------------------
-DROP TABLE IF EXISTS `developer`;
-CREATE TABLE `developer` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `jianChen` varchar(255) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 -- ----------------------------
 -- Table structure for fworder
 -- ----------------------------
@@ -68,66 +41,6 @@ CREATE TABLE `orderstatus` (
   `memo` varchar(255) DEFAULT NULL,
   `orderId` int(11) NOT NULL,
   `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Table structure for quotation
--- ----------------------------
-DROP TABLE IF EXISTS `quotation`;
-CREATE TABLE `quotation` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `companyPriceID` int(11) NOT NULL,
-  `createTime` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Table structure for quotationlist
--- ----------------------------
-DROP TABLE IF EXISTS `quotationlist`;
-CREATE TABLE `quotationlist` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `companyName` varchar(255) DEFAULT NULL,
-  `excelName` varchar(255) DEFAULT NULL,
-  `idString` varchar(255) DEFAULT NULL,
-  `quotationNumber` varchar(255) DEFAULT NULL,
-  `salesName` varchar(255) DEFAULT NULL,
-  `time` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Table structure for sample
--- ----------------------------
-DROP TABLE IF EXISTS `sample`;
-CREATE TABLE `sample` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `cost` double NOT NULL,
-  `date` datetime DEFAULT NULL,
-  `detail` varchar(255) DEFAULT NULL,
-  `developerId` int(11) NOT NULL,
-  `machine` varchar(255) DEFAULT NULL,
-  `material` varchar(255) DEFAULT NULL,
-  `memo` varchar(255) DEFAULT NULL,
-  `picturePath` varchar(255) DEFAULT NULL,
-  `productNumber` varchar(255) DEFAULT NULL,
-  `size` varchar(255) DEFAULT NULL,
-  `weight` double NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Table structure for sampleprice
--- ----------------------------
-DROP TABLE IF EXISTS `sampleprice`;
-CREATE TABLE `sampleprice` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `memo` varchar(255) DEFAULT NULL,
-  `orderId` int(11) NOT NULL,
-  `price` double NOT NULL,
-  `quantity` int(11) NOT NULL,
-  `sampleId` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -302,7 +215,7 @@ CREATE TABLE `tb_role` (
   PRIMARY KEY (`id`),
   KEY `FKA4FDFFA787AC0D3A` (`created_user`),
   CONSTRAINT `FKA4FDFFA787AC0D3A` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_role_authority
@@ -320,7 +233,7 @@ CREATE TABLE `tb_role_authority` (
   CONSTRAINT `tb_role_authority_ibfk_3` FOREIGN KEY (`roleId`) REFERENCES `tb_role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `tb_role_authority_ibfk_1` FOREIGN KEY (`authorityId`) REFERENCES `tb_authority` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `tb_role_authority_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=163 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_role_module
@@ -446,7 +359,7 @@ DELIMITER ;
 -- ----------------------------
 INSERT INTO `tb_authority` VALUES ('1', null, '权限管理', 'authority');
 INSERT INTO `tb_authority` VALUES ('2', '1', '查看权限列表', 'authority/index');
-INSERT INTO `tb_authority` VALUES ('3', '1', '修改用户权限', 'authority/update');
+INSERT INTO `tb_authority` VALUES ('3', '1', '修改用户权限', 'authority/edit');
 INSERT INTO `tb_authority` VALUES ('4', null, '系统信息管理', 'systeminfo/index');
 INSERT INTO `tb_authority` VALUES ('5', '4', '用户管理', 'user');
 INSERT INTO `tb_authority` VALUES ('6', '5', '查看用户列表', 'user/index');
@@ -508,12 +421,47 @@ INSERT INTO `tb_quoteprice` VALUES ('1', '2014-07-21 22:56:01', '', '40', '1', '
 INSERT INTO `tb_quoteprice` VALUES ('2', '2014-07-21 22:56:11', '', '50', '1', '2', '2014-07-21 22:56:11', '1', 'AS4');
 INSERT INTO `tb_quoteprice` VALUES ('3', '2014-07-22 12:16:19', '', '50', '1', '3', '2014-07-22 12:16:19', '1', 'S3F');
 INSERT INTO `tb_role` VALUES ('1', '2014-07-07 17:15:33', '系统管理员', 'admin', '2014-07-07 17:15:43', '1');
-INSERT INTO `tb_role_authority` VALUES ('1', '1', '1', '1');
-INSERT INTO `tb_role_authority` VALUES ('2', '1', '1', '2');
-INSERT INTO `tb_role_authority` VALUES ('3', '1', '1', '3');
+INSERT INTO `tb_role` VALUES ('2', '2014-07-23 21:16:59', '业务员', 'salesman', '2014-07-23 21:17:08', '1');
+INSERT INTO `tb_role_authority` VALUES ('50', '1', '2', '4');
+INSERT INTO `tb_role_authority` VALUES ('51', '1', '2', '5');
+INSERT INTO `tb_role_authority` VALUES ('52', '1', '2', '6');
+INSERT INTO `tb_role_authority` VALUES ('53', '1', '2', '10');
+INSERT INTO `tb_role_authority` VALUES ('54', '1', '2', '11');
+INSERT INTO `tb_role_authority` VALUES ('55', '1', '2', '12');
+INSERT INTO `tb_role_authority` VALUES ('56', '1', '2', '13');
+INSERT INTO `tb_role_authority` VALUES ('57', '1', '2', '14');
+INSERT INTO `tb_role_authority` VALUES ('58', '1', '2', '15');
+INSERT INTO `tb_role_authority` VALUES ('59', '1', '2', '16');
+INSERT INTO `tb_role_authority` VALUES ('60', '1', '2', '17');
+INSERT INTO `tb_role_authority` VALUES ('61', '1', '2', '18');
+INSERT INTO `tb_role_authority` VALUES ('62', '1', '2', '19');
+INSERT INTO `tb_role_authority` VALUES ('63', '1', '2', '20');
+INSERT INTO `tb_role_authority` VALUES ('64', '1', '2', '21');
+INSERT INTO `tb_role_authority` VALUES ('65', '1', '2', '22');
+INSERT INTO `tb_role_authority` VALUES ('66', '1', '2', '23');
+INSERT INTO `tb_role_authority` VALUES ('67', '1', '2', '24');
+INSERT INTO `tb_role_authority` VALUES ('144', '1', '1', '1');
+INSERT INTO `tb_role_authority` VALUES ('145', '1', '1', '2');
+INSERT INTO `tb_role_authority` VALUES ('146', '1', '1', '3');
+INSERT INTO `tb_role_authority` VALUES ('147', '1', '1', '4');
+INSERT INTO `tb_role_authority` VALUES ('148', '1', '1', '5');
+INSERT INTO `tb_role_authority` VALUES ('149', '1', '1', '6');
+INSERT INTO `tb_role_authority` VALUES ('150', '1', '1', '7');
+INSERT INTO `tb_role_authority` VALUES ('151', '1', '1', '8');
+INSERT INTO `tb_role_authority` VALUES ('152', '1', '1', '9');
+INSERT INTO `tb_role_authority` VALUES ('153', '1', '1', '15');
+INSERT INTO `tb_role_authority` VALUES ('154', '1', '1', '16');
+INSERT INTO `tb_role_authority` VALUES ('155', '1', '1', '17');
+INSERT INTO `tb_role_authority` VALUES ('156', '1', '1', '18');
+INSERT INTO `tb_role_authority` VALUES ('157', '1', '1', '19');
+INSERT INTO `tb_role_authority` VALUES ('158', '1', '1', '20');
+INSERT INTO `tb_role_authority` VALUES ('159', '1', '1', '21');
+INSERT INTO `tb_role_authority` VALUES ('160', '1', '1', '22');
+INSERT INTO `tb_role_authority` VALUES ('161', '1', '1', '23');
+INSERT INTO `tb_role_authority` VALUES ('162', '1', '1', '24');
 INSERT INTO `tb_salesman` VALUES ('1', '2014-07-10 19:46:49', 'ywy', '业务员', '212455', '2014-07-10 19:46:49', '1', '1');
 INSERT INTO `tb_salesman` VALUES ('2', '2014-07-13 20:22:27', 'csywy', '测试业务员2', '15033747932', '2014-07-13 20:22:37', '2', '1');
 INSERT INTO `tb_sample` VALUES ('2', '2.576', '2014-07-21 22:38:38', '100*1.1*12*10÷ 1000=13.2+10=23.2\r\n1.716\r\n测试工序:6.000\r\n____________________________\r\n6+1.716\r\n=7.716*1\r\n=7.716+23.2\r\n=30.916÷12\r\n=2.576*1.3\r\n=3.349\r\n', '', 'cs', 'resource.fuwei.com/images/sample/140595351558420140716_230658.jpg', '机织', '材料', '', '测试', 'FWA30002', '尺寸', '2014-07-21 22:53:03', '100', '2', '1', 'resource.fuwei.com/images/sample/s/140595351558420140716_230658.png', 'resource.fuwei.com/images/sample/ss/140595351558420140716_230658.png');
 INSERT INTO `tb_sample` VALUES ('3', '3.057', '2014-07-22 12:09:01', '55*1.1*12*10÷ 1000=7.26+10=17.26\r\n0.944\r\n测试工序:6.000\r\n测试工序2:8.000\r\n____________________________\r\n14+0.944\r\n=14.944*1.3\r\n=19.427+17.26\r\n=36.687÷12\r\n=3.057*1.3\r\n=3.974\r\n', '', 'csyp', 'resource.fuwei.com/images/sample/1406002140620QQ图片20140717133813.jpg', '机织', '材料', '', '测试样品', 'FWA30003', '尺寸', '2014-07-22 12:09:01', '55', '1', '1', 'resource.fuwei.com/images/sample/s/1406002140620QQ图片20140717133813.png', 'resource.fuwei.com/images/sample/ss/1406002140620QQ图片20140717133813.png');
 INSERT INTO `tb_user` VALUES ('1', null, '6@qq.com', 'yf', '', '', '余芬', '1', '123', '143333', '2014-07-21 11:46:25', 'yf', '1');
-INSERT INTO `tb_user` VALUES ('2', '2014-07-10 20:07:03', '345@qq.com', 'yf', '', '', '余芬2', '123456', '12335', '124577', '2014-07-10 20:07:03', 'yufen', '1');
+INSERT INTO `tb_user` VALUES ('2', '2014-07-10 20:07:03', '345@qq.com', 'yf', '', '', '余芬2', '123456', '12335', '124577', '2014-07-10 20:07:03', 'yufen', '1');
