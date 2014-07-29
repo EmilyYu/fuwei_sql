@@ -4,7 +4,7 @@ Source Host: localhost
 Source Database: dbo_fuwei
 Target Host: localhost
 Target Database: dbo_fuwei
-Date: 2014/7/29 18:39:40
+Date: 2014/7/29 23:24:22
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -31,6 +31,20 @@ CREATE TABLE `fworder` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Table structure for orderstatus
+-- ----------------------------
+DROP TABLE IF EXISTS `orderstatus`;
+CREATE TABLE `orderstatus` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `created_at` datetime DEFAULT NULL,
+  `descript` varchar(255) DEFAULT NULL,
+  `memo` varchar(255) DEFAULT NULL,
+  `orderId` int(11) NOT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
 -- Table structure for tb_authority
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_authority`;
@@ -42,7 +56,7 @@ CREATE TABLE `tb_authority` (
   PRIMARY KEY (`id`),
   KEY `FKPID323` (`pid`),
   CONSTRAINT `FKPID323` FOREIGN KEY (`pid`) REFERENCES `tb_authority` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_company
@@ -182,7 +196,7 @@ CREATE TABLE `tb_order_handle` (
   KEY `created_user` (`created_user`),
   CONSTRAINT `tb_order_handle_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `tb_order_handle_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_order_produce_status
@@ -200,7 +214,7 @@ CREATE TABLE `tb_order_produce_status` (
   KEY `created_user` (`created_user`),
   CONSTRAINT `tb_order_produce_status_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`),
   CONSTRAINT `tb_order_produce_status_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_quote
@@ -326,7 +340,7 @@ CREATE TABLE `tb_role_authority` (
   CONSTRAINT `tb_role_authority_ibfk_1` FOREIGN KEY (`authorityId`) REFERENCES `tb_authority` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `tb_role_authority_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `tb_role_authority_ibfk_3` FOREIGN KEY (`roleId`) REFERENCES `tb_role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=868 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=930 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_role_module
@@ -423,6 +437,24 @@ CREATE TABLE `tb_user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Table structure for unpricedsample
+-- ----------------------------
+DROP TABLE IF EXISTS `unpricedsample`;
+CREATE TABLE `unpricedsample` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` datetime DEFAULT NULL,
+  `developerId` int(11) NOT NULL,
+  `machine` varchar(255) DEFAULT NULL,
+  `material` varchar(255) DEFAULT NULL,
+  `memo` varchar(255) DEFAULT NULL,
+  `picturePath` varchar(255) DEFAULT NULL,
+  `productNumber` varchar(255) DEFAULT NULL,
+  `size` varchar(255) DEFAULT NULL,
+  `weight` double NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
 -- Procedure structure for truncate
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `truncate`;
@@ -495,6 +527,7 @@ INSERT INTO `tb_authority` VALUES ('58', '52', '订单流程管理', 'order/step
 INSERT INTO `tb_authority` VALUES ('59', '58', '添加步骤', 'order/addstep');
 INSERT INTO `tb_authority` VALUES ('60', '58', '编辑步骤', 'order/editstep');
 INSERT INTO `tb_authority` VALUES ('61', '58', '删除步骤', 'order/deletestep');
+INSERT INTO `tb_authority` VALUES ('62', '58', '查看步骤详情', 'order/detailstep');
 INSERT INTO `tb_company` VALUES ('1', '公司地址', '杭州市', null, null, '2014-07-10 19:46:36', '公司', 'gs', '0', '公司', '2014-07-10 19:46:36', '1');
 INSERT INTO `tb_company` VALUES ('2', '西湖区文一西路243号', '杭州市', null, null, '2014-07-13 20:22:16', '测试公司', 'csgs', '0', '公司2', '2014-07-13 20:22:16', '1');
 INSERT INTO `tb_gongxu` VALUES ('1', '2014-07-07 17:18:04', '测试工序', '2014-07-12 22:34:52', '1');
@@ -516,7 +549,15 @@ INSERT INTO `tb_order_detail` VALUES ('8', '3.057', '55*1.1*12*10÷ 1000=7.26+10
 INSERT INTO `tb_order_detail` VALUES ('9', '3.057', '55*1.1*12*10÷ 1000=7.26+10=17.26\r\n0.944\r\n测试工序:6.000\r\n测试工序2:8.000\r\n____________________________\r\n14+0.944\r\n=14.944*1.3\r\n=19.427+17.26\r\n=36.687÷12\r\n=3.057*1.3\r\n=3.974\r\n', 'resource.fuwei.com/images/sample/1406002140620QQ图片20140717133813.jpg', '机织', '材料', '测试样品', 'FWA30003', '尺寸', '55', '1', '3', '3', '', '50', '77', '3850', 'S3F', 'resource.fuwei.com/images/sample/s/1406002140620QQ图片20140717133813.png', 'resource.fuwei.com/images/sample/ss/1406002140620QQ图片20140717133813.png');
 INSERT INTO `tb_order_handle` VALUES ('1', '3', '创建订单', '0', '已创建', null, '1', '2014-07-29 14:05:39');
 INSERT INTO `tb_order_handle` VALUES ('3', '3', '添加生产步骤', null, '测试', null, '1', '2014-07-29 18:35:53');
-INSERT INTO `tb_order_produce_status` VALUES ('2', '3', '测试', '2014-07-29 18:35:53', '2014-07-29 18:35:53', '1');
+INSERT INTO `tb_order_handle` VALUES ('4', '3', '添加生产步骤', null, 'vrd', null, '1', '2014-07-29 21:05:39');
+INSERT INTO `tb_order_handle` VALUES ('5', '3', '修改订单步骤信息', '3', 'vrd2', null, '1', '2014-07-29 23:14:36');
+INSERT INTO `tb_order_handle` VALUES ('6', '3', '修改订单步骤信息', '2', '测试2', null, '1', '2014-07-29 23:14:47');
+INSERT INTO `tb_order_handle` VALUES ('7', '3', '删除订单步骤信息', '2', '测试2', null, '1', '2014-07-29 23:18:52');
+INSERT INTO `tb_order_handle` VALUES ('8', '3', '删除订单步骤信息', '3', 'vrd2', null, '1', '2014-07-29 23:19:12');
+INSERT INTO `tb_order_handle` VALUES ('9', '3', '添加生产步骤', null, 'g', null, '1', '2014-07-29 23:19:17');
+INSERT INTO `tb_order_handle` VALUES ('10', '3', '添加生产步骤', null, 't', null, '1', '2014-07-29 23:19:20');
+INSERT INTO `tb_order_handle` VALUES ('11', '3', '删除订单步骤信息', '4', 'g', null, '1', '2014-07-29 23:22:32');
+INSERT INTO `tb_order_produce_status` VALUES ('5', '3', 't', '2014-07-29 23:19:20', '2014-07-29 23:19:20', '1');
 INSERT INTO `tb_quote` VALUES ('7', '2014-07-21 22:56:04', '2014-07-21 22:56:04', '1', '1', '2');
 INSERT INTO `tb_quote` VALUES ('8', '2014-07-23 16:23:03', '2014-07-23 16:23:03', '1', '3', '3');
 INSERT INTO `tb_quoteorder` VALUES ('1', '2014-07-21 22:56:54', 'resource.fuwei.com/excel/quote/1_报价单20140721225654.xls', 'FWA10001', '2014-07-21 22:56:54', '1', '1');
@@ -553,67 +594,68 @@ INSERT INTO `tb_role_authority` VALUES ('465', '1', '2', '28');
 INSERT INTO `tb_role_authority` VALUES ('466', '1', '2', '31');
 INSERT INTO `tb_role_authority` VALUES ('467', '1', '2', '41');
 INSERT INTO `tb_role_authority` VALUES ('468', '1', '2', '48');
-INSERT INTO `tb_role_authority` VALUES ('807', '1', '1', '1');
-INSERT INTO `tb_role_authority` VALUES ('808', '1', '1', '2');
-INSERT INTO `tb_role_authority` VALUES ('809', '1', '1', '3');
-INSERT INTO `tb_role_authority` VALUES ('810', '1', '1', '4');
-INSERT INTO `tb_role_authority` VALUES ('811', '1', '1', '5');
-INSERT INTO `tb_role_authority` VALUES ('812', '1', '1', '6');
-INSERT INTO `tb_role_authority` VALUES ('813', '1', '1', '7');
-INSERT INTO `tb_role_authority` VALUES ('814', '1', '1', '8');
-INSERT INTO `tb_role_authority` VALUES ('815', '1', '1', '9');
-INSERT INTO `tb_role_authority` VALUES ('816', '1', '1', '49');
-INSERT INTO `tb_role_authority` VALUES ('817', '1', '1', '50');
-INSERT INTO `tb_role_authority` VALUES ('818', '1', '1', '10');
-INSERT INTO `tb_role_authority` VALUES ('819', '1', '1', '11');
-INSERT INTO `tb_role_authority` VALUES ('820', '1', '1', '12');
-INSERT INTO `tb_role_authority` VALUES ('821', '1', '1', '13');
-INSERT INTO `tb_role_authority` VALUES ('822', '1', '1', '14');
-INSERT INTO `tb_role_authority` VALUES ('823', '1', '1', '15');
-INSERT INTO `tb_role_authority` VALUES ('824', '1', '1', '16');
-INSERT INTO `tb_role_authority` VALUES ('825', '1', '1', '17');
-INSERT INTO `tb_role_authority` VALUES ('826', '1', '1', '18');
-INSERT INTO `tb_role_authority` VALUES ('827', '1', '1', '19');
-INSERT INTO `tb_role_authority` VALUES ('828', '1', '1', '20');
-INSERT INTO `tb_role_authority` VALUES ('829', '1', '1', '21');
-INSERT INTO `tb_role_authority` VALUES ('830', '1', '1', '22');
-INSERT INTO `tb_role_authority` VALUES ('831', '1', '1', '23');
-INSERT INTO `tb_role_authority` VALUES ('832', '1', '1', '24');
-INSERT INTO `tb_role_authority` VALUES ('833', '1', '1', '25');
-INSERT INTO `tb_role_authority` VALUES ('834', '1', '1', '26');
-INSERT INTO `tb_role_authority` VALUES ('835', '1', '1', '27');
-INSERT INTO `tb_role_authority` VALUES ('836', '1', '1', '28');
-INSERT INTO `tb_role_authority` VALUES ('837', '1', '1', '29');
-INSERT INTO `tb_role_authority` VALUES ('838', '1', '1', '30');
-INSERT INTO `tb_role_authority` VALUES ('839', '1', '1', '31');
-INSERT INTO `tb_role_authority` VALUES ('840', '1', '1', '51');
-INSERT INTO `tb_role_authority` VALUES ('841', '1', '1', '32');
-INSERT INTO `tb_role_authority` VALUES ('842', '1', '1', '33');
-INSERT INTO `tb_role_authority` VALUES ('843', '1', '1', '34');
-INSERT INTO `tb_role_authority` VALUES ('844', '1', '1', '35');
-INSERT INTO `tb_role_authority` VALUES ('845', '1', '1', '36');
-INSERT INTO `tb_role_authority` VALUES ('846', '1', '1', '37');
-INSERT INTO `tb_role_authority` VALUES ('847', '1', '1', '38');
-INSERT INTO `tb_role_authority` VALUES ('848', '1', '1', '39');
-INSERT INTO `tb_role_authority` VALUES ('849', '1', '1', '40');
-INSERT INTO `tb_role_authority` VALUES ('850', '1', '1', '41');
-INSERT INTO `tb_role_authority` VALUES ('851', '1', '1', '42');
-INSERT INTO `tb_role_authority` VALUES ('852', '1', '1', '43');
-INSERT INTO `tb_role_authority` VALUES ('853', '1', '1', '48');
-INSERT INTO `tb_role_authority` VALUES ('854', '1', '1', '44');
-INSERT INTO `tb_role_authority` VALUES ('855', '1', '1', '45');
-INSERT INTO `tb_role_authority` VALUES ('856', '1', '1', '46');
-INSERT INTO `tb_role_authority` VALUES ('857', '1', '1', '47');
-INSERT INTO `tb_role_authority` VALUES ('858', '1', '1', '52');
-INSERT INTO `tb_role_authority` VALUES ('859', '1', '1', '53');
-INSERT INTO `tb_role_authority` VALUES ('860', '1', '1', '54');
-INSERT INTO `tb_role_authority` VALUES ('861', '1', '1', '55');
-INSERT INTO `tb_role_authority` VALUES ('862', '1', '1', '56');
-INSERT INTO `tb_role_authority` VALUES ('863', '1', '1', '57');
-INSERT INTO `tb_role_authority` VALUES ('864', '1', '1', '58');
-INSERT INTO `tb_role_authority` VALUES ('865', '1', '1', '59');
-INSERT INTO `tb_role_authority` VALUES ('866', '1', '1', '60');
-INSERT INTO `tb_role_authority` VALUES ('867', '1', '1', '61');
+INSERT INTO `tb_role_authority` VALUES ('868', '1', '1', '1');
+INSERT INTO `tb_role_authority` VALUES ('869', '1', '1', '2');
+INSERT INTO `tb_role_authority` VALUES ('870', '1', '1', '3');
+INSERT INTO `tb_role_authority` VALUES ('871', '1', '1', '4');
+INSERT INTO `tb_role_authority` VALUES ('872', '1', '1', '5');
+INSERT INTO `tb_role_authority` VALUES ('873', '1', '1', '6');
+INSERT INTO `tb_role_authority` VALUES ('874', '1', '1', '7');
+INSERT INTO `tb_role_authority` VALUES ('875', '1', '1', '8');
+INSERT INTO `tb_role_authority` VALUES ('876', '1', '1', '9');
+INSERT INTO `tb_role_authority` VALUES ('877', '1', '1', '49');
+INSERT INTO `tb_role_authority` VALUES ('878', '1', '1', '50');
+INSERT INTO `tb_role_authority` VALUES ('879', '1', '1', '10');
+INSERT INTO `tb_role_authority` VALUES ('880', '1', '1', '11');
+INSERT INTO `tb_role_authority` VALUES ('881', '1', '1', '12');
+INSERT INTO `tb_role_authority` VALUES ('882', '1', '1', '13');
+INSERT INTO `tb_role_authority` VALUES ('883', '1', '1', '14');
+INSERT INTO `tb_role_authority` VALUES ('884', '1', '1', '15');
+INSERT INTO `tb_role_authority` VALUES ('885', '1', '1', '16');
+INSERT INTO `tb_role_authority` VALUES ('886', '1', '1', '17');
+INSERT INTO `tb_role_authority` VALUES ('887', '1', '1', '18');
+INSERT INTO `tb_role_authority` VALUES ('888', '1', '1', '19');
+INSERT INTO `tb_role_authority` VALUES ('889', '1', '1', '20');
+INSERT INTO `tb_role_authority` VALUES ('890', '1', '1', '21');
+INSERT INTO `tb_role_authority` VALUES ('891', '1', '1', '22');
+INSERT INTO `tb_role_authority` VALUES ('892', '1', '1', '23');
+INSERT INTO `tb_role_authority` VALUES ('893', '1', '1', '24');
+INSERT INTO `tb_role_authority` VALUES ('894', '1', '1', '25');
+INSERT INTO `tb_role_authority` VALUES ('895', '1', '1', '26');
+INSERT INTO `tb_role_authority` VALUES ('896', '1', '1', '27');
+INSERT INTO `tb_role_authority` VALUES ('897', '1', '1', '28');
+INSERT INTO `tb_role_authority` VALUES ('898', '1', '1', '29');
+INSERT INTO `tb_role_authority` VALUES ('899', '1', '1', '30');
+INSERT INTO `tb_role_authority` VALUES ('900', '1', '1', '31');
+INSERT INTO `tb_role_authority` VALUES ('901', '1', '1', '51');
+INSERT INTO `tb_role_authority` VALUES ('902', '1', '1', '32');
+INSERT INTO `tb_role_authority` VALUES ('903', '1', '1', '33');
+INSERT INTO `tb_role_authority` VALUES ('904', '1', '1', '34');
+INSERT INTO `tb_role_authority` VALUES ('905', '1', '1', '35');
+INSERT INTO `tb_role_authority` VALUES ('906', '1', '1', '36');
+INSERT INTO `tb_role_authority` VALUES ('907', '1', '1', '37');
+INSERT INTO `tb_role_authority` VALUES ('908', '1', '1', '38');
+INSERT INTO `tb_role_authority` VALUES ('909', '1', '1', '39');
+INSERT INTO `tb_role_authority` VALUES ('910', '1', '1', '40');
+INSERT INTO `tb_role_authority` VALUES ('911', '1', '1', '41');
+INSERT INTO `tb_role_authority` VALUES ('912', '1', '1', '42');
+INSERT INTO `tb_role_authority` VALUES ('913', '1', '1', '43');
+INSERT INTO `tb_role_authority` VALUES ('914', '1', '1', '48');
+INSERT INTO `tb_role_authority` VALUES ('915', '1', '1', '44');
+INSERT INTO `tb_role_authority` VALUES ('916', '1', '1', '45');
+INSERT INTO `tb_role_authority` VALUES ('917', '1', '1', '46');
+INSERT INTO `tb_role_authority` VALUES ('918', '1', '1', '47');
+INSERT INTO `tb_role_authority` VALUES ('919', '1', '1', '52');
+INSERT INTO `tb_role_authority` VALUES ('920', '1', '1', '53');
+INSERT INTO `tb_role_authority` VALUES ('921', '1', '1', '54');
+INSERT INTO `tb_role_authority` VALUES ('922', '1', '1', '55');
+INSERT INTO `tb_role_authority` VALUES ('923', '1', '1', '56');
+INSERT INTO `tb_role_authority` VALUES ('924', '1', '1', '57');
+INSERT INTO `tb_role_authority` VALUES ('925', '1', '1', '58');
+INSERT INTO `tb_role_authority` VALUES ('926', '1', '1', '59');
+INSERT INTO `tb_role_authority` VALUES ('927', '1', '1', '60');
+INSERT INTO `tb_role_authority` VALUES ('928', '1', '1', '61');
+INSERT INTO `tb_role_authority` VALUES ('929', '1', '1', '62');
 INSERT INTO `tb_salesman` VALUES ('1', '2014-07-10 19:46:49', 'ywy', '业务员', '212455', '2014-07-10 19:46:49', '1', '1');
 INSERT INTO `tb_salesman` VALUES ('4', '2014-07-25 16:22:37', 'csywy', '测试业务员1', '13455555', '2014-07-25 16:22:37', '2', '1');
 INSERT INTO `tb_sample` VALUES ('2', '2.576', '2014-07-21 22:38:38', '100*1.1*12*10÷ 1000=13.2+10=23.2\r\n1.716\r\n测试工序:6.000\r\n____________________________\r\n6+1.716\r\n=7.716*1\r\n=7.716+23.2\r\n=30.916÷12\r\n=2.576*1.3\r\n=3.349\r\n', '', 'cs', 'resource.fuwei.com/images/sample/140595351558420140716_230658.jpg', '机织', '材料', '', '测试', 'FWA30002', '尺寸', '2014-07-21 22:53:03', '100', '2', '1', 'resource.fuwei.com/images/sample/s/140595351558420140716_230658.png', 'resource.fuwei.com/images/sample/ss/140595351558420140716_230658.png');
