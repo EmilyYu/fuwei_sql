@@ -4,7 +4,7 @@ Source Host: localhost
 Source Database: dbo_fuwei
 Target Host: localhost
 Target Database: dbo_fuwei
-Date: 2014/7/31 17:40:57
+Date: 2014/8/1 17:18:27
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -133,7 +133,6 @@ CREATE TABLE `tb_order` (
   `companyId` int(11) DEFAULT NULL,
   `stepId` int(11) DEFAULT NULL,
   `step_state` varchar(255) DEFAULT NULL,
-  `start_produce` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK34232225` (`salesmanId`),
   KEY `FK93908CC387AC0` (`created_user`),
@@ -177,7 +176,7 @@ CREATE TABLE `tb_order_detail` (
   CONSTRAINT `tb_order_detail_ibfk_1` FOREIGN KEY (`charge_user`) REFERENCES `tb_user` (`id`),
   CONSTRAINT `tb_order_detail_ibfk_2` FOREIGN KEY (`sampleId`) REFERENCES `tb_sample` (`id`),
   CONSTRAINT `tb_order_detail_ibfk_3` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_order_handle
@@ -197,7 +196,7 @@ CREATE TABLE `tb_order_handle` (
   KEY `created_user` (`created_user`),
   CONSTRAINT `tb_order_handle_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `tb_order_handle_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_order_produce_status
@@ -223,17 +222,19 @@ CREATE TABLE `tb_order_produce_status` (
 DROP TABLE IF EXISTS `tb_production_notification`;
 CREATE TABLE `tb_production_notification` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `orderId` int(11) DEFAULT NULL,
+  `orderDetailId` int(11) DEFAULT NULL,
   `notificationNumber` varchar(64) DEFAULT NULL,
   `processfactory` varchar(255) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `created_user` int(11) DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
+  `end_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `orderId` (`orderId`),
   KEY `created_user` (`created_user`),
+  KEY `orderDetailId` (`orderDetailId`),
   CONSTRAINT `tb_production_notification_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`),
-  CONSTRAINT `tb_production_notification_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `tb_production_notification_ibfk_3` FOREIGN KEY (`orderDetailId`) REFERENCES `tb_order_detail` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -563,23 +564,23 @@ INSERT INTO `tb_gongxu` VALUES ('9', '2014-07-24 18:18:55', 'vv', '2014-07-24 18
 INSERT INTO `tb_gongxu` VALUES ('10', '2014-07-24 18:18:58', 'v', '2014-07-24 18:18:58', '3');
 INSERT INTO `tb_gongxu` VALUES ('11', '2014-07-24 18:19:01', 'g', '2014-07-24 18:19:01', '3');
 INSERT INTO `tb_gongxu` VALUES ('12', '2014-07-24 18:19:05', 'h', '2014-07-24 18:19:05', '3');
-INSERT INTO `tb_order` VALUES ('1', '2014-07-29 10:16:08', '2014-07-29 13:30:53', '1', '1', '5000', '0', '已创建', null, '测试样品(55.0克)', '2014-07-01 00:00:00', '2014-07-31 00:00:00', null, 'FWA20001', '1', null, null, null);
-INSERT INTO `tb_order` VALUES ('2', '2014-07-29 10:55:12', '2014-07-31 13:19:31', '1', '1', '2600', '0', '已创建', null, '测试样品(55.0克)', '2014-07-01 00:00:00', '2014-07-31 00:00:00', null, 'FWA20002', '1', null, null, null);
-INSERT INTO `tb_order` VALUES ('3', '2014-07-29 14:05:39', '2014-07-29 14:05:39', '1', '1', '3850', '5', '在机织', null, '测试样品(55.0克)', '2014-07-01 00:00:00', '2014-07-30 00:00:00', '2014-07-30 15:11:09', 'FWA20003', '1', '10', '覆盖', null);
-INSERT INTO `tb_order` VALUES ('4', '2014-07-30 16:47:38', '2014-07-30 16:47:38', '1', '1', '117500', '7', '已发货', null, '测试样品(55.0克)哈密瓜(100.0克)', '2014-07-30 00:00:00', '2014-08-30 00:00:00', '2014-07-30 17:11:48', 'FWA20004', '1', null, null, null);
-INSERT INTO `tb_order` VALUES ('5', '2014-07-31 13:19:47', '2014-07-31 13:19:47', '1', '1', '54000', '1', '打确认样', null, '哈密瓜(100.0克)哈密瓜(100.0克)', '2014-07-03 00:00:00', '2014-08-01 00:00:00', null, 'FWA20005', '1', null, null, null);
-INSERT INTO `tb_order` VALUES ('6', '2014-07-31 13:20:03', '2014-07-31 13:33:51', '1', '4', '26000', '3', '在染色', '', '哈密瓜(100.0克)', '2014-07-04 00:00:00', '2014-08-09 00:00:00', null, 'FWA20006', '2', null, null, '2014-07-31 17:17:02');
-INSERT INTO `tb_order` VALUES ('7', '2014-07-31 13:34:13', '2014-07-31 14:35:38', '1', '1', '54000', '7', '已发货', 'cesvbz', '哈密瓜(100.0克)哈密瓜(100.0克)', '2014-07-01 00:00:00', '2014-07-17 00:00:00', '2014-07-31 17:39:02', 'FWA20007', '1', null, null, '2014-07-31 16:35:19');
+INSERT INTO `tb_order` VALUES ('1', '2014-07-29 10:16:08', '2014-07-29 13:30:53', '1', '1', '5000', '0', '已创建', null, '测试样品(55.0克)', '2014-07-01 00:00:00', '2014-07-31 00:00:00', null, 'FWA20001', '1', null, null);
+INSERT INTO `tb_order` VALUES ('2', '2014-07-29 10:55:12', '2014-07-31 13:19:31', '1', '1', '2600', '0', '已创建', null, '测试样品(55.0克)', '2014-07-01 00:00:00', '2014-07-31 00:00:00', null, 'FWA20002', '1', null, null);
+INSERT INTO `tb_order` VALUES ('3', '2014-07-29 14:05:39', '2014-07-29 14:05:39', '1', '1', '3850', '5', '在机织', null, '测试样品(55.0克)', '2014-07-01 00:00:00', '2014-07-30 00:00:00', '2014-07-30 15:11:09', 'FWA20003', '1', '10', '覆盖');
+INSERT INTO `tb_order` VALUES ('4', '2014-07-30 16:47:38', '2014-07-30 16:47:38', '1', '1', '117500', '7', '已发货', null, '测试样品(55.0克)哈密瓜(100.0克)', '2014-07-30 00:00:00', '2014-08-30 00:00:00', '2014-07-30 17:11:48', 'FWA20004', '1', null, null);
+INSERT INTO `tb_order` VALUES ('5', '2014-07-31 13:19:47', '2014-08-01 14:44:16', '1', '1', '54000', '1', '打确认样', '', '哈密瓜(100.0克)哈密瓜(100.0克)', '2014-07-03 00:00:00', '2014-08-01 00:00:00', null, 'FWA20005', '1', null, null);
+INSERT INTO `tb_order` VALUES ('6', '2014-07-31 13:20:03', '2014-07-31 13:33:51', '1', '4', '26000', '3', '在染色', '', '哈密瓜(100.0克)', '2014-07-04 00:00:00', '2014-08-09 00:00:00', null, 'FWA20006', '2', null, null);
+INSERT INTO `tb_order` VALUES ('7', '2014-07-31 13:34:13', '2014-07-31 14:35:38', '1', '1', '54000', '7', '已发货', 'cesvbz', '哈密瓜(100.0克)哈密瓜(100.0克)', '2014-07-01 00:00:00', '2014-07-17 00:00:00', '2014-07-31 17:39:02', 'FWA20007', '1', null, null);
 INSERT INTO `tb_order_detail` VALUES ('5', '3.057', '55*1.1*12*10÷ 1000=7.26+10=17.26\r\n0.944\r\n测试工序:6.000\r\n测试工序2:8.000\r\n____________________________\r\n14+0.944\r\n=14.944*1.3\r\n=19.427+17.26\r\n=36.687÷12\r\n=3.057*1.3\r\n=3.974\r\n', 'resource.fuwei.com/images/sample/1406002140620QQ图片20140717133813.jpg', '机织', '材料', '测试样品', 'FWA30003', '尺寸', '55', '1', '1', '3', '', '50', '100', '5000', 'S3F', 'resource.fuwei.com/images/sample/s/1406002140620QQ图片20140717133813.png', 'resource.fuwei.com/images/sample/ss/1406002140620QQ图片20140717133813.png');
 INSERT INTO `tb_order_detail` VALUES ('9', '3.057', '55*1.1*12*10÷ 1000=7.26+10=17.26\r\n0.944\r\n测试工序:6.000\r\n测试工序2:8.000\r\n____________________________\r\n14+0.944\r\n=14.944*1.3\r\n=19.427+17.26\r\n=36.687÷12\r\n=3.057*1.3\r\n=3.974\r\n', 'resource.fuwei.com/images/sample/1406002140620QQ图片20140717133813.jpg', '机织', '材料', '测试样品', 'FWA30003', '尺寸', '55', '1', '3', '3', '', '50', '77', '3850', 'S3F', 'resource.fuwei.com/images/sample/s/1406002140620QQ图片20140717133813.png', 'resource.fuwei.com/images/sample/ss/1406002140620QQ图片20140717133813.png');
 INSERT INTO `tb_order_detail` VALUES ('10', '0', '55*1.1*12*10÷ 1000=7.26+10=17.26\r\n0.944\r\n测试工序:6.000\r\n测试工序2:8.000\r\n____________________________\r\n14+0.944\r\n=14.944*1.3\r\n=19.427+17.26\r\n=36.687÷12\r\n=3.057*1.3\r\n=3.974\r\n', 'resource.fuwei.com/images/sample/1406002140620QQ图片20140717133813.jpg', '机织', '材料', '测试样品', 'FWA30003', '尺寸', '55', '1', '4', '3', '', '50', '1000', '50000', 'S3F', 'resource.fuwei.com/images/sample/s/1406002140620QQ图片20140717133813.png', 'resource.fuwei.com/images/sample/ss/1406002140620QQ图片20140717133813.png');
 INSERT INTO `tb_order_detail` VALUES ('11', '5.383', '100*1.4*12*30÷ 1000=50.4+4=54.4\r\n\r\n测试工序:6.000\r\n____________________________\r\n6+0\r\n=6*1.7\r\n=10.2+54.4\r\n=64.6÷12\r\n=5.383*1.4\r\n=7.536\r\n', 'resource.fuwei.com/images/sample/140670891273420140729125945848.jpg', '未知', '哈密瓜', '哈密瓜', 'FWA30007', '未知', '100', '1', '4', '7', '哈密瓜--公司--价格备注', '27', '2500', '67500', 'FG6', 'resource.fuwei.com/images/sample/s/140670891273420140729125945848.png', 'resource.fuwei.com/images/sample/ss/140670891273420140729125945848.png');
 INSERT INTO `tb_order_detail` VALUES ('13', '3.057', '55*1.1*12*10÷ 1000=7.26+10=17.26\r\n0.944\r\n测试工序:6.000\r\n测试工序2:8.000\r\n____________________________\r\n14+0.944\r\n=14.944*1.3\r\n=19.427+17.26\r\n=36.687÷12\r\n=3.057*1.3\r\n=3.974\r\n', 'resource.fuwei.com/images/sample/1406002140620QQ图片20140717133813.jpg', '机织', '材料', '测试样品', 'FWA30003', '尺寸', '55', '1', '2', '3', '测试', '50', '52', '2600', 'S3F', 'resource.fuwei.com/images/sample/s/1406002140620QQ图片20140717133813.png', 'resource.fuwei.com/images/sample/ss/1406002140620QQ图片20140717133813.png');
-INSERT INTO `tb_order_detail` VALUES ('14', '5.383', '100*1.4*12*30÷ 1000=50.4+4=54.4\r\n\r\n测试工序:6.000\r\n____________________________\r\n6+0\r\n=6*1.7\r\n=10.2+54.4\r\n=64.6÷12\r\n=5.383*1.4\r\n=7.536\r\n', 'resource.fuwei.com/images/sample/140670891273420140729125945848.jpg', '未知', '哈密瓜', '哈密瓜', 'FWA30007', '未知', '100', '1', '5', '7', '哈密瓜--公司--价格备注', '27', '1000', '27000', 'FG6', 'resource.fuwei.com/images/sample/s/140670891273420140729125945848.png', 'resource.fuwei.com/images/sample/ss/140670891273420140729125945848.png');
-INSERT INTO `tb_order_detail` VALUES ('15', '5.383', '100*1.4*12*30÷ 1000=50.4+4=54.4\r\n\r\n测试工序:6.000\r\n____________________________\r\n6+0\r\n=6*1.7\r\n=10.2+54.4\r\n=64.6÷12\r\n=5.383*1.4\r\n=7.536\r\n', 'resource.fuwei.com/images/sample/140670891273420140729125945848.jpg', '未知', '哈密瓜', '哈密瓜', 'FWA30007', '未知', '100', '1', '5', '7', '哈密瓜--公司--价格备注', '27', '1000', '27000', 'FG6', 'resource.fuwei.com/images/sample/s/140670891273420140729125945848.png', 'resource.fuwei.com/images/sample/ss/140670891273420140729125945848.png');
 INSERT INTO `tb_order_detail` VALUES ('17', '5.383', '100*1.4*12*30÷ 1000=50.4+4=54.4\r\n\r\n测试工序:6.000\r\n____________________________\r\n6+0\r\n=6*1.7\r\n=10.2+54.4\r\n=64.6÷12\r\n=5.383*1.4\r\n=7.536\r\n', 'resource.fuwei.com/images/sample/140670891273420140729125945848.jpg', '未知', '哈密瓜', '哈密瓜', 'FWA30007', '未知', '100', '1', '6', '7', '才备注', '26', '1000', '26000', 'FG4', 'resource.fuwei.com/images/sample/s/140670891273420140729125945848.png', 'resource.fuwei.com/images/sample/ss/140670891273420140729125945848.png');
 INSERT INTO `tb_order_detail` VALUES ('22', '5.383', '100*1.4*12*30÷ 1000=50.4+4=54.4\r\n\r\n测试工序:6.000\r\n____________________________\r\n6+0\r\n=6*1.7\r\n=10.2+54.4\r\n=64.6÷12\r\n=5.383*1.4\r\n=7.536\r\n', 'resource.fuwei.com/images/sample/140670891273420140729125945848.jpg', '未知', '哈密瓜', '哈密瓜', 'FWA30007', '未知', '100', '1', '7', '7', '哈密瓜--公司--价格备注', '27', '1000', '27000', 'FG6', 'resource.fuwei.com/images/sample/s/140670891273420140729125945848.png', 'resource.fuwei.com/images/sample/ss/140670891273420140729125945848.png');
 INSERT INTO `tb_order_detail` VALUES ('23', '5.383', '100*1.4*12*30÷ 1000=50.4+4=54.4\r\n\r\n测试工序:6.000\r\n____________________________\r\n6+0\r\n=6*1.7\r\n=10.2+54.4\r\n=64.6÷12\r\n=5.383*1.4\r\n=7.536\r\n', 'resource.fuwei.com/images/sample/140670891273420140729125945848.jpg', '未知', '哈密瓜', '哈密瓜', 'FWA30007', '未知', '100', '1', '7', '7', '哈密瓜--公司--价格备注', '27', '1000', '27000', 'FG6', 'resource.fuwei.com/images/sample/s/140670891273420140729125945848.png', 'resource.fuwei.com/images/sample/ss/140670891273420140729125945848.png');
+INSERT INTO `tb_order_detail` VALUES ('26', '5.383', '100*1.4*12*30÷ 1000=50.4+4=54.4\r\n\r\n测试工序:6.000\r\n____________________________\r\n6+0\r\n=6*1.7\r\n=10.2+54.4\r\n=64.6÷12\r\n=5.383*1.4\r\n=7.536\r\n', 'resource.fuwei.com/images/sample/140670891273420140729125945848.jpg', '未知', '哈密瓜', '哈密瓜', 'FWA30007', '未知', '100', '1', '5', '7', '哈密瓜--公司--价格备注', '27', '1000', '27000', 'FG6', 'resource.fuwei.com/images/sample/s/140670891273420140729125945848.png', 'resource.fuwei.com/images/sample/ss/140670891273420140729125945848.png');
+INSERT INTO `tb_order_detail` VALUES ('27', '5.383', '100*1.4*12*30÷ 1000=50.4+4=54.4\r\n\r\n测试工序:6.000\r\n____________________________\r\n6+0\r\n=6*1.7\r\n=10.2+54.4\r\n=64.6÷12\r\n=5.383*1.4\r\n=7.536\r\n', 'resource.fuwei.com/images/sample/140670891273420140729125945848.jpg', '未知', '哈密瓜', '哈密瓜', 'FWA30007', '未知', '100', '1', '5', '7', '哈密瓜--公司--价格备注', '27', '1000', '27000', 'FG6', 'resource.fuwei.com/images/sample/s/140670891273420140729125945848.png', 'resource.fuwei.com/images/sample/ss/140670891273420140729125945848.png');
 INSERT INTO `tb_order_handle` VALUES ('1', '3', '创建订单', '0', '已创建', null, '1', '2014-07-29 14:05:39');
 INSERT INTO `tb_order_handle` VALUES ('3', '3', '添加生产步骤', null, '测试', null, '1', '2014-07-29 18:35:53');
 INSERT INTO `tb_order_handle` VALUES ('4', '3', '添加生产步骤', null, 'vrd', null, '1', '2014-07-29 21:05:39');
@@ -662,6 +663,8 @@ INSERT INTO `tb_order_handle` VALUES ('83', '6', '生成生产单', '3', '在染
 INSERT INTO `tb_order_handle` VALUES ('84', '7', '执行订单步骤', '5', '在机织', null, '1', '2014-07-31 17:38:56');
 INSERT INTO `tb_order_handle` VALUES ('85', '7', '执行订单步骤', '6', '在发货', null, '1', '2014-07-31 17:38:59');
 INSERT INTO `tb_order_handle` VALUES ('86', '7', '执行订单步骤', '7', '已发货', null, '1', '2014-07-31 17:39:02');
+INSERT INTO `tb_order_handle` VALUES ('87', '5', '修改订单', '0', null, null, '1', '2014-08-01 14:37:12');
+INSERT INTO `tb_order_handle` VALUES ('88', '5', '修改订单', '0', null, null, '1', '2014-08-01 14:44:16');
 INSERT INTO `tb_order_produce_status` VALUES ('5', '3', '测试步骤', '2014-07-29 23:19:20', '2014-07-30 15:03:07', '1');
 INSERT INTO `tb_order_produce_status` VALUES ('6', '2', '测试', '2014-07-30 11:03:25', '2014-07-30 11:03:25', '1');
 INSERT INTO `tb_order_produce_status` VALUES ('7', '2', 'c', '2014-07-30 11:18:07', '2014-07-30 11:18:07', '1');
@@ -675,8 +678,6 @@ INSERT INTO `tb_order_produce_status` VALUES ('16', '3', 'h', '2014-07-30 16:18:
 INSERT INTO `tb_order_produce_status` VALUES ('17', '3', 'j', '2014-07-30 16:18:51', '2014-07-30 16:18:51', '1');
 INSERT INTO `tb_order_produce_status` VALUES ('18', '3', 'k', '2014-07-30 16:18:55', '2014-07-30 16:18:55', '1');
 INSERT INTO `tb_order_produce_status` VALUES ('19', '3', 'k', '2014-07-30 16:18:59', '2014-07-30 16:18:59', '1');
-INSERT INTO `tb_production_notification` VALUES ('4', '7', 'FWA30004', '工厂', '2014-07-31 16:35:16', '2014-07-31 16:35:16', '1');
-INSERT INTO `tb_production_notification` VALUES ('5', '6', 'FWA30005', '测试工厂', '2014-07-31 17:17:02', '2014-07-31 17:17:02', '1');
 INSERT INTO `tb_quote` VALUES ('7', '2014-07-21 22:56:04', '2014-07-21 22:56:04', '1', '1', '2');
 INSERT INTO `tb_quote` VALUES ('9', '2014-07-30 16:34:03', '2014-07-30 16:34:03', '1', '4', '7');
 INSERT INTO `tb_quote` VALUES ('12', '2014-07-30 16:39:17', '2014-07-30 16:39:17', '1', '5', '7');
