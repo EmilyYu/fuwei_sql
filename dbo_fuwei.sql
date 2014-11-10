@@ -4,24 +4,10 @@ Source Host: localhost
 Source Database: dbo_fuwei
 Target Host: localhost
 Target Database: dbo_fuwei
-Date: 2014/11/4 1:28:22
+Date: 2014/11/10 17:30:44
 */
 
 SET FOREIGN_KEY_CHECKS=0;
--- ----------------------------
--- Table structure for orderstatus
--- ----------------------------
-DROP TABLE IF EXISTS `orderstatus`;
-CREATE TABLE `orderstatus` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `created_at` datetime DEFAULT NULL,
-  `descript` varchar(255) DEFAULT NULL,
-  `memo` varchar(255) DEFAULT NULL,
-  `orderId` int(11) NOT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 -- ----------------------------
 -- Table structure for tb_authority
 -- ----------------------------
@@ -180,6 +166,7 @@ CREATE TABLE `tb_order` (
   `img_ss` varchar(255) DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL,
   `factoryId` int(11) DEFAULT NULL,
+  `kehu` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK34232225` (`salesmanId`),
   KEY `FK93908CC387AC0` (`created_user`),
@@ -188,14 +175,14 @@ CREATE TABLE `tb_order` (
   KEY `factoryId` (`factoryId`),
   KEY `charge_user` (`charge_user`),
   KEY `sampleId` (`sampleId`),
-  CONSTRAINT `tb_order_ibfk_3` FOREIGN KEY (`factoryId`) REFERENCES `tb_factory` (`id`),
-  CONSTRAINT `tb_order_ibfk_4` FOREIGN KEY (`charge_user`) REFERENCES `tb_user` (`id`),
-  CONSTRAINT `tb_order_ibfk_5` FOREIGN KEY (`sampleId`) REFERENCES `tb_sample` (`id`),
   CONSTRAINT `FK34232225` FOREIGN KEY (`salesmanId`) REFERENCES `tb_salesman` (`id`),
   CONSTRAINT `FK93908CC387AC0` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`),
   CONSTRAINT `tb_order_ibfk_1` FOREIGN KEY (`companyId`) REFERENCES `tb_company` (`id`),
-  CONSTRAINT `tb_order_ibfk_2` FOREIGN KEY (`stepId`) REFERENCES `tb_order_produce_status` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+  CONSTRAINT `tb_order_ibfk_2` FOREIGN KEY (`stepId`) REFERENCES `tb_order_produce_status` (`id`),
+  CONSTRAINT `tb_order_ibfk_3` FOREIGN KEY (`factoryId`) REFERENCES `tb_factory` (`id`),
+  CONSTRAINT `tb_order_ibfk_4` FOREIGN KEY (`charge_user`) REFERENCES `tb_user` (`id`),
+  CONSTRAINT `tb_order_ibfk_5` FOREIGN KEY (`sampleId`) REFERENCES `tb_sample` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_order_detail
@@ -249,7 +236,7 @@ CREATE TABLE `tb_order_handle` (
   KEY `created_user` (`created_user`),
   CONSTRAINT `tb_order_handle_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `tb_order_handle_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_order_produce_status
@@ -613,6 +600,8 @@ INSERT INTO `tb_gongxu` VALUES ('9', '2014-07-24 18:18:55', 'vv', '2014-07-24 18
 INSERT INTO `tb_gongxu` VALUES ('10', '2014-07-24 18:18:58', 'v', '2014-07-24 18:18:58', '3');
 INSERT INTO `tb_gongxu` VALUES ('11', '2014-07-24 18:19:01', 'g', '2014-07-24 18:19:01', '3');
 INSERT INTO `tb_gongxu` VALUES ('12', '2014-07-24 18:19:05', 'h', '2014-07-24 18:19:05', '3');
+INSERT INTO `tb_order` VALUES ('8', '2014-11-10 15:44:58', '2014-11-10 15:44:58', '1', '1', '30000', '1', '打确认样', '哈密瓜很甜', '哈密瓜(100.0克)', '2014-11-10 00:00:00', '2014-12-10 00:00:00', null, 'FWA20008', '1', null, null, '5.383', '100*1.4*12*30÷ 1000=50.4+4=54.4\r\n\r\n测试工序:6.000\r\n____________________________\r\n6+0\r\n=6*1.7\r\n=10.2+54.4\r\n=64.6÷12\r\n=5.383*1.4\r\n=7.536\r\n', 'resource.fuwei.com/images/sample/140670891273420140729125945848.jpg', null, '哈密瓜', '哈密瓜', 'FWA30007', '未知', '100', '1', '7', '30', null, 'resource.fuwei.com/images/sample/s/140670891273420140729125945848.png', 'resource.fuwei.com/images/sample/ss/140670891273420140729125945848.png', '1000', null, '');
+INSERT INTO `tb_order_handle` VALUES ('1', '8', '创建订单', '1', '打确认样', null, '1', '2014-11-10 15:44:58');
 INSERT INTO `tb_quote` VALUES ('7', '2014-07-21 22:56:04', '2014-07-21 22:56:04', '1', '1', '2');
 INSERT INTO `tb_quote` VALUES ('9', '2014-07-30 16:34:03', '2014-07-30 16:34:03', '1', '4', '7');
 INSERT INTO `tb_quote` VALUES ('12', '2014-07-30 16:39:17', '2014-07-30 16:39:17', '1', '5', '7');
