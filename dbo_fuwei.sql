@@ -4,7 +4,7 @@ Source Host: localhost
 Source Database: dbo_fuwei
 Target Host: localhost
 Target Database: dbo_fuwei
-Date: 2015/3/17 1:27:51
+Date: 2015/3/18 0:23:33
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,7 +20,7 @@ CREATE TABLE `tb_authority` (
   PRIMARY KEY (`id`),
   KEY `FKPID323` (`pid`),
   CONSTRAINT `FKPID323` FOREIGN KEY (`pid`) REFERENCES `tb_authority` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=122 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_carfixrecordorder
@@ -32,6 +32,8 @@ CREATE TABLE `tb_carfixrecordorder` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `created_user` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `state` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `orderId` (`orderId`),
   KEY `created_user` (`created_user`),
@@ -49,6 +51,8 @@ CREATE TABLE `tb_checkrecordorder` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `created_user` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `state` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `orderId` (`orderId`),
   CONSTRAINT `tb_checkrecordorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`)
@@ -80,12 +84,15 @@ CREATE TABLE `tb_coloringorder` (
   `orderNumber` varchar(64) DEFAULT NULL,
   `img_s` varchar(255) DEFAULT NULL,
   `img_ss` varchar(255) DEFAULT NULL,
+  `charge_user` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `orderId` (`orderId`),
   KEY `created_user` (`created_user`),
   KEY `factoryId` (`factoryId`),
   KEY `tb_coloringorder_ibfk_4` (`sampleId`),
   KEY `tb_coloringorder_ibfk_5` (`companyId`),
+  KEY `tb_coloringorder_ibfk_6` (`charge_user`),
+  CONSTRAINT `tb_coloringorder_ibfk_6` FOREIGN KEY (`charge_user`) REFERENCES `tb_user` (`id`),
   CONSTRAINT `tb_coloringorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
   CONSTRAINT `tb_coloringorder_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`),
   CONSTRAINT `tb_coloringorder_ibfk_3` FOREIGN KEY (`factoryId`) REFERENCES `tb_factory` (`id`),
@@ -159,18 +166,21 @@ CREATE TABLE `tb_fuliaopurchaseorder` (
   `orderNumber` varchar(64) DEFAULT NULL,
   `img_s` varchar(255) DEFAULT NULL,
   `img_ss` varchar(255) DEFAULT NULL,
+  `charge_user` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `orderId` (`orderId`),
   KEY `created_user` (`created_user`),
   KEY `factoryId` (`factoryId`),
   KEY `tb_fuliaopurchaseorder_ibfk_4` (`sampleId`),
   KEY `tb_fuliaopurchaseorder_ibfk_5` (`companyId`),
+  KEY `tb_fuliaopurchaseorder_ibfk_6` (`charge_user`),
+  CONSTRAINT `tb_fuliaopurchaseorder_ibfk_6` FOREIGN KEY (`charge_user`) REFERENCES `tb_user` (`id`),
   CONSTRAINT `tb_fuliaopurchaseorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
   CONSTRAINT `tb_fuliaopurchaseorder_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`),
   CONSTRAINT `tb_fuliaopurchaseorder_ibfk_3` FOREIGN KEY (`factoryId`) REFERENCES `tb_factory` (`id`),
   CONSTRAINT `tb_fuliaopurchaseorder_ibfk_4` FOREIGN KEY (`sampleId`) REFERENCES `tb_sample` (`id`),
   CONSTRAINT `tb_fuliaopurchaseorder_ibfk_5` FOREIGN KEY (`companyId`) REFERENCES `tb_company` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_gongxu
@@ -198,6 +208,8 @@ CREATE TABLE `tb_halfcheckrecordorder` (
   `updated_at` datetime DEFAULT NULL,
   `created_user` int(11) DEFAULT NULL,
   `detail_2_json` text,
+  `status` int(11) DEFAULT NULL,
+  `state` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `orderId` (`orderId`),
   KEY `created_user` (`created_user`),
@@ -215,6 +227,8 @@ CREATE TABLE `tb_headbankorder` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `created_user` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `state` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `orderId` (`orderId`),
   KEY `created_user` (`created_user`),
@@ -232,6 +246,8 @@ CREATE TABLE `tb_ironingrecordorder` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `created_user` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `state` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `orderId` (`orderId`),
   KEY `created_user` (`created_user`),
@@ -281,18 +297,21 @@ CREATE TABLE `tb_materialpurchaseorder` (
   `orderNumber` varchar(64) DEFAULT NULL,
   `img_s` varchar(255) DEFAULT NULL,
   `img_ss` varchar(255) DEFAULT NULL,
+  `charge_user` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `orderId` (`orderId`),
   KEY `created_user` (`created_user`),
   KEY `factoryId` (`factoryId`),
   KEY `sampleId` (`sampleId`),
   KEY `companyId` (`companyId`),
+  KEY `tb_materialpurchaseorder_ibfk_6` (`charge_user`),
+  CONSTRAINT `tb_materialpurchaseorder_ibfk_6` FOREIGN KEY (`charge_user`) REFERENCES `tb_user` (`id`),
   CONSTRAINT `tb_materialpurchaseorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
   CONSTRAINT `tb_materialpurchaseorder_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`),
   CONSTRAINT `tb_materialpurchaseorder_ibfk_3` FOREIGN KEY (`factoryId`) REFERENCES `tb_factory` (`id`),
   CONSTRAINT `tb_materialpurchaseorder_ibfk_4` FOREIGN KEY (`sampleId`) REFERENCES `tb_sample` (`id`),
   CONSTRAINT `tb_materialpurchaseorder_ibfk_5` FOREIGN KEY (`companyId`) REFERENCES `tb_company` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_module
@@ -449,6 +468,8 @@ CREATE TABLE `tb_planorder` (
   `updated_at` datetime DEFAULT NULL,
   `created_user` int(11) DEFAULT NULL,
   `detail_json` text,
+  `status` int(11) DEFAULT NULL,
+  `state` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `orderId` (`orderId`),
   KEY `created_user` (`created_user`),
@@ -469,6 +490,8 @@ CREATE TABLE `tb_producingorder` (
   `detail_json` text,
   `detail_2_json` text,
   `factoryId` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `state` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `orderId` (`orderId`),
   KEY `created_user` (`created_user`),
@@ -626,7 +649,7 @@ CREATE TABLE `tb_role_authority` (
   CONSTRAINT `tb_role_authority_ibfk_1` FOREIGN KEY (`authorityId`) REFERENCES `tb_authority` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `tb_role_authority_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `tb_role_authority_ibfk_3` FOREIGN KEY (`roleId`) REFERENCES `tb_role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2258 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2373 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_role_module
@@ -709,6 +732,8 @@ CREATE TABLE `tb_storeorder` (
   `created_user` int(11) DEFAULT NULL,
   `detail_json` text,
   `detail_2_json` text,
+  `status` int(11) DEFAULT NULL,
+  `state` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `orderId` (`orderId`),
   KEY `created_user` (`created_user`),
@@ -865,16 +890,20 @@ INSERT INTO `tb_authority` VALUES ('118', '117', '新增', 'coloring_order/add')
 INSERT INTO `tb_authority` VALUES ('119', '117', '编辑', 'coloring_order/edit');
 INSERT INTO `tb_authority` VALUES ('120', '117', '删除', 'coloring_order/delete');
 INSERT INTO `tb_authority` VALUES ('121', '117', '查看列表', 'coloring_order/index');
-INSERT INTO `tb_carfixrecordorder` VALUES ('1', '8', '2014-11-27 17:05:12', '2014-11-27 17:05:12', '1');
-INSERT INTO `tb_carfixrecordorder` VALUES ('2', '11', '2015-03-04 18:56:20', '2015-03-04 18:56:20', '1');
-INSERT INTO `tb_carfixrecordorder` VALUES ('3', '12', '2015-03-05 13:42:57', '2015-03-05 13:42:57', '1');
-INSERT INTO `tb_carfixrecordorder` VALUES ('4', '13', '2015-03-05 16:22:28', '2015-03-05 16:22:28', '1');
-INSERT INTO `tb_carfixrecordorder` VALUES ('5', '14', '2015-03-10 17:32:29', '2015-03-10 17:32:29', '1');
-INSERT INTO `tb_checkrecordorder` VALUES ('1', '8', '2015-01-09 13:52:30', '2015-01-09 13:52:30', '1');
-INSERT INTO `tb_checkrecordorder` VALUES ('2', '11', '2015-03-04 18:56:20', '2015-03-04 18:56:20', '1');
-INSERT INTO `tb_checkrecordorder` VALUES ('3', '12', '2015-03-05 13:42:57', '2015-03-05 13:42:57', '1');
-INSERT INTO `tb_checkrecordorder` VALUES ('4', '13', '2015-03-05 16:22:27', '2015-03-05 16:22:27', '1');
-INSERT INTO `tb_checkrecordorder` VALUES ('5', '14', '2015-03-10 17:32:29', '2015-03-10 17:32:29', '1');
+INSERT INTO `tb_authority` VALUES ('122', '117', '查看单据详情', 'coloring_order/detail');
+INSERT INTO `tb_authority` VALUES ('123', '112', '查看单据详情', 'fuliao_purchase_order/detail');
+INSERT INTO `tb_authority` VALUES ('124', '107', '查看单据详情', 'material_purchase_order/detail');
+INSERT INTO `tb_carfixrecordorder` VALUES ('1', '8', '2014-11-27 17:05:12', '2014-11-27 17:05:12', '1', null, null);
+INSERT INTO `tb_carfixrecordorder` VALUES ('2', '11', '2015-03-04 18:56:20', '2015-03-04 18:56:20', '1', null, null);
+INSERT INTO `tb_carfixrecordorder` VALUES ('3', '12', '2015-03-05 13:42:57', '2015-03-05 13:42:57', '1', null, null);
+INSERT INTO `tb_carfixrecordorder` VALUES ('4', '13', '2015-03-05 16:22:28', '2015-03-05 16:22:28', '1', null, null);
+INSERT INTO `tb_carfixrecordorder` VALUES ('5', '14', '2015-03-10 17:32:29', '2015-03-10 17:32:29', '1', null, null);
+INSERT INTO `tb_checkrecordorder` VALUES ('1', '8', '2015-01-09 13:52:30', '2015-01-09 13:52:30', '1', null, null);
+INSERT INTO `tb_checkrecordorder` VALUES ('2', '11', '2015-03-04 18:56:20', '2015-03-04 18:56:20', '1', null, null);
+INSERT INTO `tb_checkrecordorder` VALUES ('3', '12', '2015-03-05 13:42:57', '2015-03-05 13:42:57', '1', null, null);
+INSERT INTO `tb_checkrecordorder` VALUES ('4', '13', '2015-03-05 16:22:27', '2015-03-05 16:22:27', '1', null, null);
+INSERT INTO `tb_checkrecordorder` VALUES ('5', '14', '2015-03-10 17:32:29', '2015-03-10 17:32:29', '1', null, null);
+INSERT INTO `tb_coloringorder` VALUES ('1', null, '2015-03-17 21:30:43', '2015-03-17 21:30:43', '1', '[{\"color\":\"KM5663黑色\",\"material\":\"26s/2晴纶\",\"quantity\":148,\"standardyarn\":\"\"}]', '5', null, null, '1', 'resource.fuwei.com/images/sample/140595351558420140716_230658.jpg', '材料', '测试', 'FWA30002', '尺寸', '100', '2', 'HM', null, 'resource.fuwei.com/images/sample/s/140595351558420140716_230658.png', 'resource.fuwei.com/images/sample/ss/140595351558420140716_230658.png', null);
 INSERT INTO `tb_company` VALUES ('1', '公司地址', '杭州市', null, null, '2014-07-10 19:46:36', '公司', 'gs', '0', '公司', '2014-07-10 19:46:36', '1');
 INSERT INTO `tb_company` VALUES ('2', '西湖区文一西路243号', '杭州市', null, null, '2014-07-13 20:22:16', '测试公司', 'csgs', '0', '公司3', '2015-03-05 18:05:42', '1');
 INSERT INTO `tb_factory` VALUES ('1', '加工工厂', '杭州市桐庐县通过村', '2014-08-02 14:34:05', 'jggc', '2014-08-02 14:34:05', '1', '0');
@@ -886,28 +915,29 @@ INSERT INTO `tb_gongxu` VALUES ('1', '2014-07-07 17:18:04', '测试工序', '201
 INSERT INTO `tb_gongxu` VALUES ('2', '2014-07-07 17:22:01', '测试工序2', '2014-07-12 22:35:07', '1');
 INSERT INTO `tb_gongxu` VALUES ('3', '2014-07-07 19:53:12', '测试工序3', '2014-07-12 22:35:16', '1');
 INSERT INTO `tb_gongxu` VALUES ('4', '2014-07-08 21:01:53', '测试', '2014-07-08 21:01:53', '1');
-INSERT INTO `tb_halfcheckrecordorder` VALUES ('1', '8', '2014-11-27 15:15:53', '2014-11-27 16:36:55', '1', '[{\"color\":\"#000fff\",\"colorsample\":\"按标准样\",\"material\":\"呢绒\"}]');
-INSERT INTO `tb_halfcheckrecordorder` VALUES ('2', '11', '2015-03-04 18:56:19', '2015-03-04 20:24:14', '1', '[{\"color\":\"KM米色\",\"colorsample\":\"\",\"material\":\"2.5s冰岛毛\"}]');
-INSERT INTO `tb_halfcheckrecordorder` VALUES ('3', '12', '2015-03-05 13:42:57', '2015-03-05 13:42:57', '1', '[{\"color\":\"#000\",\"colorsample\":\"\",\"material\":\"冰岛毛\"}]');
-INSERT INTO `tb_halfcheckrecordorder` VALUES ('4', '13', '2015-03-05 16:22:27', '2015-03-05 16:22:27', '1', '[{\"color\":\"#000\",\"colorsample\":\"\",\"material\":\"dhaxam\"}]');
-INSERT INTO `tb_halfcheckrecordorder` VALUES ('5', '14', '2015-03-10 17:32:28', '2015-03-10 17:32:28', '1', '[{\"color\":\"米色\",\"colorsample\":\"\",\"material\":\"2.5s冰岛毛\"}]');
-INSERT INTO `tb_headbankorder` VALUES ('1', '8', '2014-11-12 17:18:21', '2015-01-08 12:56:57', '1');
-INSERT INTO `tb_headbankorder` VALUES ('2', '11', '2015-03-04 18:56:20', '2015-03-04 18:56:20', '1');
-INSERT INTO `tb_headbankorder` VALUES ('3', '12', '2015-03-05 13:42:57', '2015-03-05 13:42:57', '1');
-INSERT INTO `tb_headbankorder` VALUES ('4', '13', '2015-03-05 16:22:28', '2015-03-05 16:22:28', '1');
-INSERT INTO `tb_headbankorder` VALUES ('5', '14', '2015-03-10 17:32:29', '2015-03-10 17:32:29', '1');
-INSERT INTO `tb_ironingrecordorder` VALUES ('1', '8', '2014-11-27 17:05:26', '2014-11-27 17:05:26', '1');
-INSERT INTO `tb_ironingrecordorder` VALUES ('2', '11', '2015-03-04 18:56:20', '2015-03-04 18:56:20', '1');
-INSERT INTO `tb_ironingrecordorder` VALUES ('3', '12', '2015-03-05 13:42:57', '2015-03-05 13:42:57', '1');
-INSERT INTO `tb_ironingrecordorder` VALUES ('4', '13', '2015-03-05 16:22:28', '2015-03-05 16:22:28', '1');
-INSERT INTO `tb_ironingrecordorder` VALUES ('5', '14', '2015-03-10 17:32:29', '2015-03-10 17:32:29', '1');
+INSERT INTO `tb_halfcheckrecordorder` VALUES ('1', '8', '2014-11-27 15:15:53', '2014-11-27 16:36:55', '1', '[{\"color\":\"#000fff\",\"colorsample\":\"按标准样\",\"material\":\"呢绒\"}]', null, null);
+INSERT INTO `tb_halfcheckrecordorder` VALUES ('2', '11', '2015-03-04 18:56:19', '2015-03-04 20:24:14', '1', '[{\"color\":\"KM米色\",\"colorsample\":\"\",\"material\":\"2.5s冰岛毛\"}]', null, null);
+INSERT INTO `tb_halfcheckrecordorder` VALUES ('3', '12', '2015-03-05 13:42:57', '2015-03-05 13:42:57', '1', '[{\"color\":\"#000\",\"colorsample\":\"\",\"material\":\"冰岛毛\"}]', null, null);
+INSERT INTO `tb_halfcheckrecordorder` VALUES ('4', '13', '2015-03-05 16:22:27', '2015-03-05 16:22:27', '1', '[{\"color\":\"#000\",\"colorsample\":\"\",\"material\":\"dhaxam\"}]', null, null);
+INSERT INTO `tb_halfcheckrecordorder` VALUES ('5', '14', '2015-03-10 17:32:28', '2015-03-10 17:32:28', '1', '[{\"color\":\"米色\",\"colorsample\":\"\",\"material\":\"2.5s冰岛毛\"}]', null, null);
+INSERT INTO `tb_headbankorder` VALUES ('1', '8', '2014-11-12 17:18:21', '2015-01-08 12:56:57', '1', null, null);
+INSERT INTO `tb_headbankorder` VALUES ('2', '11', '2015-03-04 18:56:20', '2015-03-04 18:56:20', '1', null, null);
+INSERT INTO `tb_headbankorder` VALUES ('3', '12', '2015-03-05 13:42:57', '2015-03-05 13:42:57', '1', null, null);
+INSERT INTO `tb_headbankorder` VALUES ('4', '13', '2015-03-05 16:22:28', '2015-03-05 16:22:28', '1', null, null);
+INSERT INTO `tb_headbankorder` VALUES ('5', '14', '2015-03-10 17:32:29', '2015-03-10 17:32:29', '1', null, null);
+INSERT INTO `tb_ironingrecordorder` VALUES ('1', '8', '2014-11-27 17:05:26', '2014-11-27 17:05:26', '1', null, null);
+INSERT INTO `tb_ironingrecordorder` VALUES ('2', '11', '2015-03-04 18:56:20', '2015-03-04 18:56:20', '1', null, null);
+INSERT INTO `tb_ironingrecordorder` VALUES ('3', '12', '2015-03-05 13:42:57', '2015-03-05 13:42:57', '1', null, null);
+INSERT INTO `tb_ironingrecordorder` VALUES ('4', '13', '2015-03-05 16:22:28', '2015-03-05 16:22:28', '1', null, null);
+INSERT INTO `tb_ironingrecordorder` VALUES ('5', '14', '2015-03-10 17:32:29', '2015-03-10 17:32:29', '1', null, null);
 INSERT INTO `tb_material` VALUES ('1', '2015-03-05 17:42:17', '晴纶', '2015-03-05 17:42:17', '1');
 INSERT INTO `tb_material` VALUES ('6', '2015-03-05 17:44:13', '羊毛', '2015-03-05 17:44:13', '1');
 INSERT INTO `tb_material` VALUES ('8', '2015-03-05 17:44:40', '冰岛毛', '2015-03-05 17:44:40', '1');
 INSERT INTO `tb_material` VALUES ('9', '2015-03-05 17:45:50', '方法', '2015-03-05 17:45:50', '1');
-INSERT INTO `tb_materialpurchaseorder` VALUES ('2', null, '2015-03-15 21:10:04', '2015-03-16 17:54:39', '1', '[{\"batch_number\":\"111\",\"material\":\"冰岛毛\",\"price\":23.5,\"quantity\":712,\"scale\":\"1.3\"}]', '2015-03-15 00:00:00', '1', null, null, '1', 'resource.fuwei.com/images/sample/140595351558420140716_230658.jpg', '材料', '测试', 'FWA30002', '尺寸', '0', '2', 'kehuj', null, null, null);
-INSERT INTO `tb_materialpurchaseorder` VALUES ('3', '14', '2015-03-15 22:16:31', '2015-03-15 22:16:32', '1', '[{\"batch_number\":\"\",\"material\":\"冰岛毛\",\"price\":23.5,\"quantity\":725,\"scale\":\"1.3/1.1\"}]', '2015-03-15 00:00:00', '1', null, null, '1', 'resource.fuwei.com/images/sample/140670891273420140729125945848.jpg', '哈密瓜', '哈密瓜', 'FWA30007', '未知', '100', '7', null, null, null, null);
-INSERT INTO `tb_materialpurchaseorder` VALUES ('4', '14', '2015-03-15 22:18:11', '2015-03-15 22:18:12', '1', '[{\"batch_number\":\"3\",\"material\":\"冰岛毛\",\"price\":1,\"quantity\":22,\"scale\":\"1234\"}]', '2015-03-15 00:00:00', '1', null, null, '1', 'resource.fuwei.com/images/sample/140670891273420140729125945848.jpg', '哈密瓜', '哈密瓜', 'FWA30007', '未知', '100', '7', '', null, null, null);
+INSERT INTO `tb_materialpurchaseorder` VALUES ('2', null, '2015-03-15 21:10:04', '2015-03-16 17:54:39', '1', '[{\"batch_number\":\"111\",\"material\":\"冰岛毛\",\"price\":23.5,\"quantity\":712,\"scale\":\"1.3\"}]', '2015-03-15 00:00:00', '1', null, null, '1', 'resource.fuwei.com/images/sample/140595351558420140716_230658.jpg', '材料', '测试', 'FWA30002', '尺寸', '0', '2', 'kehuj', null, null, null, null);
+INSERT INTO `tb_materialpurchaseorder` VALUES ('3', '14', '2015-03-15 22:16:31', '2015-03-15 22:16:32', '1', '[{\"batch_number\":\"\",\"material\":\"冰岛毛\",\"price\":23.5,\"quantity\":725,\"scale\":\"1.3/1.1\"}]', '2015-03-15 00:00:00', '1', null, null, '1', 'resource.fuwei.com/images/sample/140670891273420140729125945848.jpg', '哈密瓜', '哈密瓜', 'FWA30007', '未知', '100', '7', null, null, null, null, null);
+INSERT INTO `tb_materialpurchaseorder` VALUES ('4', '14', '2015-03-15 22:18:11', '2015-03-15 22:18:12', '1', '[{\"batch_number\":\"3\",\"material\":\"冰岛毛\",\"price\":1,\"quantity\":22,\"scale\":\"1234\"}]', '2015-03-15 00:00:00', '1', null, null, '1', 'resource.fuwei.com/images/sample/140670891273420140729125945848.jpg', '哈密瓜', '哈密瓜', 'FWA30007', '未知', '100', '7', '', null, null, null, null);
+INSERT INTO `tb_materialpurchaseorder` VALUES ('5', '14', '2015-03-17 23:17:33', '2015-03-17 23:17:33', '1', '[{\"batch_number\":\"\",\"material\":\"冰岛毛\",\"price\":2.9,\"quantity\":600,\"scale\":\"1.3\"}]', '2015-03-17 00:00:00', '4', null, null, '1', 'resource.fuwei.com/images/sample/140670891273420140729125945848.jpg', '哈密瓜', '哈密瓜', 'FWA30007', '未知', '100', '7', '', 'FWA20014', 'resource.fuwei.com/images/sample/s/140670891273420140729125945848.png', 'resource.fuwei.com/images/sample/ss/140670891273420140729125945848.png', '1');
 INSERT INTO `tb_order` VALUES ('8', '2014-11-10 15:44:58', '2015-01-09 15:48:40', '1', '1', '30000', '4', '已取消', '哈密瓜很甜', '哈密瓜(100.0克)', '2014-11-10 00:00:00', '2014-12-10 00:00:00', null, 'FWA20008', '1', null, null, '0', '100*1.4*12*30÷ 1000=50.4+4=54.4\r\n\r\n测试工序:6.000\r\n____________________________\r\n6+0\r\n=6*1.7\r\n=10.2+54.4\r\n=64.6÷12\r\n=5.383*1.4\r\n=7.536\r\n', 'resource.fuwei.com/images/sample/140670891273420140729125945848.jpg', null, '哈密瓜', '哈密瓜', 'FWA30007', '未知', '100', '3', '7', '30', null, 'resource.fuwei.com/images/sample/s/140670891273420140729125945848.png', 'resource.fuwei.com/images/sample/ss/140670891273420140729125945848.png', '1000', 'KM', null, '');
 INSERT INTO `tb_order` VALUES ('9', '2015-01-09 15:26:25', '2015-01-09 15:26:25', '1', '4', '50000', '4', '已取消', '', '测试样品(55.0克)', '2015-01-09 00:00:00', '2015-01-30 00:00:00', null, 'FWA20009', '2', null, null, '0', '55*1.1*12*10÷ 1000=7.26+10=17.26\r\n0.944\r\n测试工序:6.000\r\n测试工序2:8.000\r\n____________________________\r\n14+0.944\r\n=14.944*1.3\r\n=19.427+17.26\r\n=36.687÷12\r\n=3.057*1.3\r\n=3.974\r\n', 'resource.fuwei.com/images/sample/1406002140620QQ图片20140717133813.jpg', null, '材料', '测试样品', 'FWA30003', '尺寸', '55', '1', '3', '50', null, 'resource.fuwei.com/images/sample/s/1406002140620QQ图片20140717133813.png', 'resource.fuwei.com/images/sample/ss/1406002140620QQ图片20140717133813.png', '1000', '', null, '');
 INSERT INTO `tb_order` VALUES ('10', '2015-02-27 17:19:34', '2015-02-28 11:42:40', '1', '1', '0', '2', '已发货', '2015-2-27备注', '哈密瓜(100.0克)', '2015-02-27 00:00:00', '2015-05-27 00:00:00', '2015-03-04 20:44:29', 'FWA20010', '1', null, null, '0', '100*1.4*12*30÷ 1000=50.4+4=54.4\r\n\r\n测试工序:6.000\r\n____________________________\r\n6+0\r\n=6*1.7\r\n=10.2+54.4\r\n=64.6÷12\r\n=5.383*1.4\r\n=7.536\r\n', 'resource.fuwei.com/images/sample/140670891273420140729125945848.jpg', null, '哈密瓜', '哈密瓜', 'FWA30007', '未知', '100', '1', '7', '0', null, 'resource.fuwei.com/images/sample/s/140670891273420140729125945848.png', 'resource.fuwei.com/images/sample/ss/140670891273420140729125945848.png', '1200', '', '[{\"color\":\"#fff\",\"quantity\":1200,\"size\":\"100cm\",\"weight\":122,\"yarn\":\"sgaf\"}]', '');
@@ -940,15 +970,15 @@ INSERT INTO `tb_order_handle` VALUES ('22', '12', '执行订单步骤', '3', '�
 INSERT INTO `tb_order_handle` VALUES ('23', '13', '创建订单', '1', '待发货', null, '1', '2015-03-05 16:22:27');
 INSERT INTO `tb_order_handle` VALUES ('24', '13', '修改订单', '0', null, null, '1', '2015-03-10 16:04:03');
 INSERT INTO `tb_order_handle` VALUES ('25', '14', '创建订单', '1', '待发货', null, '1', '2015-03-10 17:32:28');
-INSERT INTO `tb_planorder` VALUES ('1', '8', '2014-11-26 15:10:19', '2014-11-26 15:31:44', '1', '[{\"color\":\"yanse\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\",\"quantity\":1000,\"size\":\"正方形\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\",\"weight\":109,\"yarn\":\"纱线\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\"}]');
-INSERT INTO `tb_planorder` VALUES ('2', '10', '2015-02-28 17:12:15', '2015-02-28 17:12:31', '1', '[{\"color\":\"#fff\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\",\"quantity\":1300,\"size\":\"100cm\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\",\"weight\":122,\"yarn\":\"sgaf\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\"}]');
-INSERT INTO `tb_planorder` VALUES ('3', '11', '2015-03-04 18:56:19', '2015-03-04 20:23:53', '1', '[{\"color\":\"KM米色\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\",\"quantity\":5030,\"size\":\"帽身20.5+帽口22cm宽度 帽高21+翻边5.5cm\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\",\"weight\":108,\"yarn\":\"2.5s冰岛毛\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\"}]');
-INSERT INTO `tb_planorder` VALUES ('4', '12', '2015-03-05 13:42:57', '2015-03-05 13:42:57', '1', '[{\"color\":\"#000\",\"quantity\":1000,\"size\":\"100cm\",\"weight\":100,\"yarn\":\"冰岛毛\"}]');
-INSERT INTO `tb_planorder` VALUES ('5', '13', '2015-03-05 16:22:27', '2015-03-05 16:22:27', '1', '[{\"color\":\"#000\",\"quantity\":1234,\"size\":\"198cm\",\"weight\":109,\"yarn\":\"dhaxam\"}]');
-INSERT INTO `tb_planorder` VALUES ('6', '14', '2015-03-10 17:32:28', '2015-03-10 17:32:28', '1', '[{\"color\":\"米色\",\"id\":1,\"price\":0.9,\"quantity\":4998,\"size\":\"帽身20.5+帽口22cm宽度 帽高21+翻边5.5cm\",\"weight\":108,\"yarn\":\"2.5s冰岛毛\"}]');
-INSERT INTO `tb_producingorder` VALUES ('1', '8', '2014-11-26 13:26:17', '2014-11-26 13:32:56', '1', '[{\"color\":\"颜色\",\"price\":5,\"quantity\":1,\"size\":\"size\",\"weight\":1,\"yarn\":\"1\"}]', '[{\"color\":\"color\",\"colorsample\":\"标准2\",\"material\":\"材料\",\"quantity\":3}]', null);
-INSERT INTO `tb_producingorder` VALUES ('2', '14', '2015-03-12 17:04:04', '2015-03-12 17:43:47', '1', '[{\"color\":\"米色\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\",\"planOrderDetailId\":1,\"price\":0.9,\"quantity\":3000,\"size\":\"帽身20.5+帽口22cm宽度 帽高21+翻边5.5cm\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\",\"weight\":108,\"yarn\":\"2.5s冰岛毛\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\"}]', '[{\"color\":\"KM米色\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\",\"colorsample\":\"0\",\"material\":\"2.5s冰岛毛\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\",\"quantity\":333}]', '2');
-INSERT INTO `tb_producingorder` VALUES ('3', '14', '2015-03-12 17:43:05', '2015-03-12 17:48:00', '1', '[{\"color\":\"米色\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\",\"planOrderDetailId\":1,\"price\":0.9,\"quantity\":1980,\"size\":\"帽身20.5+帽口22cm宽度 帽高21+翻边5.5cm\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\",\"weight\":108,\"yarn\":\"2.5s冰岛毛\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\"}]', '[{\"color\":\"KM米色\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\",\"colorsample\":\"0\",\"material\":\"2.5s冰岛毛\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\",\"quantity\":150}]', '3');
+INSERT INTO `tb_planorder` VALUES ('1', '8', '2014-11-26 15:10:19', '2014-11-26 15:31:44', '1', '[{\"color\":\"yanse\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\",\"quantity\":1000,\"size\":\"正方形\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\",\"weight\":109,\"yarn\":\"纱线\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\"}]', null, null);
+INSERT INTO `tb_planorder` VALUES ('2', '10', '2015-02-28 17:12:15', '2015-02-28 17:12:31', '1', '[{\"color\":\"#fff\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\",\"quantity\":1300,\"size\":\"100cm\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\",\"weight\":122,\"yarn\":\"sgaf\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\"}]', null, null);
+INSERT INTO `tb_planorder` VALUES ('3', '11', '2015-03-04 18:56:19', '2015-03-04 20:23:53', '1', '[{\"color\":\"KM米色\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\",\"quantity\":5030,\"size\":\"帽身20.5+帽口22cm宽度 帽高21+翻边5.5cm\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\",\"weight\":108,\"yarn\":\"2.5s冰岛毛\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\"}]', null, null);
+INSERT INTO `tb_planorder` VALUES ('4', '12', '2015-03-05 13:42:57', '2015-03-05 13:42:57', '1', '[{\"color\":\"#000\",\"quantity\":1000,\"size\":\"100cm\",\"weight\":100,\"yarn\":\"冰岛毛\"}]', null, null);
+INSERT INTO `tb_planorder` VALUES ('5', '13', '2015-03-05 16:22:27', '2015-03-05 16:22:27', '1', '[{\"color\":\"#000\",\"quantity\":1234,\"size\":\"198cm\",\"weight\":109,\"yarn\":\"dhaxam\"}]', null, null);
+INSERT INTO `tb_planorder` VALUES ('6', '14', '2015-03-10 17:32:28', '2015-03-10 17:32:28', '1', '[{\"color\":\"米色\",\"id\":1,\"price\":0.9,\"quantity\":4998,\"size\":\"帽身20.5+帽口22cm宽度 帽高21+翻边5.5cm\",\"weight\":108,\"yarn\":\"2.5s冰岛毛\"}]', null, null);
+INSERT INTO `tb_producingorder` VALUES ('1', '8', '2014-11-26 13:26:17', '2014-11-26 13:32:56', '1', '[{\"color\":\"颜色\",\"price\":5,\"quantity\":1,\"size\":\"size\",\"weight\":1,\"yarn\":\"1\"}]', '[{\"color\":\"color\",\"colorsample\":\"标准2\",\"material\":\"材料\",\"quantity\":3}]', null, null, null);
+INSERT INTO `tb_producingorder` VALUES ('2', '14', '2015-03-12 17:04:04', '2015-03-12 17:43:47', '1', '[{\"color\":\"米色\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\",\"planOrderDetailId\":1,\"price\":0.9,\"quantity\":3000,\"size\":\"帽身20.5+帽口22cm宽度 帽高21+翻边5.5cm\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\",\"weight\":108,\"yarn\":\"2.5s冰岛毛\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\"}]', '[{\"color\":\"KM米色\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\",\"colorsample\":\"0\",\"material\":\"2.5s冰岛毛\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\",\"quantity\":333}]', '2', null, null);
+INSERT INTO `tb_producingorder` VALUES ('3', '14', '2015-03-12 17:43:05', '2015-03-12 17:48:00', '1', '[{\"color\":\"米色\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\",\"planOrderDetailId\":1,\"price\":0.9,\"quantity\":1980,\"size\":\"帽身20.5+帽口22cm宽度 帽高21+翻边5.5cm\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\",\"weight\":108,\"yarn\":\"2.5s冰岛毛\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\"}]', '[{\"color\":\"KM米色\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\",\"colorsample\":\"0\",\"material\":\"2.5s冰岛毛\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\",\"quantity\":150}]', '3', null, null);
 INSERT INTO `tb_quote` VALUES ('7', '2014-07-21 22:56:04', '2014-07-21 22:56:04', '1', '1', '2');
 INSERT INTO `tb_quote` VALUES ('9', '2014-07-30 16:34:03', '2014-07-30 16:34:03', '1', '4', '7');
 INSERT INTO `tb_quote` VALUES ('12', '2014-07-30 16:39:17', '2014-07-30 16:39:17', '1', '5', '7');
@@ -993,118 +1023,121 @@ INSERT INTO `tb_role_authority` VALUES ('465', '1', '2', '28');
 INSERT INTO `tb_role_authority` VALUES ('466', '1', '2', '31');
 INSERT INTO `tb_role_authority` VALUES ('467', '1', '2', '41');
 INSERT INTO `tb_role_authority` VALUES ('468', '1', '2', '48');
-INSERT INTO `tb_role_authority` VALUES ('2146', '1', '1', '1');
-INSERT INTO `tb_role_authority` VALUES ('2147', '1', '1', '2');
-INSERT INTO `tb_role_authority` VALUES ('2148', '1', '1', '3');
-INSERT INTO `tb_role_authority` VALUES ('2149', '1', '1', '4');
-INSERT INTO `tb_role_authority` VALUES ('2150', '1', '1', '5');
-INSERT INTO `tb_role_authority` VALUES ('2151', '1', '1', '6');
-INSERT INTO `tb_role_authority` VALUES ('2152', '1', '1', '7');
-INSERT INTO `tb_role_authority` VALUES ('2153', '1', '1', '8');
-INSERT INTO `tb_role_authority` VALUES ('2154', '1', '1', '9');
-INSERT INTO `tb_role_authority` VALUES ('2155', '1', '1', '49');
-INSERT INTO `tb_role_authority` VALUES ('2156', '1', '1', '50');
-INSERT INTO `tb_role_authority` VALUES ('2157', '1', '1', '10');
-INSERT INTO `tb_role_authority` VALUES ('2158', '1', '1', '11');
-INSERT INTO `tb_role_authority` VALUES ('2159', '1', '1', '12');
-INSERT INTO `tb_role_authority` VALUES ('2160', '1', '1', '13');
-INSERT INTO `tb_role_authority` VALUES ('2161', '1', '1', '14');
-INSERT INTO `tb_role_authority` VALUES ('2162', '1', '1', '15');
-INSERT INTO `tb_role_authority` VALUES ('2163', '1', '1', '16');
-INSERT INTO `tb_role_authority` VALUES ('2164', '1', '1', '17');
-INSERT INTO `tb_role_authority` VALUES ('2165', '1', '1', '18');
-INSERT INTO `tb_role_authority` VALUES ('2166', '1', '1', '19');
-INSERT INTO `tb_role_authority` VALUES ('2167', '1', '1', '20');
-INSERT INTO `tb_role_authority` VALUES ('2168', '1', '1', '21');
-INSERT INTO `tb_role_authority` VALUES ('2169', '1', '1', '22');
-INSERT INTO `tb_role_authority` VALUES ('2170', '1', '1', '23');
-INSERT INTO `tb_role_authority` VALUES ('2171', '1', '1', '24');
-INSERT INTO `tb_role_authority` VALUES ('2172', '1', '1', '65');
-INSERT INTO `tb_role_authority` VALUES ('2173', '1', '1', '66');
-INSERT INTO `tb_role_authority` VALUES ('2174', '1', '1', '67');
-INSERT INTO `tb_role_authority` VALUES ('2175', '1', '1', '68');
-INSERT INTO `tb_role_authority` VALUES ('2176', '1', '1', '69');
-INSERT INTO `tb_role_authority` VALUES ('2177', '1', '1', '102');
-INSERT INTO `tb_role_authority` VALUES ('2178', '1', '1', '103');
-INSERT INTO `tb_role_authority` VALUES ('2179', '1', '1', '104');
-INSERT INTO `tb_role_authority` VALUES ('2180', '1', '1', '105');
-INSERT INTO `tb_role_authority` VALUES ('2181', '1', '1', '106');
-INSERT INTO `tb_role_authority` VALUES ('2182', '1', '1', '25');
-INSERT INTO `tb_role_authority` VALUES ('2183', '1', '1', '26');
-INSERT INTO `tb_role_authority` VALUES ('2184', '1', '1', '27');
-INSERT INTO `tb_role_authority` VALUES ('2185', '1', '1', '28');
-INSERT INTO `tb_role_authority` VALUES ('2186', '1', '1', '29');
-INSERT INTO `tb_role_authority` VALUES ('2187', '1', '1', '30');
-INSERT INTO `tb_role_authority` VALUES ('2188', '1', '1', '31');
-INSERT INTO `tb_role_authority` VALUES ('2189', '1', '1', '51');
-INSERT INTO `tb_role_authority` VALUES ('2190', '1', '1', '32');
-INSERT INTO `tb_role_authority` VALUES ('2191', '1', '1', '33');
-INSERT INTO `tb_role_authority` VALUES ('2192', '1', '1', '34');
-INSERT INTO `tb_role_authority` VALUES ('2193', '1', '1', '35');
-INSERT INTO `tb_role_authority` VALUES ('2194', '1', '1', '36');
-INSERT INTO `tb_role_authority` VALUES ('2195', '1', '1', '37');
-INSERT INTO `tb_role_authority` VALUES ('2196', '1', '1', '38');
-INSERT INTO `tb_role_authority` VALUES ('2197', '1', '1', '39');
-INSERT INTO `tb_role_authority` VALUES ('2198', '1', '1', '40');
-INSERT INTO `tb_role_authority` VALUES ('2199', '1', '1', '41');
-INSERT INTO `tb_role_authority` VALUES ('2200', '1', '1', '42');
-INSERT INTO `tb_role_authority` VALUES ('2201', '1', '1', '43');
-INSERT INTO `tb_role_authority` VALUES ('2202', '1', '1', '48');
-INSERT INTO `tb_role_authority` VALUES ('2203', '1', '1', '44');
-INSERT INTO `tb_role_authority` VALUES ('2204', '1', '1', '45');
-INSERT INTO `tb_role_authority` VALUES ('2205', '1', '1', '46');
-INSERT INTO `tb_role_authority` VALUES ('2206', '1', '1', '47');
-INSERT INTO `tb_role_authority` VALUES ('2207', '1', '1', '52');
-INSERT INTO `tb_role_authority` VALUES ('2208', '1', '1', '53');
-INSERT INTO `tb_role_authority` VALUES ('2209', '1', '1', '54');
-INSERT INTO `tb_role_authority` VALUES ('2210', '1', '1', '55');
-INSERT INTO `tb_role_authority` VALUES ('2211', '1', '1', '56');
-INSERT INTO `tb_role_authority` VALUES ('2212', '1', '1', '57');
-INSERT INTO `tb_role_authority` VALUES ('2213', '1', '1', '58');
-INSERT INTO `tb_role_authority` VALUES ('2214', '1', '1', '59');
-INSERT INTO `tb_role_authority` VALUES ('2215', '1', '1', '60');
-INSERT INTO `tb_role_authority` VALUES ('2216', '1', '1', '61');
-INSERT INTO `tb_role_authority` VALUES ('2217', '1', '1', '62');
-INSERT INTO `tb_role_authority` VALUES ('2218', '1', '1', '63');
-INSERT INTO `tb_role_authority` VALUES ('2219', '1', '1', '75');
-INSERT INTO `tb_role_authority` VALUES ('2220', '1', '1', '76');
-INSERT INTO `tb_role_authority` VALUES ('2221', '1', '1', '77');
-INSERT INTO `tb_role_authority` VALUES ('2222', '1', '1', '78');
-INSERT INTO `tb_role_authority` VALUES ('2223', '1', '1', '79');
-INSERT INTO `tb_role_authority` VALUES ('2224', '1', '1', '80');
-INSERT INTO `tb_role_authority` VALUES ('2225', '1', '1', '81');
-INSERT INTO `tb_role_authority` VALUES ('2226', '1', '1', '82');
-INSERT INTO `tb_role_authority` VALUES ('2227', '1', '1', '83');
-INSERT INTO `tb_role_authority` VALUES ('2228', '1', '1', '84');
-INSERT INTO `tb_role_authority` VALUES ('2229', '1', '1', '85');
-INSERT INTO `tb_role_authority` VALUES ('2230', '1', '1', '86');
-INSERT INTO `tb_role_authority` VALUES ('2231', '1', '1', '87');
-INSERT INTO `tb_role_authority` VALUES ('2232', '1', '1', '70');
-INSERT INTO `tb_role_authority` VALUES ('2233', '1', '1', '71');
-INSERT INTO `tb_role_authority` VALUES ('2234', '1', '1', '72');
-INSERT INTO `tb_role_authority` VALUES ('2235', '1', '1', '73');
-INSERT INTO `tb_role_authority` VALUES ('2236', '1', '1', '74');
-INSERT INTO `tb_role_authority` VALUES ('2237', '1', '1', '88');
-INSERT INTO `tb_role_authority` VALUES ('2238', '1', '1', '93');
-INSERT INTO `tb_role_authority` VALUES ('2239', '1', '1', '107');
-INSERT INTO `tb_role_authority` VALUES ('2240', '1', '1', '108');
-INSERT INTO `tb_role_authority` VALUES ('2241', '1', '1', '109');
-INSERT INTO `tb_role_authority` VALUES ('2242', '1', '1', '110');
-INSERT INTO `tb_role_authority` VALUES ('2243', '1', '1', '111');
-INSERT INTO `tb_role_authority` VALUES ('2244', '1', '1', '112');
-INSERT INTO `tb_role_authority` VALUES ('2245', '1', '1', '113');
-INSERT INTO `tb_role_authority` VALUES ('2246', '1', '1', '114');
-INSERT INTO `tb_role_authority` VALUES ('2247', '1', '1', '115');
-INSERT INTO `tb_role_authority` VALUES ('2248', '1', '1', '116');
-INSERT INTO `tb_role_authority` VALUES ('2249', '1', '1', '117');
-INSERT INTO `tb_role_authority` VALUES ('2250', '1', '1', '118');
-INSERT INTO `tb_role_authority` VALUES ('2251', '1', '1', '119');
-INSERT INTO `tb_role_authority` VALUES ('2252', '1', '1', '120');
-INSERT INTO `tb_role_authority` VALUES ('2253', '1', '1', '121');
-INSERT INTO `tb_role_authority` VALUES ('2254', '1', '1', '94');
-INSERT INTO `tb_role_authority` VALUES ('2255', '1', '1', '95');
-INSERT INTO `tb_role_authority` VALUES ('2256', '1', '1', '96');
-INSERT INTO `tb_role_authority` VALUES ('2257', '1', '1', '97');
+INSERT INTO `tb_role_authority` VALUES ('2258', '1', '1', '1');
+INSERT INTO `tb_role_authority` VALUES ('2259', '1', '1', '2');
+INSERT INTO `tb_role_authority` VALUES ('2260', '1', '1', '3');
+INSERT INTO `tb_role_authority` VALUES ('2261', '1', '1', '4');
+INSERT INTO `tb_role_authority` VALUES ('2262', '1', '1', '5');
+INSERT INTO `tb_role_authority` VALUES ('2263', '1', '1', '6');
+INSERT INTO `tb_role_authority` VALUES ('2264', '1', '1', '7');
+INSERT INTO `tb_role_authority` VALUES ('2265', '1', '1', '8');
+INSERT INTO `tb_role_authority` VALUES ('2266', '1', '1', '9');
+INSERT INTO `tb_role_authority` VALUES ('2267', '1', '1', '49');
+INSERT INTO `tb_role_authority` VALUES ('2268', '1', '1', '50');
+INSERT INTO `tb_role_authority` VALUES ('2269', '1', '1', '10');
+INSERT INTO `tb_role_authority` VALUES ('2270', '1', '1', '11');
+INSERT INTO `tb_role_authority` VALUES ('2271', '1', '1', '12');
+INSERT INTO `tb_role_authority` VALUES ('2272', '1', '1', '13');
+INSERT INTO `tb_role_authority` VALUES ('2273', '1', '1', '14');
+INSERT INTO `tb_role_authority` VALUES ('2274', '1', '1', '15');
+INSERT INTO `tb_role_authority` VALUES ('2275', '1', '1', '16');
+INSERT INTO `tb_role_authority` VALUES ('2276', '1', '1', '17');
+INSERT INTO `tb_role_authority` VALUES ('2277', '1', '1', '18');
+INSERT INTO `tb_role_authority` VALUES ('2278', '1', '1', '19');
+INSERT INTO `tb_role_authority` VALUES ('2279', '1', '1', '20');
+INSERT INTO `tb_role_authority` VALUES ('2280', '1', '1', '21');
+INSERT INTO `tb_role_authority` VALUES ('2281', '1', '1', '22');
+INSERT INTO `tb_role_authority` VALUES ('2282', '1', '1', '23');
+INSERT INTO `tb_role_authority` VALUES ('2283', '1', '1', '24');
+INSERT INTO `tb_role_authority` VALUES ('2284', '1', '1', '65');
+INSERT INTO `tb_role_authority` VALUES ('2285', '1', '1', '66');
+INSERT INTO `tb_role_authority` VALUES ('2286', '1', '1', '67');
+INSERT INTO `tb_role_authority` VALUES ('2287', '1', '1', '68');
+INSERT INTO `tb_role_authority` VALUES ('2288', '1', '1', '69');
+INSERT INTO `tb_role_authority` VALUES ('2289', '1', '1', '102');
+INSERT INTO `tb_role_authority` VALUES ('2290', '1', '1', '103');
+INSERT INTO `tb_role_authority` VALUES ('2291', '1', '1', '104');
+INSERT INTO `tb_role_authority` VALUES ('2292', '1', '1', '105');
+INSERT INTO `tb_role_authority` VALUES ('2293', '1', '1', '106');
+INSERT INTO `tb_role_authority` VALUES ('2294', '1', '1', '25');
+INSERT INTO `tb_role_authority` VALUES ('2295', '1', '1', '26');
+INSERT INTO `tb_role_authority` VALUES ('2296', '1', '1', '27');
+INSERT INTO `tb_role_authority` VALUES ('2297', '1', '1', '28');
+INSERT INTO `tb_role_authority` VALUES ('2298', '1', '1', '29');
+INSERT INTO `tb_role_authority` VALUES ('2299', '1', '1', '30');
+INSERT INTO `tb_role_authority` VALUES ('2300', '1', '1', '31');
+INSERT INTO `tb_role_authority` VALUES ('2301', '1', '1', '51');
+INSERT INTO `tb_role_authority` VALUES ('2302', '1', '1', '32');
+INSERT INTO `tb_role_authority` VALUES ('2303', '1', '1', '33');
+INSERT INTO `tb_role_authority` VALUES ('2304', '1', '1', '34');
+INSERT INTO `tb_role_authority` VALUES ('2305', '1', '1', '35');
+INSERT INTO `tb_role_authority` VALUES ('2306', '1', '1', '36');
+INSERT INTO `tb_role_authority` VALUES ('2307', '1', '1', '37');
+INSERT INTO `tb_role_authority` VALUES ('2308', '1', '1', '38');
+INSERT INTO `tb_role_authority` VALUES ('2309', '1', '1', '39');
+INSERT INTO `tb_role_authority` VALUES ('2310', '1', '1', '40');
+INSERT INTO `tb_role_authority` VALUES ('2311', '1', '1', '41');
+INSERT INTO `tb_role_authority` VALUES ('2312', '1', '1', '42');
+INSERT INTO `tb_role_authority` VALUES ('2313', '1', '1', '43');
+INSERT INTO `tb_role_authority` VALUES ('2314', '1', '1', '48');
+INSERT INTO `tb_role_authority` VALUES ('2315', '1', '1', '44');
+INSERT INTO `tb_role_authority` VALUES ('2316', '1', '1', '45');
+INSERT INTO `tb_role_authority` VALUES ('2317', '1', '1', '46');
+INSERT INTO `tb_role_authority` VALUES ('2318', '1', '1', '47');
+INSERT INTO `tb_role_authority` VALUES ('2319', '1', '1', '52');
+INSERT INTO `tb_role_authority` VALUES ('2320', '1', '1', '53');
+INSERT INTO `tb_role_authority` VALUES ('2321', '1', '1', '54');
+INSERT INTO `tb_role_authority` VALUES ('2322', '1', '1', '55');
+INSERT INTO `tb_role_authority` VALUES ('2323', '1', '1', '56');
+INSERT INTO `tb_role_authority` VALUES ('2324', '1', '1', '57');
+INSERT INTO `tb_role_authority` VALUES ('2325', '1', '1', '58');
+INSERT INTO `tb_role_authority` VALUES ('2326', '1', '1', '59');
+INSERT INTO `tb_role_authority` VALUES ('2327', '1', '1', '60');
+INSERT INTO `tb_role_authority` VALUES ('2328', '1', '1', '61');
+INSERT INTO `tb_role_authority` VALUES ('2329', '1', '1', '62');
+INSERT INTO `tb_role_authority` VALUES ('2330', '1', '1', '63');
+INSERT INTO `tb_role_authority` VALUES ('2331', '1', '1', '75');
+INSERT INTO `tb_role_authority` VALUES ('2332', '1', '1', '76');
+INSERT INTO `tb_role_authority` VALUES ('2333', '1', '1', '77');
+INSERT INTO `tb_role_authority` VALUES ('2334', '1', '1', '78');
+INSERT INTO `tb_role_authority` VALUES ('2335', '1', '1', '79');
+INSERT INTO `tb_role_authority` VALUES ('2336', '1', '1', '80');
+INSERT INTO `tb_role_authority` VALUES ('2337', '1', '1', '81');
+INSERT INTO `tb_role_authority` VALUES ('2338', '1', '1', '82');
+INSERT INTO `tb_role_authority` VALUES ('2339', '1', '1', '83');
+INSERT INTO `tb_role_authority` VALUES ('2340', '1', '1', '84');
+INSERT INTO `tb_role_authority` VALUES ('2341', '1', '1', '85');
+INSERT INTO `tb_role_authority` VALUES ('2342', '1', '1', '86');
+INSERT INTO `tb_role_authority` VALUES ('2343', '1', '1', '87');
+INSERT INTO `tb_role_authority` VALUES ('2344', '1', '1', '70');
+INSERT INTO `tb_role_authority` VALUES ('2345', '1', '1', '71');
+INSERT INTO `tb_role_authority` VALUES ('2346', '1', '1', '72');
+INSERT INTO `tb_role_authority` VALUES ('2347', '1', '1', '73');
+INSERT INTO `tb_role_authority` VALUES ('2348', '1', '1', '74');
+INSERT INTO `tb_role_authority` VALUES ('2349', '1', '1', '88');
+INSERT INTO `tb_role_authority` VALUES ('2350', '1', '1', '93');
+INSERT INTO `tb_role_authority` VALUES ('2351', '1', '1', '107');
+INSERT INTO `tb_role_authority` VALUES ('2352', '1', '1', '108');
+INSERT INTO `tb_role_authority` VALUES ('2353', '1', '1', '109');
+INSERT INTO `tb_role_authority` VALUES ('2354', '1', '1', '110');
+INSERT INTO `tb_role_authority` VALUES ('2355', '1', '1', '111');
+INSERT INTO `tb_role_authority` VALUES ('2356', '1', '1', '124');
+INSERT INTO `tb_role_authority` VALUES ('2357', '1', '1', '112');
+INSERT INTO `tb_role_authority` VALUES ('2358', '1', '1', '113');
+INSERT INTO `tb_role_authority` VALUES ('2359', '1', '1', '114');
+INSERT INTO `tb_role_authority` VALUES ('2360', '1', '1', '115');
+INSERT INTO `tb_role_authority` VALUES ('2361', '1', '1', '116');
+INSERT INTO `tb_role_authority` VALUES ('2362', '1', '1', '123');
+INSERT INTO `tb_role_authority` VALUES ('2363', '1', '1', '117');
+INSERT INTO `tb_role_authority` VALUES ('2364', '1', '1', '118');
+INSERT INTO `tb_role_authority` VALUES ('2365', '1', '1', '119');
+INSERT INTO `tb_role_authority` VALUES ('2366', '1', '1', '120');
+INSERT INTO `tb_role_authority` VALUES ('2367', '1', '1', '121');
+INSERT INTO `tb_role_authority` VALUES ('2368', '1', '1', '122');
+INSERT INTO `tb_role_authority` VALUES ('2369', '1', '1', '94');
+INSERT INTO `tb_role_authority` VALUES ('2370', '1', '1', '95');
+INSERT INTO `tb_role_authority` VALUES ('2371', '1', '1', '96');
+INSERT INTO `tb_role_authority` VALUES ('2372', '1', '1', '97');
 INSERT INTO `tb_salesman` VALUES ('1', '2014-07-10 19:46:49', 'ywy', '业务员', '212455', '2014-07-10 19:46:49', '1', '1');
 INSERT INTO `tb_salesman` VALUES ('4', '2014-07-25 16:22:37', 'csywy', '测试业务员1', '134555552', '2015-03-05 18:06:02', '2', '1');
 INSERT INTO `tb_salesman` VALUES ('5', '2015-03-05 18:06:17', 'cs', '测试', '122', '2015-03-05 18:06:17', '1', '1');
@@ -1114,8 +1147,8 @@ INSERT INTO `tb_sample` VALUES ('4', '0', '2014-07-24 14:20:16', null, '', 'csyp
 INSERT INTO `tb_sample` VALUES ('5', '0', '2014-07-24 16:38:10', null, '', '', 'resource.fuwei.com/images/sample/1406191089923QQ图片20140521150608.jpg', 'fd', 'ccc', '', 'cc', 'FWA30005', 'vc', '2014-07-24 16:38:10', '54', '2', '3', 'resource.fuwei.com/images/sample/s/1406191089923QQ图片20140521150608.png', 'resource.fuwei.com/images/sample/ss/1406191089923QQ图片20140521150608.png');
 INSERT INTO `tb_sample` VALUES ('6', '0', '2014-07-25 16:06:53', null, '', '', 'resource.fuwei.com/images/sample/1406275612479QQ图片20140521150608.jpg', 'bf', 'ff', '', 'hh', 'FWA30006', 'gfb', '2014-07-25 16:06:53', '5', '2', '1', 'resource.fuwei.com/images/sample/s/1406275612479QQ图片20140521150608.png', 'resource.fuwei.com/images/sample/ss/1406275612479QQ图片20140521150608.png');
 INSERT INTO `tb_sample` VALUES ('7', '5.383', '2014-07-30 16:28:34', '100*1.4*12*30÷ 1000=50.4+4=54.4\r\n\r\n测试工序:6.000\r\n____________________________\r\n6+0\r\n=6*1.7\r\n=10.2+54.4\r\n=64.6÷12\r\n=5.383*1.4\r\n=7.536\r\n', '', 'hmg', 'resource.fuwei.com/images/sample/140670891273420140729125945848.jpg', '未知', '哈密瓜', '哈密瓜很甜', '哈密瓜', 'FWA30007', '未知', '2014-07-30 16:28:34', '100', '1', '1', 'resource.fuwei.com/images/sample/s/140670891273420140729125945848.png', 'resource.fuwei.com/images/sample/ss/140670891273420140729125945848.png');
-INSERT INTO `tb_storeorder` VALUES ('1', '8', '2014-11-26 17:04:26', '2014-11-26 17:21:24', '1', '[{\"color\":\"sehao\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\",\"material\":\"cailiao\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\",\"quantity\":2000,\"yarn\":\"sha\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\"}]', '[{\"color\":\"sehao\",\"date\":\"2014/11/04\",\"in_out\":1,\"material\":\"cailiao\",\"quantity\":1200,\"sign\":\"\"}]');
-INSERT INTO `tb_storeorder` VALUES ('2', '9', '2015-02-27 17:31:34', '2015-02-27 17:31:34', '1', '[{\"color\":\"#fff\",\"material\":\"cailiao\",\"quantity\":1000,\"yarn\":\"yangsha\"}]', null);
+INSERT INTO `tb_storeorder` VALUES ('1', '8', '2014-11-26 17:04:26', '2014-11-26 17:21:24', '1', '[{\"color\":\"sehao\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\",\"material\":\"cailiao\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\",\"quantity\":2000,\"yarn\":\"sha\\n\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\\t\"}]', '[{\"color\":\"sehao\",\"date\":\"2014/11/04\",\"in_out\":1,\"material\":\"cailiao\",\"quantity\":1200,\"sign\":\"\"}]', null, null);
+INSERT INTO `tb_storeorder` VALUES ('2', '9', '2015-02-27 17:31:34', '2015-02-27 17:31:34', '1', '[{\"color\":\"#fff\",\"material\":\"cailiao\",\"quantity\":1000,\"yarn\":\"yangsha\"}]', null, null, null);
 INSERT INTO `tb_user` VALUES ('1', null, '6@qq.com', 'yf', '', '', '余芬', '1', '123', '143333', '2014-07-21 11:46:25', 'yf', '1', '');
 INSERT INTO `tb_user` VALUES ('2', '2014-07-10 20:07:03', '345@qq.com', 'yf', '', '', '余芬2', '123456', '12335', '124577', '2014-07-10 20:07:03', 'yufen', '1', '');
 INSERT INTO `tb_user` VALUES ('3', '2014-07-24 14:52:24', '638724u2@qq.com', 'hp', '', '', '胡盼', '123456', '638724u2', '1504332', '2014-07-24 14:52:24', 'hp', '2', '');
