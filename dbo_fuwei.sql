@@ -4,7 +4,7 @@ Source Host: localhost
 Source Database: dbo_fuwei
 Target Host: localhost
 Target Database: dbo_fuwei
-Date: 2015/3/19 17:39:18
+Date: 2015/3/19 23:47:53
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,7 +20,7 @@ CREATE TABLE `tb_authority` (
   PRIMARY KEY (`id`),
   KEY `FKPID323` (`pid`),
   CONSTRAINT `FKPID323` FOREIGN KEY (`pid`) REFERENCES `tb_authority` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=129 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_carfixrecordorder
@@ -631,7 +631,7 @@ CREATE TABLE `tb_role` (
   PRIMARY KEY (`id`),
   KEY `FKA4FDFFA787AC0D3A` (`created_user`),
   CONSTRAINT `FKA4FDFFA787AC0D3A` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_role_authority
@@ -649,7 +649,7 @@ CREATE TABLE `tb_role_authority` (
   CONSTRAINT `tb_role_authority_ibfk_1` FOREIGN KEY (`authorityId`) REFERENCES `tb_authority` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `tb_role_authority_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `tb_role_authority_ibfk_3` FOREIGN KEY (`roleId`) REFERENCES `tb_role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2373 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2492 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_role_module
@@ -893,6 +893,10 @@ INSERT INTO `tb_authority` VALUES ('121', '117', '查看列表', 'coloring_order
 INSERT INTO `tb_authority` VALUES ('122', '117', '查看单据详情', 'coloring_order/detail');
 INSERT INTO `tb_authority` VALUES ('123', '112', '查看单据详情', 'fuliao_purchase_order/detail');
 INSERT INTO `tb_authority` VALUES ('124', '107', '查看单据详情', 'material_purchase_order/detail');
+INSERT INTO `tb_authority` VALUES ('125', '4', '角色管理', 'role');
+INSERT INTO `tb_authority` VALUES ('126', '125', '添加角色', 'role/add');
+INSERT INTO `tb_authority` VALUES ('127', '125', '编辑角色', 'role/edit');
+INSERT INTO `tb_authority` VALUES ('128', '125', '删除角色', 'role/delete');
 INSERT INTO `tb_carfixrecordorder` VALUES ('1', '8', '2014-11-27 17:05:12', '2014-11-27 17:05:12', '1', null, null);
 INSERT INTO `tb_carfixrecordorder` VALUES ('2', '11', '2015-03-04 18:56:20', '2015-03-04 18:56:20', '1', null, null);
 INSERT INTO `tb_carfixrecordorder` VALUES ('3', '12', '2015-03-05 13:42:57', '2015-03-05 13:42:57', '1', null, null);
@@ -1030,6 +1034,7 @@ INSERT INTO `tb_quoteprice` VALUES ('5', '2014-07-30 16:34:41', '哈密瓜--公�
 INSERT INTO `tb_role` VALUES ('1', '2014-07-07 17:15:33', '系统管理员', 'admin', '2014-07-07 17:15:43', '1');
 INSERT INTO `tb_role` VALUES ('2', '2014-07-23 21:16:59', '业务员', 'salesman', '2014-07-23 21:17:08', '1');
 INSERT INTO `tb_role` VALUES ('3', '2015-03-05 14:33:10', '仓库', 'storeman', '2015-03-05 14:33:04', '1');
+INSERT INTO `tb_role` VALUES ('4', null, '生产主任', 'produce', '2015-03-19 21:50:09', '1');
 INSERT INTO `tb_role_authority` VALUES ('444', '1', '2', '4');
 INSERT INTO `tb_role_authority` VALUES ('445', '1', '2', '5');
 INSERT INTO `tb_role_authority` VALUES ('446', '1', '2', '6');
@@ -1055,121 +1060,125 @@ INSERT INTO `tb_role_authority` VALUES ('465', '1', '2', '28');
 INSERT INTO `tb_role_authority` VALUES ('466', '1', '2', '31');
 INSERT INTO `tb_role_authority` VALUES ('467', '1', '2', '41');
 INSERT INTO `tb_role_authority` VALUES ('468', '1', '2', '48');
-INSERT INTO `tb_role_authority` VALUES ('2258', '1', '1', '1');
-INSERT INTO `tb_role_authority` VALUES ('2259', '1', '1', '2');
-INSERT INTO `tb_role_authority` VALUES ('2260', '1', '1', '3');
-INSERT INTO `tb_role_authority` VALUES ('2261', '1', '1', '4');
-INSERT INTO `tb_role_authority` VALUES ('2262', '1', '1', '5');
-INSERT INTO `tb_role_authority` VALUES ('2263', '1', '1', '6');
-INSERT INTO `tb_role_authority` VALUES ('2264', '1', '1', '7');
-INSERT INTO `tb_role_authority` VALUES ('2265', '1', '1', '8');
-INSERT INTO `tb_role_authority` VALUES ('2266', '1', '1', '9');
-INSERT INTO `tb_role_authority` VALUES ('2267', '1', '1', '49');
-INSERT INTO `tb_role_authority` VALUES ('2268', '1', '1', '50');
-INSERT INTO `tb_role_authority` VALUES ('2269', '1', '1', '10');
-INSERT INTO `tb_role_authority` VALUES ('2270', '1', '1', '11');
-INSERT INTO `tb_role_authority` VALUES ('2271', '1', '1', '12');
-INSERT INTO `tb_role_authority` VALUES ('2272', '1', '1', '13');
-INSERT INTO `tb_role_authority` VALUES ('2273', '1', '1', '14');
-INSERT INTO `tb_role_authority` VALUES ('2274', '1', '1', '15');
-INSERT INTO `tb_role_authority` VALUES ('2275', '1', '1', '16');
-INSERT INTO `tb_role_authority` VALUES ('2276', '1', '1', '17');
-INSERT INTO `tb_role_authority` VALUES ('2277', '1', '1', '18');
-INSERT INTO `tb_role_authority` VALUES ('2278', '1', '1', '19');
-INSERT INTO `tb_role_authority` VALUES ('2279', '1', '1', '20');
-INSERT INTO `tb_role_authority` VALUES ('2280', '1', '1', '21');
-INSERT INTO `tb_role_authority` VALUES ('2281', '1', '1', '22');
-INSERT INTO `tb_role_authority` VALUES ('2282', '1', '1', '23');
-INSERT INTO `tb_role_authority` VALUES ('2283', '1', '1', '24');
-INSERT INTO `tb_role_authority` VALUES ('2284', '1', '1', '65');
-INSERT INTO `tb_role_authority` VALUES ('2285', '1', '1', '66');
-INSERT INTO `tb_role_authority` VALUES ('2286', '1', '1', '67');
-INSERT INTO `tb_role_authority` VALUES ('2287', '1', '1', '68');
-INSERT INTO `tb_role_authority` VALUES ('2288', '1', '1', '69');
-INSERT INTO `tb_role_authority` VALUES ('2289', '1', '1', '102');
-INSERT INTO `tb_role_authority` VALUES ('2290', '1', '1', '103');
-INSERT INTO `tb_role_authority` VALUES ('2291', '1', '1', '104');
-INSERT INTO `tb_role_authority` VALUES ('2292', '1', '1', '105');
-INSERT INTO `tb_role_authority` VALUES ('2293', '1', '1', '106');
-INSERT INTO `tb_role_authority` VALUES ('2294', '1', '1', '25');
-INSERT INTO `tb_role_authority` VALUES ('2295', '1', '1', '26');
-INSERT INTO `tb_role_authority` VALUES ('2296', '1', '1', '27');
-INSERT INTO `tb_role_authority` VALUES ('2297', '1', '1', '28');
-INSERT INTO `tb_role_authority` VALUES ('2298', '1', '1', '29');
-INSERT INTO `tb_role_authority` VALUES ('2299', '1', '1', '30');
-INSERT INTO `tb_role_authority` VALUES ('2300', '1', '1', '31');
-INSERT INTO `tb_role_authority` VALUES ('2301', '1', '1', '51');
-INSERT INTO `tb_role_authority` VALUES ('2302', '1', '1', '32');
-INSERT INTO `tb_role_authority` VALUES ('2303', '1', '1', '33');
-INSERT INTO `tb_role_authority` VALUES ('2304', '1', '1', '34');
-INSERT INTO `tb_role_authority` VALUES ('2305', '1', '1', '35');
-INSERT INTO `tb_role_authority` VALUES ('2306', '1', '1', '36');
-INSERT INTO `tb_role_authority` VALUES ('2307', '1', '1', '37');
-INSERT INTO `tb_role_authority` VALUES ('2308', '1', '1', '38');
-INSERT INTO `tb_role_authority` VALUES ('2309', '1', '1', '39');
-INSERT INTO `tb_role_authority` VALUES ('2310', '1', '1', '40');
-INSERT INTO `tb_role_authority` VALUES ('2311', '1', '1', '41');
-INSERT INTO `tb_role_authority` VALUES ('2312', '1', '1', '42');
-INSERT INTO `tb_role_authority` VALUES ('2313', '1', '1', '43');
-INSERT INTO `tb_role_authority` VALUES ('2314', '1', '1', '48');
-INSERT INTO `tb_role_authority` VALUES ('2315', '1', '1', '44');
-INSERT INTO `tb_role_authority` VALUES ('2316', '1', '1', '45');
-INSERT INTO `tb_role_authority` VALUES ('2317', '1', '1', '46');
-INSERT INTO `tb_role_authority` VALUES ('2318', '1', '1', '47');
-INSERT INTO `tb_role_authority` VALUES ('2319', '1', '1', '52');
-INSERT INTO `tb_role_authority` VALUES ('2320', '1', '1', '53');
-INSERT INTO `tb_role_authority` VALUES ('2321', '1', '1', '54');
-INSERT INTO `tb_role_authority` VALUES ('2322', '1', '1', '55');
-INSERT INTO `tb_role_authority` VALUES ('2323', '1', '1', '56');
-INSERT INTO `tb_role_authority` VALUES ('2324', '1', '1', '57');
-INSERT INTO `tb_role_authority` VALUES ('2325', '1', '1', '58');
-INSERT INTO `tb_role_authority` VALUES ('2326', '1', '1', '59');
-INSERT INTO `tb_role_authority` VALUES ('2327', '1', '1', '60');
-INSERT INTO `tb_role_authority` VALUES ('2328', '1', '1', '61');
-INSERT INTO `tb_role_authority` VALUES ('2329', '1', '1', '62');
-INSERT INTO `tb_role_authority` VALUES ('2330', '1', '1', '63');
-INSERT INTO `tb_role_authority` VALUES ('2331', '1', '1', '75');
-INSERT INTO `tb_role_authority` VALUES ('2332', '1', '1', '76');
-INSERT INTO `tb_role_authority` VALUES ('2333', '1', '1', '77');
-INSERT INTO `tb_role_authority` VALUES ('2334', '1', '1', '78');
-INSERT INTO `tb_role_authority` VALUES ('2335', '1', '1', '79');
-INSERT INTO `tb_role_authority` VALUES ('2336', '1', '1', '80');
-INSERT INTO `tb_role_authority` VALUES ('2337', '1', '1', '81');
-INSERT INTO `tb_role_authority` VALUES ('2338', '1', '1', '82');
-INSERT INTO `tb_role_authority` VALUES ('2339', '1', '1', '83');
-INSERT INTO `tb_role_authority` VALUES ('2340', '1', '1', '84');
-INSERT INTO `tb_role_authority` VALUES ('2341', '1', '1', '85');
-INSERT INTO `tb_role_authority` VALUES ('2342', '1', '1', '86');
-INSERT INTO `tb_role_authority` VALUES ('2343', '1', '1', '87');
-INSERT INTO `tb_role_authority` VALUES ('2344', '1', '1', '70');
-INSERT INTO `tb_role_authority` VALUES ('2345', '1', '1', '71');
-INSERT INTO `tb_role_authority` VALUES ('2346', '1', '1', '72');
-INSERT INTO `tb_role_authority` VALUES ('2347', '1', '1', '73');
-INSERT INTO `tb_role_authority` VALUES ('2348', '1', '1', '74');
-INSERT INTO `tb_role_authority` VALUES ('2349', '1', '1', '88');
-INSERT INTO `tb_role_authority` VALUES ('2350', '1', '1', '93');
-INSERT INTO `tb_role_authority` VALUES ('2351', '1', '1', '107');
-INSERT INTO `tb_role_authority` VALUES ('2352', '1', '1', '108');
-INSERT INTO `tb_role_authority` VALUES ('2353', '1', '1', '109');
-INSERT INTO `tb_role_authority` VALUES ('2354', '1', '1', '110');
-INSERT INTO `tb_role_authority` VALUES ('2355', '1', '1', '111');
-INSERT INTO `tb_role_authority` VALUES ('2356', '1', '1', '124');
-INSERT INTO `tb_role_authority` VALUES ('2357', '1', '1', '112');
-INSERT INTO `tb_role_authority` VALUES ('2358', '1', '1', '113');
-INSERT INTO `tb_role_authority` VALUES ('2359', '1', '1', '114');
-INSERT INTO `tb_role_authority` VALUES ('2360', '1', '1', '115');
-INSERT INTO `tb_role_authority` VALUES ('2361', '1', '1', '116');
-INSERT INTO `tb_role_authority` VALUES ('2362', '1', '1', '123');
-INSERT INTO `tb_role_authority` VALUES ('2363', '1', '1', '117');
-INSERT INTO `tb_role_authority` VALUES ('2364', '1', '1', '118');
-INSERT INTO `tb_role_authority` VALUES ('2365', '1', '1', '119');
-INSERT INTO `tb_role_authority` VALUES ('2366', '1', '1', '120');
-INSERT INTO `tb_role_authority` VALUES ('2367', '1', '1', '121');
-INSERT INTO `tb_role_authority` VALUES ('2368', '1', '1', '122');
-INSERT INTO `tb_role_authority` VALUES ('2369', '1', '1', '94');
-INSERT INTO `tb_role_authority` VALUES ('2370', '1', '1', '95');
-INSERT INTO `tb_role_authority` VALUES ('2371', '1', '1', '96');
-INSERT INTO `tb_role_authority` VALUES ('2372', '1', '1', '97');
+INSERT INTO `tb_role_authority` VALUES ('2373', '1', '1', '1');
+INSERT INTO `tb_role_authority` VALUES ('2374', '1', '1', '2');
+INSERT INTO `tb_role_authority` VALUES ('2375', '1', '1', '3');
+INSERT INTO `tb_role_authority` VALUES ('2376', '1', '1', '4');
+INSERT INTO `tb_role_authority` VALUES ('2377', '1', '1', '5');
+INSERT INTO `tb_role_authority` VALUES ('2378', '1', '1', '6');
+INSERT INTO `tb_role_authority` VALUES ('2379', '1', '1', '7');
+INSERT INTO `tb_role_authority` VALUES ('2380', '1', '1', '8');
+INSERT INTO `tb_role_authority` VALUES ('2381', '1', '1', '9');
+INSERT INTO `tb_role_authority` VALUES ('2382', '1', '1', '49');
+INSERT INTO `tb_role_authority` VALUES ('2383', '1', '1', '50');
+INSERT INTO `tb_role_authority` VALUES ('2384', '1', '1', '10');
+INSERT INTO `tb_role_authority` VALUES ('2385', '1', '1', '11');
+INSERT INTO `tb_role_authority` VALUES ('2386', '1', '1', '12');
+INSERT INTO `tb_role_authority` VALUES ('2387', '1', '1', '13');
+INSERT INTO `tb_role_authority` VALUES ('2388', '1', '1', '14');
+INSERT INTO `tb_role_authority` VALUES ('2389', '1', '1', '15');
+INSERT INTO `tb_role_authority` VALUES ('2390', '1', '1', '16');
+INSERT INTO `tb_role_authority` VALUES ('2391', '1', '1', '17');
+INSERT INTO `tb_role_authority` VALUES ('2392', '1', '1', '18');
+INSERT INTO `tb_role_authority` VALUES ('2393', '1', '1', '19');
+INSERT INTO `tb_role_authority` VALUES ('2394', '1', '1', '20');
+INSERT INTO `tb_role_authority` VALUES ('2395', '1', '1', '21');
+INSERT INTO `tb_role_authority` VALUES ('2396', '1', '1', '22');
+INSERT INTO `tb_role_authority` VALUES ('2397', '1', '1', '23');
+INSERT INTO `tb_role_authority` VALUES ('2398', '1', '1', '24');
+INSERT INTO `tb_role_authority` VALUES ('2399', '1', '1', '65');
+INSERT INTO `tb_role_authority` VALUES ('2400', '1', '1', '66');
+INSERT INTO `tb_role_authority` VALUES ('2401', '1', '1', '67');
+INSERT INTO `tb_role_authority` VALUES ('2402', '1', '1', '68');
+INSERT INTO `tb_role_authority` VALUES ('2403', '1', '1', '69');
+INSERT INTO `tb_role_authority` VALUES ('2404', '1', '1', '102');
+INSERT INTO `tb_role_authority` VALUES ('2405', '1', '1', '103');
+INSERT INTO `tb_role_authority` VALUES ('2406', '1', '1', '104');
+INSERT INTO `tb_role_authority` VALUES ('2407', '1', '1', '105');
+INSERT INTO `tb_role_authority` VALUES ('2408', '1', '1', '106');
+INSERT INTO `tb_role_authority` VALUES ('2409', '1', '1', '125');
+INSERT INTO `tb_role_authority` VALUES ('2410', '1', '1', '126');
+INSERT INTO `tb_role_authority` VALUES ('2411', '1', '1', '127');
+INSERT INTO `tb_role_authority` VALUES ('2412', '1', '1', '128');
+INSERT INTO `tb_role_authority` VALUES ('2413', '1', '1', '25');
+INSERT INTO `tb_role_authority` VALUES ('2414', '1', '1', '26');
+INSERT INTO `tb_role_authority` VALUES ('2415', '1', '1', '27');
+INSERT INTO `tb_role_authority` VALUES ('2416', '1', '1', '28');
+INSERT INTO `tb_role_authority` VALUES ('2417', '1', '1', '29');
+INSERT INTO `tb_role_authority` VALUES ('2418', '1', '1', '30');
+INSERT INTO `tb_role_authority` VALUES ('2419', '1', '1', '31');
+INSERT INTO `tb_role_authority` VALUES ('2420', '1', '1', '51');
+INSERT INTO `tb_role_authority` VALUES ('2421', '1', '1', '32');
+INSERT INTO `tb_role_authority` VALUES ('2422', '1', '1', '33');
+INSERT INTO `tb_role_authority` VALUES ('2423', '1', '1', '34');
+INSERT INTO `tb_role_authority` VALUES ('2424', '1', '1', '35');
+INSERT INTO `tb_role_authority` VALUES ('2425', '1', '1', '36');
+INSERT INTO `tb_role_authority` VALUES ('2426', '1', '1', '37');
+INSERT INTO `tb_role_authority` VALUES ('2427', '1', '1', '38');
+INSERT INTO `tb_role_authority` VALUES ('2428', '1', '1', '39');
+INSERT INTO `tb_role_authority` VALUES ('2429', '1', '1', '40');
+INSERT INTO `tb_role_authority` VALUES ('2430', '1', '1', '41');
+INSERT INTO `tb_role_authority` VALUES ('2431', '1', '1', '42');
+INSERT INTO `tb_role_authority` VALUES ('2432', '1', '1', '43');
+INSERT INTO `tb_role_authority` VALUES ('2433', '1', '1', '48');
+INSERT INTO `tb_role_authority` VALUES ('2434', '1', '1', '44');
+INSERT INTO `tb_role_authority` VALUES ('2435', '1', '1', '45');
+INSERT INTO `tb_role_authority` VALUES ('2436', '1', '1', '46');
+INSERT INTO `tb_role_authority` VALUES ('2437', '1', '1', '47');
+INSERT INTO `tb_role_authority` VALUES ('2438', '1', '1', '52');
+INSERT INTO `tb_role_authority` VALUES ('2439', '1', '1', '53');
+INSERT INTO `tb_role_authority` VALUES ('2440', '1', '1', '54');
+INSERT INTO `tb_role_authority` VALUES ('2441', '1', '1', '55');
+INSERT INTO `tb_role_authority` VALUES ('2442', '1', '1', '56');
+INSERT INTO `tb_role_authority` VALUES ('2443', '1', '1', '57');
+INSERT INTO `tb_role_authority` VALUES ('2444', '1', '1', '58');
+INSERT INTO `tb_role_authority` VALUES ('2445', '1', '1', '59');
+INSERT INTO `tb_role_authority` VALUES ('2446', '1', '1', '60');
+INSERT INTO `tb_role_authority` VALUES ('2447', '1', '1', '61');
+INSERT INTO `tb_role_authority` VALUES ('2448', '1', '1', '62');
+INSERT INTO `tb_role_authority` VALUES ('2449', '1', '1', '63');
+INSERT INTO `tb_role_authority` VALUES ('2450', '1', '1', '75');
+INSERT INTO `tb_role_authority` VALUES ('2451', '1', '1', '76');
+INSERT INTO `tb_role_authority` VALUES ('2452', '1', '1', '77');
+INSERT INTO `tb_role_authority` VALUES ('2453', '1', '1', '78');
+INSERT INTO `tb_role_authority` VALUES ('2454', '1', '1', '79');
+INSERT INTO `tb_role_authority` VALUES ('2455', '1', '1', '80');
+INSERT INTO `tb_role_authority` VALUES ('2456', '1', '1', '81');
+INSERT INTO `tb_role_authority` VALUES ('2457', '1', '1', '82');
+INSERT INTO `tb_role_authority` VALUES ('2458', '1', '1', '83');
+INSERT INTO `tb_role_authority` VALUES ('2459', '1', '1', '84');
+INSERT INTO `tb_role_authority` VALUES ('2460', '1', '1', '85');
+INSERT INTO `tb_role_authority` VALUES ('2461', '1', '1', '86');
+INSERT INTO `tb_role_authority` VALUES ('2462', '1', '1', '87');
+INSERT INTO `tb_role_authority` VALUES ('2463', '1', '1', '70');
+INSERT INTO `tb_role_authority` VALUES ('2464', '1', '1', '71');
+INSERT INTO `tb_role_authority` VALUES ('2465', '1', '1', '72');
+INSERT INTO `tb_role_authority` VALUES ('2466', '1', '1', '73');
+INSERT INTO `tb_role_authority` VALUES ('2467', '1', '1', '74');
+INSERT INTO `tb_role_authority` VALUES ('2468', '1', '1', '88');
+INSERT INTO `tb_role_authority` VALUES ('2469', '1', '1', '93');
+INSERT INTO `tb_role_authority` VALUES ('2470', '1', '1', '107');
+INSERT INTO `tb_role_authority` VALUES ('2471', '1', '1', '108');
+INSERT INTO `tb_role_authority` VALUES ('2472', '1', '1', '109');
+INSERT INTO `tb_role_authority` VALUES ('2473', '1', '1', '110');
+INSERT INTO `tb_role_authority` VALUES ('2474', '1', '1', '111');
+INSERT INTO `tb_role_authority` VALUES ('2475', '1', '1', '124');
+INSERT INTO `tb_role_authority` VALUES ('2476', '1', '1', '112');
+INSERT INTO `tb_role_authority` VALUES ('2477', '1', '1', '113');
+INSERT INTO `tb_role_authority` VALUES ('2478', '1', '1', '114');
+INSERT INTO `tb_role_authority` VALUES ('2479', '1', '1', '115');
+INSERT INTO `tb_role_authority` VALUES ('2480', '1', '1', '116');
+INSERT INTO `tb_role_authority` VALUES ('2481', '1', '1', '123');
+INSERT INTO `tb_role_authority` VALUES ('2482', '1', '1', '117');
+INSERT INTO `tb_role_authority` VALUES ('2483', '1', '1', '118');
+INSERT INTO `tb_role_authority` VALUES ('2484', '1', '1', '119');
+INSERT INTO `tb_role_authority` VALUES ('2485', '1', '1', '120');
+INSERT INTO `tb_role_authority` VALUES ('2486', '1', '1', '121');
+INSERT INTO `tb_role_authority` VALUES ('2487', '1', '1', '122');
+INSERT INTO `tb_role_authority` VALUES ('2488', '1', '1', '94');
+INSERT INTO `tb_role_authority` VALUES ('2489', '1', '1', '95');
+INSERT INTO `tb_role_authority` VALUES ('2490', '1', '1', '96');
+INSERT INTO `tb_role_authority` VALUES ('2491', '1', '1', '97');
 INSERT INTO `tb_salesman` VALUES ('1', '2014-07-10 19:46:49', 'ywy', '业务员', '212455', '2014-07-10 19:46:49', '1', '1');
 INSERT INTO `tb_salesman` VALUES ('4', '2014-07-25 16:22:37', 'csywy', '测试业务员1', '134555552', '2015-03-05 18:06:02', '2', '1');
 INSERT INTO `tb_salesman` VALUES ('5', '2015-03-05 18:06:17', 'cs', '测试', '122', '2015-03-05 18:06:17', '1', '1');
