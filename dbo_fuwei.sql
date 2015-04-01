@@ -4,7 +4,7 @@ Source Host: localhost
 Source Database: dbo_fuwei
 Target Host: localhost
 Target Database: dbo_fuwei
-Date: 2015/3/31 18:53:27
+Date: 2015/4/1 15:28:14
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -39,7 +39,7 @@ CREATE TABLE `tb_carfixrecordorder` (
   KEY `created_user` (`created_user`),
   CONSTRAINT `tb_carfixrecordorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
   CONSTRAINT `tb_carfixrecordorder_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_checkrecordorder
@@ -56,7 +56,7 @@ CREATE TABLE `tb_checkrecordorder` (
   PRIMARY KEY (`id`),
   KEY `orderId` (`orderId`),
   CONSTRAINT `tb_checkrecordorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_coloringorder
@@ -94,15 +94,15 @@ CREATE TABLE `tb_coloringorder` (
   KEY `tb_coloringorder_ibfk_6` (`charge_user`),
   KEY `customerId` (`customerId`),
   KEY `materialId` (`materialId`),
-  CONSTRAINT `tb_coloringorder_ibfk_8` FOREIGN KEY (`materialId`) REFERENCES `tb_material` (`id`),
   CONSTRAINT `tb_coloringorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
   CONSTRAINT `tb_coloringorder_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`),
   CONSTRAINT `tb_coloringorder_ibfk_3` FOREIGN KEY (`factoryId`) REFERENCES `tb_factory` (`id`),
   CONSTRAINT `tb_coloringorder_ibfk_4` FOREIGN KEY (`sampleId`) REFERENCES `tb_sample` (`id`),
   CONSTRAINT `tb_coloringorder_ibfk_5` FOREIGN KEY (`companyId`) REFERENCES `tb_company` (`id`),
   CONSTRAINT `tb_coloringorder_ibfk_6` FOREIGN KEY (`charge_user`) REFERENCES `tb_user` (`id`),
-  CONSTRAINT `tb_coloringorder_ibfk_7` FOREIGN KEY (`customerId`) REFERENCES `tb_customer` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+  CONSTRAINT `tb_coloringorder_ibfk_7` FOREIGN KEY (`customerId`) REFERENCES `tb_customer` (`id`),
+  CONSTRAINT `tb_coloringorder_ibfk_8` FOREIGN KEY (`materialId`) REFERENCES `tb_material` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_coloringprocessorder
@@ -119,7 +119,7 @@ CREATE TABLE `tb_coloringprocessorder` (
   PRIMARY KEY (`id`),
   KEY `orderId` (`orderId`),
   CONSTRAINT `tb_coloringprocessorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_company
@@ -141,7 +141,7 @@ CREATE TABLE `tb_company` (
   PRIMARY KEY (`id`),
   KEY `FK38B0A3AC87AC0D3A` (`created_user`),
   CONSTRAINT `FK38B0A3AC87AC0D3A` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_customer
@@ -175,7 +175,7 @@ CREATE TABLE `tb_factory` (
   PRIMARY KEY (`id`),
   KEY `created_user` (`created_user`),
   CONSTRAINT `tb_factory_ibfk_1` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_finalstoreorder
@@ -192,7 +192,7 @@ CREATE TABLE `tb_finalstoreorder` (
   PRIMARY KEY (`id`),
   KEY `orderId` (`orderId`),
   CONSTRAINT `tb_finalstoreorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_fuliaopurchaseorder
@@ -230,15 +230,15 @@ CREATE TABLE `tb_fuliaopurchaseorder` (
   KEY `tb_fuliaopurchaseorder_ibfk_6` (`charge_user`),
   KEY `tb_fuliaopurchaseorder_ibfk_8` (`materialId`),
   KEY `tb_fuliaopurchaseorder_ibfk_7` (`customerId`),
-  CONSTRAINT `tb_fuliaopurchaseorder_ibfk_8` FOREIGN KEY (`materialId`) REFERENCES `tb_material` (`id`),
-  CONSTRAINT `tb_fuliaopurchaseorder_ibfk_7` FOREIGN KEY (`customerId`) REFERENCES `tb_customer` (`id`),
   CONSTRAINT `tb_fuliaopurchaseorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
   CONSTRAINT `tb_fuliaopurchaseorder_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`),
   CONSTRAINT `tb_fuliaopurchaseorder_ibfk_3` FOREIGN KEY (`factoryId`) REFERENCES `tb_factory` (`id`),
   CONSTRAINT `tb_fuliaopurchaseorder_ibfk_4` FOREIGN KEY (`sampleId`) REFERENCES `tb_sample` (`id`),
   CONSTRAINT `tb_fuliaopurchaseorder_ibfk_5` FOREIGN KEY (`companyId`) REFERENCES `tb_company` (`id`),
-  CONSTRAINT `tb_fuliaopurchaseorder_ibfk_6` FOREIGN KEY (`charge_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+  CONSTRAINT `tb_fuliaopurchaseorder_ibfk_6` FOREIGN KEY (`charge_user`) REFERENCES `tb_user` (`id`),
+  CONSTRAINT `tb_fuliaopurchaseorder_ibfk_7` FOREIGN KEY (`customerId`) REFERENCES `tb_customer` (`id`),
+  CONSTRAINT `tb_fuliaopurchaseorder_ibfk_8` FOREIGN KEY (`materialId`) REFERENCES `tb_material` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_gongxu
@@ -253,7 +253,7 @@ CREATE TABLE `tb_gongxu` (
   PRIMARY KEY (`id`),
   KEY `FK4AB8624F87AC0D3A` (`created_user`),
   CONSTRAINT `FK4AB8624F87AC0D3A` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_halfcheckrecordorder
@@ -273,7 +273,7 @@ CREATE TABLE `tb_halfcheckrecordorder` (
   KEY `created_user` (`created_user`),
   CONSTRAINT `tb_halfcheckrecordorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
   CONSTRAINT `tb_halfcheckrecordorder_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_headbankorder
@@ -292,7 +292,7 @@ CREATE TABLE `tb_headbankorder` (
   KEY `created_user` (`created_user`),
   CONSTRAINT `tb_headbankorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
   CONSTRAINT `tb_headbankorder_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_ironingrecordorder
@@ -311,7 +311,7 @@ CREATE TABLE `tb_ironingrecordorder` (
   KEY `created_user` (`created_user`),
   CONSTRAINT `tb_ironingrecordorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
   CONSTRAINT `tb_ironingrecordorder_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_material
@@ -326,7 +326,7 @@ CREATE TABLE `tb_material` (
   PRIMARY KEY (`id`),
   KEY `created_user` (`created_user`),
   CONSTRAINT `tb_material_ibfk_1` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_materialpurchaseorder
@@ -365,15 +365,15 @@ CREATE TABLE `tb_materialpurchaseorder` (
   KEY `tb_materialpurchaseorder_ibfk_6` (`charge_user`),
   KEY `tb_materialpurchaseorder_ibfk_8` (`materialId`),
   KEY `tb_materialpurchaseorder_ibfk_7` (`customerId`),
-  CONSTRAINT `tb_materialpurchaseorder_ibfk_8` FOREIGN KEY (`materialId`) REFERENCES `tb_material` (`id`),
-  CONSTRAINT `tb_materialpurchaseorder_ibfk_7` FOREIGN KEY (`customerId`) REFERENCES `tb_customer` (`id`),
   CONSTRAINT `tb_materialpurchaseorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
   CONSTRAINT `tb_materialpurchaseorder_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`),
   CONSTRAINT `tb_materialpurchaseorder_ibfk_3` FOREIGN KEY (`factoryId`) REFERENCES `tb_factory` (`id`),
   CONSTRAINT `tb_materialpurchaseorder_ibfk_4` FOREIGN KEY (`sampleId`) REFERENCES `tb_sample` (`id`),
   CONSTRAINT `tb_materialpurchaseorder_ibfk_5` FOREIGN KEY (`companyId`) REFERENCES `tb_company` (`id`),
-  CONSTRAINT `tb_materialpurchaseorder_ibfk_6` FOREIGN KEY (`charge_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+  CONSTRAINT `tb_materialpurchaseorder_ibfk_6` FOREIGN KEY (`charge_user`) REFERENCES `tb_user` (`id`),
+  CONSTRAINT `tb_materialpurchaseorder_ibfk_7` FOREIGN KEY (`customerId`) REFERENCES `tb_customer` (`id`),
+  CONSTRAINT `tb_materialpurchaseorder_ibfk_8` FOREIGN KEY (`materialId`) REFERENCES `tb_material` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_module
@@ -448,7 +448,7 @@ CREATE TABLE `tb_order` (
   CONSTRAINT `tb_order_ibfk_5` FOREIGN KEY (`sampleId`) REFERENCES `tb_sample` (`id`),
   CONSTRAINT `tb_order_ibfk_6` FOREIGN KEY (`customerId`) REFERENCES `tb_customer` (`id`),
   CONSTRAINT `tb_order_ibfk_7` FOREIGN KEY (`materialId`) REFERENCES `tb_material` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_order_detail
@@ -502,7 +502,7 @@ CREATE TABLE `tb_order_handle` (
   KEY `created_user` (`created_user`),
   CONSTRAINT `tb_order_handle_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `tb_order_handle_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_order_produce_status
@@ -540,7 +540,7 @@ CREATE TABLE `tb_planorder` (
   KEY `created_user` (`created_user`),
   CONSTRAINT `tb_planorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
   CONSTRAINT `tb_planorder_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_producingorder
@@ -564,7 +564,7 @@ CREATE TABLE `tb_producingorder` (
   CONSTRAINT `tb_producingorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
   CONSTRAINT `tb_producingorder_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`),
   CONSTRAINT `tb_producingorder_ibfk_4` FOREIGN KEY (`factoryId`) REFERENCES `tb_factory` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_production_notification
@@ -605,7 +605,7 @@ CREATE TABLE `tb_productionscheduleorder` (
   PRIMARY KEY (`id`),
   KEY `tb_productionscheduleorder_ibfk_1` (`orderId`),
   CONSTRAINT `tb_productionscheduleorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_quote
@@ -625,7 +625,7 @@ CREATE TABLE `tb_quote` (
   CONSTRAINT `FKFAB6A56B87AC0D3A` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`),
   CONSTRAINT `FKFAB6A56B87AC0D4A` FOREIGN KEY (`sampleId`) REFERENCES `tb_sample` (`id`),
   CONSTRAINT `FKFAB6A56B88AC0D3A` FOREIGN KEY (`quotePriceId`) REFERENCES `tb_quoteprice` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_quoteorder
@@ -644,7 +644,7 @@ CREATE TABLE `tb_quoteorder` (
   KEY `FK3423222` (`salesmanId`),
   CONSTRAINT `FK3423222` FOREIGN KEY (`salesmanId`) REFERENCES `tb_salesman` (`id`),
   CONSTRAINT `FK93908CC387AC0D3A` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_quoteorder_detail
@@ -697,7 +697,7 @@ CREATE TABLE `tb_quoteprice` (
   KEY `FKS` (`sampleId`),
   CONSTRAINT `FKFAB6A56B87AC0D5A` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`),
   CONSTRAINT `FKS` FOREIGN KEY (`sampleId`) REFERENCES `tb_sample` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_role
@@ -714,7 +714,7 @@ CREATE TABLE `tb_role` (
   PRIMARY KEY (`id`),
   KEY `FKA4FDFFA787AC0D3A` (`created_user`),
   CONSTRAINT `FKA4FDFFA787AC0D3A` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_role_authority
@@ -732,7 +732,7 @@ CREATE TABLE `tb_role_authority` (
   CONSTRAINT `tb_role_authority_ibfk_1` FOREIGN KEY (`authorityId`) REFERENCES `tb_authority` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `tb_role_authority_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `tb_role_authority_ibfk_3` FOREIGN KEY (`roleId`) REFERENCES `tb_role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3088 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3287 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_role_module
@@ -770,7 +770,7 @@ CREATE TABLE `tb_salesman` (
   KEY `FK7497AF7F87AC0D3A` (`created_user`),
   CONSTRAINT `FK7497AF7F2FD17BF9` FOREIGN KEY (`companyId`) REFERENCES `tb_company` (`id`),
   CONSTRAINT `FK7497AF7F87AC0D3A` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_sample
@@ -805,7 +805,7 @@ CREATE TABLE `tb_sample` (
   CONSTRAINT `FK5E6CEC9B87AC0D3A` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`),
   CONSTRAINT `tb_sample_ibfk_1` FOREIGN KEY (`factoryId`) REFERENCES `tb_factory` (`id`),
   CONSTRAINT `tb_sample_ibfk_2` FOREIGN KEY (`materialId`) REFERENCES `tb_material` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_shoprecordorder
@@ -822,7 +822,7 @@ CREATE TABLE `tb_shoprecordorder` (
   PRIMARY KEY (`id`),
   KEY `orderId` (`orderId`),
   CONSTRAINT `tb_shoprecordorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_storeorder
@@ -843,7 +843,7 @@ CREATE TABLE `tb_storeorder` (
   KEY `created_user` (`created_user`),
   CONSTRAINT `tb_storeorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
   CONSTRAINT `tb_storeorder_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_user
@@ -868,7 +868,7 @@ CREATE TABLE `tb_user` (
   UNIQUE KEY `username` (`username`),
   KEY `FKA4FF6AFC9710D9` (`roleId`),
   CONSTRAINT `FKA4FF6AFC9710D9E3` FOREIGN KEY (`roleId`) REFERENCES `tb_role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Procedure structure for truncate
@@ -1001,7 +1001,31 @@ INSERT INTO `tb_authority` VALUES ('131', '129', '编辑', 'customer/edit');
 INSERT INTO `tb_authority` VALUES ('132', '129', '删除', 'customer/delete');
 INSERT INTO `tb_authority` VALUES ('133', '129', '查看列表', 'customer/index');
 INSERT INTO `tb_authority` VALUES ('134', '77', '删除生产单', 'order/producing/delete');
+INSERT INTO `tb_carfixrecordorder` VALUES ('1', '1', '2015-03-31 21:48:39', '2015-03-31 21:48:39', '7', '0', '新建');
+INSERT INTO `tb_checkrecordorder` VALUES ('1', '1', '2015-03-31 21:48:39', '2015-03-31 21:48:39', '7', '0', '新建');
+INSERT INTO `tb_coloringprocessorder` VALUES ('1', '1', '2015-03-31 21:48:39', '2015-03-31 21:48:39', '7', '0', '新建');
+INSERT INTO `tb_company` VALUES ('1', '拱墅区湖州街18号', '杭州', null, null, '2015-03-31 21:45:42', '杭州翔天实业有限公司', 'hzxtsyyxgs', '0', '翔天', '2015-03-31 21:45:42', '6');
+INSERT INTO `tb_customer` VALUES ('1', '比利时', '2015-03-31 21:46:05', 'VIS', '2015-03-31 21:46:05', '6');
+INSERT INTO `tb_factory` VALUES ('1', '江波', '孙家村', '2015-03-31 21:24:01', 'jb', '2015-03-31 21:24:01', '6', '0');
+INSERT INTO `tb_finalstoreorder` VALUES ('1', '1', '2015-03-31 21:48:39', '2015-03-31 21:48:39', '7', '0', '新建');
+INSERT INTO `tb_gongxu` VALUES ('1', '2015-03-31 21:33:40', '机织', '2015-03-31 21:33:40', '9');
+INSERT INTO `tb_gongxu` VALUES ('2', '2015-03-31 21:33:48', '锁口', '2015-03-31 21:33:48', '9');
+INSERT INTO `tb_gongxu` VALUES ('3', '2015-03-31 21:33:58', '套口', '2015-03-31 21:33:58', '9');
+INSERT INTO `tb_gongxu` VALUES ('4', '2015-03-31 21:34:10', '挂须', '2015-03-31 21:34:10', '9');
+INSERT INTO `tb_gongxu` VALUES ('5', '2015-03-31 21:34:18', '整烫', '2015-03-31 21:34:18', '9');
+INSERT INTO `tb_gongxu` VALUES ('6', '2015-03-31 21:34:25', '费用+后道', '2015-03-31 21:34:25', '9');
+INSERT INTO `tb_halfcheckrecordorder` VALUES ('1', '1', '2015-03-31 21:48:39', '2015-03-31 21:48:39', '7', '[{\"color\":\"黑白色组\",\"colorsample\":\"\",\"material\":1}]', '0', '新建');
+INSERT INTO `tb_headbankorder` VALUES ('1', '1', '2015-03-31 21:48:39', '2015-03-31 21:48:39', '7', '0', '新建');
+INSERT INTO `tb_ironingrecordorder` VALUES ('1', '1', '2015-03-31 21:48:39', '2015-03-31 21:48:39', '7', '0', '新建');
+INSERT INTO `tb_material` VALUES ('1', '2015-03-31 21:23:41', '26s晴纶', '2015-03-31 21:23:41', '6');
+INSERT INTO `tb_order` VALUES ('1', '2015-03-31 21:48:39', '2015-03-31 21:48:39', '7', '1', '25830', '1', '待发货', '', '全晴格子披肩(471.0克)', '2015-03-09 00:00:00', '2015-04-20 00:00:00', null, 'FWA20001', '1', null, null, '33.441', '471*1.12*12*32÷ 1000=202.568+15=217.568\r\n8.229\r\n机织:66.000\r\n锁口:18.000\r\n套口:9.600\r\n挂须:20.400\r\n整烫:16.800\r\n费用+后道:18.000\r\n____________________________\r\n148.8+8.229\r\n=157.029*1.17\r\n=183.724+217.568\r\n=401.292÷12\r\n=33.441*1.17\r\n=39.126\r\n', 'resource.fuwei.com/images/sample/1427808371841QQ图片20150331211900.jpg', '1', '全晴格子披肩', 'FWA30001', '126*126 + 10*2', '471', '8', '1', '0', null, 'resource.fuwei.com/images/sample/s/1427808371841QQ图片20150331211900.png', 'resource.fuwei.com/images/sample/ss/1427808371841QQ图片20150331211900.png', '615', '[{\"color\":\"黑白色组\",\"id\":1,\"price\":42,\"quantity\":615,\"size\":\"126*126+10*2\",\"weight\":471,\"yarn\":1}]', '', '1');
+INSERT INTO `tb_order_handle` VALUES ('1', '1', '创建订单', '1', '待发货', null, '7', '2015-03-31 21:48:39');
+INSERT INTO `tb_planorder` VALUES ('1', '1', '2015-03-31 21:48:39', '2015-03-31 21:48:39', '7', '[{\"color\":\"黑白色组\",\"id\":1,\"price\":42,\"quantity\":615,\"size\":\"126*126+10*2\",\"weight\":471,\"yarn\":1}]', '0', '新建');
+INSERT INTO `tb_productionscheduleorder` VALUES ('1', '1', '2015-03-31 21:48:39', '2015-03-31 21:48:39', '7', '0', '新建');
 INSERT INTO `tb_role` VALUES ('1', '2014-07-07 17:15:33', '系统管理员', 'admin', '2014-07-07 17:15:43', null, '');
+INSERT INTO `tb_role` VALUES ('2', '2015-03-31 20:54:39', '生产主管', '生产主管', '2015-03-31 20:54:39', '6', '');
+INSERT INTO `tb_role` VALUES ('3', '2015-03-31 21:19:40', '业务员', 'salesman', '2015-03-31 21:19:40', '6', '');
+INSERT INTO `tb_role` VALUES ('4', '2015-03-31 21:27:08', '总经理', 'BOSS', '2015-03-31 21:27:08', '6', '');
 INSERT INTO `tb_role_authority` VALUES ('2969', '6', '1', '1');
 INSERT INTO `tb_role_authority` VALUES ('2970', '6', '1', '2');
 INSERT INTO `tb_role_authority` VALUES ('2971', '6', '1', '3');
@@ -1121,4 +1145,172 @@ INSERT INTO `tb_role_authority` VALUES ('3084', '6', '1', '94');
 INSERT INTO `tb_role_authority` VALUES ('3085', '6', '1', '95');
 INSERT INTO `tb_role_authority` VALUES ('3086', '6', '1', '96');
 INSERT INTO `tb_role_authority` VALUES ('3087', '6', '1', '97');
+INSERT INTO `tb_role_authority` VALUES ('3127', '6', '4', '1');
+INSERT INTO `tb_role_authority` VALUES ('3128', '6', '4', '2');
+INSERT INTO `tb_role_authority` VALUES ('3129', '6', '4', '3');
+INSERT INTO `tb_role_authority` VALUES ('3130', '6', '4', '4');
+INSERT INTO `tb_role_authority` VALUES ('3131', '6', '4', '5');
+INSERT INTO `tb_role_authority` VALUES ('3132', '6', '4', '6');
+INSERT INTO `tb_role_authority` VALUES ('3133', '6', '4', '7');
+INSERT INTO `tb_role_authority` VALUES ('3134', '6', '4', '8');
+INSERT INTO `tb_role_authority` VALUES ('3135', '6', '4', '9');
+INSERT INTO `tb_role_authority` VALUES ('3136', '6', '4', '49');
+INSERT INTO `tb_role_authority` VALUES ('3137', '6', '4', '50');
+INSERT INTO `tb_role_authority` VALUES ('3138', '6', '4', '10');
+INSERT INTO `tb_role_authority` VALUES ('3139', '6', '4', '11');
+INSERT INTO `tb_role_authority` VALUES ('3140', '6', '4', '12');
+INSERT INTO `tb_role_authority` VALUES ('3141', '6', '4', '13');
+INSERT INTO `tb_role_authority` VALUES ('3142', '6', '4', '14');
+INSERT INTO `tb_role_authority` VALUES ('3143', '6', '4', '15');
+INSERT INTO `tb_role_authority` VALUES ('3144', '6', '4', '16');
+INSERT INTO `tb_role_authority` VALUES ('3145', '6', '4', '17');
+INSERT INTO `tb_role_authority` VALUES ('3146', '6', '4', '18');
+INSERT INTO `tb_role_authority` VALUES ('3147', '6', '4', '19');
+INSERT INTO `tb_role_authority` VALUES ('3148', '6', '4', '20');
+INSERT INTO `tb_role_authority` VALUES ('3149', '6', '4', '21');
+INSERT INTO `tb_role_authority` VALUES ('3150', '6', '4', '22');
+INSERT INTO `tb_role_authority` VALUES ('3151', '6', '4', '23');
+INSERT INTO `tb_role_authority` VALUES ('3152', '6', '4', '24');
+INSERT INTO `tb_role_authority` VALUES ('3153', '6', '4', '65');
+INSERT INTO `tb_role_authority` VALUES ('3154', '6', '4', '66');
+INSERT INTO `tb_role_authority` VALUES ('3155', '6', '4', '67');
+INSERT INTO `tb_role_authority` VALUES ('3156', '6', '4', '68');
+INSERT INTO `tb_role_authority` VALUES ('3157', '6', '4', '69');
+INSERT INTO `tb_role_authority` VALUES ('3158', '6', '4', '102');
+INSERT INTO `tb_role_authority` VALUES ('3159', '6', '4', '103');
+INSERT INTO `tb_role_authority` VALUES ('3160', '6', '4', '104');
+INSERT INTO `tb_role_authority` VALUES ('3161', '6', '4', '105');
+INSERT INTO `tb_role_authority` VALUES ('3162', '6', '4', '106');
+INSERT INTO `tb_role_authority` VALUES ('3163', '6', '4', '125');
+INSERT INTO `tb_role_authority` VALUES ('3164', '6', '4', '126');
+INSERT INTO `tb_role_authority` VALUES ('3165', '6', '4', '127');
+INSERT INTO `tb_role_authority` VALUES ('3166', '6', '4', '128');
+INSERT INTO `tb_role_authority` VALUES ('3167', '6', '4', '129');
+INSERT INTO `tb_role_authority` VALUES ('3168', '6', '4', '130');
+INSERT INTO `tb_role_authority` VALUES ('3169', '6', '4', '131');
+INSERT INTO `tb_role_authority` VALUES ('3170', '6', '4', '132');
+INSERT INTO `tb_role_authority` VALUES ('3171', '6', '4', '133');
+INSERT INTO `tb_role_authority` VALUES ('3172', '6', '4', '25');
+INSERT INTO `tb_role_authority` VALUES ('3173', '6', '4', '26');
+INSERT INTO `tb_role_authority` VALUES ('3174', '6', '4', '27');
+INSERT INTO `tb_role_authority` VALUES ('3175', '6', '4', '28');
+INSERT INTO `tb_role_authority` VALUES ('3176', '6', '4', '29');
+INSERT INTO `tb_role_authority` VALUES ('3177', '6', '4', '30');
+INSERT INTO `tb_role_authority` VALUES ('3178', '6', '4', '31');
+INSERT INTO `tb_role_authority` VALUES ('3179', '6', '4', '51');
+INSERT INTO `tb_role_authority` VALUES ('3180', '6', '4', '32');
+INSERT INTO `tb_role_authority` VALUES ('3181', '6', '4', '33');
+INSERT INTO `tb_role_authority` VALUES ('3182', '6', '4', '34');
+INSERT INTO `tb_role_authority` VALUES ('3183', '6', '4', '35');
+INSERT INTO `tb_role_authority` VALUES ('3184', '6', '4', '36');
+INSERT INTO `tb_role_authority` VALUES ('3185', '6', '4', '37');
+INSERT INTO `tb_role_authority` VALUES ('3186', '6', '4', '38');
+INSERT INTO `tb_role_authority` VALUES ('3187', '6', '4', '39');
+INSERT INTO `tb_role_authority` VALUES ('3188', '6', '4', '40');
+INSERT INTO `tb_role_authority` VALUES ('3189', '6', '4', '41');
+INSERT INTO `tb_role_authority` VALUES ('3190', '6', '4', '42');
+INSERT INTO `tb_role_authority` VALUES ('3191', '6', '4', '43');
+INSERT INTO `tb_role_authority` VALUES ('3192', '6', '4', '48');
+INSERT INTO `tb_role_authority` VALUES ('3193', '6', '4', '44');
+INSERT INTO `tb_role_authority` VALUES ('3194', '6', '4', '45');
+INSERT INTO `tb_role_authority` VALUES ('3195', '6', '4', '46');
+INSERT INTO `tb_role_authority` VALUES ('3196', '6', '4', '47');
+INSERT INTO `tb_role_authority` VALUES ('3197', '6', '4', '52');
+INSERT INTO `tb_role_authority` VALUES ('3198', '6', '4', '53');
+INSERT INTO `tb_role_authority` VALUES ('3199', '6', '4', '54');
+INSERT INTO `tb_role_authority` VALUES ('3200', '6', '4', '55');
+INSERT INTO `tb_role_authority` VALUES ('3201', '6', '4', '56');
+INSERT INTO `tb_role_authority` VALUES ('3202', '6', '4', '57');
+INSERT INTO `tb_role_authority` VALUES ('3203', '6', '4', '58');
+INSERT INTO `tb_role_authority` VALUES ('3204', '6', '4', '59');
+INSERT INTO `tb_role_authority` VALUES ('3205', '6', '4', '60');
+INSERT INTO `tb_role_authority` VALUES ('3206', '6', '4', '61');
+INSERT INTO `tb_role_authority` VALUES ('3207', '6', '4', '62');
+INSERT INTO `tb_role_authority` VALUES ('3208', '6', '4', '63');
+INSERT INTO `tb_role_authority` VALUES ('3209', '6', '4', '75');
+INSERT INTO `tb_role_authority` VALUES ('3210', '6', '4', '76');
+INSERT INTO `tb_role_authority` VALUES ('3211', '6', '4', '77');
+INSERT INTO `tb_role_authority` VALUES ('3212', '6', '4', '134');
+INSERT INTO `tb_role_authority` VALUES ('3213', '6', '4', '78');
+INSERT INTO `tb_role_authority` VALUES ('3214', '6', '4', '79');
+INSERT INTO `tb_role_authority` VALUES ('3215', '6', '4', '80');
+INSERT INTO `tb_role_authority` VALUES ('3216', '6', '4', '81');
+INSERT INTO `tb_role_authority` VALUES ('3217', '6', '4', '82');
+INSERT INTO `tb_role_authority` VALUES ('3218', '6', '4', '83');
+INSERT INTO `tb_role_authority` VALUES ('3219', '6', '4', '84');
+INSERT INTO `tb_role_authority` VALUES ('3220', '6', '4', '85');
+INSERT INTO `tb_role_authority` VALUES ('3221', '6', '4', '86');
+INSERT INTO `tb_role_authority` VALUES ('3222', '6', '4', '87');
+INSERT INTO `tb_role_authority` VALUES ('3223', '6', '4', '88');
+INSERT INTO `tb_role_authority` VALUES ('3224', '6', '4', '107');
+INSERT INTO `tb_role_authority` VALUES ('3225', '6', '4', '108');
+INSERT INTO `tb_role_authority` VALUES ('3226', '6', '4', '109');
+INSERT INTO `tb_role_authority` VALUES ('3227', '6', '4', '110');
+INSERT INTO `tb_role_authority` VALUES ('3228', '6', '4', '111');
+INSERT INTO `tb_role_authority` VALUES ('3229', '6', '4', '124');
+INSERT INTO `tb_role_authority` VALUES ('3230', '6', '4', '112');
+INSERT INTO `tb_role_authority` VALUES ('3231', '6', '4', '113');
+INSERT INTO `tb_role_authority` VALUES ('3232', '6', '4', '114');
+INSERT INTO `tb_role_authority` VALUES ('3233', '6', '4', '115');
+INSERT INTO `tb_role_authority` VALUES ('3234', '6', '4', '116');
+INSERT INTO `tb_role_authority` VALUES ('3235', '6', '4', '123');
+INSERT INTO `tb_role_authority` VALUES ('3236', '6', '4', '117');
+INSERT INTO `tb_role_authority` VALUES ('3237', '6', '4', '118');
+INSERT INTO `tb_role_authority` VALUES ('3238', '6', '4', '119');
+INSERT INTO `tb_role_authority` VALUES ('3239', '6', '4', '120');
+INSERT INTO `tb_role_authority` VALUES ('3240', '6', '4', '121');
+INSERT INTO `tb_role_authority` VALUES ('3241', '6', '4', '122');
+INSERT INTO `tb_role_authority` VALUES ('3242', '6', '4', '94');
+INSERT INTO `tb_role_authority` VALUES ('3243', '6', '4', '95');
+INSERT INTO `tb_role_authority` VALUES ('3244', '6', '4', '96');
+INSERT INTO `tb_role_authority` VALUES ('3245', '6', '4', '97');
+INSERT INTO `tb_role_authority` VALUES ('3246', '6', '2', '25');
+INSERT INTO `tb_role_authority` VALUES ('3247', '6', '2', '26');
+INSERT INTO `tb_role_authority` VALUES ('3248', '6', '2', '28');
+INSERT INTO `tb_role_authority` VALUES ('3249', '6', '2', '29');
+INSERT INTO `tb_role_authority` VALUES ('3250', '6', '2', '31');
+INSERT INTO `tb_role_authority` VALUES ('3251', '6', '2', '51');
+INSERT INTO `tb_role_authority` VALUES ('3252', '6', '2', '52');
+INSERT INTO `tb_role_authority` VALUES ('3253', '6', '2', '53');
+INSERT INTO `tb_role_authority` VALUES ('3254', '6', '2', '54');
+INSERT INTO `tb_role_authority` VALUES ('3255', '6', '2', '55');
+INSERT INTO `tb_role_authority` VALUES ('3256', '6', '2', '56');
+INSERT INTO `tb_role_authority` VALUES ('3257', '6', '2', '57');
+INSERT INTO `tb_role_authority` VALUES ('3258', '6', '2', '75');
+INSERT INTO `tb_role_authority` VALUES ('3259', '6', '2', '76');
+INSERT INTO `tb_role_authority` VALUES ('3260', '6', '2', '77');
+INSERT INTO `tb_role_authority` VALUES ('3261', '6', '2', '134');
+INSERT INTO `tb_role_authority` VALUES ('3262', '6', '2', '78');
+INSERT INTO `tb_role_authority` VALUES ('3263', '6', '2', '79');
+INSERT INTO `tb_role_authority` VALUES ('3264', '6', '2', '80');
+INSERT INTO `tb_role_authority` VALUES ('3265', '6', '2', '81');
+INSERT INTO `tb_role_authority` VALUES ('3266', '6', '2', '82');
+INSERT INTO `tb_role_authority` VALUES ('3267', '6', '2', '83');
+INSERT INTO `tb_role_authority` VALUES ('3268', '6', '2', '84');
+INSERT INTO `tb_role_authority` VALUES ('3269', '6', '2', '85');
+INSERT INTO `tb_role_authority` VALUES ('3270', '6', '2', '86');
+INSERT INTO `tb_role_authority` VALUES ('3271', '6', '2', '88');
+INSERT INTO `tb_role_authority` VALUES ('3272', '6', '2', '107');
+INSERT INTO `tb_role_authority` VALUES ('3273', '6', '2', '108');
+INSERT INTO `tb_role_authority` VALUES ('3274', '6', '2', '109');
+INSERT INTO `tb_role_authority` VALUES ('3275', '6', '2', '111');
+INSERT INTO `tb_role_authority` VALUES ('3276', '6', '2', '124');
+INSERT INTO `tb_role_authority` VALUES ('3277', '6', '2', '112');
+INSERT INTO `tb_role_authority` VALUES ('3278', '6', '2', '113');
+INSERT INTO `tb_role_authority` VALUES ('3279', '6', '2', '114');
+INSERT INTO `tb_role_authority` VALUES ('3280', '6', '2', '116');
+INSERT INTO `tb_role_authority` VALUES ('3281', '6', '2', '123');
+INSERT INTO `tb_role_authority` VALUES ('3282', '6', '2', '117');
+INSERT INTO `tb_role_authority` VALUES ('3283', '6', '2', '118');
+INSERT INTO `tb_role_authority` VALUES ('3284', '6', '2', '119');
+INSERT INTO `tb_role_authority` VALUES ('3285', '6', '2', '121');
+INSERT INTO `tb_role_authority` VALUES ('3286', '6', '2', '122');
+INSERT INTO `tb_salesman` VALUES ('1', '2015-03-31 21:46:59', 'stx', '孙童欣', '89919732', '2015-03-31 21:46:59', '1', '6');
+INSERT INTO `tb_sample` VALUES ('1', '33.441', '2015-03-31 21:26:12', '471*1.12*12*32÷ 1000=202.568+15=217.568\r\n8.229\r\n机织:66.000\r\n锁口:18.000\r\n套口:9.600\r\n挂须:20.400\r\n整烫:16.800\r\n费用+后道:18.000\r\n____________________________\r\n148.8+8.229\r\n=157.029*1.17\r\n=183.724+217.568\r\n=401.292÷12\r\n=33.441*1.17\r\n=39.126\r\n', '', 'qqgzpj', 'resource.fuwei.com/images/sample/1427808371841QQ图片20150331211900.jpg', '1', '', '全晴格子披肩', 'FWA30001', '126*126 + 10*2', '2015-03-31 21:26:12', '471', '6', '7', 'resource.fuwei.com/images/sample/s/1427808371841QQ图片20150331211900.png', 'resource.fuwei.com/images/sample/ss/1427808371841QQ图片20150331211900.png', '1');
+INSERT INTO `tb_sample` VALUES ('2', '0', '2015-04-01 10:18:44', null, '', '', 'resource.fuwei.com/images/sample/1427854723718QQ图片20150331211900.jpg', '1', '', 'dafd', 'FWA30002', '1123', '2015-04-01 10:18:44', '11', '6', '6', 'resource.fuwei.com/images/sample/s/1427854723718QQ图片20150331211900.png', 'resource.fuwei.com/images/sample/ss/1427854723718QQ图片20150331211900.png', '1');
+INSERT INTO `tb_sample` VALUES ('3', '0', '2015-04-01 10:21:09', null, '', '', 'resource.fuwei.com/images/sample/1427854869010图片1.png', '1', '', 'df', 'FWA30003', 'fd', '2015-04-01 10:21:09', '133', '6', '6', 'resource.fuwei.com/images/sample/s/1427854869010图片1.png', 'resource.fuwei.com/images/sample/ss/1427854869010图片1.png', '1');
+INSERT INTO `tb_shoprecordorder` VALUES ('1', '1', '2015-03-31 21:48:39', '2015-03-31 21:48:39', '7', '0', '新建');
 INSERT INTO `tb_user` VALUES ('6', null, null, null, '', '', '系统内建帐号', 'fuwei_hp', null, null, null, 'system', '1', '');
+INSERT INTO `tb_user` VALUES ('7', '2015-03-31 21:05:17', 'cfz@fuwei.net.cn', 'czf', '', '', '陈珍芳', '123456', '', '13326134466', '2015-03-31 21:05:17', 'cfz', '2', '');
+INSERT INTO `tb_user` VALUES ('8', '2015-03-31 21:22:18', '', 'rx', '', '', '任晓', '123456', '', '', '2015-03-31 21:22:18', 'rx', '3', '');
+INSERT INTO `tb_user` VALUES ('9', '2015-03-31 21:27:30', 'hp@fuwei.net.cn', 'hp', '', '', '胡盼', '123456', '', '15068821361', '2015-03-31 21:27:30', 'hp', '4', '');
