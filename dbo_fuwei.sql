@@ -4,7 +4,7 @@ Source Host: localhost
 Source Database: dbo_fuwei
 Target Host: localhost
 Target Database: dbo_fuwei
-Date: 2015/4/1 15:28:14
+Date: 2015/4/4 2:06:16
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -39,7 +39,7 @@ CREATE TABLE `tb_carfixrecordorder` (
   KEY `created_user` (`created_user`),
   CONSTRAINT `tb_carfixrecordorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
   CONSTRAINT `tb_carfixrecordorder_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_checkrecordorder
@@ -56,7 +56,7 @@ CREATE TABLE `tb_checkrecordorder` (
   PRIMARY KEY (`id`),
   KEY `orderId` (`orderId`),
   CONSTRAINT `tb_checkrecordorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_coloringorder
@@ -78,13 +78,14 @@ CREATE TABLE `tb_coloringorder` (
   `name` varchar(255) DEFAULT NULL,
   `productNumber` varchar(255) DEFAULT NULL,
   `size` varchar(255) DEFAULT NULL,
-  `weight` double NOT NULL,
-  `sampleId` int(11) NOT NULL,
+  `weight` double DEFAULT NULL,
+  `sampleId` int(11) DEFAULT NULL,
   `orderNumber` varchar(64) DEFAULT NULL,
   `img_s` varchar(255) DEFAULT NULL,
   `img_ss` varchar(255) DEFAULT NULL,
   `charge_user` int(11) DEFAULT NULL,
   `customerId` int(11) DEFAULT NULL,
+  `memo` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `orderId` (`orderId`),
   KEY `created_user` (`created_user`),
@@ -102,7 +103,7 @@ CREATE TABLE `tb_coloringorder` (
   CONSTRAINT `tb_coloringorder_ibfk_6` FOREIGN KEY (`charge_user`) REFERENCES `tb_user` (`id`),
   CONSTRAINT `tb_coloringorder_ibfk_7` FOREIGN KEY (`customerId`) REFERENCES `tb_customer` (`id`),
   CONSTRAINT `tb_coloringorder_ibfk_8` FOREIGN KEY (`materialId`) REFERENCES `tb_material` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_coloringprocessorder
@@ -119,7 +120,7 @@ CREATE TABLE `tb_coloringprocessorder` (
   PRIMARY KEY (`id`),
   KEY `orderId` (`orderId`),
   CONSTRAINT `tb_coloringprocessorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_company
@@ -141,7 +142,7 @@ CREATE TABLE `tb_company` (
   PRIMARY KEY (`id`),
   KEY `FK38B0A3AC87AC0D3A` (`created_user`),
   CONSTRAINT `FK38B0A3AC87AC0D3A` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_customer
@@ -175,7 +176,7 @@ CREATE TABLE `tb_factory` (
   PRIMARY KEY (`id`),
   KEY `created_user` (`created_user`),
   CONSTRAINT `tb_factory_ibfk_1` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_finalstoreorder
@@ -192,7 +193,7 @@ CREATE TABLE `tb_finalstoreorder` (
   PRIMARY KEY (`id`),
   KEY `orderId` (`orderId`),
   CONSTRAINT `tb_finalstoreorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_fuliaopurchaseorder
@@ -214,8 +215,8 @@ CREATE TABLE `tb_fuliaopurchaseorder` (
   `name` varchar(255) DEFAULT NULL,
   `productNumber` varchar(255) DEFAULT NULL,
   `size` varchar(255) DEFAULT NULL,
-  `weight` double NOT NULL,
-  `sampleId` int(11) NOT NULL,
+  `weight` double DEFAULT NULL,
+  `sampleId` int(11) DEFAULT NULL,
   `orderNumber` varchar(64) DEFAULT NULL,
   `img_s` varchar(255) DEFAULT NULL,
   `img_ss` varchar(255) DEFAULT NULL,
@@ -238,7 +239,7 @@ CREATE TABLE `tb_fuliaopurchaseorder` (
   CONSTRAINT `tb_fuliaopurchaseorder_ibfk_6` FOREIGN KEY (`charge_user`) REFERENCES `tb_user` (`id`),
   CONSTRAINT `tb_fuliaopurchaseorder_ibfk_7` FOREIGN KEY (`customerId`) REFERENCES `tb_customer` (`id`),
   CONSTRAINT `tb_fuliaopurchaseorder_ibfk_8` FOREIGN KEY (`materialId`) REFERENCES `tb_material` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_gongxu
@@ -253,7 +254,7 @@ CREATE TABLE `tb_gongxu` (
   PRIMARY KEY (`id`),
   KEY `FK4AB8624F87AC0D3A` (`created_user`),
   CONSTRAINT `FK4AB8624F87AC0D3A` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_halfcheckrecordorder
@@ -273,7 +274,7 @@ CREATE TABLE `tb_halfcheckrecordorder` (
   KEY `created_user` (`created_user`),
   CONSTRAINT `tb_halfcheckrecordorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
   CONSTRAINT `tb_halfcheckrecordorder_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_headbankorder
@@ -292,7 +293,7 @@ CREATE TABLE `tb_headbankorder` (
   KEY `created_user` (`created_user`),
   CONSTRAINT `tb_headbankorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
   CONSTRAINT `tb_headbankorder_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_ironingrecordorder
@@ -311,7 +312,7 @@ CREATE TABLE `tb_ironingrecordorder` (
   KEY `created_user` (`created_user`),
   CONSTRAINT `tb_ironingrecordorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
   CONSTRAINT `tb_ironingrecordorder_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_material
@@ -349,8 +350,8 @@ CREATE TABLE `tb_materialpurchaseorder` (
   `name` varchar(255) DEFAULT NULL,
   `productNumber` varchar(255) DEFAULT NULL,
   `size` varchar(255) DEFAULT NULL,
-  `weight` double NOT NULL,
-  `sampleId` int(11) NOT NULL,
+  `weight` double DEFAULT NULL,
+  `sampleId` int(11) DEFAULT NULL,
   `orderNumber` varchar(64) DEFAULT NULL,
   `img_s` varchar(255) DEFAULT NULL,
   `img_ss` varchar(255) DEFAULT NULL,
@@ -373,7 +374,7 @@ CREATE TABLE `tb_materialpurchaseorder` (
   CONSTRAINT `tb_materialpurchaseorder_ibfk_6` FOREIGN KEY (`charge_user`) REFERENCES `tb_user` (`id`),
   CONSTRAINT `tb_materialpurchaseorder_ibfk_7` FOREIGN KEY (`customerId`) REFERENCES `tb_customer` (`id`),
   CONSTRAINT `tb_materialpurchaseorder_ibfk_8` FOREIGN KEY (`materialId`) REFERENCES `tb_material` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_module
@@ -448,7 +449,7 @@ CREATE TABLE `tb_order` (
   CONSTRAINT `tb_order_ibfk_5` FOREIGN KEY (`sampleId`) REFERENCES `tb_sample` (`id`),
   CONSTRAINT `tb_order_ibfk_6` FOREIGN KEY (`customerId`) REFERENCES `tb_customer` (`id`),
   CONSTRAINT `tb_order_ibfk_7` FOREIGN KEY (`materialId`) REFERENCES `tb_material` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_order_detail
@@ -502,7 +503,7 @@ CREATE TABLE `tb_order_handle` (
   KEY `created_user` (`created_user`),
   CONSTRAINT `tb_order_handle_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `tb_order_handle_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_order_produce_status
@@ -540,7 +541,7 @@ CREATE TABLE `tb_planorder` (
   KEY `created_user` (`created_user`),
   CONSTRAINT `tb_planorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
   CONSTRAINT `tb_planorder_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_producingorder
@@ -564,7 +565,7 @@ CREATE TABLE `tb_producingorder` (
   CONSTRAINT `tb_producingorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
   CONSTRAINT `tb_producingorder_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`),
   CONSTRAINT `tb_producingorder_ibfk_4` FOREIGN KEY (`factoryId`) REFERENCES `tb_factory` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_production_notification
@@ -605,7 +606,7 @@ CREATE TABLE `tb_productionscheduleorder` (
   PRIMARY KEY (`id`),
   KEY `tb_productionscheduleorder_ibfk_1` (`orderId`),
   CONSTRAINT `tb_productionscheduleorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_quote
@@ -770,7 +771,7 @@ CREATE TABLE `tb_salesman` (
   KEY `FK7497AF7F87AC0D3A` (`created_user`),
   CONSTRAINT `FK7497AF7F2FD17BF9` FOREIGN KEY (`companyId`) REFERENCES `tb_company` (`id`),
   CONSTRAINT `FK7497AF7F87AC0D3A` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_sample
@@ -780,7 +781,7 @@ CREATE TABLE `tb_sample` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cost` double NOT NULL,
   `created_at` datetime DEFAULT NULL,
-  `detail` varchar(255) DEFAULT NULL,
+  `detail` text,
   `has_detail` bit(1) DEFAULT NULL,
   `help_code` varchar(255) DEFAULT NULL,
   `img` varchar(255) DEFAULT NULL,
@@ -805,7 +806,7 @@ CREATE TABLE `tb_sample` (
   CONSTRAINT `FK5E6CEC9B87AC0D3A` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`),
   CONSTRAINT `tb_sample_ibfk_1` FOREIGN KEY (`factoryId`) REFERENCES `tb_factory` (`id`),
   CONSTRAINT `tb_sample_ibfk_2` FOREIGN KEY (`materialId`) REFERENCES `tb_material` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_shoprecordorder
@@ -822,7 +823,7 @@ CREATE TABLE `tb_shoprecordorder` (
   PRIMARY KEY (`id`),
   KEY `orderId` (`orderId`),
   CONSTRAINT `tb_shoprecordorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_storeorder
@@ -843,7 +844,7 @@ CREATE TABLE `tb_storeorder` (
   KEY `created_user` (`created_user`),
   CONSTRAINT `tb_storeorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
   CONSTRAINT `tb_storeorder_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_user
@@ -1002,26 +1003,54 @@ INSERT INTO `tb_authority` VALUES ('132', '129', '删除', 'customer/delete');
 INSERT INTO `tb_authority` VALUES ('133', '129', '查看列表', 'customer/index');
 INSERT INTO `tb_authority` VALUES ('134', '77', '删除生产单', 'order/producing/delete');
 INSERT INTO `tb_carfixrecordorder` VALUES ('1', '1', '2015-03-31 21:48:39', '2015-03-31 21:48:39', '7', '0', '新建');
+INSERT INTO `tb_carfixrecordorder` VALUES ('2', '2', '2015-04-03 21:46:02', '2015-04-03 21:46:02', '6', '0', '新建');
 INSERT INTO `tb_checkrecordorder` VALUES ('1', '1', '2015-03-31 21:48:39', '2015-03-31 21:48:39', '7', '0', '新建');
+INSERT INTO `tb_checkrecordorder` VALUES ('2', '2', '2015-04-03 21:46:02', '2015-04-03 21:46:02', '6', '0', '新建');
+INSERT INTO `tb_coloringorder` VALUES ('1', '1', '2015-04-01 21:43:41', '2015-04-03 19:04:21', '6', '[{\"color\":\"白色\",\"material\":1,\"quantity\":190,\"standardyarn\":\"\"},{\"color\":\"黑色\",\"material\":1,\"quantity\":990,\"standardyarn\":\"\"}]', '2', '0', '新建', '1', 'resource.fuwei.com/images/sample/1427808371841QQ图片20150331211900.jpg', '1', '全晴格子披肩', 'FWA30001', '126*126 + 10*2', '0', '1', 'FWA20001', 'resource.fuwei.com/images/sample/s/1427808371841QQ图片20150331211900.png', 'resource.fuwei.com/images/sample/ss/1427808371841QQ图片20150331211900.png', '8', '1', null);
+INSERT INTO `tb_coloringorder` VALUES ('2', null, '2015-04-02 22:03:58', '2015-04-02 22:10:43', '6', '[{\"color\":\"baise\",\"material\":1,\"quantity\":1980.9,\"standardyarn\":\"\"}]', '2', '0', '新建', '2', null, null, 'pinming', '7866g', null, '0', null, null, null, null, '6', null, null);
+INSERT INTO `tb_coloringorder` VALUES ('3', '1', '2015-04-02 22:39:20', '2015-04-03 19:04:00', '6', '[{\"color\":\"baise\",\"material\":1,\"quantity\":1233.5,\"standardyarn\":\"21\"}]', '2', '0', '新建', '1', 'resource.fuwei.com/images/sample/1427808371841QQ图片20150331211900.jpg', '1', '全晴格子披肩', 'FWA30001', '126*126 + 10*2', '0', '1', 'FWA20001', 'resource.fuwei.com/images/sample/s/1427808371841QQ图片20150331211900.png', 'resource.fuwei.com/images/sample/ss/1427808371841QQ图片20150331211900.png', '8', '1', null);
 INSERT INTO `tb_coloringprocessorder` VALUES ('1', '1', '2015-03-31 21:48:39', '2015-03-31 21:48:39', '7', '0', '新建');
+INSERT INTO `tb_coloringprocessorder` VALUES ('2', '2', '2015-04-03 21:46:02', '2015-04-03 21:46:02', '6', '0', '新建');
 INSERT INTO `tb_company` VALUES ('1', '拱墅区湖州街18号', '杭州', null, null, '2015-03-31 21:45:42', '杭州翔天实业有限公司', 'hzxtsyyxgs', '0', '翔天', '2015-03-31 21:45:42', '6');
+INSERT INTO `tb_company` VALUES ('2', '不详', '不详', null, null, '2015-04-02 09:49:56', '公司A', 'gs', '0', 'A', '2015-04-02 09:49:56', '6');
 INSERT INTO `tb_customer` VALUES ('1', '比利时', '2015-03-31 21:46:05', 'VIS', '2015-03-31 21:46:05', '6');
 INSERT INTO `tb_factory` VALUES ('1', '江波', '孙家村', '2015-03-31 21:24:01', 'jb', '2015-03-31 21:24:01', '6', '0');
+INSERT INTO `tb_factory` VALUES ('2', '诚信', '未知', '2015-04-01 21:42:52', 'cx', '2015-04-01 21:42:52', '6', '2');
+INSERT INTO `tb_factory` VALUES ('3', '采购单位', '未知2', '2015-04-01 21:48:23', 'cgdw', '2015-04-02 12:51:21', '6', '1');
 INSERT INTO `tb_finalstoreorder` VALUES ('1', '1', '2015-03-31 21:48:39', '2015-03-31 21:48:39', '7', '0', '新建');
+INSERT INTO `tb_finalstoreorder` VALUES ('2', '2', '2015-04-03 21:46:02', '2015-04-03 21:46:02', '6', '0', '新建');
+INSERT INTO `tb_fuliaopurchaseorder` VALUES ('1', '1', '2015-04-01 21:51:10', '2015-04-03 19:04:59', '6', '[{\"memo\":\"\",\"quantity\":3133,\"style\":1}]', '3', '0', '新建', '1', 'resource.fuwei.com/images/sample/1427808371841QQ图片20150331211900.jpg', '1', '全晴格子披肩', 'FWA30001', '126*126 + 10*2', '0', '1', 'FWA20001', 'resource.fuwei.com/images/sample/s/1427808371841QQ图片20150331211900.png', 'resource.fuwei.com/images/sample/ss/1427808371841QQ图片20150331211900.png', '8', '1');
+INSERT INTO `tb_fuliaopurchaseorder` VALUES ('2', '1', '2015-04-02 17:28:57', '2015-04-03 21:42:28', '6', '[{\"memo\":\"备注\",\"quantity\":178.3,\"style\":1},{\"memo\":\"\",\"quantity\":122,\"style\":1},{\"memo\":\"\",\"quantity\":1,\"style\":1},{\"memo\":\"\",\"quantity\":1,\"style\":1},{\"memo\":\"\",\"quantity\":1,\"style\":1},{\"memo\":\"\",\"quantity\":2,\"style\":1}]', '3', '0', '新建', '1', 'resource.fuwei.com/images/sample/1427808371841QQ图片20150331211900.jpg', '1', '全晴格子披肩', 'FWA30001', '126*126 + 10*2', '0', '1', 'FWA20001', 'resource.fuwei.com/images/sample/s/1427808371841QQ图片20150331211900.png', 'resource.fuwei.com/images/sample/ss/1427808371841QQ图片20150331211900.png', '8', '1');
+INSERT INTO `tb_fuliaopurchaseorder` VALUES ('3', null, '2015-04-02 17:32:27', '2015-04-02 20:08:21', '6', '[{\"memo\":\"\",\"quantity\":111,\"style\":1}]', '3', '0', '新建', '2', null, null, '品名', '33', null, '0', null, null, null, null, '8', null);
 INSERT INTO `tb_gongxu` VALUES ('1', '2015-03-31 21:33:40', '机织', '2015-03-31 21:33:40', '9');
 INSERT INTO `tb_gongxu` VALUES ('2', '2015-03-31 21:33:48', '锁口', '2015-03-31 21:33:48', '9');
 INSERT INTO `tb_gongxu` VALUES ('3', '2015-03-31 21:33:58', '套口', '2015-03-31 21:33:58', '9');
 INSERT INTO `tb_gongxu` VALUES ('4', '2015-03-31 21:34:10', '挂须', '2015-03-31 21:34:10', '9');
 INSERT INTO `tb_gongxu` VALUES ('5', '2015-03-31 21:34:18', '整烫', '2015-03-31 21:34:18', '9');
 INSERT INTO `tb_gongxu` VALUES ('6', '2015-03-31 21:34:25', '费用+后道', '2015-03-31 21:34:25', '9');
+INSERT INTO `tb_gongxu` VALUES ('7', '2015-04-03 22:01:11', '1', '2015-04-03 22:01:11', '6');
+INSERT INTO `tb_gongxu` VALUES ('8', '2015-04-03 22:01:19', '3', '2015-04-03 22:01:19', '6');
+INSERT INTO `tb_gongxu` VALUES ('9', '2015-04-03 22:03:36', '2', '2015-04-03 22:03:36', '6');
 INSERT INTO `tb_halfcheckrecordorder` VALUES ('1', '1', '2015-03-31 21:48:39', '2015-03-31 21:48:39', '7', '[{\"color\":\"黑白色组\",\"colorsample\":\"\",\"material\":1}]', '0', '新建');
+INSERT INTO `tb_halfcheckrecordorder` VALUES ('2', '2', '2015-04-03 21:46:02', '2015-04-03 21:46:02', '6', '[{\"color\":\"baise\",\"colorsample\":\"\",\"material\":1},{\"color\":\"heise\",\"colorsample\":\"\",\"material\":1}]', '0', '新建');
 INSERT INTO `tb_headbankorder` VALUES ('1', '1', '2015-03-31 21:48:39', '2015-03-31 21:48:39', '7', '0', '新建');
+INSERT INTO `tb_headbankorder` VALUES ('2', '2', '2015-04-03 21:46:02', '2015-04-03 21:46:02', '6', '0', '新建');
 INSERT INTO `tb_ironingrecordorder` VALUES ('1', '1', '2015-03-31 21:48:39', '2015-03-31 21:48:39', '7', '0', '新建');
+INSERT INTO `tb_ironingrecordorder` VALUES ('2', '2', '2015-04-03 21:46:02', '2015-04-03 21:46:02', '6', '0', '新建');
 INSERT INTO `tb_material` VALUES ('1', '2015-03-31 21:23:41', '26s晴纶', '2015-03-31 21:23:41', '6');
+INSERT INTO `tb_materialpurchaseorder` VALUES ('2', null, '2015-04-02 15:09:48', '2015-04-02 15:09:48', '6', '[{\"material\":1,\"price\":0,\"quantity\":1566}]', null, '3', '0', '新建', '1', null, null, '测试采购单品名', '134343', null, '0', null, null, null, null, '8', '1');
+INSERT INTO `tb_materialpurchaseorder` VALUES ('3', null, '2015-04-02 16:14:16', '2015-04-02 16:19:04', '6', '[{\"material\":1,\"memo\":\"备注\",\"quantity\":1200.9}]', null, '3', '0', '新建', '1', null, null, '品名2', 'huohao2', null, '0', null, null, null, null, '8', '1');
+INSERT INTO `tb_materialpurchaseorder` VALUES ('4', '1', '2015-04-02 16:21:52', '2015-04-02 16:21:52', '6', '[{\"material\":1,\"memo\":\"vc\",\"quantity\":122.1}]', null, '3', '0', '新建', '1', 'resource.fuwei.com/images/sample/1427808371841QQ图片20150331211900.jpg', '1', '全晴格子披肩', 'FWA30001', '126*126 + 10*2', '471', '1', 'FWA20001', 'resource.fuwei.com/images/sample/s/1427808371841QQ图片20150331211900.png', 'resource.fuwei.com/images/sample/ss/1427808371841QQ图片20150331211900.png', '8', '1');
+INSERT INTO `tb_materialpurchaseorder` VALUES ('5', '1', '2015-04-03 20:58:29', '2015-04-03 20:58:29', '6', '[{\"material\":1,\"memo\":\"\",\"quantity\":1},{\"material\":1,\"memo\":\"\",\"quantity\":2},{\"material\":1,\"memo\":\"\",\"quantity\":3},{\"material\":1,\"memo\":\"\",\"quantity\":4},{\"material\":1,\"memo\":\"\",\"quantity\":5},{\"material\":1,\"memo\":\"\",\"quantity\":6}]', null, '3', '0', '新建', '1', 'resource.fuwei.com/images/sample/1427808371841QQ图片20150331211900.jpg', '1', '全晴格子披肩', 'FWA30001', '126*126 + 10*2', '471', '1', 'FWA20001', 'resource.fuwei.com/images/sample/s/1427808371841QQ图片20150331211900.png', 'resource.fuwei.com/images/sample/ss/1427808371841QQ图片20150331211900.png', '8', '1');
 INSERT INTO `tb_order` VALUES ('1', '2015-03-31 21:48:39', '2015-03-31 21:48:39', '7', '1', '25830', '1', '待发货', '', '全晴格子披肩(471.0克)', '2015-03-09 00:00:00', '2015-04-20 00:00:00', null, 'FWA20001', '1', null, null, '33.441', '471*1.12*12*32÷ 1000=202.568+15=217.568\r\n8.229\r\n机织:66.000\r\n锁口:18.000\r\n套口:9.600\r\n挂须:20.400\r\n整烫:16.800\r\n费用+后道:18.000\r\n____________________________\r\n148.8+8.229\r\n=157.029*1.17\r\n=183.724+217.568\r\n=401.292÷12\r\n=33.441*1.17\r\n=39.126\r\n', 'resource.fuwei.com/images/sample/1427808371841QQ图片20150331211900.jpg', '1', '全晴格子披肩', 'FWA30001', '126*126 + 10*2', '471', '8', '1', '0', null, 'resource.fuwei.com/images/sample/s/1427808371841QQ图片20150331211900.png', 'resource.fuwei.com/images/sample/ss/1427808371841QQ图片20150331211900.png', '615', '[{\"color\":\"黑白色组\",\"id\":1,\"price\":42,\"quantity\":615,\"size\":\"126*126+10*2\",\"weight\":471,\"yarn\":1}]', '', '1');
+INSERT INTO `tb_order` VALUES ('2', '2015-04-03 21:46:02', '2015-04-03 21:46:02', '6', '1', '8592', '1', '待发货', '', 'df(133.0克)', '2015-04-03 00:00:00', '2015-06-03 00:00:00', null, 'FWA20002', '1', null, null, '0', null, 'resource.fuwei.com/images/sample/1427854869010图片1.png', '1', 'df', 'FWA30003', 'fd', '133', '6', '3', '0', null, 'resource.fuwei.com/images/sample/s/1427854869010图片1.png', 'resource.fuwei.com/images/sample/ss/1427854869010图片1.png', '1432', '[{\"color\":\"baise\",\"id\":1,\"price\":6,\"quantity\":323,\"size\":\"12\",\"weight\":1232,\"yarn\":1},{\"color\":\"heise\",\"id\":2,\"price\":6,\"quantity\":1109,\"size\":\"cd\",\"weight\":190,\"yarn\":1}]', '', null);
 INSERT INTO `tb_order_handle` VALUES ('1', '1', '创建订单', '1', '待发货', null, '7', '2015-03-31 21:48:39');
+INSERT INTO `tb_order_handle` VALUES ('2', '2', '创建订单', '1', '待发货', null, '6', '2015-04-03 21:46:02');
 INSERT INTO `tb_planorder` VALUES ('1', '1', '2015-03-31 21:48:39', '2015-03-31 21:48:39', '7', '[{\"color\":\"黑白色组\",\"id\":1,\"price\":42,\"quantity\":615,\"size\":\"126*126+10*2\",\"weight\":471,\"yarn\":1}]', '0', '新建');
+INSERT INTO `tb_planorder` VALUES ('2', '2', '2015-04-03 21:46:02', '2015-04-03 21:46:02', '6', '[{\"color\":\"baise\",\"id\":1,\"price\":6,\"quantity\":323,\"size\":\"12\",\"weight\":1232,\"yarn\":1},{\"color\":\"heise\",\"id\":2,\"price\":6,\"quantity\":1109,\"size\":\"cd\",\"weight\":190,\"yarn\":1}]', '0', '新建');
+INSERT INTO `tb_producingorder` VALUES ('1', '1', '2015-04-02 09:12:37', '2015-04-02 12:05:44', '6', '[{\"color\":\"黑白色组\",\"planOrderDetailId\":1,\"price\":0,\"quantity\":615,\"size\":\"126*126+10*2\",\"weight\":471,\"yarn\":1}]', '[{\"color\":\"12\",\"colorsample\":\"43\",\"material\":1,\"quantity\":3243.56}]', '1', '0', '新建');
 INSERT INTO `tb_productionscheduleorder` VALUES ('1', '1', '2015-03-31 21:48:39', '2015-03-31 21:48:39', '7', '0', '新建');
+INSERT INTO `tb_productionscheduleorder` VALUES ('2', '2', '2015-04-03 21:46:02', '2015-04-03 21:46:02', '6', '0', '新建');
 INSERT INTO `tb_role` VALUES ('1', '2014-07-07 17:15:33', '系统管理员', 'admin', '2014-07-07 17:15:43', null, '');
 INSERT INTO `tb_role` VALUES ('2', '2015-03-31 20:54:39', '生产主管', '生产主管', '2015-03-31 20:54:39', '6', '');
 INSERT INTO `tb_role` VALUES ('3', '2015-03-31 21:19:40', '业务员', 'salesman', '2015-03-31 21:19:40', '6', '');
@@ -1306,10 +1335,18 @@ INSERT INTO `tb_role_authority` VALUES ('3284', '6', '2', '119');
 INSERT INTO `tb_role_authority` VALUES ('3285', '6', '2', '121');
 INSERT INTO `tb_role_authority` VALUES ('3286', '6', '2', '122');
 INSERT INTO `tb_salesman` VALUES ('1', '2015-03-31 21:46:59', 'stx', '孙童欣', '89919732', '2015-03-31 21:46:59', '1', '6');
+INSERT INTO `tb_salesman` VALUES ('2', '2015-04-02 09:50:08', '', '1', '1', '2015-04-02 09:50:08', '1', '6');
+INSERT INTO `tb_salesman` VALUES ('4', '2015-04-02 09:51:55', '', '2', '2', '2015-04-02 09:51:55', '1', '6');
+INSERT INTO `tb_salesman` VALUES ('5', '2015-04-02 09:53:27', '', '3', '3', '2015-04-02 09:53:27', '2', '6');
+INSERT INTO `tb_salesman` VALUES ('6', '2015-04-02 09:53:33', '', '4', '4', '2015-04-02 09:53:33', '2', '6');
+INSERT INTO `tb_salesman` VALUES ('7', '2015-04-02 09:54:50', '', '5', '5', '2015-04-02 09:54:50', '1', '6');
 INSERT INTO `tb_sample` VALUES ('1', '33.441', '2015-03-31 21:26:12', '471*1.12*12*32÷ 1000=202.568+15=217.568\r\n8.229\r\n机织:66.000\r\n锁口:18.000\r\n套口:9.600\r\n挂须:20.400\r\n整烫:16.800\r\n费用+后道:18.000\r\n____________________________\r\n148.8+8.229\r\n=157.029*1.17\r\n=183.724+217.568\r\n=401.292÷12\r\n=33.441*1.17\r\n=39.126\r\n', '', 'qqgzpj', 'resource.fuwei.com/images/sample/1427808371841QQ图片20150331211900.jpg', '1', '', '全晴格子披肩', 'FWA30001', '126*126 + 10*2', '2015-03-31 21:26:12', '471', '6', '7', 'resource.fuwei.com/images/sample/s/1427808371841QQ图片20150331211900.png', 'resource.fuwei.com/images/sample/ss/1427808371841QQ图片20150331211900.png', '1');
-INSERT INTO `tb_sample` VALUES ('2', '0', '2015-04-01 10:18:44', null, '', '', 'resource.fuwei.com/images/sample/1427854723718QQ图片20150331211900.jpg', '1', '', 'dafd', 'FWA30002', '1123', '2015-04-01 10:18:44', '11', '6', '6', 'resource.fuwei.com/images/sample/s/1427854723718QQ图片20150331211900.png', 'resource.fuwei.com/images/sample/ss/1427854723718QQ图片20150331211900.png', '1');
+INSERT INTO `tb_sample` VALUES ('2', '29.273', '2015-04-01 10:18:44', '材料1：100*1.1*12*100÷ 1000=132\r\n材料2：120*1.1*12*100÷ 1000=158.4\r\n132+158.4=290.4+12=302.4\r\n1.716+2.059=3.775\r\n机织:12.000\r\n机织:6.000\r\n机织:5.000\r\n机织:10.000\r\n机织:5.000\r\n____________________________\r\n38+3.775\r\n=41.775*1.17\r\n=48.877+302.4\r\n=351.277÷12\r\n=29.273*1.2\r\n=35.128\r\n', '', '', 'resource.fuwei.com/images/sample/1427854723718QQ图片20150331211900.jpg', '1', '', 'dafd', 'FWA30002', '1123', '2015-04-01 10:18:44', '11', '6', '6', 'resource.fuwei.com/images/sample/s/1427854723718QQ图片20150331211900.png', 'resource.fuwei.com/images/sample/ss/1427854723718QQ图片20150331211900.png', '1');
 INSERT INTO `tb_sample` VALUES ('3', '0', '2015-04-01 10:21:09', null, '', '', 'resource.fuwei.com/images/sample/1427854869010图片1.png', '1', '', 'df', 'FWA30003', 'fd', '2015-04-01 10:21:09', '133', '6', '6', 'resource.fuwei.com/images/sample/s/1427854869010图片1.png', 'resource.fuwei.com/images/sample/ss/1427854869010图片1.png', '1');
 INSERT INTO `tb_shoprecordorder` VALUES ('1', '1', '2015-03-31 21:48:39', '2015-03-31 21:48:39', '7', '0', '新建');
+INSERT INTO `tb_shoprecordorder` VALUES ('2', '2', '2015-04-03 21:46:02', '2015-04-03 21:46:02', '6', '0', '新建');
+INSERT INTO `tb_storeorder` VALUES ('1', '1', '2015-04-01 20:58:43', '2015-04-01 21:26:27', '6', '[{\"color\":\"1\",\"factoryId\":1,\"material\":1,\"quantity\":33,\"yarn\":\"343\"},{\"color\":\"2\",\"factoryId\":1,\"material\":1,\"quantity\":433,\"yarn\":\"fggg\"}]', null, '0', '新建');
+INSERT INTO `tb_storeorder` VALUES ('2', '2', '2015-04-03 21:52:40', '2015-04-03 21:56:10', '6', '[{\"color\":\"r23\",\"factoryId\":1,\"material\":1,\"quantity\":56.9,\"yarn\":\"\"}]', null, '0', '新建');
 INSERT INTO `tb_user` VALUES ('6', null, null, null, '', '', '系统内建帐号', 'fuwei_hp', null, null, null, 'system', '1', '');
 INSERT INTO `tb_user` VALUES ('7', '2015-03-31 21:05:17', 'cfz@fuwei.net.cn', 'czf', '', '', '陈珍芳', '123456', '', '13326134466', '2015-03-31 21:05:17', 'cfz', '2', '');
 INSERT INTO `tb_user` VALUES ('8', '2015-03-31 21:22:18', '', 'rx', '', '', '任晓', '123456', '', '', '2015-03-31 21:22:18', 'rx', '3', '');
