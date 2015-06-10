@@ -4,7 +4,7 @@ Source Host: localhost
 Source Database: dbo_fuwei
 Target Host: localhost
 Target Database: dbo_fuwei
-Date: 2015-06-06 17:44:20
+Date: 2015-06-10 17:13:06
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,7 +20,7 @@ CREATE TABLE `tb_authority` (
   PRIMARY KEY (`id`),
   KEY `FKPID323` (`pid`),
   CONSTRAINT `FKPID323` FOREIGN KEY (`pid`) REFERENCES `tb_authority` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=188 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=195 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_bank
@@ -32,15 +32,16 @@ CREATE TABLE `tb_bank` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `created_user` int(11) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
+  `name` varchar(32) DEFAULT NULL,
   `number` varchar(255) DEFAULT NULL,
   `is_enterprise` bit(1) DEFAULT NULL,
   `bank_name` varchar(255) DEFAULT NULL,
   `bank_no` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`),
   KEY `created_user` (`created_user`),
   CONSTRAINT `tb_bank_ibfk_1` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=740 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_carfixrecordorder
@@ -210,7 +211,7 @@ CREATE TABLE `tb_employee` (
   `email` varchar(255) DEFAULT NULL,
   `help_code` varchar(255) DEFAULT NULL,
   `inUse` bit(1) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
+  `name` varchar(32) DEFAULT NULL,
   `qq` varchar(255) DEFAULT NULL,
   `tel` varchar(255) DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -237,6 +238,7 @@ CREATE TABLE `tb_employee` (
   `birthday` varchar(255) DEFAULT NULL,
   `is_charge_employee` bit(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`),
   KEY `departmentId` (`departmentId`),
   KEY `created_user` (`created_user`),
   CONSTRAINT `tb_employee_ibfk_1` FOREIGN KEY (`departmentId`) REFERENCES `tb_department` (`id`),
@@ -264,6 +266,7 @@ CREATE TABLE `tb_expense_income` (
   `updated_at` date DEFAULT NULL,
   `created_user` int(11) DEFAULT NULL,
   `in_out` bit(1) DEFAULT NULL,
+  `invoice_amount` double DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `created_user` (`created_user`),
   KEY `subject_id` (`subject_id`),
@@ -276,6 +279,27 @@ CREATE TABLE `tb_expense_income` (
   CONSTRAINT `tb_expense_income_ibfk_4` FOREIGN KEY (`company_id`) REFERENCES `tb_company` (`id`),
   CONSTRAINT `tb_expense_income_ibfk_5` FOREIGN KEY (`salesman_id`) REFERENCES `tb_salesman` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for tb_expense_income_invoice
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_expense_income_invoice`;
+CREATE TABLE `tb_expense_income_invoice` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `expense_income_id` int(11) DEFAULT NULL,
+  `invoice_id` int(11) DEFAULT NULL,
+  `amount` double DEFAULT NULL,
+  `created_at` date DEFAULT NULL,
+  `updated_at` date DEFAULT NULL,
+  `created_user` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `expense_income_id` (`expense_income_id`),
+  KEY `invoice_id` (`invoice_id`),
+  KEY `created_user` (`created_user`),
+  CONSTRAINT `tb_expense_income_invoice_ibfk_1` FOREIGN KEY (`expense_income_id`) REFERENCES `tb_expense_income` (`id`),
+  CONSTRAINT `tb_expense_income_invoice_ibfk_2` FOREIGN KEY (`invoice_id`) REFERENCES `tb_invoice` (`id`),
+  CONSTRAINT `tb_expense_income_invoice_ibfk_3` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_factory
@@ -436,12 +460,13 @@ CREATE TABLE `tb_invoice` (
   `tax` double DEFAULT NULL,
   `tax_amount` double DEFAULT NULL,
   `type` int(11) DEFAULT NULL,
+  `match_amount` double DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `created_user` (`created_user`),
   KEY `bank_id` (`bank_id`),
   CONSTRAINT `tb_invoice_ibfk_1` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`),
   CONSTRAINT `tb_invoice_ibfk_2` FOREIGN KEY (`bank_id`) REFERENCES `tb_bank` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_ironingrecordorder
@@ -1184,7 +1209,7 @@ INSERT INTO `tb_authority` VALUES ('87', '52', '取消订单', 'order/cancel');
 INSERT INTO `tb_authority` VALUES ('88', null, '材料系统', 'materialsys');
 INSERT INTO `tb_authority` VALUES ('94', null, '报表中心', 'report');
 INSERT INTO `tb_authority` VALUES ('95', '94', '材料库存报表', 'report/material');
-INSERT INTO `tb_authority` VALUES ('96', '94', '原材料采购报表', 'report/material_purchase');
+INSERT INTO `tb_authority` VALUES ('96', '94', '原材料采购汇总报表', 'report/material_purchase');
 INSERT INTO `tb_authority` VALUES ('97', '94', '财务报表', 'report/financial');
 INSERT INTO `tb_authority` VALUES ('102', '4', '材料管理', 'material');
 INSERT INTO `tb_authority` VALUES ('103', '102', '查看材料列表', 'material/index');
@@ -1259,15 +1284,124 @@ INSERT INTO `tb_authority` VALUES ('176', '175', '创建收支明细', 'expense_
 INSERT INTO `tb_authority` VALUES ('177', '175', '删除收支明细', 'expense_income/delete');
 INSERT INTO `tb_authority` VALUES ('178', '175', '编辑收支明细', 'expense_income/edit');
 INSERT INTO `tb_authority` VALUES ('179', '175', '收支明细列表', 'expense_income/index');
-INSERT INTO `tb_authority` VALUES ('180', '175', '收支明细详情', 'expense_income/detail');
 INSERT INTO `tb_authority` VALUES ('181', '164', '财务工作台', 'financial/workspace');
 INSERT INTO `tb_authority` VALUES ('182', '164', '发票', 'invoice');
 INSERT INTO `tb_authority` VALUES ('183', '182', '添加发票', 'invoice/add');
 INSERT INTO `tb_authority` VALUES ('184', '182', '编辑发票', 'invoice/edit');
 INSERT INTO `tb_authority` VALUES ('185', '182', '删除发票', 'invoice/delete');
 INSERT INTO `tb_authority` VALUES ('186', '182', '发票列表', 'invoice/index');
-INSERT INTO `tb_authority` VALUES ('187', '182', '发票详情', 'invoice/detail');
-INSERT INTO `tb_bank` VALUES ('1', '', '2015-06-01 18:31:38', '2015-06-01 18:31:38', '6', '徐关林', null, '', '桐庐横村支行', '123');
+INSERT INTO `tb_authority` VALUES ('188', '164', '发票收支关系', 'expense_income_invoice');
+INSERT INTO `tb_authority` VALUES ('189', '188', '匹配', 'expense_income_invoice/add');
+INSERT INTO `tb_authority` VALUES ('190', '188', '取消匹配', 'expense_income_invoice/delete');
+INSERT INTO `tb_authority` VALUES ('191', '188', '查看关系列表', 'expense_income_invoice/index');
+INSERT INTO `tb_authority` VALUES ('192', '165', '批量导入账户', 'bank/import');
+INSERT INTO `tb_authority` VALUES ('193', '94', '原材料采购明细报表', 'report/material_purchase_detail');
+INSERT INTO `tb_authority` VALUES ('194', '94', '染色明细报表', 'report/coloring_detail');
+INSERT INTO `tb_bank` VALUES ('635', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '柴中柱', null, '', '行内', '101000351173237');
+INSERT INTO `tb_bank` VALUES ('636', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '何红梅', null, '', '行内', '6228580199068256196');
+INSERT INTO `tb_bank` VALUES ('637', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '胡盼', null, '', '行内', '6228580199060897070');
+INSERT INTO `tb_bank` VALUES ('638', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '嘉善天惠服饰有限公司', null, '', '行内', '201000022656989');
+INSERT INTO `tb_bank` VALUES ('639', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '嘉善万祥服饰辅料厂', null, '', '行内', '201000001484008');
+INSERT INTO `tb_bank` VALUES ('640', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '嘉兴市海燕印刷有限公司', null, '', '行内', '201000084508948');
+INSERT INTO `tb_bank` VALUES ('641', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '建德云珍线业有限公司', null, '', '行内', '201000104657051');
+INSERT INTO `tb_bank` VALUES ('642', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '赖国香', null, '', '行内', '6230910199006454413');
+INSERT INTO `tb_bank` VALUES ('643', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '刘春美', null, '', '行内', '6230910199006474692');
+INSERT INTO `tb_bank` VALUES ('644', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '楼法忠', null, '', '行内', '6228580199024428392');
+INSERT INTO `tb_bank` VALUES ('645', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '陆幼良', null, '', '行内', '6230910199006474544');
+INSERT INTO `tb_bank` VALUES ('646', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '孟虎松', null, '', '行内', '6228580499004670447');
+INSERT INTO `tb_bank` VALUES ('647', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '皮海元', null, '', '行内', '6230910199006474700');
+INSERT INTO `tb_bank` VALUES ('648', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '邱方向', null, '', '行内', '6228580199038598602');
+INSERT INTO `tb_bank` VALUES ('649', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '桐庐恒达纺织印染有限公司', null, '', '行内', '201000003549824');
+INSERT INTO `tb_bank` VALUES ('650', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '桐庐红泰服装辅料有限公司', null, '', '行内', '201000003781181');
+INSERT INTO `tb_bank` VALUES ('651', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '桐庐华阳纺织有限公司', null, '', '行内', '201000079926569');
+INSERT INTO `tb_bank` VALUES ('652', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '桐庐江昊纺织有限公司', null, '', '行内', '201000103267281');
+INSERT INTO `tb_bank` VALUES ('653', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '桐庐金利印染有限公司', null, '', '行内', '201000003754946');
+INSERT INTO `tb_bank` VALUES ('654', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '桐庐锦欣纺织有限公司', null, '', '行内', '201000003565919');
+INSERT INTO `tb_bank` VALUES ('655', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '桐庐南源纺织有限公司', null, '', '行内', '201000003626294');
+INSERT INTO `tb_bank` VALUES ('656', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '桐庐星火包装厂', null, '', '行内', '201000003653146');
+INSERT INTO `tb_bank` VALUES ('657', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '桐庐勇佳包装有限公司', null, '', '行内', '201000003689059');
+INSERT INTO `tb_bank` VALUES ('658', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '桐庐泽诺贸易有限公司', null, '', '行内', '201000130728101');
+INSERT INTO `tb_bank` VALUES ('659', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '桐庐迦南针织有限公司', null, '', '行内', '201000103111658');
+INSERT INTO `tb_bank` VALUES ('660', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '王和贞', null, '', '行内', '6228580199024432154');
+INSERT INTO `tb_bank` VALUES ('661', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '王宇平', null, '', '行内', '6228580199011482923');
+INSERT INTO `tb_bank` VALUES ('662', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '夏爱珠', null, '', '行内', '6228580199007951980');
+INSERT INTO `tb_bank` VALUES ('663', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '徐关林', null, '', '行内', '6228580199060932059');
+INSERT INTO `tb_bank` VALUES ('664', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '杨建设', null, '', '行内', '6230910199006454405');
+INSERT INTO `tb_bank` VALUES ('665', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '俞彩琴', null, '', '行内', '6230910199000001426');
+INSERT INTO `tb_bank` VALUES ('666', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '张明霞', null, '', '行内', '6230910199006474718');
+INSERT INTO `tb_bank` VALUES ('667', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '浙江桑德富春水务开发有限公司', null, '', '行内', '201000003739587');
+INSERT INTO `tb_bank` VALUES ('668', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '郑金林', null, '', '行内', '6210580199000432879');
+INSERT INTO `tb_bank` VALUES ('669', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '艾柏克包装品(深圳)有限公司', null, '', '中信银行深圳福田支行', '7441610182400020303');
+INSERT INTO `tb_bank` VALUES ('670', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '艾利(苏州)有限公司', null, '', '渣打银行（中国）有限公司苏州分行', '501510586211');
+INSERT INTO `tb_bank` VALUES ('671', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '安底特（上海）贸易有限公司', null, '', '渣打银行（中国）有限公司上海分行', '501510-247277');
+INSERT INTO `tb_bank` VALUES ('672', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '博罗县常美印刷有限公司', null, '', '中国建设银行股份有限公司惠州博罗石湾支行', '44001717236053004412');
+INSERT INTO `tb_bank` VALUES ('673', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '常熟市正太纺织有限公司', null, '', '中国农业银行常熟沙家浜支行', '521201040007084');
+INSERT INTO `tb_bank` VALUES ('674', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '丹标贸易(东莞)有限公司', null, '', '中国建设银行股份有限公司东莞大朗支行', '44001777908053008384');
+INSERT INTO `tb_bank` VALUES ('675', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '东莞东兴商标织绣有限公司', null, '', '中国银行股份有限公司东莞长安支行', '719857739975');
+INSERT INTO `tb_bank` VALUES ('676', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '东莞键颖钮扣有限公司', null, '', '中国银行股份有限公司东莞常平支行', '726357845903');
+INSERT INTO `tb_bank` VALUES ('677', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '恩埃赛文数据处理(杭州)有限公司', null, '', '中国银行杭州经济技术开发区支行', '800132335808091001');
+INSERT INTO `tb_bank` VALUES ('678', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '干霸干燥剂(深圳)有限公司', null, '', '汇丰银行(中国)有限公司深圳分行', '622120756001');
+INSERT INTO `tb_bank` VALUES ('679', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '广州艾得服装辅料制造有限公司', null, '', '中国银行股份有限公司广州番禺支行', '860059404508091001');
+INSERT INTO `tb_bank` VALUES ('680', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '广州柏盛包装有限公司', null, '', '渣打银行(中国)有限公司广州分行', '501510036346');
+INSERT INTO `tb_bank` VALUES ('681', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '杭州杭涵服饰有限公司', null, '', '中国工商银行杭州曙光路支行', '1202024509900078039');
+INSERT INTO `tb_bank` VALUES ('682', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '杭州灵峰商标印刷有限公司', null, '', '上海浦东发展银行股份有限公司杭州分行营业部', '6224111028168');
+INSERT INTO `tb_bank` VALUES ('683', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '杭州欧弘服饰有限公司', null, '', '中国工商银行杭州市朝晖支行', '1202022109900167833');
+INSERT INTO `tb_bank` VALUES ('684', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '杭州添辉服饰有限公司', null, '', '中国农业银行杭州东站支行', '017901040007783');
+INSERT INTO `tb_bank` VALUES ('685', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '嘉善鹤鹰人造毛皮服饰有限公司', null, '', '嘉兴银行股份有限公司嘉善支行', '905101201200073029');
+INSERT INTO `tb_bank` VALUES ('686', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '江苏小板凳五金制品有限公司', null, '', '中国工商银行南京白下支行', '4301013109100397183');
+INSERT INTO `tb_bank` VALUES ('687', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '江阴市通用纺织服饰有限公司', null, '', '中国农业银行江阴月城支行', '640701040005380');
+INSERT INTO `tb_bank` VALUES ('688', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '金兰英', null, '', '中国工商银行股份有限公司杭州拱宸支行', '6222081202011108378');
+INSERT INTO `tb_bank` VALUES ('689', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '昆山市三鼎包装厂', null, '', '中国农业银行昆山周庄支行', '531601040007794');
+INSERT INTO `tb_bank` VALUES ('690', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '蓝恋服装辅料（上海）有限公司', null, '', '中国银行上海市漕河泾支行', '453360627544');
+INSERT INTO `tb_bank` VALUES ('691', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '莉晰(上海)贸易有限公司', null, '', '中国工商银行股份有限公司上海市金汇路支行', '1001103309000023076');
+INSERT INTO `tb_bank` VALUES ('692', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '南京嘉美服饰标牌厂', null, '', '中国农业银行股份有限公司南京八百分理处', '117401040000408');
+INSERT INTO `tb_bank` VALUES ('693', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '南通中海印刷有限公司', null, '', '中国银行股份有限公司南通濠南路支行', '492358203561');
+INSERT INTO `tb_bank` VALUES ('694', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '宁波北纬纺织品有限公司', null, '', '中国工商银行慈溪周巷支行', '3901300219000046393');
+INSERT INTO `tb_bank` VALUES ('695', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '宁波东钱湖旅游度假区铭腾纺织品经营部', null, '', '中国工商银行股份有限公司宁波鄞州支行', '3901151609000063181');
+INSERT INTO `tb_bank` VALUES ('696', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '宁波东拓塑业有限公司', null, '', '宁波银行股份有限公司孔浦支行', '40030122000049536');
+INSERT INTO `tb_bank` VALUES ('697', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '青岛杰福瑞包装制品有限公司', null, '', '中国农业银行股份有限公司青岛和阳路支行', '38100201040005186');
+INSERT INTO `tb_bank` VALUES ('698', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '青岛瑞豪包装有限公司', null, '', '中国银行股份有限公司即墨振华街支行', '244204720987');
+INSERT INTO `tb_bank` VALUES ('699', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '上海彩旭印务有限公司', null, '', '上海银行徐泾支行', '319855-03001100393');
+INSERT INTO `tb_bank` VALUES ('700', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '上海昌全硅胶干燥剂有限公司', null, '', '中国建设银行股份有限公司上海江桥支行', '31001978860055706903');
+INSERT INTO `tb_bank` VALUES ('701', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '上海东兴服装服饰有限公司', null, '', '中国工商银行上海市延长中路支行', '1001295109300381643');
+INSERT INTO `tb_bank` VALUES ('702', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '上海界龙数码印刷有限公司', null, '', '交通银行上海川沙支行', '310069095018180019209');
+INSERT INTO `tb_bank` VALUES ('703', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '上海金萃贸易有限公司', null, '', '中国建设银行股份有限公司上海卢湾支行', '31001509600056003440');
+INSERT INTO `tb_bank` VALUES ('704', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '上海骏协钮扣制品有限公司', null, '', '中国民生银行股份有限公司上海闵行支行', '0213014170009636');
+INSERT INTO `tb_bank` VALUES ('705', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '上海立枫钮扣制品有限公司', null, '', '中国民生银行股份有限公司上海闵行支行', '0213014170020138');
+INSERT INTO `tb_bank` VALUES ('706', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '上海龙得服饰辅料有限公司', null, '', '中国银行上海市康定支行', '433859235742');
+INSERT INTO `tb_bank` VALUES ('707', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '上海美宝印刷有限公司', null, '', '上海银行九亭支行', '31907500002026568');
+INSERT INTO `tb_bank` VALUES ('708', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '上海美声服饰辅料有限公司', null, '', '中国农业银行股份有限公司上海程桥支行', '033128-08015000784');
+INSERT INTO `tb_bank` VALUES ('709', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '上海铭琦服饰辅料有限公司', null, '', '中国银行上海市九亭支行', '439059225434');
+INSERT INTO `tb_bank` VALUES ('710', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '上海钮纽服装辅料有限公司', null, '', '中国银行股份有限公司上海市虹口支行', '454659230096');
+INSERT INTO `tb_bank` VALUES ('711', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '上海诺同服饰辅料有限公司', null, '', '上海银行临空经济园区支行', '31644700005127623');
+INSERT INTO `tb_bank` VALUES ('712', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '上海鹏信服饰有限公司', null, '', '上海浦东发展银行虹桥河滨支行', '0765544122235039');
+INSERT INTO `tb_bank` VALUES ('713', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '上海饰妍商贸有限公司', null, '', '上海农商银行枫泾支行', '32738408010459475');
+INSERT INTO `tb_bank` VALUES ('714', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '上海西文服饰有限公司', null, '', '恒生银行(中国)有限公司上海分行', '511-043978-020');
+INSERT INTO `tb_bank` VALUES ('715', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '上海新帝贸易有限公司', null, '', '中国工商银行股份有限公司上海市金山支行', '1001794309300212378');
+INSERT INTO `tb_bank` VALUES ('716', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '上海雪玮服饰辅料有限公司', null, '', '上海浦东发展银行普陀支行', '0764314122056118');
+INSERT INTO `tb_bank` VALUES ('717', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '上海伊泽印刷有限公司', null, '', '上海浦东发展银行普陀支行', '07643197310154740000287');
+INSERT INTO `tb_bank` VALUES ('718', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '上海艺扬包装材料有限公司', null, '', '上海农商银行商榻支行', '32748138010119928');
+INSERT INTO `tb_bank` VALUES ('719', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '上海易轩干燥剂有限公司', null, '', '中国工商银行上海市北蔡支行', '1001195209006922397');
+INSERT INTO `tb_bank` VALUES ('720', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '上海盈通塑胶制品有限公司', null, '', '中国建设银行股份有限公司上海卢湾支行', '31001509600050020632');
+INSERT INTO `tb_bank` VALUES ('721', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '上海永得商标包装印务有限公司', null, '', '中国银行上海市康定支行', '436459235439');
+INSERT INTO `tb_bank` VALUES ('722', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '上海珩润实业有限公司', null, '', '中国银行上海市顾戴路支行', '446865765403');
+INSERT INTO `tb_bank` VALUES ('723', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '上海桠力实业发展有限公司', null, '', '上海浦东发展银行金山支行', '079616-98350154740000281');
+INSERT INTO `tb_bank` VALUES ('724', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '上海梓珀服装辅料有限公司', null, '', '中国农业银行股份有限公司上海七宝支行', '03414300040029179');
+INSERT INTO `tb_bank` VALUES ('725', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '绍兴市柯桥区叶展纺织有限公司', null, '', '中国农业银行绍兴万商支行', '19510901040013098');
+INSERT INTO `tb_bank` VALUES ('726', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '深圳顺黄纸品有限公司', null, '', '中国银行股份有限公司深圳龙岗支行', '777059058255');
+INSERT INTO `tb_bank` VALUES ('727', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '苏州万美塑胶制品有限公司', null, '', '汇丰银行有限公司苏州分行', '630-004653-011');
+INSERT INTO `tb_bank` VALUES ('728', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '台州凌翔毛纺有限公司', null, '', '浙江泰隆商业银行台州临海支行', '3301120120100013236');
+INSERT INTO `tb_bank` VALUES ('729', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '谭启祥', null, '', '中国工商银行股份有限公司东莞沙田支行', '6212262010003833719');
+INSERT INTO `tb_bank` VALUES ('730', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '无锡全星纺织科技有限公司', null, '', '中国银行股份有限公司无锡广益支行', '530060393412');
+INSERT INTO `tb_bank` VALUES ('731', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '武汉金之森服装辅料有限公司', null, '', '中国农业银行股份有限公司武汉五洲支行', '17111701040005547');
+INSERT INTO `tb_bank` VALUES ('732', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '新天伦服装配料(惠州)有限公司', null, '', '中国工商银行股份有限公司惠州仲恺高新区支行', '2008022019200007967');
+INSERT INTO `tb_bank` VALUES ('733', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '张家港保税区保点标签有限公司', null, '', '汇丰银行有限公司苏州分行', '750-000283-011');
+INSERT INTO `tb_bank` VALUES ('734', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '张家港保税区保点标签有限公司_农业银行', null, '', '中国农业银行张家港保税区支行', '10528301040001088');
+INSERT INTO `tb_bank` VALUES ('735', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '张家港鸿运织标有限公司', null, '', '中国银行股份有限公司张家港分行', '494958196157');
+INSERT INTO `tb_bank` VALUES ('736', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '张家港市和正进出口有限公司', null, '', '中国银行股份有限公司张家港分行', '498862830390');
+INSERT INTO `tb_bank` VALUES ('737', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '浙江顺丰速运有限公司', null, '', '中国工商银行杭州市艮山支行', '1202022329900002018');
+INSERT INTO `tb_bank` VALUES ('738', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '泓汇商贸(上海)有限公司', null, '', '中国建设银行股份有限公司上海浦东分行', '31001520313050025602');
+INSERT INTO `tb_bank` VALUES ('739', null, '2015-06-09 22:10:21', '2015-06-09 22:10:21', '6', '绫卓贸易（上海）有限公司', null, '', '招商银行股份有限公司上海华灵支行', '121907778410201');
 INSERT INTO `tb_carfixrecordorder` VALUES ('1', '1', '2015-03-31 21:48:39', '2015-03-31 21:48:39', '7', '0', '新建');
 INSERT INTO `tb_carfixrecordorder` VALUES ('2', '2', '2015-04-02 22:09:03', '2015-04-02 22:09:03', '7', '0', '新建');
 INSERT INTO `tb_carfixrecordorder` VALUES ('3', '3', '2015-04-02 22:32:58', '2015-04-02 22:32:58', '7', '0', '新建');
@@ -1934,7 +2068,6 @@ INSERT INTO `tb_employee` VALUES ('64', '2015-05-12 20:06:18', '', 'hyp', '', '�
 INSERT INTO `tb_employee` VALUES ('65', '2015-05-12 20:09:49', '', 'jxy', '', '金小燕', '', '', '2015-05-12 20:09:59', '女', 'FW1015', '2013-03-01 00:00:00', '362231197409222022', '4', '包装员', '江西省樟树市阁山镇韶塘村委会皮家村23号', '桐庐县横村镇', '2013-02-01 00:00:00', '2016-02-29 00:00:00', '合同工', '2013-12-10 00:00:00', null, '7.2', '', '', '', '', '', '13', '1974-09-22 00:00:00', '');
 INSERT INTO `tb_employee` VALUES ('66', '2015-05-12 20:11:31', '', 'wjh', '', '王加豪', '', '', '2015-05-12 20:11:44', '男', 'FW1016', '2013-05-30 00:00:00', '330122199403110919', '4', '包装员', '浙江省桐庐县横村镇孙家村十四组', '孙家村十四组', '2013-05-30 00:00:00', '2016-05-29 00:00:00', '合同工', '2013-12-06 00:00:00', null, '7.2', '', '', '', '', '', '13', '1994-03-11 00:00:00', '');
 INSERT INTO `tb_employee` VALUES ('67', '2015-05-12 20:13:20', '', 'wds', '', '王德松', '', '', '2015-05-12 20:13:31', '男', 'FW1020', '2013-03-15 00:00:00', '522628199201275814', '5', '整烫工', '贵州省锦屏县铜鼓镇花桥村太平冲组', '桐庐县横村镇', '2013-03-15 00:00:00', '2016-03-14 00:00:00', '合同工', '2013-12-17 00:00:00', null, '7.2', '', '', '', '', '', '13', '1992-01-27 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('68', '2015-05-12 20:14:57', '', 'lqm', '', '龙秋梅', '', '', '2015-05-12 20:15:09', '女', 'FW1023', '2013-05-18 00:00:00', '522628197408276225', '7', '车标', '贵州省锦屏县铜鼓镇火冲村六组', '桐庐县横村镇', '2013-05-18 00:00:00', '2016-05-17 00:00:00', '合同工', '2013-12-10 00:00:00', null, '7.2', '', '', '', '', '', '13', '1974-08-27 00:00:00', '');
 INSERT INTO `tb_employee` VALUES ('69', '2015-05-12 20:17:12', '', 'wbg', '', '文邦国', '', '', '2015-05-12 20:17:23', '男', 'FW1030', '2012-10-05 00:00:00', '522635197407154430', '6', '倒纱工', '贵州省麻江县宣威镇罗伊村第一组', '桐庐县横村镇', '2012-10-05 00:00:00', '2015-10-05 00:00:00', '合同工', '2013-12-10 00:00:00', null, '7.2', '', '', '', '', '', '13', '1974-07-15 00:00:00', '');
 INSERT INTO `tb_employee` VALUES ('70', '2015-05-12 20:18:28', '', 'lxm', '', '刘兴梅', '', '', '2015-05-12 20:18:45', '女', 'FW1031', '2012-02-10 00:00:00', '52263519770615326X', '6', '倒纱工', '贵州省麻江县宣威镇罗伊村第一组', '桐庐县横村镇', '2012-02-10 00:00:00', '2015-02-09 00:00:00', '合同工', '2013-12-10 00:00:00', null, '7.2', '', '', '', '', '', '13', '1977-06-15 00:00:00', '');
 INSERT INTO `tb_employee` VALUES ('71', '2015-05-12 20:20:11', '', 'wbh', '', '文邦华', '', '', '2015-05-12 20:20:33', '男', 'FW1032', '2013-03-01 00:00:00', '522635196704154416', '6', '倒纱工', '贵州省麻江县宣威镇罗伊村第二组', '桐庐县横村镇', '2013-03-01 00:00:00', '2016-02-29 00:00:00', '合同工', '2013-12-06 00:00:00', null, '7.2', '', '', '', '', '', '13', '1967-04-15 00:00:00', '');
@@ -1957,9 +2090,11 @@ INSERT INTO `tb_employee` VALUES ('87', '2015-05-12 20:50:28', '', 'czb', '', '�
 INSERT INTO `tb_employee` VALUES ('88', '2015-05-12 20:51:16', '', 'jzy', '', '蒋佐云', '', '', '2015-05-12 20:57:43', '女', 'FW1055', '2013-09-02 00:00:00', '522631197207221226', '7', '车标', '贵州省黎平县中潮镇上黄村二组', '横村', '2013-09-02 00:00:00', '2016-08-31 00:00:00', '合同工', '2015-02-28 00:00:00', null, '8.1', '', '', '', '', '', '13', '1972-07-22 00:00:00', '');
 INSERT INTO `tb_employee` VALUES ('89', '2015-05-12 20:52:08', '', 'cgy', '', '蔡国银', '', '', '2015-05-12 20:57:53', '女', 'FW1056', '2013-09-02 00:00:00', '33012219751115272X', '4', '包装员', '浙江省桐庐县瑶琳镇琴溪村桐岭四组', '横村', '2014-09-02 00:00:00', '2016-08-31 00:00:00', '合同工', '2015-02-28 00:00:00', null, '8.1', '', '', '', '', '', '13', '1975-11-15 00:00:00', '');
 INSERT INTO `tb_employee` VALUES ('90', '2015-05-12 21:15:11', '', 'ywd', '', '叶伟东', '', '', '2015-05-12 21:15:25', '男', 'FW1018', '2006-03-29 00:00:00', '330122197609011116', '5', '整烫主任', '浙江省桐庐县桐君街道富春路131号', '桐庐县桐君街道富春路131号', '2013-01-01 00:00:00', '2016-01-01 00:00:00', '合同工', '2015-02-28 00:00:00', null, '9.5', '', '', '', '', '', '13', '1976-09-01 00:00:00', '');
-INSERT INTO `tb_expense_income` VALUES ('1', '1', '水费', '1', '徐关林', null, null, null, null, '10000', '测试1', '2015-03-04', '2015-06-04', '2015-06-04', '6', '');
-INSERT INTO `tb_expense_income` VALUES ('2', '6', '货款', '1', '徐关林', null, null, null, null, '3444', 'ces2', '2015-06-04', '2015-06-04', '2015-06-04', '6', '');
-INSERT INTO `tb_expense_income` VALUES ('4', '3', '辅料款', '1', '徐关林', '1', '杭州翔天实业有限公司', '27', '杨峰俊', '1234', '不热', '2015-06-04', '2015-06-04', '2015-06-04', '6', '');
+INSERT INTO `tb_expense_income` VALUES ('1', '1', '水费', '638', '嘉善天惠服饰有限公司', '1', '杭州翔天实业有限公司', '21', '楼彩丽', '1000', '', '2015-06-10', '2015-06-10', '2015-06-10', '6', '', '1000');
+INSERT INTO `tb_expense_income` VALUES ('3', '1', '水费', '638', '嘉善天惠服饰有限公司', null, '未选择', null, '未选择', '111', '', '2015-06-10', '2015-06-10', '2015-06-10', '6', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('4', '3', '辅料款', '638', '嘉善天惠服饰有限公司', null, '未选择', null, '未选择', '111', '', '2015-06-01', '2015-06-10', '2015-06-10', '6', '', '111');
+INSERT INTO `tb_expense_income_invoice` VALUES ('1', '1', '1', '1000', '2015-06-10', '2015-06-10', '6');
+INSERT INTO `tb_expense_income_invoice` VALUES ('3', '4', '1', '111', '2015-06-10', '2015-06-10', '6');
 INSERT INTO `tb_factory` VALUES ('1', '江波', '孙家村', '2015-03-31 21:24:01', 'jb', '2015-03-31 21:24:01', '6', '0');
 INSERT INTO `tb_factory` VALUES ('2', '本厂', '孙家村', '2015-04-01 13:21:31', 'bc', '2015-04-01 13:21:31', '9', '0');
 INSERT INTO `tb_factory` VALUES ('3', '诚信', '横村镇', '2015-04-01 20:24:03', 'cx', '2015-04-01 20:24:03', '9', '2');
@@ -2404,6 +2539,8 @@ INSERT INTO `tb_headbankorder` VALUES ('111', '111', '2015-05-11 18:26:14', '201
 INSERT INTO `tb_headbankorder` VALUES ('112', '112', '2015-05-11 18:32:35', '2015-05-11 18:32:35', '7', '0', '新建');
 INSERT INTO `tb_headbankorder` VALUES ('113', '113', '2015-05-11 18:42:10', '2015-05-11 18:42:10', '7', '0', '新建');
 INSERT INTO `tb_headbankorder` VALUES ('114', '114', '2015-05-11 18:51:40', '2015-05-11 18:51:40', '7', '0', '新建');
+INSERT INTO `tb_invoice` VALUES ('1', '638', '嘉善天惠服饰有限公司', '1111', '', '2015-06-01', '2015-06-10', '2015-06-10', '6', '', '04125585698', '0', '0', '3', '1111');
+INSERT INTO `tb_invoice` VALUES ('2', '638', '嘉善天惠服饰有限公司', '111', 'yh', '2015-06-10', '2015-06-10', '2015-06-10', '6', '', '024254212', '0', '0', '3', '0');
 INSERT INTO `tb_ironingrecordorder` VALUES ('1', '1', '2015-03-31 21:48:39', '2015-03-31 21:48:39', '7', '0', '新建');
 INSERT INTO `tb_ironingrecordorder` VALUES ('2', '2', '2015-04-02 22:09:03', '2015-04-02 22:09:03', '7', '0', '新建');
 INSERT INTO `tb_ironingrecordorder` VALUES ('3', '3', '2015-04-02 22:32:58', '2015-04-02 22:32:58', '7', '0', '新建');
