@@ -4,7 +4,7 @@ Source Host: localhost
 Source Database: dbo_fuwei
 Target Host: localhost
 Target Database: dbo_fuwei
-Date: 2015-10-14 20:15:16
+Date: 2015-10-29 21:39:32
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,7 +20,7 @@ CREATE TABLE `tb_authority` (
   PRIMARY KEY (`id`),
   KEY `FKPID323` (`pid`),
   CONSTRAINT `FKPID323` FOREIGN KEY (`pid`) REFERENCES `tb_authority` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=235 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=255 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_bank
@@ -41,7 +41,7 @@ CREATE TABLE `tb_bank` (
   UNIQUE KEY `name` (`name`),
   KEY `created_user` (`created_user`),
   CONSTRAINT `tb_bank_ibfk_1` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=294 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=419 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_carfixrecordorder
@@ -60,7 +60,7 @@ CREATE TABLE `tb_carfixrecordorder` (
   KEY `created_user` (`created_user`),
   CONSTRAINT `tb_carfixrecordorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
   CONSTRAINT `tb_carfixrecordorder_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=259 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=285 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_checkrecordorder
@@ -77,7 +77,7 @@ CREATE TABLE `tb_checkrecordorder` (
   PRIMARY KEY (`id`),
   KEY `orderId` (`orderId`),
   CONSTRAINT `tb_checkrecordorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=259 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=285 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_coloringorder
@@ -126,7 +126,7 @@ CREATE TABLE `tb_coloringorder` (
   CONSTRAINT `tb_coloringorder_ibfk_7` FOREIGN KEY (`customerId`) REFERENCES `tb_customer` (`id`),
   CONSTRAINT `tb_coloringorder_ibfk_8` FOREIGN KEY (`materialId`) REFERENCES `tb_material` (`id`),
   CONSTRAINT `tb_coloringorder_ibfk_9` FOREIGN KEY (`charge_employee`) REFERENCES `tb_employee` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=574 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=672 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_coloringprocessorder
@@ -143,7 +143,7 @@ CREATE TABLE `tb_coloringprocessorder` (
   PRIMARY KEY (`id`),
   KEY `orderId` (`orderId`),
   CONSTRAINT `tb_coloringprocessorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=259 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=285 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_company
@@ -275,7 +275,7 @@ CREATE TABLE `tb_expense_income` (
   CONSTRAINT `tb_expense_income_ibfk_3` FOREIGN KEY (`bank_id`) REFERENCES `tb_bank` (`id`),
   CONSTRAINT `tb_expense_income_ibfk_4` FOREIGN KEY (`company_id`) REFERENCES `tb_company` (`id`),
   CONSTRAINT `tb_expense_income_ibfk_5` FOREIGN KEY (`salesman_id`) REFERENCES `tb_salesman` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=423 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=704 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_expense_income_invoice
@@ -296,7 +296,7 @@ CREATE TABLE `tb_expense_income_invoice` (
   CONSTRAINT `tb_expense_income_invoice_ibfk_1` FOREIGN KEY (`expense_income_id`) REFERENCES `tb_expense_income` (`id`),
   CONSTRAINT `tb_expense_income_invoice_ibfk_2` FOREIGN KEY (`invoice_id`) REFERENCES `tb_invoice` (`id`),
   CONSTRAINT `tb_expense_income_invoice_ibfk_3` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=394 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=709 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_factory
@@ -314,7 +314,7 @@ CREATE TABLE `tb_factory` (
   PRIMARY KEY (`id`),
   KEY `created_user` (`created_user`),
   CONSTRAINT `tb_factory_ibfk_1` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_finalstoreorder
@@ -331,7 +331,7 @@ CREATE TABLE `tb_finalstoreorder` (
   PRIMARY KEY (`id`),
   KEY `orderId` (`orderId`),
   CONSTRAINT `tb_finalstoreorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=259 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=285 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_fuliaopurchaseorder
@@ -379,7 +379,7 @@ CREATE TABLE `tb_fuliaopurchaseorder` (
   CONSTRAINT `tb_fuliaopurchaseorder_ibfk_7` FOREIGN KEY (`customerId`) REFERENCES `tb_customer` (`id`),
   CONSTRAINT `tb_fuliaopurchaseorder_ibfk_8` FOREIGN KEY (`materialId`) REFERENCES `tb_material` (`id`),
   CONSTRAINT `tb_fuliaopurchaseorder_ibfk_9` FOREIGN KEY (`charge_employee`) REFERENCES `tb_employee` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_gongxu
@@ -391,10 +391,62 @@ CREATE TABLE `tb_gongxu` (
   `name` varchar(255) DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `created_user` int(11) DEFAULT NULL,
+  `isProducingOrder` bit(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK4AB8624F87AC0D3A` (`created_user`),
   CONSTRAINT `FK4AB8624F87AC0D3A` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for tb_gongxu_producingorder
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_gongxu_producingorder`;
+CREATE TABLE `tb_gongxu_producingorder` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `gongxuId` int(11) DEFAULT NULL,
+  `orderId` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `created_user` int(11) DEFAULT NULL,
+  `detail_json` text,
+  `detail_2_json` text,
+  `factoryId` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `state` varchar(255) DEFAULT NULL,
+  `companyId` int(11) DEFAULT NULL,
+  `img` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `productNumber` varchar(255) DEFAULT NULL,
+  `size` varchar(255) DEFAULT NULL,
+  `weight` double DEFAULT NULL,
+  `sampleId` int(11) DEFAULT NULL,
+  `orderNumber` varchar(64) DEFAULT NULL,
+  `img_s` varchar(255) DEFAULT NULL,
+  `img_ss` varchar(255) DEFAULT NULL,
+  `customerId` int(11) DEFAULT NULL,
+  `charge_employee` int(11) DEFAULT NULL,
+  `number` varchar(32) DEFAULT NULL,
+  `company_productNumber` varchar(255) DEFAULT NULL,
+  `memo` text,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `number` (`number`),
+  KEY `orderId` (`orderId`),
+  KEY `created_user` (`created_user`),
+  KEY `factoryId` (`factoryId`),
+  KEY `sampleId` (`sampleId`),
+  KEY `companyId` (`companyId`),
+  KEY `customerId` (`customerId`),
+  KEY `charge_employee` (`charge_employee`),
+  KEY `gongxuId` (`gongxuId`),
+  CONSTRAINT `tb_gongxu_producingorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
+  CONSTRAINT `tb_gongxu_producingorder_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`),
+  CONSTRAINT `tb_gongxu_producingorder_ibfk_3` FOREIGN KEY (`factoryId`) REFERENCES `tb_factory` (`id`),
+  CONSTRAINT `tb_gongxu_producingorder_ibfk_4` FOREIGN KEY (`sampleId`) REFERENCES `tb_sample` (`id`),
+  CONSTRAINT `tb_gongxu_producingorder_ibfk_5` FOREIGN KEY (`companyId`) REFERENCES `tb_company` (`id`),
+  CONSTRAINT `tb_gongxu_producingorder_ibfk_6` FOREIGN KEY (`customerId`) REFERENCES `tb_customer` (`id`),
+  CONSTRAINT `tb_gongxu_producingorder_ibfk_7` FOREIGN KEY (`charge_employee`) REFERENCES `tb_employee` (`id`),
+  CONSTRAINT `tb_gongxu_producingorder_ibfk_8` FOREIGN KEY (`gongxuId`) REFERENCES `tb_gongxu` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_half_current_stock
@@ -408,7 +460,7 @@ CREATE TABLE `tb_half_current_stock` (
   PRIMARY KEY (`id`),
   KEY `orderId` (`orderId`),
   CONSTRAINT `tb_half_current_stock_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_half_store_in_out
@@ -444,6 +496,7 @@ CREATE TABLE `tb_half_store_in_out` (
   `number` varchar(255) DEFAULT NULL,
   `orderId` int(11) DEFAULT NULL,
   `has_print` bit(1) DEFAULT NULL,
+  `gongxuId` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `created_user` (`created_user`),
   KEY `companyId` (`companyId`),
@@ -453,6 +506,7 @@ CREATE TABLE `tb_half_store_in_out` (
   KEY `charge_employee` (`charge_employee`),
   KEY `factoryId` (`factoryId`),
   KEY `orderId` (`orderId`),
+  KEY `gongxuId` (`gongxuId`),
   CONSTRAINT `tb_half_store_in_out_ibfk_1` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`),
   CONSTRAINT `tb_half_store_in_out_ibfk_2` FOREIGN KEY (`companyId`) REFERENCES `tb_company` (`id`),
   CONSTRAINT `tb_half_store_in_out_ibfk_3` FOREIGN KEY (`sampleId`) REFERENCES `tb_sample` (`id`),
@@ -460,8 +514,59 @@ CREATE TABLE `tb_half_store_in_out` (
   CONSTRAINT `tb_half_store_in_out_ibfk_5` FOREIGN KEY (`materialId`) REFERENCES `tb_material` (`id`),
   CONSTRAINT `tb_half_store_in_out_ibfk_6` FOREIGN KEY (`charge_employee`) REFERENCES `tb_employee` (`id`),
   CONSTRAINT `tb_half_store_in_out_ibfk_7` FOREIGN KEY (`factoryId`) REFERENCES `tb_factory` (`id`),
-  CONSTRAINT `tb_half_store_in_out_ibfk_8` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+  CONSTRAINT `tb_half_store_in_out_ibfk_8` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
+  CONSTRAINT `tb_half_store_in_out_ibfk_9` FOREIGN KEY (`gongxuId`) REFERENCES `tb_gongxu` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for tb_half_store_return
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_half_store_return`;
+CREATE TABLE `tb_half_store_return` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `created_user` int(11) DEFAULT NULL,
+  `detail_json` text,
+  `status` int(11) DEFAULT NULL,
+  `state` varchar(255) DEFAULT NULL,
+  `orderNumber` varchar(64) DEFAULT NULL,
+  `companyId` int(11) DEFAULT NULL,
+  `img` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `productNumber` varchar(255) DEFAULT NULL,
+  `sampleId` int(11) DEFAULT NULL,
+  `img_s` varchar(255) DEFAULT NULL,
+  `img_ss` varchar(255) DEFAULT NULL,
+  `customerId` int(11) DEFAULT NULL,
+  `company_productNumber` varchar(255) DEFAULT NULL,
+  `charge_employee` int(11) DEFAULT NULL,
+  `date` datetime DEFAULT NULL,
+  `factoryId` int(11) DEFAULT NULL,
+  `sign` varchar(255) DEFAULT NULL,
+  `memo` text,
+  `number` varchar(255) DEFAULT NULL,
+  `orderId` int(11) DEFAULT NULL,
+  `has_print` bit(1) DEFAULT NULL,
+  `gongxuId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `created_user` (`created_user`),
+  KEY `companyId` (`companyId`),
+  KEY `sampleId` (`sampleId`),
+  KEY `customerId` (`customerId`),
+  KEY `charge_employee` (`charge_employee`),
+  KEY `factoryId` (`factoryId`),
+  KEY `orderId` (`orderId`),
+  KEY `gongxuId` (`gongxuId`),
+  CONSTRAINT `tb_half_store_return_ibfk_1` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`),
+  CONSTRAINT `tb_half_store_return_ibfk_2` FOREIGN KEY (`companyId`) REFERENCES `tb_company` (`id`),
+  CONSTRAINT `tb_half_store_return_ibfk_3` FOREIGN KEY (`sampleId`) REFERENCES `tb_sample` (`id`),
+  CONSTRAINT `tb_half_store_return_ibfk_4` FOREIGN KEY (`customerId`) REFERENCES `tb_customer` (`id`),
+  CONSTRAINT `tb_half_store_return_ibfk_5` FOREIGN KEY (`charge_employee`) REFERENCES `tb_employee` (`id`),
+  CONSTRAINT `tb_half_store_return_ibfk_6` FOREIGN KEY (`factoryId`) REFERENCES `tb_factory` (`id`),
+  CONSTRAINT `tb_half_store_return_ibfk_7` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
+  CONSTRAINT `tb_half_store_return_ibfk_8` FOREIGN KEY (`gongxuId`) REFERENCES `tb_gongxu` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_halfcheckrecordorder
@@ -481,7 +586,7 @@ CREATE TABLE `tb_halfcheckrecordorder` (
   KEY `created_user` (`created_user`),
   CONSTRAINT `tb_halfcheckrecordorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
   CONSTRAINT `tb_halfcheckrecordorder_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=259 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=286 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_headbankorder
@@ -500,7 +605,7 @@ CREATE TABLE `tb_headbankorder` (
   KEY `created_user` (`created_user`),
   CONSTRAINT `tb_headbankorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
   CONSTRAINT `tb_headbankorder_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=259 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=285 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_invoice
@@ -534,7 +639,7 @@ CREATE TABLE `tb_invoice` (
   CONSTRAINT `tb_invoice_ibfk_2` FOREIGN KEY (`bank_id`) REFERENCES `tb_bank` (`id`),
   CONSTRAINT `tb_invoice_ibfk_3` FOREIGN KEY (`subject_id`) REFERENCES `tb_subject` (`id`),
   CONSTRAINT `tb_invoice_ibfk_4` FOREIGN KEY (`company_id`) REFERENCES `tb_company` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=631 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=986 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_ironingrecordorder
@@ -553,7 +658,7 @@ CREATE TABLE `tb_ironingrecordorder` (
   KEY `created_user` (`created_user`),
   CONSTRAINT `tb_ironingrecordorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
   CONSTRAINT `tb_ironingrecordorder_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=259 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=285 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_material
@@ -568,7 +673,24 @@ CREATE TABLE `tb_material` (
   PRIMARY KEY (`id`),
   KEY `created_user` (`created_user`),
   CONSTRAINT `tb_material_ibfk_1` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for tb_material_current_stock
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_material_current_stock`;
+CREATE TABLE `tb_material_current_stock` (
+  `orderId` int(11) DEFAULT NULL,
+  `total_stock_quantity` int(11) DEFAULT NULL,
+  `detail_json` text,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `store_order_id` int(11) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `orderId` (`orderId`),
+  KEY `store_order_id` (`store_order_id`),
+  CONSTRAINT `tb_material_current_stock_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
+  CONSTRAINT `tb_material_current_stock_ibfk_2` FOREIGN KEY (`store_order_id`) REFERENCES `tb_storeorder` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_materialpurchaseorder
@@ -617,7 +739,7 @@ CREATE TABLE `tb_materialpurchaseorder` (
   CONSTRAINT `tb_materialpurchaseorder_ibfk_7` FOREIGN KEY (`customerId`) REFERENCES `tb_customer` (`id`),
   CONSTRAINT `tb_materialpurchaseorder_ibfk_8` FOREIGN KEY (`materialId`) REFERENCES `tb_material` (`id`),
   CONSTRAINT `tb_materialpurchaseorder_ibfk_9` FOREIGN KEY (`charge_employee`) REFERENCES `tb_employee` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=113 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=136 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_message
@@ -637,7 +759,7 @@ CREATE TABLE `tb_message` (
   KEY `to_user_id` (`to_user_id`),
   CONSTRAINT `tb_message_ibfk_1` FOREIGN KEY (`from_user_id`) REFERENCES `tb_user` (`id`),
   CONSTRAINT `tb_message_ibfk_2` FOREIGN KEY (`to_user_id`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_module
@@ -713,7 +835,7 @@ CREATE TABLE `tb_order` (
   CONSTRAINT `tb_order_ibfk_6` FOREIGN KEY (`customerId`) REFERENCES `tb_customer` (`id`),
   CONSTRAINT `tb_order_ibfk_7` FOREIGN KEY (`materialId`) REFERENCES `tb_material` (`id`),
   CONSTRAINT `tb_order_ibfk_8` FOREIGN KEY (`charge_employee`) REFERENCES `tb_employee` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=259 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=286 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_order_detail
@@ -767,7 +889,7 @@ CREATE TABLE `tb_order_handle` (
   KEY `created_user` (`created_user`),
   CONSTRAINT `tb_order_handle_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `tb_order_handle_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=344 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=370 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_order_produce_status
@@ -839,82 +961,14 @@ CREATE TABLE `tb_planorder` (
   KEY `created_user` (`created_user`),
   CONSTRAINT `tb_planorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
   CONSTRAINT `tb_planorder_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=259 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Table structure for tb_producing_order_balance
--- ----------------------------
-DROP TABLE IF EXISTS `tb_producing_order_balance`;
-CREATE TABLE `tb_producing_order_balance` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  `created_user` int(11) DEFAULT NULL,
-  `number` varchar(32) DEFAULT NULL,
-  `factoryId` int(11) DEFAULT NULL,
-  `balance_employee` varchar(255) DEFAULT NULL,
-  `balance_at` datetime DEFAULT NULL,
-  `balance_factory_employee` varchar(255) DEFAULT NULL,
-  `quantity` int(11) DEFAULT NULL,
-  `amount` double DEFAULT NULL,
-  `rate_deduct` double DEFAULT NULL,
-  `payable_amount` double DEFAULT NULL,
-  `memo` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `number` (`number`),
-  KEY `created_user` (`created_user`),
-  KEY `factoryId` (`factoryId`),
-  CONSTRAINT `tb_producing_order_balance_ibfk_1` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`),
-  CONSTRAINT `tb_producing_order_balance_ibfk_2` FOREIGN KEY (`factoryId`) REFERENCES `tb_factory` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Table structure for tb_producing_order_balance_detail
--- ----------------------------
-DROP TABLE IF EXISTS `tb_producing_order_balance_detail`;
-CREATE TABLE `tb_producing_order_balance_detail` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `orderId` int(11) DEFAULT NULL,
-  `detail_json` text,
-  `factoryId` int(11) DEFAULT NULL,
-  `status` int(11) DEFAULT NULL,
-  `companyId` int(11) DEFAULT NULL,
-  `sample_name` varchar(255) DEFAULT NULL,
-  `company_productNumber` varchar(255) DEFAULT NULL,
-  `sampleId` int(11) DEFAULT NULL,
-  `orderNumber` varchar(64) DEFAULT NULL,
-  `customerId` int(11) DEFAULT NULL,
-  `charge_employee` int(11) DEFAULT NULL,
-  `number` varchar(32) DEFAULT NULL,
-  `producingOrderId` int(11) NOT NULL,
-  `producingOrder_createdAt` datetime DEFAULT NULL,
-  `total_amount` double DEFAULT NULL,
-  `deduct_money` double DEFAULT NULL,
-  `deduct_memo` varchar(255) DEFAULT NULL,
-  `producingOrder_number` varchar(32) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `producingOrderId` (`producingOrderId`),
-  KEY `orderId` (`orderId`),
-  KEY `factoryId` (`factoryId`),
-  KEY `sampleId` (`sampleId`),
-  KEY `companyId` (`companyId`),
-  KEY `customerId` (`customerId`),
-  KEY `charge_employee` (`charge_employee`),
-  CONSTRAINT `tb_producing_order_balance_detail_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
-  CONSTRAINT `tb_producing_order_balance_detail_ibfk_2` FOREIGN KEY (`factoryId`) REFERENCES `tb_factory` (`id`),
-  CONSTRAINT `tb_producing_order_balance_detail_ibfk_3` FOREIGN KEY (`sampleId`) REFERENCES `tb_sample` (`id`),
-  CONSTRAINT `tb_producing_order_balance_detail_ibfk_4` FOREIGN KEY (`companyId`) REFERENCES `tb_company` (`id`),
-  CONSTRAINT `tb_producing_order_balance_detail_ibfk_5` FOREIGN KEY (`customerId`) REFERENCES `tb_customer` (`id`),
-  CONSTRAINT `tb_producing_order_balance_detail_ibfk_6` FOREIGN KEY (`charge_employee`) REFERENCES `tb_employee` (`id`),
-  CONSTRAINT `tb_producing_order_balance_detail_ibfk_7` FOREIGN KEY (`producingOrderId`) REFERENCES `tb_producingorder` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=286 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_producingorder
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_producingorder`;
 CREATE TABLE `tb_producingorder` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `orderId` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -957,7 +1011,7 @@ CREATE TABLE `tb_producingorder` (
   CONSTRAINT `tb_producingorder_ibfk_7` FOREIGN KEY (`customerId`) REFERENCES `tb_customer` (`id`),
   CONSTRAINT `tb_producingorder_ibfk_8` FOREIGN KEY (`materialId`) REFERENCES `tb_material` (`id`),
   CONSTRAINT `tb_producingorder_ibfk_9` FOREIGN KEY (`charge_employee`) REFERENCES `tb_employee` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=275 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=309 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_production_notification
@@ -998,7 +1052,7 @@ CREATE TABLE `tb_productionscheduleorder` (
   PRIMARY KEY (`id`),
   KEY `tb_productionscheduleorder_ibfk_1` (`orderId`),
   CONSTRAINT `tb_productionscheduleorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=259 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=285 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_quote
@@ -1125,7 +1179,7 @@ CREATE TABLE `tb_role_authority` (
   CONSTRAINT `tb_role_authority_ibfk_1` FOREIGN KEY (`authorityId`) REFERENCES `tb_authority` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `tb_role_authority_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `tb_role_authority_ibfk_3` FOREIGN KEY (`roleId`) REFERENCES `tb_role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6091 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6885 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_role_module
@@ -1163,7 +1217,7 @@ CREATE TABLE `tb_salesman` (
   KEY `FK7497AF7F87AC0D3A` (`created_user`),
   CONSTRAINT `FK7497AF7F2FD17BF9` FOREIGN KEY (`companyId`) REFERENCES `tb_company` (`id`),
   CONSTRAINT `FK7497AF7F87AC0D3A` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_sample
@@ -1201,7 +1255,7 @@ CREATE TABLE `tb_sample` (
   CONSTRAINT `tb_sample_ibfk_1` FOREIGN KEY (`factoryId`) REFERENCES `tb_factory` (`id`),
   CONSTRAINT `tb_sample_ibfk_2` FOREIGN KEY (`materialId`) REFERENCES `tb_material` (`id`),
   CONSTRAINT `tb_sample_ibfk_3` FOREIGN KEY (`charge_employee`) REFERENCES `tb_employee` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=230 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=244 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_shoprecordorder
@@ -1218,7 +1272,7 @@ CREATE TABLE `tb_shoprecordorder` (
   PRIMARY KEY (`id`),
   KEY `orderId` (`orderId`),
   CONSTRAINT `tb_shoprecordorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=259 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=285 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_store_in_out
@@ -1278,6 +1332,56 @@ CREATE TABLE `tb_store_in_out` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Table structure for tb_store_return
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_store_return`;
+CREATE TABLE `tb_store_return` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `created_user` int(11) DEFAULT NULL,
+  `detail_json` text,
+  `status` int(11) DEFAULT NULL,
+  `state` varchar(255) DEFAULT NULL,
+  `orderNumber` varchar(64) DEFAULT NULL,
+  `companyId` int(11) DEFAULT NULL,
+  `img` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `productNumber` varchar(255) DEFAULT NULL,
+  `sampleId` int(11) DEFAULT NULL,
+  `img_s` varchar(255) DEFAULT NULL,
+  `img_ss` varchar(255) DEFAULT NULL,
+  `customerId` int(11) DEFAULT NULL,
+  `company_productNumber` varchar(255) DEFAULT NULL,
+  `charge_employee` int(11) DEFAULT NULL,
+  `date` datetime DEFAULT NULL,
+  `factoryId` int(11) DEFAULT NULL,
+  `sign` varchar(255) DEFAULT NULL,
+  `memo` text,
+  `number` varchar(255) DEFAULT NULL,
+  `orderId` int(11) DEFAULT NULL,
+  `has_print` bit(1) DEFAULT NULL,
+  `store_order_id` int(11) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `created_user` (`created_user`),
+  KEY `companyId` (`companyId`),
+  KEY `sampleId` (`sampleId`),
+  KEY `customerId` (`customerId`),
+  KEY `charge_employee` (`charge_employee`),
+  KEY `factoryId` (`factoryId`),
+  KEY `orderId` (`orderId`),
+  KEY `store_order_id` (`store_order_id`),
+  CONSTRAINT `tb_store_return_ibfk_1` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`),
+  CONSTRAINT `tb_store_return_ibfk_2` FOREIGN KEY (`companyId`) REFERENCES `tb_company` (`id`),
+  CONSTRAINT `tb_store_return_ibfk_3` FOREIGN KEY (`sampleId`) REFERENCES `tb_sample` (`id`),
+  CONSTRAINT `tb_store_return_ibfk_4` FOREIGN KEY (`customerId`) REFERENCES `tb_customer` (`id`),
+  CONSTRAINT `tb_store_return_ibfk_5` FOREIGN KEY (`charge_employee`) REFERENCES `tb_employee` (`id`),
+  CONSTRAINT `tb_store_return_ibfk_6` FOREIGN KEY (`factoryId`) REFERENCES `tb_factory` (`id`),
+  CONSTRAINT `tb_store_return_ibfk_7` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
+  CONSTRAINT `tb_store_return_ibfk_8` FOREIGN KEY (`store_order_id`) REFERENCES `tb_storeorder` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
 -- Table structure for tb_storeorder
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_storeorder`;
@@ -1320,7 +1424,7 @@ CREATE TABLE `tb_storeorder` (
   CONSTRAINT `tb_storeorder_ibfk_5` FOREIGN KEY (`materialId`) REFERENCES `tb_material` (`id`),
   CONSTRAINT `tb_storeorder_ibfk_6` FOREIGN KEY (`charge_employee`) REFERENCES `tb_employee` (`id`),
   CONSTRAINT `tb_storeorder_ibfk_7` FOREIGN KEY (`sampleId`) REFERENCES `tb_sample` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=242 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=267 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_subject
@@ -1337,7 +1441,7 @@ CREATE TABLE `tb_subject` (
   UNIQUE KEY `name` (`name`),
   KEY `created_user` (`created_user`),
   CONSTRAINT `tb_subject_ibfk_1` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_user
@@ -1368,13 +1472,13 @@ CREATE TABLE `tb_user` (
 -- View structure for report_payable
 -- ----------------------------
 DROP VIEW IF EXISTS `report_payable`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `report_payable` AS select `dbo_fuwei`.`tb_invoice`.`id` AS `type_id`,'invoice' AS `type`,`dbo_fuwei`.`tb_invoice`.`amount` AS `payable`,NULL AS `pay`,(`dbo_fuwei`.`tb_invoice`.`amount` - `dbo_fuwei`.`tb_invoice`.`match_amount`) AS `un_pay`,NULL AS `un_invoiced`,`dbo_fuwei`.`tb_invoice`.`created_at` AS `record_at`,`dbo_fuwei`.`tb_invoice`.`company_id` AS `company_id`,NULL AS `salesman_id`,`dbo_fuwei`.`tb_invoice`.`subject_id` AS `subject_id`,`dbo_fuwei`.`tb_invoice`.`bank_id` AS `bank_id`,`dbo_fuwei`.`tb_invoice`.`bank_name` AS `bank_name`,`dbo_fuwei`.`tb_invoice`.`number` AS `number`,`dbo_fuwei`.`tb_invoice`.`memo` AS `memo`,1 AS `is_enterprise` from `tb_invoice` where (`dbo_fuwei`.`tb_invoice`.`in_out` = 1) union all select `a`.`id` AS `id`,'expense' AS `expense`,NULL AS `NULL`,`a`.`amount` AS `amount`,NULL AS `NULL`,(`a`.`amount` - `a`.`invoice_amount`) AS `amount-invoice_amount`,`a`.`expense_at` AS `expense_at`,`a`.`company_id` AS `company_id`,`a`.`salesman_id` AS `salesman_id`,`a`.`subject_id` AS `subject_id`,`a`.`bank_id` AS `bank_id`,`a`.`bank_name` AS `bank_name`,NULL AS `NULL`,`a`.`memo` AS `memo`,`b`.`is_enterprise` AS `is_enterprise` from (`tb_expense_income` `a` join `tb_bank` `b`) where ((`a`.`bank_id` = `b`.`id`) and (`a`.`in_out` = 0));
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `report_payable` AS select `tb_invoice`.`id` AS `type_id`,'invoice' AS `type`,`tb_invoice`.`amount` AS `payable`,NULL AS `pay`,(`tb_invoice`.`amount` - `tb_invoice`.`match_amount`) AS `un_pay`,NULL AS `un_invoiced`,`tb_invoice`.`created_at` AS `record_at`,`tb_invoice`.`company_id` AS `company_id`,NULL AS `salesman_id`,`tb_invoice`.`subject_id` AS `subject_id`,`tb_invoice`.`bank_id` AS `bank_id`,`tb_invoice`.`bank_name` AS `bank_name`,`tb_invoice`.`number` AS `number`,`tb_invoice`.`memo` AS `memo`,1 AS `is_enterprise` from `tb_invoice` where (`tb_invoice`.`in_out` = 1) union all select `a`.`id` AS `id`,'expense' AS `expense`,NULL AS `NULL`,`a`.`amount` AS `amount`,NULL AS `NULL`,(`a`.`amount` - `a`.`invoice_amount`) AS `amount-invoice_amount`,`a`.`expense_at` AS `expense_at`,`a`.`company_id` AS `company_id`,`a`.`salesman_id` AS `salesman_id`,`a`.`subject_id` AS `subject_id`,`a`.`bank_id` AS `bank_id`,`a`.`bank_name` AS `bank_name`,NULL AS `NULL`,`a`.`memo` AS `memo`,`b`.`is_enterprise` AS `is_enterprise` from (`tb_expense_income` `a` join `tb_bank` `b`) where ((`a`.`bank_id` = `b`.`id`) and (`a`.`in_out` = 0));
 
 -- ----------------------------
 -- View structure for report_receivable
 -- ----------------------------
 DROP VIEW IF EXISTS `report_receivable`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `report_receivable` AS select `dbo_fuwei`.`tb_invoice`.`id` AS `type_id`,'invoice' AS `type`,`dbo_fuwei`.`tb_invoice`.`amount` AS `receivable`,NULL AS `received`,(`dbo_fuwei`.`tb_invoice`.`amount` - `dbo_fuwei`.`tb_invoice`.`match_amount`) AS `un_received`,NULL AS `un_invoiced`,`dbo_fuwei`.`tb_invoice`.`print_date` AS `happen_at`,`dbo_fuwei`.`tb_invoice`.`company_id` AS `company_id`,NULL AS `salesman_id`,`dbo_fuwei`.`tb_invoice`.`subject_id` AS `subject_id`,`dbo_fuwei`.`tb_invoice`.`bank_id` AS `bank_id`,`dbo_fuwei`.`tb_invoice`.`bank_name` AS `bank_name`,`dbo_fuwei`.`tb_invoice`.`number` AS `number`,`dbo_fuwei`.`tb_invoice`.`memo` AS `memo`,1 AS `is_enterprise` from `tb_invoice` where (`dbo_fuwei`.`tb_invoice`.`in_out` = 0) union all select `a`.`id` AS `id`,'income' AS `income`,NULL AS `NULL`,`a`.`amount` AS `amount`,NULL AS `NULL`,(`a`.`amount` - `a`.`invoice_amount`) AS `amount-invoice_amount`,`a`.`expense_at` AS `expense_at`,`a`.`company_id` AS `company_id`,`a`.`salesman_id` AS `salesman_id`,`a`.`subject_id` AS `subject_id`,`a`.`bank_id` AS `bank_id`,`a`.`bank_name` AS `bank_name`,NULL AS `NULL`,`a`.`memo` AS `memo`,`b`.`is_enterprise` AS `is_enterprise` from (`tb_expense_income` `a` join `tb_bank` `b`) where ((`a`.`bank_id` = `b`.`id`) and (`a`.`in_out` = 1));
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `report_receivable` AS select `tb_invoice`.`id` AS `type_id`,'invoice' AS `type`,`tb_invoice`.`amount` AS `receivable`,NULL AS `received`,(`tb_invoice`.`amount` - `tb_invoice`.`match_amount`) AS `un_received`,NULL AS `un_invoiced`,`tb_invoice`.`print_date` AS `happen_at`,`tb_invoice`.`company_id` AS `company_id`,NULL AS `salesman_id`,`tb_invoice`.`subject_id` AS `subject_id`,`tb_invoice`.`bank_id` AS `bank_id`,`tb_invoice`.`bank_name` AS `bank_name`,`tb_invoice`.`number` AS `number`,`tb_invoice`.`memo` AS `memo`,1 AS `is_enterprise` from `tb_invoice` where (`tb_invoice`.`in_out` = 0) union all select `a`.`id` AS `id`,'income' AS `income`,NULL AS `NULL`,`a`.`amount` AS `amount`,NULL AS `NULL`,(`a`.`amount` - `a`.`invoice_amount`) AS `amount-invoice_amount`,`a`.`expense_at` AS `expense_at`,`a`.`company_id` AS `company_id`,`a`.`salesman_id` AS `salesman_id`,`a`.`subject_id` AS `subject_id`,`a`.`bank_id` AS `bank_id`,`a`.`bank_name` AS `bank_name`,NULL AS `NULL`,`a`.`memo` AS `memo`,`b`.`is_enterprise` AS `is_enterprise` from (`tb_expense_income` `a` join `tb_bank` `b`) where ((`a`.`bank_id` = `b`.`id`) and (`a`.`in_out` = 1));
 
 -- ----------------------------
 -- Procedure structure for truncate
@@ -1599,6 +1703,26 @@ INSERT INTO `tb_authority` VALUES ('231', '228', '删除', 'half_store_in_out/de
 INSERT INTO `tb_authority` VALUES ('232', '228', '列表', 'half_store_in_out/index');
 INSERT INTO `tb_authority` VALUES ('233', '228', '打印', 'half_store_in_out/print');
 INSERT INTO `tb_authority` VALUES ('234', '94', '半成品库存报表', 'report/half_current_stock');
+INSERT INTO `tb_authority` VALUES ('235', '214', '半成品库存', 'half_current_stock/index');
+INSERT INTO `tb_authority` VALUES ('236', '201', '工序加工单', 'gongxu_producing_order');
+INSERT INTO `tb_authority` VALUES ('237', '236', '添加/编辑', 'gongxu_producing_order/add');
+INSERT INTO `tb_authority` VALUES ('238', '236', '删除', 'gongxu_producing_order/delete');
+INSERT INTO `tb_authority` VALUES ('239', '236', '列表', 'gongxu_producing_order/index');
+INSERT INTO `tb_authority` VALUES ('240', '214', '半成品退货单', 'half_store_return');
+INSERT INTO `tb_authority` VALUES ('241', '240', '添加', 'half_store_return/add');
+INSERT INTO `tb_authority` VALUES ('242', '240', '删除', 'half_store_return/delete');
+INSERT INTO `tb_authority` VALUES ('243', '240', '列表', 'half_store_return/index');
+INSERT INTO `tb_authority` VALUES ('244', '201', '生产进度', 'order/progress');
+INSERT INTO `tb_authority` VALUES ('245', '236', '查看价格', 'gongxu_producing_order/price');
+INSERT INTO `tb_authority` VALUES ('246', '240', '打印', 'half_store_return/print');
+INSERT INTO `tb_authority` VALUES ('247', '94', '原材料库存报表', 'report/material_current_stock');
+INSERT INTO `tb_authority` VALUES ('248', '213', '原材料退货单', 'store_return');
+INSERT INTO `tb_authority` VALUES ('249', '248', '添加', 'store_return/add');
+INSERT INTO `tb_authority` VALUES ('250', '248', '列表', 'store_return/index');
+INSERT INTO `tb_authority` VALUES ('251', '248', '删除', 'store_return/delete');
+INSERT INTO `tb_authority` VALUES ('252', '213', '原材料库存', 'material_current_stock/index');
+INSERT INTO `tb_authority` VALUES ('253', '213', '原材料出入库记录', 'material_current_stock/in_out');
+INSERT INTO `tb_authority` VALUES ('254', '214', '半成品出入库记录', 'half_current_stock/in_out');
 INSERT INTO `tb_bank` VALUES ('107', null, '2015-06-11 20:00:50', '2015-06-11 20:00:50', '6', '柴中柱', null, '', '行内', '101000351173237');
 INSERT INTO `tb_bank` VALUES ('108', null, '2015-06-11 20:00:50', '2015-06-11 20:00:50', '6', '何红梅', null, '', '行内', '6228580199068256196');
 INSERT INTO `tb_bank` VALUES ('109', null, '2015-06-11 20:00:50', '2015-06-11 20:00:50', '6', '胡盼', null, '', '行内', '6228580199060897070');
@@ -1720,7 +1844,7 @@ INSERT INTO `tb_bank` VALUES ('224', '', '2015-06-12 16:37:15', '2015-06-12 16:3
 INSERT INTO `tb_bank` VALUES ('225', '海盐县百步镇横港村', '2015-06-12 20:51:05', '2015-06-12 20:51:05', '14', '海盐德利印刷有限公司', null, '', '百步信用社', '201000119699462');
 INSERT INTO `tb_bank` VALUES ('226', '横村', '2015-06-14 18:42:52', '2015-06-14 18:42:52', '14', '桐庐文良贸易有限公司', null, '', '行内信用社', '201000068569868');
 INSERT INTO `tb_bank` VALUES ('227', '上海浦东张杨路721号太平洋数码3期3007', '2015-06-15 14:23:16', '2015-06-15 14:23:16', '14', '上海威阳数码科技有限公司__打印机', null, '', '建行民生路支行', '31001672359052501254');
-INSERT INTO `tb_bank` VALUES ('228', '未知', '2015-06-20 10:40:25', '2015-06-20 10:40:25', '14', '童建英', null, '', '未知', '未知');
+INSERT INTO `tb_bank` VALUES ('228', '未知', '2015-06-20 10:40:25', '2015-09-02 11:10:51', '14', '童建英(王勤做胶带)', null, '', '行内', '6230910199004171878');
 INSERT INTO `tb_bank` VALUES ('229', '', '2015-06-20 11:24:25', '2015-06-20 11:24:25', '14', '深圳市度点科技有限公司', null, '', '农业银行深圳尚都支行', '41035100040003748');
 INSERT INTO `tb_bank` VALUES ('230', '未知', '2015-06-20 12:06:41', '2015-06-20 12:06:41', '14', '建美', null, '', '未知', '未知');
 INSERT INTO `tb_bank` VALUES ('231', '桐乡', '2015-06-20 14:00:35', '2015-06-23 19:52:19', '14', '桐乡市桐仑纺织有限公司', null, '', '农行桐乡开发区支行', '370801040003710');
@@ -1745,7 +1869,7 @@ INSERT INTO `tb_bank` VALUES ('250', '未知', '2015-07-13 21:18:09', '2015-07-1
 INSERT INTO `tb_bank` VALUES ('251', '江苏省昆山市周庄镇云锦路6号', '2015-07-16 15:56:22', '2015-07-16 15:56:22', '14', '昆山中川包装用品有限公司', null, '', '中国农业银行昆山周庄支行', '10531601040011515');
 INSERT INTO `tb_bank` VALUES ('252', '富阳市金桥北路969号 0571-61790000', '2015-07-16 16:00:33', '2015-07-16 16:00:33', '14', '富阳市奥达汽车销售服务有限公司', null, '', '中信银行富阳支行', '7331510182200095318');
 INSERT INTO `tb_bank` VALUES ('253', '', '2015-07-17 14:03:21', '2015-07-17 14:03:21', '14', '海盐县联谊印刷有限公司', null, '', '行内， 百步信用社', '201000000935527');
-INSERT INTO `tb_bank` VALUES ('254', '未知', '2015-07-20 13:33:00', '2015-07-20 13:33:00', '14', '余江红', null, '', '行内合作社', '6210580199003354963');
+INSERT INTO `tb_bank` VALUES ('254', '未知', '2015-07-20 13:33:00', '2015-09-13 21:10:14', '14', '余江红(江荣妹手工费)', null, '', '行内合作社', '6210580199003354963');
 INSERT INTO `tb_bank` VALUES ('255', '宁波杭州湾新区滨海三路485号', '2015-07-23 11:42:08', '2015-07-23 11:42:08', '14', '宁波纬一长毛绒有限公司', null, '', '中国农业银行股份有限公司慈溪桥头支行', '39545001040002222');
 INSERT INTO `tb_bank` VALUES ('256', '', '2015-07-23 11:46:44', '2015-07-23 11:46:44', '14', '法国客人QC陈丽平', null, '', '中国农业银行', '6228480038526157276');
 INSERT INTO `tb_bank` VALUES ('257', '', '2015-07-23 22:26:59', '2015-07-23 22:26:59', '14', '俞玉芬', null, '', '行内', '6230910199006439406');
@@ -1785,6 +1909,125 @@ INSERT INTO `tb_bank` VALUES ('290', '', '2015-08-02 17:04:46', '2015-08-02 17:0
 INSERT INTO `tb_bank` VALUES ('291', '', '2015-08-06 17:10:48', '2015-08-06 17:10:48', '14', '东莞市辉美纺织品有限公司', null, '', '东莞银行大朗支行', '500003601003441');
 INSERT INTO `tb_bank` VALUES ('292', '', '2015-08-10 21:09:22', '2015-08-10 21:09:22', '14', '必维申美商品检测(上海)有限公司', null, '', '汇丰银行(中国)有限公司上海分行', '088-568258-011');
 INSERT INTO `tb_bank` VALUES ('293', '', '2015-08-11 17:02:23', '2015-08-11 17:02:23', '14', '庄贤明', null, '', '中国银行上海市大世界支行', '441654729776');
+INSERT INTO `tb_bank` VALUES ('294', '横村镇龙腾路229号', '2015-08-16 19:17:04', '2015-08-16 19:17:04', '14', '桐庐诚信针纺染整有限公司', null, '', '桐庐农村合作银行横村支行', '201000003771515');
+INSERT INTO `tb_bank` VALUES ('295', '横村镇工业园区', '2015-08-19 15:04:28', '2015-08-19 15:04:28', '14', '桐庐心梦园服饰有限公司', null, '', '中国邮政储蓄银行桐庐支行营业部', '933007010008398889');
+INSERT INTO `tb_bank` VALUES ('296', '', '2015-08-20 11:39:49', '2015-08-20 11:39:49', '14', '桐庐盛兴贸易有限公司', null, '', '行内', '201000003763321');
+INSERT INTO `tb_bank` VALUES ('298', '', '2015-08-20 11:50:12', '2015-08-20 11:50:12', '14', '上海维琼服饰有限公司', null, '', '中国银行上海市漕河泾开发区支行', '433866514580');
+INSERT INTO `tb_bank` VALUES ('299', '', '2015-08-21 13:58:29', '2015-08-21 13:58:29', '14', '袁来英', null, '', '信用社', '6217360199001562220');
+INSERT INTO `tb_bank` VALUES ('300', '上海市普陀区长寿路1076号1406室', '2015-08-21 17:11:40', '2015-08-21 17:11:40', '14', '上海锦弘纺织品有限公司', null, '', '招商银行曹家渡支行', '121914304710401');
+INSERT INTO `tb_bank` VALUES ('301', '', '2015-08-25 17:30:30', '2015-08-25 17:30:30', '14', '李秀英', null, '', '农村合作信用社', '101004424497324');
+INSERT INTO `tb_bank` VALUES ('302', '', '2015-08-25 17:32:50', '2015-08-25 17:32:50', '14', '叶勇', null, '', '未知', '未知');
+INSERT INTO `tb_bank` VALUES ('303', '', '2015-08-25 17:34:56', '2015-08-25 17:34:56', '14', '江阴欣彩纺织有限公司', null, '', '农业银行江阴陆桥支行', '641701040005827');
+INSERT INTO `tb_bank` VALUES ('304', '', '2015-08-25 17:36:15', '2015-08-25 17:36:15', '14', '杭州印美捷印务有限公司', null, '', '交通银行杭州和平支行', '331065910018010024116');
+INSERT INTO `tb_bank` VALUES ('305', '东阳市巍山镇金勾', '2015-08-26 18:58:24', '2015-08-26 18:58:24', '14', '东阳市巍山晨光丝线厂', null, '', '浙江省东阳农商银行巍山支行', '201000027920247');
+INSERT INTO `tb_bank` VALUES ('306', '', '2015-08-26 19:18:52', '2015-08-30 18:52:49', '14', '杨跃君__申通代开', null, '', '行内', '6228580199078667051');
+INSERT INTO `tb_bank` VALUES ('307', '未知', '2015-08-30 18:24:04', '2015-08-30 18:24:04', '14', '俞成昌', null, '', '未知', '未知');
+INSERT INTO `tb_bank` VALUES ('308', '未知', '2015-08-30 18:25:06', '2015-08-30 18:25:06', '14', '洪兴', null, '', '未知', '未知');
+INSERT INTO `tb_bank` VALUES ('309', '未知', '2015-08-30 18:26:17', '2015-08-30 18:26:17', '14', '王伟清', null, '', '未知', '未知');
+INSERT INTO `tb_bank` VALUES ('310', '未知', '2015-08-30 18:27:59', '2015-08-30 18:27:59', '14', '华洪亮', null, '', '未知', '未知');
+INSERT INTO `tb_bank` VALUES ('311', '未知', '2015-08-30 18:29:06', '2015-08-30 18:29:06', '14', '胡婉', null, '', '未知', '未知');
+INSERT INTO `tb_bank` VALUES ('312', '未知', '2015-08-30 18:30:27', '2015-08-30 18:30:27', '14', '袁银锋', null, '', '未知', '未知');
+INSERT INTO `tb_bank` VALUES ('313', '未知', '2015-08-30 18:31:36', '2015-08-30 18:31:36', '14', '阮鑫波(金波机织)', null, '', '未知', '未知');
+INSERT INTO `tb_bank` VALUES ('314', '未知', '2015-08-30 18:32:25', '2015-08-30 18:33:39', '14', '宋文静', null, '', '河南省虞城县农村信用社社达分社', '622991134101602307');
+INSERT INTO `tb_bank` VALUES ('315', '未知', '2015-08-30 18:34:52', '2015-08-30 18:34:52', '14', '卢荷瑛(邱方向套口费用)', null, '', '信用社', '101006244184532');
+INSERT INTO `tb_bank` VALUES ('316', '未知', '2015-08-30 18:36:37', '2015-08-30 18:36:37', '14', '邵菲', null, '', '未知', '未知');
+INSERT INTO `tb_bank` VALUES ('317', '', '2015-08-30 18:40:23', '2015-08-30 18:40:23', '14', '沈燕平(立中套口)', null, '', '行内', '6210580199000877149');
+INSERT INTO `tb_bank` VALUES ('318', '', '2015-08-30 18:41:37', '2015-08-30 18:42:03', '14', '杨跃芳(丁勇伟机织费用)', null, '', '行内', '6228580199006479850');
+INSERT INTO `tb_bank` VALUES ('319', '', '2015-08-30 18:43:14', '2015-08-30 18:43:14', '14', '朱小马(套口)', null, '', '信用社', '6210580199001619078');
+INSERT INTO `tb_bank` VALUES ('320', '', '2015-08-30 18:44:40', '2015-08-30 18:44:40', '14', '洪志江(柴玉萍等半检)', null, '', '信用社', '101000926399139');
+INSERT INTO `tb_bank` VALUES ('321', '', '2015-08-30 18:46:14', '2015-08-30 18:46:14', '14', '夏雪富', null, '', '信用社', '6228580199076296994');
+INSERT INTO `tb_bank` VALUES ('323', '', '2015-08-30 18:56:10', '2015-08-30 18:56:10', '14', '王良军(君英)', null, '', '工商银行桐庐县支行', '6222081202003135660');
+INSERT INTO `tb_bank` VALUES ('324', '', '2015-08-30 18:57:16', '2015-08-30 18:57:16', '14', '周增土(龙金丽手工费)', null, '', '行内', '6228580199073097437');
+INSERT INTO `tb_bank` VALUES ('326', '', '2015-08-30 19:02:10', '2015-08-30 19:02:10', '14', '朱晓刚', null, '', '行内', '6230910199013268756');
+INSERT INTO `tb_bank` VALUES ('327', '', '2015-08-30 19:03:42', '2015-08-30 19:03:42', '14', '郭亭芳(绣花加工)', null, '', '行内', '6210580199001639621');
+INSERT INTO `tb_bank` VALUES ('328', '', '2015-08-30 19:30:20', '2015-08-30 19:30:20', '14', '徐城林(机织加工)', null, '', '农业银行横村支行', '6228480328869345871');
+INSERT INTO `tb_bank` VALUES ('329', '', '2015-08-30 19:31:22', '2015-08-30 19:31:22', '14', '申屠万军', null, '', '信用社', '101005278483794');
+INSERT INTO `tb_bank` VALUES ('330', '', '2015-08-30 19:32:37', '2015-08-30 19:32:37', '14', '陈建生(秋月手工)', null, '', '行内', '6210580199000663556');
+INSERT INTO `tb_bank` VALUES ('331', '', '2015-08-30 19:33:43', '2015-08-30 19:33:43', '14', '王爱民', null, '', '信用社', '6217360199001562170');
+INSERT INTO `tb_bank` VALUES ('332', '', '2015-08-30 19:34:48', '2015-08-30 19:34:48', '14', '王培龙(王龙套口)', null, '', '行内', '6228580199067406404');
+INSERT INTO `tb_bank` VALUES ('333', '', '2015-08-30 19:35:40', '2015-08-30 19:35:40', '14', '潘立明', null, '', '信用社', '6228580199078061867');
+INSERT INTO `tb_bank` VALUES ('334', '', '2015-08-30 19:36:41', '2015-08-30 19:36:41', '14', '桐庐县横村镇兴通水电材料商行', null, '', '合作银行', '201000137790240');
+INSERT INTO `tb_bank` VALUES ('335', '', '2015-08-30 19:38:45', '2015-08-30 19:38:45', '14', '高清堂', null, '', '信用社', '6228580199063347610');
+INSERT INTO `tb_bank` VALUES ('336', '', '2015-08-30 19:39:41', '2015-08-30 19:39:41', '14', '林星付', null, '', '农业银行横村支行', '6228480328230946373');
+INSERT INTO `tb_bank` VALUES ('337', '', '2015-08-30 19:40:32', '2015-08-30 19:40:32', '14', '张玉贞', null, '', '行内', '6228580199018319508');
+INSERT INTO `tb_bank` VALUES ('338', '', '2015-08-30 19:41:45', '2015-08-30 19:41:45', '14', '许国云(电梯)', null, '', '行内', '6230910199015209055');
+INSERT INTO `tb_bank` VALUES ('339', '', '2015-08-30 19:42:56', '2015-08-30 19:42:56', '14', '张忠华', null, '', '信用社', '6210580199001631131');
+INSERT INTO `tb_bank` VALUES ('340', '', '2015-08-30 20:16:26', '2015-08-30 20:16:26', '14', '袁秀梅', null, '', '未知', '未知');
+INSERT INTO `tb_bank` VALUES ('341', '', '2015-08-30 20:17:32', '2015-08-30 20:17:32', '14', '王云良', null, '', '未知', '未知');
+INSERT INTO `tb_bank` VALUES ('342', '', '2015-08-30 20:25:31', '2015-08-30 20:25:31', '14', '上海新异服装辅料有限公司', null, '', '中国工商银行上海市浦江支行', '1001236209007117367');
+INSERT INTO `tb_bank` VALUES ('343', '', '2015-08-30 21:11:12', '2015-08-30 21:11:12', '14', '胡尧来(平车)', null, '', '行内', '6228580199060930707');
+INSERT INTO `tb_bank` VALUES ('344', '', '2015-08-30 21:11:41', '2015-08-30 21:12:37', '14', '陈命形(手工)', null, '', '行内', '6230910199008232734');
+INSERT INTO `tb_bank` VALUES ('345', '', '2015-08-30 21:12:18', '2015-08-30 21:13:52', '14', '申屠永定(江荣妹手工)', null, '', '行内', '6210580199003640809');
+INSERT INTO `tb_bank` VALUES ('346', '', '2015-09-01 22:16:45', '2015-09-01 22:16:45', '14', '柴玉萍(代黄浦家)', null, '', '未知', '未知');
+INSERT INTO `tb_bank` VALUES ('347', '', '2015-09-01 22:17:56', '2015-09-01 22:17:56', '14', '陈小平(小店)', null, '', '未知', '未知');
+INSERT INTO `tb_bank` VALUES ('348', '', '2015-09-01 22:18:43', '2015-09-01 22:18:43', '14', '岑平(手工)', null, '', '未知', '未知');
+INSERT INTO `tb_bank` VALUES ('349', '', '2015-09-01 22:19:54', '2015-09-01 22:19:54', '14', '彩兰(妈)', null, '', '未知', '未知');
+INSERT INTO `tb_bank` VALUES ('350', '', '2015-09-01 22:20:30', '2015-09-01 22:20:30', '14', '陈水钧', null, '', '未知', '未知');
+INSERT INTO `tb_bank` VALUES ('351', '', '2015-09-01 22:30:39', '2015-09-01 22:30:39', '14', '钱潮英', null, '', '未知', '未知');
+INSERT INTO `tb_bank` VALUES ('352', '', '2015-09-01 22:31:28', '2015-09-01 22:31:28', '14', '喻孝娟', null, '', '未知', '未知');
+INSERT INTO `tb_bank` VALUES ('353', '', '2015-09-01 22:32:32', '2015-09-01 22:32:32', '14', '毛香娣', null, '', '未知', '未知');
+INSERT INTO `tb_bank` VALUES ('354', '', '2015-09-01 22:33:20', '2015-09-01 22:33:20', '14', '王菊芳', null, '', '未知', '未知');
+INSERT INTO `tb_bank` VALUES ('355', '', '2015-09-01 22:34:05', '2015-09-01 22:34:05', '14', '章桂金', null, '', '未知', '未知');
+INSERT INTO `tb_bank` VALUES ('356', '', '2015-09-01 22:34:55', '2015-09-01 22:34:55', '14', '银仙(缝工)', null, '', '未知', '未知');
+INSERT INTO `tb_bank` VALUES ('357', '', '2015-09-01 22:35:32', '2015-09-01 22:35:32', '14', '兰花', null, '', '未知', '未知');
+INSERT INTO `tb_bank` VALUES ('358', '', '2015-09-01 22:36:27', '2015-09-01 22:36:27', '14', '正梅', null, '', '未知', '未知');
+INSERT INTO `tb_bank` VALUES ('360', '', '2015-09-02 10:52:40', '2015-09-02 10:52:40', '14', '桂英', null, '', '未知', '未知');
+INSERT INTO `tb_bank` VALUES ('362', '', '2015-09-02 10:55:10', '2015-09-02 10:55:10', '14', '曹英', null, '', '未知', '未知');
+INSERT INTO `tb_bank` VALUES ('363', '', '2015-09-02 10:56:03', '2015-09-02 10:56:03', '14', '王娣', null, '', '未知', '未知');
+INSERT INTO `tb_bank` VALUES ('364', '', '2015-09-02 11:07:40', '2015-09-02 11:07:40', '14', '杨继剑', null, '', '行内', '6228580199073111279');
+INSERT INTO `tb_bank` VALUES ('366', '', '2015-09-02 11:12:04', '2015-09-02 11:12:04', '14', '王雪林(缝手工加工费)', null, '', '行内', '6228580199007948291');
+INSERT INTO `tb_bank` VALUES ('367', '', '2015-09-02 11:13:43', '2015-09-02 11:13:43', '14', '黄建明(机织加工)', null, '', '行内', '6228580199056611931');
+INSERT INTO `tb_bank` VALUES ('368', '', '2015-09-02 11:14:45', '2015-09-02 11:15:04', '14', '岑国军(机织加工)', null, '', '行内', '6210580199000415429');
+INSERT INTO `tb_bank` VALUES ('369', '', '2015-09-02 11:23:31', '2015-09-02 11:23:31', '14', '叶小妹(胡斌套口)', null, '', '行内', '6230910199012235442');
+INSERT INTO `tb_bank` VALUES ('370', '', '2015-09-02 11:25:03', '2015-09-02 11:25:03', '14', '程小兵(陈峰拉毛)', null, '', '行内', '6228580199078060406');
+INSERT INTO `tb_bank` VALUES ('371', '', '2015-09-02 11:27:02', '2015-09-02 11:27:02', '14', '徐小生(小生合股)', null, '', '行内', '6228580199038594353');
+INSERT INTO `tb_bank` VALUES ('372', '', '2015-09-02 11:29:12', '2015-09-02 11:29:12', '14', '邵雪锋(平车)', null, '', '行内', '6210580199003652986');
+INSERT INTO `tb_bank` VALUES ('373', '', '2015-09-02 11:30:13', '2015-09-02 11:30:13', '14', '李小红(百步岗)', null, '', '行内', '6228580199051252103');
+INSERT INTO `tb_bank` VALUES ('374', '', '2015-09-02 11:32:25', '2015-09-02 11:32:25', '14', '叶峰萍(翁黎明)', null, '', '行内', '6228580199073155524');
+INSERT INTO `tb_bank` VALUES ('375', '', '2015-09-02 11:33:45', '2015-09-02 11:33:45', '14', '张家宽(张柳刚接指)', null, '', '行内', '6228580199010820594');
+INSERT INTO `tb_bank` VALUES ('376', '', '2015-09-02 11:35:24', '2015-09-02 11:35:24', '14', '陈文源(文云手工)', null, '', '农业银行横村支行', '6228480320207220312');
+INSERT INTO `tb_bank` VALUES ('377', '', '2015-09-02 11:40:45', '2015-09-02 11:40:45', '14', '江波(机织加工)', null, '', '行内', '6230910199000473716');
+INSERT INTO `tb_bank` VALUES ('378', '', '2015-09-02 11:42:07', '2015-09-02 11:42:07', '14', '邵贞云(珍云平车)', null, '', '行内', '6230910199008221398');
+INSERT INTO `tb_bank` VALUES ('379', '', '2015-09-02 11:51:39', '2015-09-02 11:51:39', '14', '徐高彬(胡亚萍机织)', null, '', '行内', '6210580199003640288');
+INSERT INTO `tb_bank` VALUES ('380', '', '2015-09-02 12:48:35', '2015-09-02 12:48:35', '14', '陆小珍(机织加工)', null, '', '农行横村支行', '622848320003120914');
+INSERT INTO `tb_bank` VALUES ('381', '', '2015-09-02 12:49:57', '2015-09-02 12:49:57', '14', '王春雅(卡玫拉)', null, '', '农行', '6228480372301931211');
+INSERT INTO `tb_bank` VALUES ('382', '', '2015-09-02 12:52:24', '2015-09-02 12:52:24', '14', '姚金水(袁美丽套口加工)', null, '', '行内', '6228580199076319747');
+INSERT INTO `tb_bank` VALUES ('383', '', '2015-09-05 19:13:11', '2015-09-05 19:13:11', '14', '姚拥军(机织加工)', null, '', '信用社', '6228580199056619637');
+INSERT INTO `tb_bank` VALUES ('384', '', '2015-09-05 19:20:13', '2015-09-05 19:20:38', '14', '邱罗平(邱路平机织)', null, '', '信用社', '6210580199000817822');
+INSERT INTO `tb_bank` VALUES ('385', '', '2015-09-05 19:22:12', '2015-09-05 19:22:12', '14', '方群平(接指加工)', null, '', '行内', '6228580199001221125');
+INSERT INTO `tb_bank` VALUES ('386', '', '2015-09-05 19:24:38', '2015-09-05 19:24:38', '14', '华测检测认证集团股份有限公司', null, '', '招商银行深圳宝安支行', '814085602510001');
+INSERT INTO `tb_bank` VALUES ('387', '', '2015-09-05 19:25:40', '2015-09-05 19:25:40', '14', '通标标准技术服务有限公司杭州分公司', null, '', '工商银行杭州市分行钱江支行', '1202021419900048038');
+INSERT INTO `tb_bank` VALUES ('388', '', '2015-09-13 18:04:52', '2015-09-13 18:04:52', '14', '钱玉霞', null, '', '信用社', '101000937508226');
+INSERT INTO `tb_bank` VALUES ('389', '', '2015-09-13 18:13:50', '2015-09-13 18:13:50', '14', '桐庐永大贸易有限公司', null, '', '桐庐农村合作银行开源支行', '201000067500120');
+INSERT INTO `tb_bank` VALUES ('390', '', '2015-09-13 18:16:41', '2015-09-13 18:16:41', '14', '王和胜', null, '', '信用社', '6230910199006172437');
+INSERT INTO `tb_bank` VALUES ('391', '', '2015-09-13 18:18:50', '2015-09-13 18:18:50', '14', '桐庐方兴印刷制品有限公司', null, '', '未知', '未知');
+INSERT INTO `tb_bank` VALUES ('392', '', '2015-09-13 18:20:39', '2015-09-13 18:20:39', '14', '深圳悦黄商标有限公司', null, '', '中国银行深圳龙岗支行', '741962635869');
+INSERT INTO `tb_bank` VALUES ('393', '', '2015-09-13 18:22:44', '2015-09-13 18:22:44', '14', '宁波俊宇纤维科技有限公司', null, '', '农行杭州湾新区支行', '39543001040014674');
+INSERT INTO `tb_bank` VALUES ('394', '', '2015-09-13 18:24:44', '2015-09-13 18:25:12', '14', '刘衍庆(李云烫钻费)', null, '', '信用社', '6228580199067407683');
+INSERT INTO `tb_bank` VALUES ('395', '', '2015-09-13 20:57:19', '2015-09-13 21:39:08', '14', '陆锡安(手工加工)', null, '', '未知', '未知');
+INSERT INTO `tb_bank` VALUES ('396', '', '2015-09-14 18:09:31', '2015-09-14 18:09:31', '14', '建湖县联烨化纤纺织有限公司', null, '', '江苏建湖农村商业银行股份有限公司庆丰支行', '3209250901201000010411');
+INSERT INTO `tb_bank` VALUES ('397', '', '2015-09-16 21:17:41', '2015-09-16 21:18:46', '14', '卢舟(罗舟手工+机织)', null, '', '行内', '6210580199003623151');
+INSERT INTO `tb_bank` VALUES ('398', '', '2015-09-16 21:19:57', '2015-09-16 21:19:57', '14', '周君晓(洪林平车)', null, '', '行内', '6230910199006181065');
+INSERT INTO `tb_bank` VALUES ('399', '', '2015-09-17 12:08:55', '2015-09-18 16:10:51', '14', '方芝兰(人寿保险)', null, '', '行内', '101000928190940');
+INSERT INTO `tb_bank` VALUES ('400', '', '2015-09-17 15:49:56', '2015-09-17 15:49:56', '14', '吴小丽(小利平车)', null, '', '未知', '未知');
+INSERT INTO `tb_bank` VALUES ('401', '', '2015-09-18 16:03:39', '2015-09-18 16:03:39', '14', '胡杭平(杭平平车加工)', null, '', '行内', '6228580199011529236');
+INSERT INTO `tb_bank` VALUES ('402', '', '2015-09-18 16:05:18', '2015-09-18 16:05:18', '14', '杭州拱康医疗科技有限公司', null, '', '农行', '19-065101040044495');
+INSERT INTO `tb_bank` VALUES ('403', '', '2015-09-22 14:02:51', '2015-09-22 14:02:51', '14', '国网浙江桐庐县供电公司', null, '', '工行桐庐支行', '1202089109003400272');
+INSERT INTO `tb_bank` VALUES ('404', '', '2015-09-22 18:38:18', '2015-09-22 18:38:18', '14', '横村镇尚云针织厂', null, '', '未知', '未知');
+INSERT INTO `tb_bank` VALUES ('405', '', '2015-09-26 15:20:09', '2015-09-26 15:20:09', '6', '上海逸韵服饰有限公司', null, '', '未知', '未知');
+INSERT INTO `tb_bank` VALUES ('406', '', '2015-09-29 19:19:22', '2015-09-29 19:19:22', '14', '田红英(红英平车)', null, '', '未知', '未知');
+INSERT INTO `tb_bank` VALUES ('407', '', '2015-09-29 19:21:41', '2015-09-29 19:21:41', '14', '史爱莲', null, '', '农业银行宁波新城支行', '6228480310205674610');
+INSERT INTO `tb_bank` VALUES ('408', '', '2015-10-15 11:18:56', '2015-10-15 11:19:19', '14', '胡建平(机织+倒纱)', null, '', '中国银行桐庐迎春街支行', '6216611300005585741');
+INSERT INTO `tb_bank` VALUES ('409', '', '2015-10-15 15:33:59', '2015-10-15 15:33:59', '14', '张顺(棉纱帽)', null, '', '支付宝帐号', '13790593777');
+INSERT INTO `tb_bank` VALUES ('410', '', '2015-10-15 15:37:05', '2015-10-15 15:37:05', '14', '杨柯庭', null, '', '未知', '未知');
+INSERT INTO `tb_bank` VALUES ('411', '', '2015-10-15 15:38:09', '2015-10-15 15:38:30', '14', '彭祥云(平车加工)', null, '', '信用社', '6228580199067408889');
+INSERT INTO `tb_bank` VALUES ('412', '', '2015-10-15 15:39:44', '2015-10-15 15:39:44', '14', '桐庐伟丰压花有限公司', null, '', '信用社', '201000120434804');
+INSERT INTO `tb_bank` VALUES ('413', '', '2015-10-15 15:43:06', '2015-10-15 15:43:06', '14', '祝志平(机织加工)', null, '', '信用社', '6228580199060930095');
+INSERT INTO `tb_bank` VALUES ('414', '', '2015-10-15 15:58:24', '2015-10-15 15:58:24', '14', '沈松根(运费)', null, '', '信用社', '6210580199000417474');
+INSERT INTO `tb_bank` VALUES ('415', '', '2015-10-15 16:03:16', '2015-10-15 16:03:16', '14', '建湖艺龙纺织有限公司', null, '', '中行建湖向阳路支行', '491065556072');
+INSERT INTO `tb_bank` VALUES ('416', '', '2015-10-15 16:04:35', '2015-10-15 16:04:35', '14', '徐林标(机织加工)', null, '', '农村合作银行', '101003216039132');
+INSERT INTO `tb_bank` VALUES ('417', '', '2015-10-15 16:05:38', '2015-10-15 16:05:38', '14', '赵炳军(冰军平车加工)', null, '', '行内', '101010429091310');
+INSERT INTO `tb_bank` VALUES ('418', '', '2015-10-15 16:06:41', '2015-10-15 16:06:41', '14', '王炜平', null, '', '行内', '6228580199060910154');
 INSERT INTO `tb_carfixrecordorder` VALUES ('1', '1', '2015-03-31 21:48:39', '2015-03-31 21:48:39', '7', '6', '执行完成');
 INSERT INTO `tb_carfixrecordorder` VALUES ('2', '2', '2015-04-02 22:09:03', '2015-04-02 22:09:03', '7', '0', '新建');
 INSERT INTO `tb_carfixrecordorder` VALUES ('3', '3', '2015-04-02 22:32:58', '2015-04-02 22:32:58', '7', '0', '新建');
@@ -1798,7 +2041,7 @@ INSERT INTO `tb_carfixrecordorder` VALUES ('10', '10', '2015-04-03 22:01:02', '2
 INSERT INTO `tb_carfixrecordorder` VALUES ('11', '11', '2015-04-03 22:08:13', '2015-04-03 22:08:13', '7', '0', '新建');
 INSERT INTO `tb_carfixrecordorder` VALUES ('12', '12', '2015-04-03 23:16:47', '2015-04-03 23:16:47', '7', '0', '新建');
 INSERT INTO `tb_carfixrecordorder` VALUES ('13', '13', '2015-04-03 23:52:25', '2015-04-03 23:52:25', '7', '6', '执行完成');
-INSERT INTO `tb_carfixrecordorder` VALUES ('14', '14', '2015-04-04 00:25:22', '2015-04-04 00:25:22', '7', '6', '执行完成');
+INSERT INTO `tb_carfixrecordorder` VALUES ('14', '14', '2015-04-04 00:25:22', '2015-04-04 00:25:22', '7', '0', '新建');
 INSERT INTO `tb_carfixrecordorder` VALUES ('15', '15', '2015-04-04 01:47:47', '2015-04-04 01:47:47', '7', '0', '新建');
 INSERT INTO `tb_carfixrecordorder` VALUES ('16', '16', '2015-04-04 01:52:57', '2015-04-04 01:52:57', '7', '0', '新建');
 INSERT INTO `tb_carfixrecordorder` VALUES ('17', '17', '2015-04-04 14:45:56', '2015-04-04 14:45:56', '7', '0', '新建');
@@ -1875,7 +2118,7 @@ INSERT INTO `tb_carfixrecordorder` VALUES ('87', '87', '2015-04-27 08:07:57', '2
 INSERT INTO `tb_carfixrecordorder` VALUES ('88', '88', '2015-04-27 08:24:57', '2015-04-27 08:24:57', '7', '0', '新建');
 INSERT INTO `tb_carfixrecordorder` VALUES ('89', '89', '2015-04-27 08:45:32', '2015-04-27 08:45:32', '7', '0', '新建');
 INSERT INTO `tb_carfixrecordorder` VALUES ('90', '90', '2015-04-30 13:32:44', '2015-04-30 13:32:44', '7', '0', '新建');
-INSERT INTO `tb_carfixrecordorder` VALUES ('91', '91', '2015-05-02 16:28:24', '2015-05-02 16:28:24', '7', '6', '执行完成');
+INSERT INTO `tb_carfixrecordorder` VALUES ('91', '91', '2015-05-02 16:28:24', '2015-05-02 16:28:24', '7', '0', '新建');
 INSERT INTO `tb_carfixrecordorder` VALUES ('92', '92', '2015-05-03 17:24:03', '2015-05-03 17:24:03', '7', '0', '新建');
 INSERT INTO `tb_carfixrecordorder` VALUES ('93', '93', '2015-05-03 17:34:23', '2015-05-03 17:34:23', '7', '0', '新建');
 INSERT INTO `tb_carfixrecordorder` VALUES ('94', '94', '2015-05-03 17:51:49', '2015-05-03 17:51:49', '7', '6', '执行完成');
@@ -2009,7 +2252,7 @@ INSERT INTO `tb_carfixrecordorder` VALUES ('221', '221', '2015-07-05 14:39:24', 
 INSERT INTO `tb_carfixrecordorder` VALUES ('222', '222', '2015-07-05 14:50:16', '2015-07-05 14:50:16', '7', '0', '新建');
 INSERT INTO `tb_carfixrecordorder` VALUES ('223', '223', '2015-07-05 15:09:32', '2015-07-05 15:09:32', '7', '0', '新建');
 INSERT INTO `tb_carfixrecordorder` VALUES ('224', '224', '2015-07-08 22:11:35', '2015-07-08 22:11:35', '7', '0', '新建');
-INSERT INTO `tb_carfixrecordorder` VALUES ('225', '225', '2015-07-11 13:10:46', '2015-07-11 13:10:46', '7', '6', '执行完成');
+INSERT INTO `tb_carfixrecordorder` VALUES ('225', '225', '2015-07-11 13:10:46', '2015-07-11 13:10:46', '7', '0', '新建');
 INSERT INTO `tb_carfixrecordorder` VALUES ('226', '226', '2015-07-12 16:23:22', '2015-07-12 16:23:22', '7', '0', '新建');
 INSERT INTO `tb_carfixrecordorder` VALUES ('227', '227', '2015-07-12 17:03:51', '2015-07-12 17:03:51', '7', '0', '新建');
 INSERT INTO `tb_carfixrecordorder` VALUES ('228', '228', '2015-07-15 20:20:47', '2015-07-15 20:20:47', '7', '0', '新建');
@@ -2043,6 +2286,32 @@ INSERT INTO `tb_carfixrecordorder` VALUES ('255', '255', '2015-08-09 22:05:28', 
 INSERT INTO `tb_carfixrecordorder` VALUES ('256', '256', '2015-08-09 22:19:56', '2015-08-09 22:19:56', '7', '0', '新建');
 INSERT INTO `tb_carfixrecordorder` VALUES ('257', '257', '2015-08-09 22:33:40', '2015-08-09 22:33:40', '7', '0', '新建');
 INSERT INTO `tb_carfixrecordorder` VALUES ('258', '258', '2015-08-11 17:53:10', '2015-08-11 17:53:10', '7', '0', '新建');
+INSERT INTO `tb_carfixrecordorder` VALUES ('259', '259', '2015-08-13 09:11:37', '2015-08-13 09:11:37', '7', '0', '新建');
+INSERT INTO `tb_carfixrecordorder` VALUES ('260', '260', '2015-08-13 09:23:32', '2015-08-13 09:23:32', '7', '0', '新建');
+INSERT INTO `tb_carfixrecordorder` VALUES ('261', '261', '2015-08-20 14:13:42', '2015-08-20 14:13:42', '7', '0', '新建');
+INSERT INTO `tb_carfixrecordorder` VALUES ('262', '262', '2015-08-24 15:08:35', '2015-08-24 15:08:35', '7', '0', '新建');
+INSERT INTO `tb_carfixrecordorder` VALUES ('263', '263', '2015-08-26 16:31:59', '2015-08-26 16:31:59', '7', '0', '新建');
+INSERT INTO `tb_carfixrecordorder` VALUES ('264', '264', '2015-08-26 16:49:07', '2015-08-26 16:49:07', '7', '0', '新建');
+INSERT INTO `tb_carfixrecordorder` VALUES ('265', '265', '2015-08-27 08:27:35', '2015-08-27 08:27:35', '7', '0', '新建');
+INSERT INTO `tb_carfixrecordorder` VALUES ('266', '266', '2015-08-27 08:37:24', '2015-08-27 08:37:24', '7', '0', '新建');
+INSERT INTO `tb_carfixrecordorder` VALUES ('267', '267', '2015-08-27 08:55:10', '2015-08-27 08:55:10', '7', '0', '新建');
+INSERT INTO `tb_carfixrecordorder` VALUES ('268', '268', '2015-09-04 15:35:09', '2015-09-04 15:35:09', '7', '0', '新建');
+INSERT INTO `tb_carfixrecordorder` VALUES ('269', '269', '2015-09-17 12:39:23', '2015-09-17 12:39:23', '7', '0', '新建');
+INSERT INTO `tb_carfixrecordorder` VALUES ('270', '270', '2015-09-17 12:55:22', '2015-09-17 12:55:22', '7', '0', '新建');
+INSERT INTO `tb_carfixrecordorder` VALUES ('271', '271', '2015-09-21 08:30:40', '2015-09-21 08:30:40', '7', '0', '新建');
+INSERT INTO `tb_carfixrecordorder` VALUES ('272', '272', '2015-09-23 12:27:17', '2015-09-23 12:27:17', '7', '0', '新建');
+INSERT INTO `tb_carfixrecordorder` VALUES ('273', '273', '2015-09-25 15:31:06', '2015-09-25 15:31:06', '7', '0', '新建');
+INSERT INTO `tb_carfixrecordorder` VALUES ('274', '274', '2015-09-28 09:05:47', '2015-09-28 09:05:47', '7', '0', '新建');
+INSERT INTO `tb_carfixrecordorder` VALUES ('275', '275', '2015-09-28 09:38:07', '2015-09-28 09:38:07', '7', '0', '新建');
+INSERT INTO `tb_carfixrecordorder` VALUES ('276', '276', '2015-10-04 10:24:40', '2015-10-04 10:24:40', '7', '0', '新建');
+INSERT INTO `tb_carfixrecordorder` VALUES ('277', '277', '2015-10-09 14:16:39', '2015-10-09 14:16:39', '7', '0', '新建');
+INSERT INTO `tb_carfixrecordorder` VALUES ('278', '278', '2015-10-09 14:36:54', '2015-10-09 14:36:54', '7', '0', '新建');
+INSERT INTO `tb_carfixrecordorder` VALUES ('279', '279', '2015-10-09 14:58:39', '2015-10-09 14:58:39', '7', '0', '新建');
+INSERT INTO `tb_carfixrecordorder` VALUES ('280', '280', '2015-10-09 15:05:02', '2015-10-09 15:05:02', '7', '0', '新建');
+INSERT INTO `tb_carfixrecordorder` VALUES ('281', '281', '2015-10-09 15:09:30', '2015-10-09 15:09:30', '7', '0', '新建');
+INSERT INTO `tb_carfixrecordorder` VALUES ('282', '282', '2015-10-10 08:50:24', '2015-10-10 08:50:24', '7', '0', '新建');
+INSERT INTO `tb_carfixrecordorder` VALUES ('283', '283', '2015-10-13 13:17:11', '2015-10-13 13:17:11', '7', '0', '新建');
+INSERT INTO `tb_carfixrecordorder` VALUES ('284', '284', '2015-10-15 09:22:03', '2015-10-15 09:22:03', '7', '0', '新建');
 INSERT INTO `tb_checkrecordorder` VALUES ('1', '1', '2015-03-31 21:48:39', '2015-03-31 21:48:39', '7', '6', '执行完成');
 INSERT INTO `tb_checkrecordorder` VALUES ('2', '2', '2015-04-02 22:09:02', '2015-04-02 22:09:02', '7', '0', '新建');
 INSERT INTO `tb_checkrecordorder` VALUES ('3', '3', '2015-04-02 22:32:58', '2015-04-02 22:32:58', '7', '0', '新建');
@@ -2056,7 +2325,7 @@ INSERT INTO `tb_checkrecordorder` VALUES ('10', '10', '2015-04-03 22:01:02', '20
 INSERT INTO `tb_checkrecordorder` VALUES ('11', '11', '2015-04-03 22:08:13', '2015-04-03 22:08:13', '7', '0', '新建');
 INSERT INTO `tb_checkrecordorder` VALUES ('12', '12', '2015-04-03 23:16:47', '2015-04-03 23:16:47', '7', '0', '新建');
 INSERT INTO `tb_checkrecordorder` VALUES ('13', '13', '2015-04-03 23:52:25', '2015-04-03 23:52:25', '7', '6', '执行完成');
-INSERT INTO `tb_checkrecordorder` VALUES ('14', '14', '2015-04-04 00:25:22', '2015-04-04 00:25:22', '7', '6', '执行完成');
+INSERT INTO `tb_checkrecordorder` VALUES ('14', '14', '2015-04-04 00:25:22', '2015-04-04 00:25:22', '7', '0', '新建');
 INSERT INTO `tb_checkrecordorder` VALUES ('15', '15', '2015-04-04 01:47:47', '2015-04-04 01:47:47', '7', '0', '新建');
 INSERT INTO `tb_checkrecordorder` VALUES ('16', '16', '2015-04-04 01:52:57', '2015-04-04 01:52:57', '7', '0', '新建');
 INSERT INTO `tb_checkrecordorder` VALUES ('17', '17', '2015-04-04 14:45:56', '2015-04-04 14:45:56', '7', '0', '新建');
@@ -2133,7 +2402,7 @@ INSERT INTO `tb_checkrecordorder` VALUES ('87', '87', '2015-04-27 08:07:56', '20
 INSERT INTO `tb_checkrecordorder` VALUES ('88', '88', '2015-04-27 08:24:57', '2015-04-27 08:24:57', '7', '0', '新建');
 INSERT INTO `tb_checkrecordorder` VALUES ('89', '89', '2015-04-27 08:45:32', '2015-04-27 08:45:32', '7', '0', '新建');
 INSERT INTO `tb_checkrecordorder` VALUES ('90', '90', '2015-04-30 13:32:44', '2015-04-30 13:32:44', '7', '0', '新建');
-INSERT INTO `tb_checkrecordorder` VALUES ('91', '91', '2015-05-02 16:28:24', '2015-05-02 16:28:24', '7', '6', '执行完成');
+INSERT INTO `tb_checkrecordorder` VALUES ('91', '91', '2015-05-02 16:28:24', '2015-05-02 16:28:24', '7', '0', '新建');
 INSERT INTO `tb_checkrecordorder` VALUES ('92', '92', '2015-05-03 17:24:03', '2015-05-03 17:24:03', '7', '0', '新建');
 INSERT INTO `tb_checkrecordorder` VALUES ('93', '93', '2015-05-03 17:34:23', '2015-05-03 17:34:23', '7', '0', '新建');
 INSERT INTO `tb_checkrecordorder` VALUES ('94', '94', '2015-05-03 17:51:49', '2015-05-03 17:51:49', '7', '6', '执行完成');
@@ -2267,7 +2536,7 @@ INSERT INTO `tb_checkrecordorder` VALUES ('221', '221', '2015-07-05 14:39:24', '
 INSERT INTO `tb_checkrecordorder` VALUES ('222', '222', '2015-07-05 14:50:16', '2015-07-05 14:50:16', '7', '0', '新建');
 INSERT INTO `tb_checkrecordorder` VALUES ('223', '223', '2015-07-05 15:09:32', '2015-07-05 15:09:32', '7', '0', '新建');
 INSERT INTO `tb_checkrecordorder` VALUES ('224', '224', '2015-07-08 22:11:35', '2015-07-08 22:11:35', '7', '0', '新建');
-INSERT INTO `tb_checkrecordorder` VALUES ('225', '225', '2015-07-11 13:10:46', '2015-07-11 13:10:46', '7', '6', '执行完成');
+INSERT INTO `tb_checkrecordorder` VALUES ('225', '225', '2015-07-11 13:10:46', '2015-07-11 13:10:46', '7', '0', '新建');
 INSERT INTO `tb_checkrecordorder` VALUES ('226', '226', '2015-07-12 16:23:22', '2015-07-12 16:23:22', '7', '0', '新建');
 INSERT INTO `tb_checkrecordorder` VALUES ('227', '227', '2015-07-12 17:03:51', '2015-07-12 17:03:51', '7', '0', '新建');
 INSERT INTO `tb_checkrecordorder` VALUES ('228', '228', '2015-07-15 20:20:47', '2015-07-15 20:20:47', '7', '0', '新建');
@@ -2301,6 +2570,32 @@ INSERT INTO `tb_checkrecordorder` VALUES ('255', '255', '2015-08-09 22:05:28', '
 INSERT INTO `tb_checkrecordorder` VALUES ('256', '256', '2015-08-09 22:19:56', '2015-08-09 22:19:56', '7', '0', '新建');
 INSERT INTO `tb_checkrecordorder` VALUES ('257', '257', '2015-08-09 22:33:40', '2015-08-09 22:33:40', '7', '0', '新建');
 INSERT INTO `tb_checkrecordorder` VALUES ('258', '258', '2015-08-11 17:53:09', '2015-08-11 17:53:09', '7', '0', '新建');
+INSERT INTO `tb_checkrecordorder` VALUES ('259', '259', '2015-08-13 09:11:37', '2015-08-13 09:11:37', '7', '0', '新建');
+INSERT INTO `tb_checkrecordorder` VALUES ('260', '260', '2015-08-13 09:23:32', '2015-08-13 09:23:32', '7', '0', '新建');
+INSERT INTO `tb_checkrecordorder` VALUES ('261', '261', '2015-08-20 14:13:42', '2015-08-20 14:13:42', '7', '0', '新建');
+INSERT INTO `tb_checkrecordorder` VALUES ('262', '262', '2015-08-24 15:08:35', '2015-08-24 15:08:35', '7', '0', '新建');
+INSERT INTO `tb_checkrecordorder` VALUES ('263', '263', '2015-08-26 16:31:59', '2015-08-26 16:31:59', '7', '0', '新建');
+INSERT INTO `tb_checkrecordorder` VALUES ('264', '264', '2015-08-26 16:49:07', '2015-08-26 16:49:07', '7', '0', '新建');
+INSERT INTO `tb_checkrecordorder` VALUES ('265', '265', '2015-08-27 08:27:35', '2015-08-27 08:27:35', '7', '0', '新建');
+INSERT INTO `tb_checkrecordorder` VALUES ('266', '266', '2015-08-27 08:37:24', '2015-08-27 08:37:24', '7', '0', '新建');
+INSERT INTO `tb_checkrecordorder` VALUES ('267', '267', '2015-08-27 08:55:10', '2015-08-27 08:55:10', '7', '0', '新建');
+INSERT INTO `tb_checkrecordorder` VALUES ('268', '268', '2015-09-04 15:35:09', '2015-09-04 15:35:09', '7', '0', '新建');
+INSERT INTO `tb_checkrecordorder` VALUES ('269', '269', '2015-09-17 12:39:23', '2015-09-17 12:39:23', '7', '0', '新建');
+INSERT INTO `tb_checkrecordorder` VALUES ('270', '270', '2015-09-17 12:55:22', '2015-09-17 12:55:22', '7', '0', '新建');
+INSERT INTO `tb_checkrecordorder` VALUES ('271', '271', '2015-09-21 08:30:40', '2015-09-21 08:30:40', '7', '0', '新建');
+INSERT INTO `tb_checkrecordorder` VALUES ('272', '272', '2015-09-23 12:27:17', '2015-09-23 12:27:17', '7', '0', '新建');
+INSERT INTO `tb_checkrecordorder` VALUES ('273', '273', '2015-09-25 15:31:06', '2015-09-25 15:31:06', '7', '0', '新建');
+INSERT INTO `tb_checkrecordorder` VALUES ('274', '274', '2015-09-28 09:05:47', '2015-09-28 09:05:47', '7', '0', '新建');
+INSERT INTO `tb_checkrecordorder` VALUES ('275', '275', '2015-09-28 09:38:07', '2015-09-28 09:38:07', '7', '0', '新建');
+INSERT INTO `tb_checkrecordorder` VALUES ('276', '276', '2015-10-04 10:24:40', '2015-10-04 10:24:40', '7', '0', '新建');
+INSERT INTO `tb_checkrecordorder` VALUES ('277', '277', '2015-10-09 14:16:39', '2015-10-09 14:16:39', '7', '0', '新建');
+INSERT INTO `tb_checkrecordorder` VALUES ('278', '278', '2015-10-09 14:36:54', '2015-10-09 14:36:54', '7', '0', '新建');
+INSERT INTO `tb_checkrecordorder` VALUES ('279', '279', '2015-10-09 14:58:39', '2015-10-09 14:58:39', '7', '0', '新建');
+INSERT INTO `tb_checkrecordorder` VALUES ('280', '280', '2015-10-09 15:05:02', '2015-10-09 15:05:02', '7', '0', '新建');
+INSERT INTO `tb_checkrecordorder` VALUES ('281', '281', '2015-10-09 15:09:30', '2015-10-09 15:09:30', '7', '0', '新建');
+INSERT INTO `tb_checkrecordorder` VALUES ('282', '282', '2015-10-10 08:50:23', '2015-10-10 08:50:23', '7', '0', '新建');
+INSERT INTO `tb_checkrecordorder` VALUES ('283', '283', '2015-10-13 13:17:11', '2015-10-13 13:17:11', '7', '0', '新建');
+INSERT INTO `tb_checkrecordorder` VALUES ('284', '284', '2015-10-15 09:22:03', '2015-10-15 09:22:03', '7', '0', '新建');
 INSERT INTO `tb_coloringorder` VALUES ('1', '1', '2015-04-01 20:25:35', '2015-04-01 20:25:35', '7', '[{\"color\":\"白色\",\"material\":1,\"quantity\":145,\"standardyarn\":\"\"},{\"color\":\"黑色\",\"material\":1,\"quantity\":40,\"standardyarn\":\"\"}]', '3', '6', '执行完成', '1', 'resource.fuwei.com/images/sample/1427808371841QQ图片20150331211900.jpg', '1', '全晴格子披肩', 'FWA30001', '126*126 + 10*2', '471', '1', 'FWA20001', 'resource.fuwei.com/images/sample/s/1427808371841QQ图片20150331211900.png', 'resource.fuwei.com/images/sample/ss/1427808371841QQ图片20150331211900.png', '1', null, '15RS0001', 'FWA30001', '2');
 INSERT INTO `tb_coloringorder` VALUES ('2', '2', '2015-04-02 22:17:59', '2015-04-02 22:26:37', '7', '[{\"color\":\"QY035-米色\",\"material\":4,\"quantity\":773,\"standardyarn\":\"\"},{\"color\":\"QY035-藏青\",\"material\":4,\"quantity\":773,\"standardyarn\":\"\"},{\"color\":\"QY035-米色\",\"material\":8,\"quantity\":1.5,\"standardyarn\":\"\"},{\"color\":\"QY035-藏青\",\"material\":8,\"quantity\":1.5,\"standardyarn\":\"\"}]', '12', '0', '新建', '4', 'resource.fuwei.com/images/sample/1427955494579图片1.png', '4', '冰岛毛正反针挂须围巾', 'FWA30003', '190*40+2*20CM F', '0', '3', 'FWA20002', 'resource.fuwei.com/images/sample/s/1427955494579图片1.png', 'resource.fuwei.com/images/sample/ss/1427955494579图片1.png', '2', null, '15RS0002', 'FWA30003', '3');
 INSERT INTO `tb_coloringorder` VALUES ('3', '3', '2015-04-02 22:34:50', '2015-04-02 22:40:14', '7', '[{\"color\":\"QY034-米色\",\"material\":4,\"quantity\":190.5,\"standardyarn\":\"\"},{\"color\":\"QY034-藏青\",\"material\":4,\"quantity\":190.5,\"standardyarn\":\"\"},{\"color\":\"QY034-米色\",\"material\":8,\"quantity\":1.5,\"standardyarn\":\"\"},{\"color\":\"QY034-藏青\",\"material\":8,\"quantity\":1.5,\"standardyarn\":\"\"}]', '12', '0', '新建', '4', 'resource.fuwei.com/images/sample/1427955562784图片1.png', '4', '冰岛毛正反针吊球帽', 'FWA30004', '24CMH *20CM', '0', '4', 'FWA20003', 'resource.fuwei.com/images/sample/s/1427955562784图片1.png', 'resource.fuwei.com/images/sample/ss/1427955562784图片1.png', '2', null, '15RS0003', 'FWA30004', '3');
@@ -2319,7 +2614,7 @@ INSERT INTO `tb_coloringorder` VALUES ('15', '12', '2015-04-03 23:18:25', '2015-
 INSERT INTO `tb_coloringorder` VALUES ('16', '12', '2015-04-03 23:18:48', '2015-04-03 23:18:48', '7', '[{\"color\":\"深夹花灰\",\"material\":1,\"quantity\":96,\"standardyarn\":\"\"}]', '26', '0', '新建', '4', 'resource.fuwei.com/images/sample/1428073896025图片1.png', '1', '抽条翻边帽', 'FWA30018', '21H*20W', '63', '18', 'FWA20012', 'resource.fuwei.com/images/sample/s/1428073896025图片1.png', 'resource.fuwei.com/images/sample/ss/1428073896025图片1.png', '3', null, '15RS0016', 'FWA30018', '3');
 INSERT INTO `tb_coloringorder` VALUES ('17', '13', '2015-04-03 23:53:30', '2015-04-03 23:53:30', '7', '[{\"color\":\"灰色\",\"material\":8,\"quantity\":177,\"standardyarn\":\"\"}]', '13', '6', '执行完成', '1', 'resource.fuwei.com/images/sample/1427993082909Adoree loop SMS 8019 carbon solid.JPG', '8', '冰岛毛羽毛纱围脖', 'FWA30010', '33*2*27', '198', '10', 'FWA20013', 'resource.fuwei.com/images/sample/s/1427993082909Adoree loop SMS 8019 carbon solid.png', 'resource.fuwei.com/images/sample/ss/1427993082909Adoree loop SMS 8019 carbon solid.png', '5', null, '15RS0017', 'FWA30010', '2');
 INSERT INTO `tb_coloringorder` VALUES ('18', '13', '2015-04-03 23:55:52', '2015-04-03 23:55:52', '7', '[{\"color\":\"黑色\",\"material\":16,\"quantity\":45,\"standardyarn\":\"\"}]', '28', '6', '执行完成', '1', 'resource.fuwei.com/images/sample/1427993082909Adoree loop SMS 8019 carbon solid.JPG', '8', '冰岛毛羽毛纱围脖', 'FWA30010', '33*2*27', '198', '10', 'FWA20013', 'resource.fuwei.com/images/sample/s/1427993082909Adoree loop SMS 8019 carbon solid.png', 'resource.fuwei.com/images/sample/ss/1427993082909Adoree loop SMS 8019 carbon solid.png', '5', null, '15RS0018', 'FWA30010', '2');
-INSERT INTO `tb_coloringorder` VALUES ('19', '14', '2015-04-04 00:29:59', '2015-04-04 00:29:59', '7', '[{\"color\":\"褐色\",\"material\":18,\"quantity\":60,\"standardyarn\":\"\"},{\"color\":\"红棕色\",\"material\":18,\"quantity\":110,\"standardyarn\":\"\"},{\"color\":\"旧粉色\",\"material\":18,\"quantity\":110,\"standardyarn\":\"\"}]', '29', '6', '执行完成', '7', 'resource.fuwei.com/images/sample/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', '13', '仿羊绒成品染色拉毛围脖', 'FWA30021', '40H*75W', '152', '21', 'FWA20014', 'resource.fuwei.com/images/sample/s/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', 'resource.fuwei.com/images/sample/ss/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', null, null, '15RS0019', 'FWA30021', '3');
+INSERT INTO `tb_coloringorder` VALUES ('19', '14', '2015-04-04 00:29:59', '2015-04-04 00:29:59', '7', '[{\"color\":\"褐色\",\"material\":18,\"quantity\":60,\"standardyarn\":\"\"},{\"color\":\"红棕色\",\"material\":18,\"quantity\":110,\"standardyarn\":\"\"},{\"color\":\"旧粉色\",\"material\":18,\"quantity\":110,\"standardyarn\":\"\"}]', '29', '0', '新建', '7', 'resource.fuwei.com/images/sample/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', '13', '仿羊绒成品染色拉毛围脖', 'FWA30021', '40H*75W', '152', '21', 'FWA20014', 'resource.fuwei.com/images/sample/s/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', 'resource.fuwei.com/images/sample/ss/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', null, null, '15RS0019', 'FWA30021', '3');
 INSERT INTO `tb_coloringorder` VALUES ('20', '15', '2015-04-04 01:48:38', '2015-04-04 01:48:38', '7', '[{\"color\":\"本白\",\"material\":9,\"quantity\":10,\"standardyarn\":\"\"}]', '15', '0', '新建', '7', 'resource.fuwei.com/images/sample/14280776443192FC6687A49233B5F718DA9A0DB6598AA.png', '17', '马海毛点子纱围脖', 'FWA30020', '43H*75W', '203', '20', 'FWA20015', 'resource.fuwei.com/images/sample/s/14280776443192FC6687A49233B5F718DA9A0DB6598AA.png', 'resource.fuwei.com/images/sample/ss/14280776443192FC6687A49233B5F718DA9A0DB6598AA.png', null, null, '15RS0020', 'FWA30020', '3');
 INSERT INTO `tb_coloringorder` VALUES ('21', '15', '2015-04-04 01:49:12', '2015-04-04 01:49:12', '7', '[{\"color\":\"点子纱\",\"material\":17,\"quantity\":6,\"standardyarn\":\"\"}]', '16', '0', '新建', '7', 'resource.fuwei.com/images/sample/14280776443192FC6687A49233B5F718DA9A0DB6598AA.png', '17', '马海毛点子纱围脖', 'FWA30020', '43H*75W', '203', '20', 'FWA20015', 'resource.fuwei.com/images/sample/s/14280776443192FC6687A49233B5F718DA9A0DB6598AA.png', 'resource.fuwei.com/images/sample/ss/14280776443192FC6687A49233B5F718DA9A0DB6598AA.png', null, null, '15RS0021', 'FWA30020', '3');
 INSERT INTO `tb_coloringorder` VALUES ('22', '16', '2015-04-04 01:53:37', '2015-04-04 01:53:37', '7', '[{\"color\":\"米色\",\"material\":9,\"quantity\":5,\"standardyarn\":\"\"},{\"color\":\"黑色\",\"material\":9,\"quantity\":10,\"standardyarn\":\"\"}]', '15', '0', '新建', '7', 'resource.fuwei.com/images/sample/1428077349767796265BFB290FEE2DC5FC6E38AE4B3B6.png', '9', '马海毛烫钻帽', 'FWA30019', '20W*27H', '69', '19', 'FWA20016', 'resource.fuwei.com/images/sample/s/1428077349767796265BFB290FEE2DC5FC6E38AE4B3B6.png', 'resource.fuwei.com/images/sample/ss/1428077349767796265BFB290FEE2DC5FC6E38AE4B3B6.png', null, null, '15RS0022', 'FWA30019', '3');
@@ -2664,7 +2959,7 @@ INSERT INTO `tb_coloringorder` VALUES ('360', null, '2015-06-11 08:35:36', '2015
 INSERT INTO `tb_coloringorder` VALUES ('361', null, '2015-06-11 13:38:03', '2015-06-11 13:38:03', '7', '[{\"color\":\"MD粉色\",\"material\":1,\"quantity\":2470,\"standardyarn\":\"\"}]', '12', '0', '新建', '3', null, null, '全晴基本款鱼鳞针围脖', null, null, '0', null, null, null, null, null, '', '15RS0361', 'MD241', '4');
 INSERT INTO `tb_coloringorder` VALUES ('362', null, '2015-06-11 13:39:38', '2015-06-11 13:39:38', '7', '[{\"color\":\"MD红色\",\"material\":1,\"quantity\":1705,\"standardyarn\":\"\"}]', '15', '0', '新建', '3', null, null, '全晴基本款鱼鳞针围脖', null, null, '0', null, null, null, null, null, '', '15RS0362', 'MD241', '4');
 INSERT INTO `tb_coloringorder` VALUES ('363', null, '2015-06-12 10:24:07', '2015-06-12 10:24:07', '7', '[{\"color\":\"酒红色\",\"material\":36,\"quantity\":12,\"standardyarn\":\"\"}]', '47', '0', '新建', '1', null, null, '彩色亮丝扭头带', null, null, '0', null, null, null, null, null, '', '15RS0363', '709442', '2');
-INSERT INTO `tb_coloringorder` VALUES ('364', null, '2015-06-12 10:46:12', '2015-06-14 13:15:34', '7', '[{\"color\":\"19R姜黄\",\"material\":6,\"quantity\":500,\"standardyarn\":\"\"},{\"color\":\"19R浅绿\",\"material\":6,\"quantity\":380,\"standardyarn\":\"\"},{\"color\":\"19R深绿\",\"material\":6,\"quantity\":735,\"standardyarn\":\"\"},{\"color\":\"19R黑色\",\"material\":6,\"quantity\":380,\"standardyarn\":\"\"},{\"color\":\"19R酒红\",\"material\":6,\"quantity\":735,\"standardyarn\":\"\"}]', '15', '0', '新建', '1', null, null, '冰岛毛绞花围巾/帽子', null, null, '0', null, null, null, null, null, '', '15RS0364', '19R341/271', '2');
+INSERT INTO `tb_coloringorder` VALUES ('364', null, '2015-06-12 10:46:12', '2015-09-06 08:37:16', '7', '[{\"color\":\"19R姜黄\",\"material\":6,\"quantity\":500,\"standardyarn\":\"\"},{\"color\":\"19R浅绿\",\"material\":6,\"quantity\":380,\"standardyarn\":\"\"},{\"color\":\"19R深绿\",\"material\":6,\"quantity\":735,\"standardyarn\":\"\"},{\"color\":\"19R黑色\",\"material\":6,\"quantity\":380,\"standardyarn\":\"\"},{\"color\":\"19R酒红\",\"material\":6,\"quantity\":735,\"standardyarn\":\"\"}]', '15', '0', '新建', '1', null, null, '冰岛毛绞花围巾/帽子', null, null, '0', null, null, null, null, null, '', '15RS0364', '19R341/271', '2');
 INSERT INTO `tb_coloringorder` VALUES ('365', null, '2015-06-12 20:31:02', '2015-06-12 20:31:02', '7', '[{\"color\":\"藏青\",\"material\":10,\"quantity\":5,\"standardyarn\":\"\"}]', '16', '0', '新建', '1', null, null, ' 毛皮围脖', null, null, '0', null, null, null, null, null, '', '15RS0365', '0', '2');
 INSERT INTO `tb_coloringorder` VALUES ('366', null, '2015-06-12 20:41:19', '2015-06-12 20:41:19', '7', '[{\"color\":\"541酒红\",\"material\":6,\"quantity\":265,\"standardyarn\":\"\"}]', '13', '0', '新建', '1', null, null, '冰岛毛绞花围巾', null, null, '0', null, null, null, null, null, '', '15RS0366', '19H541BRG', '2');
 INSERT INTO `tb_coloringorder` VALUES ('367', null, '2015-06-13 10:56:47', '2015-06-13 10:56:47', '7', '[{\"color\":\"712\",\"material\":5,\"quantity\":1450,\"standardyarn\":\"\"}]', '26', '0', '新建', '3', null, null, '浅灰带钻两件套', null, null, '0', null, null, null, null, null, '', '15RS0367', '956002', '4');
@@ -2770,8 +3065,8 @@ INSERT INTO `tb_coloringorder` VALUES ('466', null, '2015-07-08 16:57:14', '2015
 INSERT INTO `tb_coloringorder` VALUES ('467', null, '2015-07-08 22:00:29', '2015-07-12 16:04:39', '7', '[{\"color\":\"米色\",\"material\":6,\"quantity\":35,\"standardyarn\":\"\"},{\"color\":\"桔色\",\"material\":6,\"quantity\":10,\"standardyarn\":\"\"}]', '15', '0', '新建', '3', null, null, '冰岛毛围巾', null, null, '0', null, null, null, null, null, '', '15RS0467', 'G5166', '3');
 INSERT INTO `tb_coloringorder` VALUES ('468', null, '2015-07-08 22:03:56', '2015-07-08 22:03:56', '7', '[{\"color\":\"红绿段染\",\"material\":9,\"quantity\":15,\"standardyarn\":\"\"}]', '14', '0', '新建', '3', null, null, '马海毛围巾', null, null, '0', null, null, null, null, null, '大货补纱', '15RS0468', 'G5166', '3');
 INSERT INTO `tb_coloringorder` VALUES ('469', null, '2015-07-09 13:40:41', '2015-07-09 13:40:41', '7', '[{\"color\":\"15米色\",\"material\":4,\"quantity\":5,\"standardyarn\":\"\"},{\"color\":\"15藏青\",\"material\":2,\"quantity\":5,\"standardyarn\":\"\"}]', '15', '0', '新建', '1', null, null, '段染冰岛毛套装', null, null, '0', null, null, null, null, null, '', '15RS0469', 'AW15', '1');
-INSERT INTO `tb_coloringorder` VALUES ('470', null, '2015-07-09 14:35:57', '2015-07-09 14:35:57', '7', '[{\"color\":\"712\",\"material\":9,\"quantity\":40,\"standardyarn\":\"\"}]', '58', '0', '新建', '3', null, null, '千鸟格围脖', null, null, '0', null, null, null, null, null, '', '15RS0470', 'MD270', '4');
-INSERT INTO `tb_coloringorder` VALUES ('471', null, '2015-07-09 14:37:39', '2015-07-09 14:37:39', '7', '[{\"color\":\"270卡其\",\"material\":1,\"quantity\":30,\"standardyarn\":\"\"}]', '3', '0', '新建', '3', null, null, '千鸟格围脖', null, null, '0', null, null, null, null, null, '', '15RS0471', 'MD270', '4');
+INSERT INTO `tb_coloringorder` VALUES ('470', null, '2015-07-09 14:35:57', '2015-08-27 21:44:14', '7', '[{\"color\":\"712\",\"material\":9,\"quantity\":40,\"standardyarn\":\"\"}]', '58', '0', '新建', '3', null, null, '千鸟格围脖', null, null, '0', null, null, null, null, null, '大货补纱', '15RS0470', 'MD270', '4');
+INSERT INTO `tb_coloringorder` VALUES ('471', null, '2015-07-09 14:37:39', '2015-08-27 21:45:26', '7', '[{\"color\":\"270卡其\",\"material\":1,\"quantity\":30,\"standardyarn\":\"\"}]', '3', '0', '新建', '3', null, null, '千鸟格围脖', null, null, '0', null, null, null, null, null, '大货补纱', '15RS0471', 'MD270', '4');
 INSERT INTO `tb_coloringorder` VALUES ('472', null, '2015-07-09 16:08:27', '2015-07-09 16:08:27', '7', '[{\"color\":\"藏青\",\"material\":10,\"quantity\":650,\"standardyarn\":\"\"}]', '16', '0', '新建', '1', null, null, '机织加·毛皮·条·围脖', null, null, '0', null, null, null, null, null, '', '15RS0472', '11165162', '2');
 INSERT INTO `tb_coloringorder` VALUES ('473', null, '2015-07-09 17:14:44', '2015-07-09 17:18:29', '7', '[{\"color\":\"黑色\",\"material\":11,\"quantity\":1220,\"standardyarn\":\"成品染色\"},{\"color\":\"卡其色\",\"material\":11,\"quantity\":1020,\"standardyarn\":\"成品染色\"},{\"color\":\"本白\",\"material\":11,\"quantity\":820,\"standardyarn\":\"成品染色\"},{\"color\":\"红色\",\"material\":11,\"quantity\":820,\"standardyarn\":\"成品染色\"}]', '29', '0', '新建', '3', null, null, '女款镂空围脖', null, null, '0', null, null, null, null, null, '75x2*32+7', '15RS0473', '15HVFW0003 ', '4');
 INSERT INTO `tb_coloringorder` VALUES ('474', null, '2015-07-10 14:10:36', '2015-07-10 14:10:36', '7', '[{\"color\":\"米色\",\"material\":26,\"quantity\":35,\"standardyarn\":\"0.62支\"}]', '13', '0', '新建', '1', null, null, '针织帽子', null, null, '0', null, null, null, null, null, '', '15RS0474', '0', '2');
@@ -2783,7 +3078,7 @@ INSERT INTO `tb_coloringorder` VALUES ('479', null, '2015-07-11 09:48:25', '2015
 INSERT INTO `tb_coloringorder` VALUES ('480', null, '2015-07-11 13:37:42', '2015-07-11 13:38:16', '7', '[{\"color\":\"NEXT棕色\",\"material\":11,\"quantity\":110,\"standardyarn\":\"\"}]', '12', '0', '新建', '1', null, null, 'AB纱童款帽子', null, null, '0', null, null, null, null, null, '加单', '15RS0480', '15NEXT-FW06', '3');
 INSERT INTO `tb_coloringorder` VALUES ('481', null, '2015-07-11 13:41:36', '2015-07-11 13:41:36', '7', '[{\"color\":\"712A\",\"material\":12,\"quantity\":220,\"standardyarn\":\"\"}]', '26', '0', '新建', '1', null, null, 'AB纱童款帽子', null, null, '0', null, null, null, null, null, '', '15RS0481', '15NEXT-FW06', '3');
 INSERT INTO `tb_coloringorder` VALUES ('482', null, '2015-07-11 14:56:11', '2015-07-11 14:56:11', '7', '[{\"color\":\"灰色\",\"material\":16,\"quantity\":20,\"standardyarn\":\"\"}]', '28', '0', '新建', '2', null, null, '段染豆豆纱+冰岛毛烫金围脖', null, null, '0', null, null, null, null, null, '', '15RS0482', 'HB954500', '3');
-INSERT INTO `tb_coloringorder` VALUES ('483', null, '2015-07-12 08:42:45', '2015-07-12 08:42:45', '7', '[{\"color\":\"19R黑色\",\"material\":6,\"quantity\":200,\"standardyarn\":\"\"}]', '15', '0', '新建', '1', null, null, '冰岛毛绞花长须围巾/帽子', null, null, '0', null, null, null, null, null, '', '15RS0483', '19R17ITBC', '3');
+INSERT INTO `tb_coloringorder` VALUES ('483', null, '2015-07-12 08:42:45', '2015-09-06 08:34:12', '7', '[{\"color\":\"19R黑色\",\"material\":6,\"quantity\":200,\"standardyarn\":\"\"},{\"color\":\"19R奶白色\",\"material\":6,\"quantity\":180,\"standardyarn\":\"\"}]', '15', '0', '新建', '1', null, null, '冰岛毛绞花长须围巾/帽子', null, null, '0', null, null, null, null, null, '', '15RS0483', '19R17ITBC', '3');
 INSERT INTO `tb_coloringorder` VALUES ('484', null, '2015-07-12 10:15:22', '2015-07-12 10:15:22', '7', '[{\"color\":\"55米色\",\"material\":6,\"quantity\":80,\"standardyarn\":\"\"}]', '12', '0', '新建', '1', null, null, '点子纱冰岛毛绞花包套', null, null, '0', null, null, null, null, null, '大货补纱', '15RS0484', '5515', '1');
 INSERT INTO `tb_coloringorder` VALUES ('485', null, '2015-07-12 16:09:48', '2015-07-12 16:11:25', '7', '[{\"color\":\"本色\",\"material\":6,\"quantity\":30,\"standardyarn\":\"\"},{\"color\":\"酒红色\",\"material\":6,\"quantity\":10,\"standardyarn\":\"\"}]', '13', '0', '新建', '9', null, null, '冰岛毛绞花翻边帽', null, null, '0', null, null, null, null, null, '大货补纱', '15RS0485', '729021J', '4');
 INSERT INTO `tb_coloringorder` VALUES ('486', null, '2015-07-12 16:18:04', '2015-07-12 16:18:04', '7', '[{\"color\":\"712A\",\"material\":6,\"quantity\":5,\"standardyarn\":\"\"}]', '26', '0', '新建', '9', null, null, '冰岛毛绞花翻边帽', null, null, '0', null, null, null, null, null, '', '15RS0486', '729021J ', '4');
@@ -2792,7 +3087,7 @@ INSERT INTO `tb_coloringorder` VALUES ('488', null, '2015-07-16 17:44:20', '2015
 INSERT INTO `tb_coloringorder` VALUES ('489', null, '2015-07-16 18:04:55', '2015-07-16 18:05:25', '7', '[{\"color\":\"MD红色\",\"material\":1,\"quantity\":35,\"standardyarn\":\"\"}]', '15', '0', '新建', '3', null, null, '全晴基本款鱼鳞·针·围脖', null, null, '0', null, null, null, null, null, '补纱', '15RS0489', 'MD241', '4');
 INSERT INTO `tb_coloringorder` VALUES ('490', null, '2015-07-16 18:16:08', '2015-07-16 18:16:08', '7', '[{\"color\":\"174中灰\",\"material\":1,\"quantity\":20,\"standardyarn\":\"\"}]', '3', '0', '新建', '3', null, null, '基本款围脖', null, null, '0', null, null, null, null, null, '大货补纱', '15RS0490', 'G0174', '4');
 INSERT INTO `tb_coloringorder` VALUES ('491', null, '2015-07-17 12:54:43', '2015-07-17 12:54:43', '7', '[{\"color\":\"酒红色\",\"material\":6,\"quantity\":146,\"standardyarn\":\"\"}]', '13', '0', '新建', '3', null, null, '女款针织毛球帽子', null, null, '0', null, null, null, null, null, '加单', '15RS0491', 'R20-71265H', '3');
-INSERT INTO `tb_coloringorder` VALUES ('492', null, '2015-07-17 15:54:43', '2015-07-21 08:16:31', '7', '[{\"color\":\"556铁蓝\",\"material\":1,\"quantity\":90,\"standardyarn\":\"\"}]', '15', '0', '新建', '3', null, null, '男款基本款翻边帽', null, null, '0', null, null, null, null, null, '加单', '15RS0492', 'MB556', '4');
+INSERT INTO `tb_coloringorder` VALUES ('492', null, '2015-07-17 15:54:43', '2015-09-06 08:36:49', '7', '[{\"color\":\"556铁蓝\",\"material\":1,\"quantity\":90,\"standardyarn\":\"\"},{\"color\":\"556铁蓝色\",\"material\":1,\"quantity\":30,\"standardyarn\":\"\"}]', '15', '0', '新建', '3', null, null, '男款基本款翻边帽', null, null, '0', null, null, null, null, null, '加单', '15RS0492', 'MB556', '4');
 INSERT INTO `tb_coloringorder` VALUES ('493', null, '2015-07-17 17:50:35', '2015-07-17 17:50:35', '7', '[{\"color\":\"米色\",\"material\":9,\"quantity\":5,\"standardyarn\":\"\"}]', '15', '0', '新建', '1', null, null, ' 马海毛围脖', null, null, '0', null, null, null, null, null, '', '15RS0493', 'S900E0', '3');
 INSERT INTO `tb_coloringorder` VALUES ('494', null, '2015-07-17 18:12:33', '2015-07-17 18:12:33', '7', '[{\"color\":\"K974\",\"material\":9,\"quantity\":2380,\"standardyarn\":\"\"}]', '26', '0', '新建', '1', null, null, '马海毛三角巾', null, null, '0', null, null, null, null, null, '', '15RS0494', '9843/310', '3');
 INSERT INTO `tb_coloringorder` VALUES ('495', null, '2015-07-17 18:16:35', '2015-07-17 18:16:35', '7', '[{\"color\":\"310米色\",\"material\":9,\"quantity\":100,\"standardyarn\":\"\"}]', '15', '0', '新建', '1', null, null, '马海毛三角巾', null, null, '0', null, null, null, null, null, '', '15RS0495', '9843/310', '3');
@@ -2826,7 +3121,7 @@ INSERT INTO `tb_coloringorder` VALUES ('522', null, '2015-07-23 13:23:42', '2015
 INSERT INTO `tb_coloringorder` VALUES ('523', null, '2015-07-23 13:25:38', '2015-07-23 13:25:38', '7', '[{\"color\":\"712A\",\"material\":12,\"quantity\":280,\"standardyarn\":\"\"}]', '26', '0', '新建', '1', null, null, 'AB纱童款帽子', null, null, '0', null, null, null, null, null, '加单', '15RS0523', '15NEXT-FW07', '3');
 INSERT INTO `tb_coloringorder` VALUES ('524', null, '2015-07-23 13:33:00', '2015-07-23 13:33:00', '7', '[{\"color\":\"黑色\",\"material\":13,\"quantity\":20,\"standardyarn\":\"\"}]', '16', '0', '新建', '1', null, null, '提花翻边帽', null, null, '0', null, null, null, null, null, '', '15RS0524', '745638', '3');
 INSERT INTO `tb_coloringorder` VALUES ('525', null, '2015-07-24 12:37:41', '2015-07-24 12:37:41', '7', '[{\"color\":\"18-3922tcx\",\"material\":42,\"quantity\":6,\"standardyarn\":\"\"}]', '53', '0', '新建', '1', null, null, '围脖', null, null, '0', null, null, null, null, null, '', '15RS0525', 'NETTY      PONCHO', '1');
-INSERT INTO `tb_coloringorder` VALUES ('526', null, '2015-07-26 10:44:11', '2015-07-26 10:44:11', '7', '[{\"color\":\"14-4512tcx\",\"material\":42,\"quantity\":3,\"standardyarn\":\"\"},{\"color\":\"19-3921tcx\",\"material\":42,\"quantity\":3,\"standardyarn\":\"\"},{\"color\":\"15-4005tcx\",\"material\":42,\"quantity\":3,\"standardyarn\":\"\"},{\"color\":\"14-3949tcx\",\"material\":42,\"quantity\":3,\"standardyarn\":\"\"},{\"color\":\"13-5309tcx\",\"material\":42,\"quantity\":3,\"standardyarn\":\"\"},{\"color\":\"11-4601tcx\",\"material\":42,\"quantity\":3,\"standardyarn\":\"\"}]', '53', '0', '新建', '1', null, null, '围脖', null, null, '0', null, null, null, null, null, '', '15RS0526', 'ZIGGY    PONCHO', '1');
+INSERT INTO `tb_coloringorder` VALUES ('526', null, '2015-07-26 10:44:11', '2015-08-30 08:58:17', '7', '[{\"color\":\"0\",\"material\":42,\"quantity\":0,\"standardyarn\":\"\"}]', '53', '0', '新建', '1', null, null, '围脖', null, null, '0', null, null, null, null, null, '', '15RS0526', 'ZIGGY    PONCHO', '1');
 INSERT INTO `tb_coloringorder` VALUES ('527', null, '2015-07-26 10:50:48', '2015-07-26 10:50:48', '7', '[{\"color\":\"灰色\",\"material\":9,\"quantity\":12,\"standardyarn\":\"\"}]', '15', '0', '新建', '3', null, null, '马海毛混色帽子/围脖', null, null, '0', null, null, null, null, null, '林松大货补纱', '15RS0527', '0', '4');
 INSERT INTO `tb_coloringorder` VALUES ('528', null, '2015-07-26 11:12:22', '2015-07-26 11:12:22', '7', '[{\"color\":\"ES米白色\",\"material\":9,\"quantity\":55,\"standardyarn\":\"\"}]', '15', '0', '新建', '5', null, null, '马海毛+珠片纱围脖', null, null, '0', null, null, null, null, null, '', '15RS0528', 'FW15892ES', '3');
 INSERT INTO `tb_coloringorder` VALUES ('529', null, '2015-07-27 16:46:41', '2015-07-27 16:46:41', '7', '[{\"color\":\"H38深灰\",\"material\":1,\"quantity\":5,\"standardyarn\":\"\"}]', '3', '0', '新建', '2', null, null, '烫金披肩', null, null, '0', null, null, null, null, null, '', '15RS0529', 'H38042229', '3');
@@ -2845,7 +3140,7 @@ INSERT INTO `tb_coloringorder` VALUES ('541', null, '2015-08-02 10:12:57', '2015
 INSERT INTO `tb_coloringorder` VALUES ('542', null, '2015-08-02 10:16:32', '2015-08-02 10:17:12', '7', '[{\"color\":\"50 米色\",\"material\":6,\"quantity\":50,\"standardyarn\":\"\"}]', '13', '0', '新建', '1', null, null, '合股纱围巾/帽子', null, null, '0', null, null, null, null, null, '加单', '15RS0542', '5054', '3');
 INSERT INTO `tb_coloringorder` VALUES ('543', null, '2015-08-02 10:25:37', '2015-08-02 10:25:37', '7', '[{\"color\":\"米白色（11-0604）\",\"material\":13,\"quantity\":30,\"standardyarn\":\"\"},{\"color\":\"深酒红\",\"material\":13,\"quantity\":25,\"standardyarn\":\"\"}]', '16', '0', '新建', '1', null, null, '镂空经编围脖', null, null, '0', null, null, null, null, null, '大货补纱', '15RS0543', 'G155091A', '3');
 INSERT INTO `tb_coloringorder` VALUES ('544', null, '2015-08-03 13:46:27', '2015-08-03 20:21:31', '7', '[{\"color\":\"31白色\",\"material\":9,\"quantity\":105,\"standardyarn\":\"\"},{\"color\":\"31灰色\",\"material\":9,\"quantity\":105,\"standardyarn\":\"\"}]', '15', '0', '新建', '10', null, null, '马海毛羽毛纱围脖', null, null, '0', null, null, null, null, null, '', '15RS0544', '31-50033', '3');
-INSERT INTO `tb_coloringorder` VALUES ('545', null, '2015-08-03 13:48:47', '2015-08-03 13:48:47', '7', '[{\"color\":\"白色\",\"material\":16,\"quantity\":27,\"standardyarn\":\"\"},{\"color\":\"灰色\",\"material\":16,\"quantity\":27,\"standardyarn\":\"\"},{\"color\":\"黑色\",\"material\":16,\"quantity\":27,\"standardyarn\":\"\"}]', '28', '0', '新建', '7', null, null, '马海毛羽毛纱围脖', null, null, '0', null, null, null, null, null, '', '15RS0545', '31-50033', '3');
+INSERT INTO `tb_coloringorder` VALUES ('545', null, '2015-08-03 13:48:47', '2015-09-02 12:30:33', '7', '[{\"color\":\"白色\",\"material\":16,\"quantity\":27,\"standardyarn\":\"\"},{\"color\":\"灰色\",\"material\":16,\"quantity\":27,\"standardyarn\":\"\"},{\"color\":\"黑色\",\"material\":16,\"quantity\":27,\"standardyarn\":\"\"}]', '28', '0', '新建', '10', null, null, '马海毛羽毛纱围脖', null, null, '0', null, null, null, null, null, '', '15RS0545', '31-50033', '3');
 INSERT INTO `tb_coloringorder` VALUES ('546', null, '2015-08-04 08:09:22', '2015-08-04 08:09:22', '7', '[{\"color\":\"黑色\",\"material\":9,\"quantity\":210,\"standardyarn\":\"按原样\"}]', '15', '0', '新建', '10', null, null, '马海毛羽毛纱围脖', null, null, '0', null, null, null, null, null, '38黑色修色', '15RS0546', '31-50033', '3');
 INSERT INTO `tb_coloringorder` VALUES ('547', null, '2015-08-04 08:17:12', '2015-08-04 08:17:12', '7', '[{\"color\":\"酒红色\",\"material\":6,\"quantity\":50,\"standardyarn\":\"\"}]', '13', '0', '新建', '3', null, null, '女款针织毛球帽子', null, null, '0', null, null, null, null, null, '大货补纱', '15RS0547', 'R20-71344H', '3');
 INSERT INTO `tb_coloringorder` VALUES ('548', null, '2015-08-04 10:08:36', '2015-08-04 10:08:36', '7', '[{\"color\":\"14-4102tcx\",\"material\":3,\"quantity\":3,\"standardyarn\":\"\"}]', '12', '0', '新建', '2', null, null, 'h混纱围脖/帽子', null, null, '0', null, null, null, null, null, '', '15RS0548', '0', '3');
@@ -2874,6 +3169,104 @@ INSERT INTO `tb_coloringorder` VALUES ('570', null, '2015-08-11 08:18:40', '2015
 INSERT INTO `tb_coloringorder` VALUES ('571', null, '2015-08-11 08:22:18', '2015-08-11 08:22:18', '7', '[{\"color\":\"H0186黑色\",\"material\":1,\"quantity\":10,\"standardyarn\":\"\"}]', '13', '0', '新建', '3', null, null, '空卷围脖', null, null, '0', null, null, null, null, null, '', '15RS0571', 'H0186', '91');
 INSERT INTO `tb_coloringorder` VALUES ('572', null, '2015-08-11 08:36:59', '2015-08-11 08:36:59', '7', '[{\"color\":\"14-4102tcx\",\"material\":3,\"quantity\":5,\"standardyarn\":\"\"}]', '15', '0', '新建', '2', null, null, '围脖/帽子', null, null, '0', null, null, null, null, null, '', '15RS0572', '0', '3');
 INSERT INTO `tb_coloringorder` VALUES ('573', null, '2015-08-11 17:36:02', '2015-08-11 17:39:15', '7', '[{\"color\":\"769绿色\",\"material\":1,\"quantity\":90,\"standardyarn\":\"\"},{\"color\":\"769大红\",\"material\":1,\"quantity\":125,\"standardyarn\":\"\"},{\"color\":\"本白色\",\"material\":1,\"quantity\":100,\"standardyarn\":\"加蓬松剂，柔软剂\"}]', '3', '0', '新建', '1', null, null, '提花圣诞袜子', null, null, '0', null, null, null, null, null, '', '15RS0573', '76932', '1');
+INSERT INTO `tb_coloringorder` VALUES ('574', null, '2015-08-13 12:55:07', '2015-08-14 08:21:55', '7', '[{\"color\":\"170黑色\",\"material\":1,\"quantity\":320,\"standardyarn\":\"按原样\"}]', '13', '0', '新建', '3', null, null, '绣珠子比尼帽', null, null, '0', null, null, null, null, null, '用江苏白胚染', '15RS0574', '17069337', '3');
+INSERT INTO `tb_coloringorder` VALUES ('575', null, '2015-08-13 20:16:17', '2015-08-13 20:16:17', '7', '[{\"color\":\"粉色\",\"material\":10,\"quantity\":3,\"standardyarn\":\"按原样      原样请退回\"}]', '16', '0', '新建', '3', null, null, '马海毛镂空帽子', null, null, '0', null, null, null, null, null, '', '15RS0575', 'LPP-+RESERVED', '4');
+INSERT INTO `tb_coloringorder` VALUES ('576', null, '2015-08-14 13:25:29', '2015-08-14 13:25:29', '7', '[{\"color\":\"藏青\",\"material\":10,\"quantity\":20,\"standardyarn\":\"\"}]', '16', '0', '新建', '1', null, null, '机织加毛条围脖', null, null, '0', null, null, null, null, null, '', '15RS0576', '11165162', '3');
+INSERT INTO `tb_coloringorder` VALUES ('577', null, '2015-08-14 13:28:06', '2015-08-14 13:28:06', '7', '[{\"color\":\"H38深灰\",\"material\":1,\"quantity\":755,\"standardyarn\":\"\"},{\"color\":\"H38黑色\",\"material\":1,\"quantity\":380,\"standardyarn\":\"\"}]', '3', '0', '新建', '2', null, null, '烫金披肩', null, null, '0', null, null, null, null, null, '', '15RS0577', 'H3804229', '3');
+INSERT INTO `tb_coloringorder` VALUES ('578', null, '2015-08-14 16:38:18', '2015-08-14 16:38:18', '7', '[{\"color\":\"15-4503tcx\",\"material\":21,\"quantity\":3,\"standardyarn\":\"品质按原样\"}]', '28', '0', '新建', '2', null, null, '帽子', null, null, '0', null, null, null, null, null, '', '15RS0578', '0', '3');
+INSERT INTO `tb_coloringorder` VALUES ('579', null, '2015-08-14 16:41:55', '2015-08-14 16:41:55', '7', '[{\"color\":\"15-4503tcx\",\"material\":4,\"quantity\":3,\"standardyarn\":\"\"}]', '15', '0', '新建', '2', null, null, '帽子', null, null, '0', null, null, null, null, null, '', '15RS0579', '0', '3');
+INSERT INTO `tb_coloringorder` VALUES ('580', null, '2015-08-14 16:45:44', '2015-08-14 16:45:44', '7', '[{\"color\":\"15-4503tcx\",\"material\":50,\"quantity\":3,\"standardyarn\":\"\"}]', '53', '0', '新建', '2', null, null, '帽子', null, null, '0', null, null, null, null, null, '', '15RS0580', '0', '3');
+INSERT INTO `tb_coloringorder` VALUES ('581', null, '2015-08-15 09:01:01', '2015-08-15 09:01:01', '7', '[{\"color\":\"Ho433   灰色16-3915tcx\",\"material\":9,\"quantity\":3,\"standardyarn\":\"\"}]', '15', '0', '新建', '3', null, null, '羽毛纱头带', null, null, '0', null, null, null, null, null, '', '15RS0581', 'H0433', '91');
+INSERT INTO `tb_coloringorder` VALUES ('582', null, '2015-08-15 10:17:58', '2015-08-15 10:17:58', '7', '[{\"color\":\"HB001灰色\",\"material\":48,\"quantity\":5,\"standardyarn\":\"按原样围脖晴纶纱颜色\"}]', '13', '0', '新建', '3', null, null, '羽毛纱两配套', null, null, '0', null, null, null, null, null, '', '15RS0582', 'HB001', '91');
+INSERT INTO `tb_coloringorder` VALUES ('583', null, '2015-08-15 10:20:09', '2015-08-15 10:20:09', '7', '[{\"color\":\"712\",\"material\":10,\"quantity\":3,\"standardyarn\":\"\"}]', '26', '0', '新建', '3', null, null, '0', null, null, '0', null, null, null, null, null, '', '15RS0583', '0', '91');
+INSERT INTO `tb_coloringorder` VALUES ('584', null, '2015-08-15 10:23:32', '2015-08-15 10:23:32', '7', '[{\"color\":\"H25237奶白\",\"material\":7,\"quantity\":6,\"standardyarn\":\"按原样帽子\"},{\"color\":\"H25237黑色\",\"material\":7,\"quantity\":6,\"standardyarn\":\"按原样帽子\"},{\"color\":\"H25237酒红\",\"material\":7,\"quantity\":6,\"standardyarn\":\"按原样围巾\"}]', '15', '0', '新建', '3', null, null, '绞花两配套', null, null, '0', null, null, null, null, null, '', '15RS0584', 'H25237', '91');
+INSERT INTO `tb_coloringorder` VALUES ('585', null, '2015-08-15 10:38:07', '2015-08-15 10:38:07', '7', '[{\"color\":\"GS008湖蓝\",\"material\":1,\"quantity\":5,\"standardyarn\":\"17-4328tcx\"},{\"color\":\"GS008黄色\",\"material\":1,\"quantity\":5,\"standardyarn\":\"16-0953tcx\"},{\"color\":\"GS008酒红\",\"material\":1,\"quantity\":3,\"standardyarn\":\"19-2820tcx\"},{\"color\":\"GS008深藏青\",\"material\":1,\"quantity\":3,\"standardyarn\":\"19-3933tcx\"},{\"color\":\"GS008玫红\",\"material\":1,\"quantity\":3,\"standardyarn\":\"17-2617tcx\"}]', '13', '0', '新建', '3', null, null, '提花两配套', null, null, '0', null, null, null, null, null, '', '15RS0585', 'GS008', '91');
+INSERT INTO `tb_coloringorder` VALUES ('586', null, '2015-08-17 09:05:35', '2015-08-17 09:05:35', '7', '[{\"color\":\"KH浅蓝\",\"material\":3,\"quantity\":7,\"standardyarn\":\"\"}]', '12', '0', '新建', '1', null, null, '女式晴纶交叉围脖', null, null, '0', null, null, null, null, null, '本厂大货补纱', '15RS0586', 'KH 02243', '1');
+INSERT INTO `tb_coloringorder` VALUES ('587', null, '2015-08-19 14:34:17', '2015-08-19 14:34:17', '9', '[{\"color\":\"KM酒红\",\"material\":16,\"quantity\":5,\"standardyarn\":\"\"}]', '28', '0', '新建', '3', null, null, '冰岛毛羽毛纱两配套', null, null, '0', null, null, null, null, '7', '', '15RS0587', 'HB001', '91');
+INSERT INTO `tb_coloringorder` VALUES ('588', null, '2015-08-21 01:09:05', '2015-08-21 01:09:05', '7', '[{\"color\":\"H255237奶白\",\"material\":8,\"quantity\":5,\"standardyarn\":\"按原样帽子\"},{\"color\":\"H255237黑色\",\"material\":8,\"quantity\":5,\"standardyarn\":\"按原样帽子\"},{\"color\":\"H255237酒红\",\"material\":8,\"quantity\":5,\"standardyarn\":\"按原样围巾\"}]', '15', '0', '新建', '3', null, null, '冰岛毛绞花两配套', null, null, '0', null, null, null, null, '7', '', '15RS0588', 'H25237', '91');
+INSERT INTO `tb_coloringorder` VALUES ('589', null, '2015-08-21 09:22:10', '2015-08-21 09:22:10', '7', '[{\"color\":\"712\",\"material\":34,\"quantity\":16,\"standardyarn\":\"\"}]', '26', '0', '新建', '1', null, null, '女式晴纶交叉围脖', null, null, '0', null, null, null, null, null, '大货补纱', '15RS0589', 'KH 022243', '1');
+INSERT INTO `tb_coloringorder` VALUES ('590', null, '2015-08-21 09:30:51', '2015-08-21 09:30:51', '7', '[{\"color\":\"712\",\"material\":10,\"quantity\":875,\"standardyarn\":\"\"}]', '26', '0', '新建', '3', null, null, '马海毛镂空帽子/围脖', null, null, '0', null, null, null, null, null, '', '15RS0590', 'MQ073', '4');
+INSERT INTO `tb_coloringorder` VALUES ('591', null, '2015-08-21 09:32:39', '2015-08-21 09:32:39', '7', '[{\"color\":\"718\",\"material\":1,\"quantity\":30,\"standardyarn\":\"\"}]', '26', '0', '新建', '1', null, null, '马海毛挂须三角巾', null, null, '0', null, null, null, null, null, '', '15RS0591', '9843/310', '3');
+INSERT INTO `tb_coloringorder` VALUES ('592', null, '2015-08-21 09:41:47', '2015-08-21 09:41:47', '7', '[{\"color\":\"19R浅绿\",\"material\":6,\"quantity\":5,\"standardyarn\":\"\"},{\"color\":\"19R深绿\",\"material\":6,\"quantity\":10,\"standardyarn\":\"\"}]', '15', '0', '新建', '1', null, null, '冰岛毛绞花围巾/帽子', null, null, '0', null, null, null, null, null, '卢舟补纱', '15RS0592', '19R341/271', '2');
+INSERT INTO `tb_coloringorder` VALUES ('593', null, '2015-08-21 19:35:16', '2015-08-21 19:35:16', '7', '[{\"color\":\"本白色\",\"material\":42,\"quantity\":10,\"standardyarn\":\"\"},{\"color\":\"本白色\",\"material\":42,\"quantity\":0,\"standardyarn\":\"AB色卡\"}]', '53', '0', '新建', '1', null, null, '披肩', null, null, '0', null, null, null, null, null, '', '15RS0593', '0', '1');
+INSERT INTO `tb_coloringorder` VALUES ('594', null, '2015-08-22 21:43:32', '2015-08-22 21:43:32', '7', '[{\"color\":\"米色\",\"material\":6,\"quantity\":10,\"standardyarn\":\"\"}]', '15', '0', '新建', '1', null, null, '绞花包套', null, null, '0', null, null, null, null, null, '', '15RS0594', '55151', '91');
+INSERT INTO `tb_coloringorder` VALUES ('595', null, '2015-08-22 22:05:38', '2015-08-22 22:05:38', '7', '[{\"color\":\"黑色\",\"material\":33,\"quantity\":1728,\"standardyarn\":\"M码\"},{\"color\":\"黑色\",\"material\":33,\"quantity\":864,\"standardyarn\":\"L码\"}]', '29', '0', '新建', '3', null, null, '童款仿羊绒吊染帽子', null, null, '0', null, null, null, null, null, '', '15RS0595', 'MH530', '4');
+INSERT INTO `tb_coloringorder` VALUES ('596', null, '2015-08-22 23:34:07', '2015-08-22 23:34:07', '7', '[{\"color\":\"黑色\",\"material\":33,\"quantity\":756,\"standardyarn\":\"\"}]', '29', '0', '新建', '3', null, null, '童款仿羊绒吊染围脖', null, null, '0', null, null, null, null, null, '', '15RS0596', 'MH543', '4');
+INSERT INTO `tb_coloringorder` VALUES ('597', null, '2015-08-23 13:58:34', '2015-08-23 13:58:34', '7', '[{\"color\":\"沙色\",\"material\":10,\"quantity\":870,\"standardyarn\":\"按原样\"}]', '16', '0', '新建', '3', null, null, '马海毛镂空帽子/围脖', null, null, '0', null, null, null, null, null, '', '15RS0597', 'MP 869/MQ 073', '4');
+INSERT INTO `tb_coloringorder` VALUES ('598', null, '2015-08-24 13:12:50', '2015-08-24 13:12:50', '7', '[{\"color\":\"333米色\",\"material\":40,\"quantity\":175,\"standardyarn\":\"\"},{\"color\":\"333蓝色\",\"material\":40,\"quantity\":3,\"standardyarn\":\"\"}]', '15', '0', '新建', '3', null, null, '绞花两头夹挡围巾', null, null, '0', null, null, null, null, null, '', '15RS0598', '170693333', '3');
+INSERT INTO `tb_coloringorder` VALUES ('599', '255', '2015-08-24 13:19:38', '2015-08-24 13:19:38', '7', '[{\"color\":\"310米色\",\"material\":9,\"quantity\":80,\"standardyarn\":\"\"}]', '15', '0', '新建', '1', 'resource.fuwei.com/images/sample/1437104316821QQ图片20150717113507.jpg', '9', '马海毛挂须三角巾', 'FWA30211', '155*90+2*15', '275', '211', 'FWA20255', 'resource.fuwei.com/images/sample/s/1437104316821QQ图片20150717113507.png', 'resource.fuwei.com/images/sample/ss/1437104316821QQ图片20150717113507.png', null, '', '15RS0599', '9843/310', '3');
+INSERT INTO `tb_coloringorder` VALUES ('600', null, '2015-08-24 14:34:51', '2015-09-02 12:29:38', '7', '[{\"color\":\"灰色\",\"material\":16,\"quantity\":0,\"standardyarn\":\"\"}]', '28', '0', '新建', '2', null, null, '冰岛毛+豆豆纱烫金围脖', null, null, '0', null, null, null, null, null, '大货补纱', '15RS0600', 'EY 15-148', '3');
+INSERT INTO `tb_coloringorder` VALUES ('601', '262', '2015-08-24 15:16:23', '2015-08-24 15:16:23', '7', '[{\"color\":\"白色\",\"material\":11,\"quantity\":5050,\"standardyarn\":\"成品染色32*80x2\"}]', '29', '0', '新建', '3', 'resource.fuwei.com/images/sample/1438251014217W14.K.01.WE.JPG', '11', '仿羊绒成品染色围脖', 'FWA30221', '32*160', '250', '221', 'FWA20262', 'resource.fuwei.com/images/sample/s/1438251014217W14.K.01.WE.png', 'resource.fuwei.com/images/sample/ss/1438251014217W14.K.01.WE.png', null, '', '15RS0601', 'W14.K.01..WE', '4');
+INSERT INTO `tb_coloringorder` VALUES ('602', null, '2015-08-24 20:13:00', '2015-08-24 20:13:00', '7', '[{\"color\":\"米白色\",\"material\":10,\"quantity\":340,\"standardyarn\":\"\"}]', '16', '0', '新建', '3', null, null, '混纺人字纹长围巾', null, null, '0', null, null, null, null, null, '', '15RS0602', '17072333', '3');
+INSERT INTO `tb_coloringorder` VALUES ('603', null, '2015-08-25 16:08:51', '2015-08-25 16:08:51', '7', '[{\"color\":\"驼色\",\"material\":6,\"quantity\":10,\"standardyarn\":\"\"}]', '15', '0', '新建', '4', null, null, '围脖/帽子/围巾', null, null, '0', null, null, null, null, null, '', '15RS0603', '0', '3');
+INSERT INTO `tb_coloringorder` VALUES ('604', null, '2015-08-25 16:46:15', '2015-08-25 16:46:15', '7', '[{\"color\":\"K974\",\"material\":7,\"quantity\":5,\"standardyarn\":\"\"}]', '26', '0', '新建', '4', null, null, '围脖/帽子', null, null, '0', null, null, null, null, null, '', '15RS0604', '0', '3');
+INSERT INTO `tb_coloringorder` VALUES ('605', null, '2015-08-27 09:04:14', '2015-08-27 09:04:14', '7', '[{\"color\":\"粉色\",\"material\":10,\"quantity\":795,\"standardyarn\":\"按原样\"}]', '16', '0', '新建', '3', null, null, '马海毛镂空帽子/围脖', null, null, '0', null, null, null, null, null, '', '15RS0605', 'MQ073', '4');
+INSERT INTO `tb_coloringorder` VALUES ('606', null, '2015-08-27 15:18:30', '2015-08-27 15:18:30', '9', '[{\"color\":\"HB012黑色\",\"material\":4,\"quantity\":3,\"standardyarn\":\"按原样帽子\"}]', '13', '0', '新建', '3', null, null, '女款球球帽', null, null, '0', null, null, null, null, '7', '黑色越黑越好，急！', '15RS0606', 'HB012', '91');
+INSERT INTO `tb_coloringorder` VALUES ('607', null, '2015-08-27 20:17:32', '2015-08-27 20:17:32', '7', '[{\"color\":\"21灰色\",\"material\":3,\"quantity\":165,\"standardyarn\":\"\"},{\"color\":\"21蓝色\",\"material\":3,\"quantity\":165,\"standardyarn\":\"\"},{\"color\":\"21灰色\",\"material\":6,\"quantity\":5,\"standardyarn\":\"搭缸\"},{\"color\":\"21蓝色\",\"material\":6,\"quantity\":5,\"standardyarn\":\"搭缸\"}]', '12', '0', '新建', '2', null, null, '混纱帽子/围脖', null, null, '0', null, null, null, null, null, '', '15RS0607', '21ACAG-008-W 115', '3');
+INSERT INTO `tb_coloringorder` VALUES ('608', null, '2015-08-27 20:22:07', '2015-08-27 20:22:07', '7', '[{\"color\":\"灰色\",\"material\":16,\"quantity\":35,\"standardyarn\":\"\"},{\"color\":\"蓝色\",\"material\":16,\"quantity\":35,\"standardyarn\":\"\"},{\"color\":\"粉色组\",\"material\":21,\"quantity\":85,\"standardyarn\":\"\"},{\"color\":\"蓝色组\",\"material\":21,\"quantity\":85,\"standardyarn\":\"\"}]', '28', '0', '新建', '2', null, null, '混纱围脖/帽子', null, null, '0', null, null, null, null, null, '', '15RS0608', '21ACAG-008-W115', '3');
+INSERT INTO `tb_coloringorder` VALUES ('609', null, '2015-08-30 09:48:59', '2015-09-06 08:26:53', '7', '[{\"color\":\"米色\",\"material\":6,\"quantity\":600,\"standardyarn\":\"\"},{\"color\":\"黑色\",\"material\":17,\"quantity\":125,\"standardyarn\":\"\"}]', '15', '0', '新建', '1', null, null, '冰岛毛绞花包套', null, null, '0', null, null, null, null, null, '', '15RS0609', '0', '1');
+INSERT INTO `tb_coloringorder` VALUES ('610', null, '2015-08-30 15:46:52', '2015-08-30 15:46:52', '7', '[{\"color\":\"米色\",\"material\":47,\"quantity\":3,\"standardyarn\":\"\"},{\"color\":\"绿色\",\"material\":47,\"quantity\":3,\"standardyarn\":\"\"},{\"color\":\"酒红\",\"material\":47,\"quantity\":3,\"standardyarn\":\"\"},{\"color\":\"蓝色\",\"material\":47,\"quantity\":3,\"standardyarn\":\"\"}]', '13', '0', '新建', '2', null, null, '围巾', null, null, '0', null, null, null, null, null, '', '15RS0610', '0', '3');
+INSERT INTO `tb_coloringorder` VALUES ('611', null, '2015-08-30 15:55:43', '2015-09-06 08:26:11', '7', '[{\"color\":\"黑色\",\"material\":17,\"quantity\":0,\"standardyarn\":\"\"}]', '3', '0', '新建', '1', null, null, '绞花包套', null, null, '0', null, null, null, null, null, '', '15RS0611', '0', '1');
+INSERT INTO `tb_coloringorder` VALUES ('612', null, '2015-09-01 16:24:43', '2015-09-01 16:24:43', '7', '[{\"color\":\"米色\",\"material\":6,\"quantity\":3,\"standardyarn\":\"11-0606tcx\"},{\"color\":\"湖蓝\",\"material\":6,\"quantity\":3,\"standardyarn\":\"18-4528tcx\"}]', '12', '0', '新建', '1', null, null, '围脖', null, null, '0', null, null, null, null, null, '', '15RS0612', 'AW16-WM2911', '3');
+INSERT INTO `tb_coloringorder` VALUES ('613', null, '2015-09-01 16:48:53', '2015-09-01 16:48:53', '7', '[{\"color\":\"本白色\",\"material\":42,\"quantity\":300,\"standardyarn\":\"确认B色\"}]', '53', '0', '新建', '1', null, null, '镂空披肩', null, null, '0', null, null, null, null, null, '颜色要准确', '15RS0613', 'NETTY   PONCHO', '1');
+INSERT INTO `tb_coloringorder` VALUES ('614', '251', '2015-09-02 12:49:47', '2015-09-02 12:50:25', '7', '[{\"color\":\"31 灰色\",\"material\":9,\"quantity\":12,\"standardyarn\":\"\"},{\"color\":\"31白色\",\"material\":9,\"quantity\":7,\"standardyarn\":\"\"}]', '15', '0', '新建', '10', 'resource.fuwei.com/images/sample/1438755027032QQ截图20150805140255.jpg', '9', '羽毛纱马海毛围脖', 'FWA30224', '28*76*2cm', '0', '224', 'FWA20251', 'resource.fuwei.com/images/sample/s/1438755027032QQ截图20150805140255.png', 'resource.fuwei.com/images/sample/ss/1438755027032QQ截图20150805140255.png', null, '大货补纱', '15RS0614', '31-50033', '3');
+INSERT INTO `tb_coloringorder` VALUES ('615', null, '2015-09-12 13:03:49', '2015-09-12 13:03:49', '7', '[{\"color\":\"白色\",\"material\":54,\"quantity\":5,\"standardyarn\":\"\"},{\"color\":\"绿色\",\"material\":54,\"quantity\":5,\"standardyarn\":\"\"},{\"color\":\"酒红\",\"material\":54,\"quantity\":5,\"standardyarn\":\"\"},{\"color\":\"浅蓝\",\"material\":54,\"quantity\":5,\"standardyarn\":\"\"}]', '13', '0', '新建', '2', null, null, '带子纱围巾', null, null, '0', null, null, null, null, null, '', '15RS0615', 'CXA26059', '3');
+INSERT INTO `tb_coloringorder` VALUES ('616', null, '2015-09-14 08:26:24', '2015-09-14 08:26:24', '7', '[{\"color\":\"深军绿\",\"material\":6,\"quantity\":5,\"standardyarn\":\"19-0415tcx\"}]', '15', '0', '新建', '4', null, null, '围巾', null, null, '0', null, null, null, null, null, '', '15RS0616', 'ONLY', '3');
+INSERT INTO `tb_coloringorder` VALUES ('617', null, '2015-09-14 08:33:22', '2015-09-14 08:33:22', '7', '[{\"color\":\"333米色\",\"material\":40,\"quantity\":140,\"standardyarn\":\"\"}]', '15', '0', '新建', '3', null, null, '绞花两头夹挡围巾', null, null, '0', null, null, null, null, null, '', '15RS0617', '17069333', '3');
+INSERT INTO `tb_coloringorder` VALUES ('618', null, '2015-09-14 15:32:42', '2015-09-14 15:40:43', '7', '[{\"color\":\"白色\",\"material\":55,\"quantity\":3,\"standardyarn\":\"\"},{\"color\":\"湖蓝\",\"material\":55,\"quantity\":3,\"standardyarn\":\"\"},{\"color\":\"紫红\",\"material\":55,\"quantity\":3,\"standardyarn\":\"\"},{\"color\":\"浅粉\",\"material\":55,\"quantity\":3,\"standardyarn\":\"\"},{\"color\":\"草绿\",\"material\":55,\"quantity\":3,\"standardyarn\":\"\"},{\"color\":\"深粉\",\"material\":55,\"quantity\":3,\"standardyarn\":\"\"}]', '28', '0', '新建', '2', null, null, '提花围脖', null, null, '0', null, null, null, null, null, '推销样', '15RS0618', 'CXA26129', '3');
+INSERT INTO `tb_coloringorder` VALUES ('619', null, '2015-09-15 16:00:43', '2015-09-16 08:45:11', '7', '[{\"color\":\"白胚\",\"material\":11,\"quantity\":10,\"standardyarn\":\"\"}]', '63', '0', '新建', '4', null, null, '成品染色围巾', null, null, '0', null, null, null, null, null, '', '15RS0619', 'QYON 1506-90520', '3');
+INSERT INTO `tb_coloringorder` VALUES ('620', null, '2015-09-16 08:59:04', '2015-09-16 08:59:04', '7', '[{\"color\":\"藏青\",\"material\":9,\"quantity\":3,\"standardyarn\":\"\"},{\"color\":\"浅蓝\",\"material\":9,\"quantity\":5,\"standardyarn\":\"\"},{\"color\":\"深绿\",\"material\":9,\"quantity\":3,\"standardyarn\":\"\"},{\"color\":\"浅卡其\",\"material\":9,\"quantity\":5,\"standardyarn\":\"\"}]', '15', '0', '新建', '5', null, null, '马海毛围脖', null, null, '0', null, null, null, null, null, 'C18销售样', '15RS0620', 'GN 954659', '3');
+INSERT INTO `tb_coloringorder` VALUES ('621', null, '2015-09-18 08:35:20', '2015-09-18 08:35:20', '7', '[{\"color\":\"米白色\",\"material\":10,\"quantity\":12,\"standardyarn\":\"\"}]', '16', '0', '新建', '3', null, null, '混纺人字纹长围巾', null, null, '0', null, null, null, null, null, '亚萍大货补纱', '15RS0621', '17072333', '3');
+INSERT INTO `tb_coloringorder` VALUES ('622', null, '2015-09-19 10:58:54', '2015-09-19 10:58:54', '7', '[{\"color\":\"本白色\",\"material\":42,\"quantity\":740,\"standardyarn\":\"确认B色\"}]', '53', '0', '新建', '1', null, null, '镂空披肩', null, null, '0', null, null, null, null, null, '大货纱不能比第一次染的偏黄', '15RS0622', 'NETTY   PONCHO ', '1');
+INSERT INTO `tb_coloringorder` VALUES ('623', null, '2015-09-21 08:27:05', '2015-09-21 08:27:05', '7', '[{\"color\":\"白胚\",\"material\":13,\"quantity\":57,\"standardyarn\":\"金纺纱\"}]', '16', '0', '新建', '7', null, null, '成品染色拉毛围脖', null, null, '0', null, null, null, null, null, '', '15RS0623', '76392', '3');
+INSERT INTO `tb_coloringorder` VALUES ('624', null, '2015-09-23 08:00:47', '2015-09-23 08:00:47', '7', '[{\"color\":\"红色段染\",\"material\":9,\"quantity\":8,\"standardyarn\":\"\"}]', '14', '0', '新建', '6', null, null, '冰岛毛段染马海毛袜子', null, null, '0', null, null, null, null, null, '大货补纱', '15RS0624', 'W 1500289', '1');
+INSERT INTO `tb_coloringorder` VALUES ('625', null, '2015-09-23 08:07:04', '2015-09-23 08:07:04', '7', '[{\"color\":\"15米色\",\"material\":4,\"quantity\":12,\"standardyarn\":\"\"}]', '12', '0', '新建', '6', null, null, '冰岛毛段染马海毛袜子', null, null, '0', null, null, null, null, null, '大货补纱', '15RS0625', 'W1500289', '1');
+INSERT INTO `tb_coloringorder` VALUES ('626', null, '2015-09-24 14:47:40', '2015-09-24 14:47:40', '7', '[{\"color\":\"白胚\",\"material\":13,\"quantity\":40,\"standardyarn\":\"金纺筒纱\"}]', '16', '0', '新建', '7', null, null, '成品染色拉毛围脖', null, null, '0', null, null, null, null, null, '', '15RS0626', '76392', '3');
+INSERT INTO `tb_coloringorder` VALUES ('627', null, '2015-09-25 15:08:17', '2015-09-25 15:08:17', '7', '[{\"color\":\"米白色\",\"material\":57,\"quantity\":10,\"standardyarn\":\"11-0602tcx\"},{\"color\":\"深粉\",\"material\":57,\"quantity\":5,\"standardyarn\":\"15-1626tcx\"},{\"color\":\"浅粉\",\"material\":57,\"quantity\":5,\"standardyarn\":\"13-1310tcx\"},{\"color\":\"橙色\",\"material\":57,\"quantity\":5,\"standardyarn\":\"15-1334tcx\"}]', '53', '0', '新建', '1', null, null, '人棉波浪纹披肩', null, null, '0', null, null, null, null, null, '', '15RS0627', '79212', '1');
+INSERT INTO `tb_coloringorder` VALUES ('628', null, '2015-09-25 15:15:18', '2015-09-25 15:15:18', '7', '[{\"color\":\"藏青\",\"material\":57,\"quantity\":5,\"standardyarn\":\"19-4030tcx\"},{\"color\":\"浅蓝\",\"material\":57,\"quantity\":5,\"standardyarn\":\"17-4041tcx\"},{\"color\":\"浅绿\",\"material\":57,\"quantity\":5,\"standardyarn\":\"13-5309tcx\"}]', '53', '0', '新建', '1', null, null, '人棉波浪纹披肩', null, null, '0', null, null, null, null, null, '', '15RS0628', '79212', '1');
+INSERT INTO `tb_coloringorder` VALUES ('629', null, '2015-09-30 08:57:42', '2015-09-30 08:57:42', '7', '[{\"color\":\"金黄\",\"material\":9,\"quantity\":3,\"standardyarn\":\"\"},{\"color\":\"米黄\",\"material\":9,\"quantity\":3,\"standardyarn\":\"\"},{\"color\":\"金黄\",\"material\":6,\"quantity\":3,\"standardyarn\":\"\"}]', '15', '0', '新建', '3', null, null, '马海毛+冰岛毛夹色围巾', null, null, '0', null, null, null, null, null, '按去年5月大货颜色，翻单', '15RS0629', '0', '4');
+INSERT INTO `tb_coloringorder` VALUES ('630', null, '2015-09-30 10:29:24', '2015-09-30 10:29:24', '7', '[{\"color\":\"712\",\"material\":5,\"quantity\":250,\"standardyarn\":\"\"}]', '26', '0', '新建', '3', null, null, '冰岛毛缝钻帽子', null, null, '0', null, null, null, null, null, '', '15RS0630', '0', '4');
+INSERT INTO `tb_coloringorder` VALUES ('631', null, '2015-09-30 12:11:08', '2015-09-30 12:11:08', '7', '[{\"color\":\"21灰色\",\"material\":3,\"quantity\":165,\"standardyarn\":\"\"}]', '12', '0', '新建', '2', null, null, '混纱帽子/围脖', null, null, '0', null, null, null, null, null, '大货颜色不确认，重新染色', '15RS0631', '21ＡＣＡＧ－００８－Ｗ１１５', '3');
+INSERT INTO `tb_coloringorder` VALUES ('632', null, '2015-09-30 16:51:18', '2015-10-05 15:39:55', '7', '[{\"color\":\"白色\",\"material\":43,\"quantity\":5,\"standardyarn\":\"\"}]', '28', '0', '新建', '2', null, null, '特种纱围巾/帽子/围脖', null, null, '0', null, null, null, null, null, '推销样', '15RS0632', 'CXA26080/26438', '3');
+INSERT INTO `tb_coloringorder` VALUES ('633', null, '2015-10-04 12:30:26', '2015-10-04 12:30:26', '7', '[{\"color\":\"白胚\",\"material\":13,\"quantity\":18,\"standardyarn\":\"筒纱，批号与上次要一样\"}]', '16', '0', '新建', '7', null, null, '仿羊绒成品染色拉毛围脖', null, null, '0', null, null, null, null, null, '', '15RS0633', '76392', '3');
+INSERT INTO `tb_coloringorder` VALUES ('634', null, '2015-10-04 12:54:01', '2015-10-04 12:54:01', '7', '[{\"color\":\"G3黑色\",\"material\":6,\"quantity\":2500,\"standardyarn\":\"\"},{\"color\":\"G3紫色\",\"material\":6,\"quantity\":10,\"standardyarn\":\"比原样加深点\"}]', '13', '0', '新建', '3', null, null, '基本款帽子/挂须围巾', null, null, '0', null, null, null, null, null, '', '15RS0634', 'G3222H/G3222', '91');
+INSERT INTO `tb_coloringorder` VALUES ('635', null, '2015-10-04 12:57:29', '2015-10-04 13:01:03', '7', '[{\"color\":\"Ｇ３奶白\",\"material\":6,\"quantity\":1430,\"standardyarn\":\"\"}]', '14', '0', '新建', '3', null, null, '基本款帽子／挂须围巾', null, null, '0', null, null, null, null, null, '颜色要准确，手感好', '15RS0635', 'Ｇ３２２２Ｈ／Ｇ３２２２', '91');
+INSERT INTO `tb_coloringorder` VALUES ('636', null, '2015-10-04 13:00:31', '2015-10-04 13:00:31', '7', '[{\"color\":\"G3奶白\",\"material\":6,\"quantity\":1052,\"standardyarn\":\"\"}]', '12', '0', '新建', '3', null, null, '基本款帽子/挂须围巾', null, null, '0', null, null, null, null, null, '颜色要准确，手感要好', '15RS0636', 'G3222H/G222', '91');
+INSERT INTO `tb_coloringorder` VALUES ('637', null, '2015-10-04 13:08:22', '2015-10-04 13:08:22', '7', '[{\"color\":\"714\",\"material\":7,\"quantity\":2500,\"standardyarn\":\"批号，N1505-5\"}]', '26', '0', '新建', '3', null, null, '基本款帽子/挂须围巾', null, null, '0', null, null, null, null, null, '', '15RS0637', 'G3222H/G3222', '91');
+INSERT INTO `tb_coloringorder` VALUES ('638', null, '2015-10-04 13:30:22', '2015-10-04 13:31:46', '7', '[{\"color\":\"H0186黑色\",\"material\":1,\"quantity\":10,\"standardyarn\":\"\"},{\"color\":\"H0186粉色\",\"material\":1,\"quantity\":10,\"standardyarn\":\"\"},{\"color\":\"H0186奶白\",\"material\":1,\"quantity\":10,\"standardyarn\":\"\"}]', '13', '0', '新建', '3', null, null, '正反针基本款围脖', null, null, '0', null, null, null, null, null, '颜色已确认重新复样，手感太粗糙，手感要好，用江苏白胚', '15RS0638', 'H0186', '91');
+INSERT INTO `tb_coloringorder` VALUES ('639', null, '2015-10-04 13:41:14', '2015-10-04 13:41:14', '7', '[{\"color\":\"1706黑色\",\"material\":3,\"quantity\":200,\"standardyarn\":\"\"},{\"color\":\"1706奶白\",\"material\":3,\"quantity\":350,\"standardyarn\":\"\"},{\"color\":\"1706灰色\",\"material\":3,\"quantity\":200,\"standardyarn\":\"\"},{\"color\":\"1706酒红\",\"material\":3,\"quantity\":200,\"standardyarn\":\"\"}]', '13', '0', '新建', '3', null, null, '鱼鳞针头带', null, null, '0', null, null, null, null, null, '', '15RS0639', '17061176', '91');
+INSERT INTO `tb_coloringorder` VALUES ('640', null, '2015-10-04 13:53:31', '2015-10-04 13:53:31', '7', '[{\"color\":\"H25黑色\",\"material\":8,\"quantity\":1000,\"standardyarn\":\"\"},{\"color\":\"H25酒红\",\"material\":8,\"quantity\":1000,\"standardyarn\":\"\"}]', '13', '0', '新建', '3', null, null, '绞花毛球帽子/围巾', null, null, '0', null, null, null, null, null, '', '15RS0640', 'H25237H/H25237', '91');
+INSERT INTO `tb_coloringorder` VALUES ('641', null, '2015-10-06 12:09:46', '2015-10-06 12:09:46', '7', '[{\"color\":\"粉色\",\"material\":9,\"quantity\":201,\"standardyarn\":\"\"},{\"color\":\"灰色\",\"material\":9,\"quantity\":152,\"standardyarn\":\"\"},{\"color\":\"白色\",\"material\":9,\"quantity\":355,\"standardyarn\":\"\"}]', '15', '0', '新建', '3', null, null, '马海毛抽条帽子', null, null, '0', null, null, null, null, null, '翻单', '15RS0641', 'OSO', '4');
+INSERT INTO `tb_coloringorder` VALUES ('642', null, '2015-10-07 14:18:11', '2015-10-07 14:27:02', '7', '[{\"color\":\"H25228奶白\",\"material\":4,\"quantity\":5,\"standardyarn\":\"\"}]', '13', '0', '新建', '3', null, null, '女款球球帽子', null, null, '0', null, null, null, null, null, '', '15RS0642', 'H25228', '91');
+INSERT INTO `tb_coloringorder` VALUES ('643', null, '2015-10-07 14:21:03', '2015-10-07 14:21:03', '7', '[{\"color\":\"B-F5625粉色\",\"material\":10,\"quantity\":3,\"standardyarn\":\"13-1513tcx\"}]', '16', '0', '新建', '3', null, null, '花朵头带', null, null, '0', null, null, null, null, null, '', '15RS0643', 'B-F5625', '91');
+INSERT INTO `tb_coloringorder` VALUES ('644', null, '2015-10-08 10:44:41', '2015-10-08 10:44:41', '7', '[{\"color\":\"白胚\",\"material\":13,\"quantity\":25,\"standardyarn\":\"筒纱\"}]', '16', '0', '新建', '7', null, null, '仿羊绒成品染色拉毛围脖', null, null, '0', null, null, null, null, null, '加单', '15RS0644', '76392', '3');
+INSERT INTO `tb_coloringorder` VALUES ('645', null, '2015-10-08 17:06:19', '2015-10-08 17:06:41', '7', '[{\"color\":\"ZB粉色\",\"material\":4,\"quantity\":75,\"standardyarn\":\"\"},{\"color\":\"ZB粉色\",\"material\":6,\"quantity\":295,\"standardyarn\":\"\"},{\"color\":\"ZB白色\",\"material\":6,\"quantity\":165,\"standardyarn\":\"\"},{\"color\":\"ZB黑色\",\"material\":3,\"quantity\":24,\"standardyarn\":\"\"},{\"color\":\"ZB粉色\",\"material\":3,\"quantity\":16,\"standardyarn\":\"\"}]', '12', '0', '新建', '3', null, null, '冰岛毛五件套（包套）', null, null, '0', null, null, null, null, null, '翻单', '15RS0645', 'ZB', '4');
+INSERT INTO `tb_coloringorder` VALUES ('646', null, '2015-10-10 09:02:59', '2015-10-10 09:02:59', '7', '[{\"color\":\"17061176奶白\",\"material\":3,\"quantity\":3,\"standardyarn\":\"\"}]', '13', '0', '新建', '3', null, null, '鱼鳞针头带', null, null, '0', null, null, null, null, null, '', '15RS0646', '17061176', '91');
+INSERT INTO `tb_coloringorder` VALUES ('647', null, '2015-10-10 15:21:15', '2015-10-10 15:21:15', '7', '[{\"color\":\"714\",\"material\":6,\"quantity\":3,\"standardyarn\":\"\"}]', '26', '0', '新建', '3', null, null, '桂花针围脖', null, null, '0', null, null, null, null, null, '', '15RS0647', '0', '4');
+INSERT INTO `tb_coloringorder` VALUES ('648', null, '2015-10-10 17:06:12', '2015-10-10 17:06:12', '7', '[{\"color\":\"三色段染\",\"material\":1,\"quantity\":3,\"standardyarn\":\"15-5516tcx/14-5711tcx/15-1626tcx\"}]', '14', '0', '新建', '3', null, null, '围巾', null, null, '0', null, null, null, null, null, '', '15RS0648', 'TEX00343', '91');
+INSERT INTO `tb_coloringorder` VALUES ('649', null, '2015-10-10 17:12:34', '2015-10-10 17:13:13', '7', '[{\"color\":\"夹花棕18-0950tcx\",\"material\":6,\"quantity\":8,\"standardyarn\":\"\"},{\"color\":\"墨绿夹花19-5917tcx\",\"material\":6,\"quantity\":10,\"standardyarn\":\"\"},{\"color\":\"铁锈红夹花18-1336tcx\",\"material\":6,\"quantity\":3,\"standardyarn\":\"\"}]', '26', '0', '新建', '3', null, null, '绞花三配套', null, null, '0', null, null, null, null, null, '', '15RS0649', 'DH17011S/FW1213-A', '91');
+INSERT INTO `tb_coloringorder` VALUES ('650', null, '2015-10-10 17:15:57', '2015-10-10 17:15:57', '7', '[{\"color\":\"PCS1213浅米\",\"material\":6,\"quantity\":3,\"standardyarn\":\"13-0000tcx\"}]', '13', '0', '新建', '3', null, null, '基本款罗纹翻边帽', null, null, '0', null, null, null, null, null, '', '15RS0650', 'FW1213-A', '91');
+INSERT INTO `tb_coloringorder` VALUES ('651', null, '2015-10-11 15:23:36', '2015-10-11 15:23:36', '7', '[{\"color\":\"白色\",\"material\":43,\"quantity\":0,\"standardyarn\":\"彭纱，做手感\"}]', '3', '0', '新建', '4', null, null, '围巾', null, null, '0', null, null, null, null, null, '', '15RS0651', '0', '3');
+INSERT INTO `tb_coloringorder` VALUES ('652', null, '2015-10-12 08:45:37', '2015-10-12 08:45:37', '7', '[{\"color\":\"H25228黑色\",\"material\":4,\"quantity\":300,\"standardyarn\":\"\"}]', '13', '0', '新建', '3', null, null, '女款球球帽子', null, null, '0', null, null, null, null, null, '', '15RS0652', 'H 25228', '91');
+INSERT INTO `tb_coloringorder` VALUES ('653', null, '2015-10-13 08:06:04', '2015-10-13 08:06:04', '7', '[{\"color\":\"五色段染\",\"material\":6,\"quantity\":6,\"standardyarn\":\"黑色/17-1410tcx/11-0605tcx/16-3915tcx/19-0915tcx\"}]', '14', '0', '新建', '1', null, null, '针织围脖', null, null, '0', null, null, null, null, null, '', '15RS0653', 'JD L 2134', '91');
+INSERT INTO `tb_coloringorder` VALUES ('654', null, '2015-10-13 08:13:59', '2015-10-13 08:13:59', '7', '[{\"color\":\"灰色\",\"material\":43,\"quantity\":3,\"standardyarn\":\"按原样\"}]', '64', '0', '新建', '4', null, null, '围脖', null, null, '0', null, null, null, null, null, '', '15RS0654', '0', '3');
+INSERT INTO `tb_coloringorder` VALUES ('655', null, '2015-10-13 08:44:34', '2015-10-13 09:47:01', '7', '[{\"color\":\"黑色\",\"material\":48,\"quantity\":400,\"standardyarn\":\"\"},{\"color\":\"灰色\",\"material\":48,\"quantity\":350,\"standardyarn\":\"\"},{\"color\":\"酒红\",\"material\":48,\"quantity\":400,\"standardyarn\":\"\"}]', '13', '0', '新建', '3', null, null, '羽毛纱帽子/围脖', null, null, '0', null, null, null, null, null, '', '15RS0655', 'HB001/SN006', '91');
+INSERT INTO `tb_coloringorder` VALUES ('656', null, '2015-10-13 08:49:53', '2015-10-13 08:49:53', '7', '[{\"color\":\"黑色\",\"material\":16,\"quantity\":200,\"standardyarn\":\"\"},{\"color\":\"灰色\",\"material\":16,\"quantity\":200,\"standardyarn\":\"\"},{\"color\":\"酒红\",\"material\":16,\"quantity\":200,\"standardyarn\":\"\"}]', '28', '0', '新建', '3', null, null, '羽毛纱帽子/围脖', null, null, '0', null, null, null, null, null, '', '15RS0656', 'HB001/SN006', '91');
+INSERT INTO `tb_coloringorder` VALUES ('657', null, '2015-10-13 09:49:27', '2015-10-13 10:05:51', '7', '[{\"color\":\"712A\",\"material\":1,\"quantity\":765,\"standardyarn\":\"\"}]', '26', '0', '新建', '3', null, null, '爱心提花帽子／男款绞花帽子', null, null, '0', null, null, null, null, null, '', '15RS0657', 'HB021/93W16CKB01', '91');
+INSERT INTO `tb_coloringorder` VALUES ('658', null, '2015-10-13 09:53:10', '2015-10-13 09:53:10', '7', '[{\"color\":\"HB021 白色\",\"material\":1,\"quantity\":88,\"standardyarn\":\"\"}]', '15', '0', '新建', '3', null, null, '爱心提花帽子', null, null, '0', null, null, null, null, null, '', '15RS0658', 'HB021', '91');
+INSERT INTO `tb_coloringorder` VALUES ('659', null, '2015-10-13 10:09:05', '2015-10-13 10:09:05', '7', '[{\"color\":\"ＣＫＢ黑色\",\"material\":1,\"quantity\":500,\"standardyarn\":\"\"}]', '13', '0', '新建', '3', null, null, '男款绞花帽子', null, null, '0', null, null, null, null, null, '', '15RS0659', '93W16ＣＫＢ０１', '91');
+INSERT INTO `tb_coloringorder` VALUES ('660', null, '2015-10-13 10:12:47', '2015-10-13 10:12:47', '7', '[{\"color\":\"TYB荧光黄\",\"material\":1,\"quantity\":200,\"standardyarn\":\"\"},{\"color\":\"TYB荧光橘色\",\"material\":1,\"quantity\":200,\"standardyarn\":\"\"}]', '13', '0', '新建', '3', null, null, '男款翻边帽', null, null, '0', null, null, null, null, null, '', '15RS0660', '93W16TYB01', '91');
+INSERT INTO `tb_coloringorder` VALUES ('661', null, '2015-10-13 10:14:54', '2015-10-13 10:14:54', '7', '[{\"color\":\"黑/白\",\"material\":1,\"quantity\":200,\"standardyarn\":\"AB纱\"}]', '26', '0', '新建', '3', null, null, '男款翻边帽', null, null, '0', null, null, null, null, null, '', '15RS0661', '93W16TYB01', '91');
+INSERT INTO `tb_coloringorder` VALUES ('662', null, '2015-10-13 10:44:43', '2015-10-13 10:44:43', '7', '[{\"color\":\"YSB黑色\",\"material\":1,\"quantity\":500,\"standardyarn\":\"\"},{\"color\":\"YSB酒红\",\"material\":1,\"quantity\":500,\"standardyarn\":\"\"}]', '12', '0', '新建', '3', null, null, '小鱼鳞针帽子', null, null, '0', null, null, null, null, null, '', '15RS0662', '93W16YSB01', '91');
+INSERT INTO `tb_coloringorder` VALUES ('663', null, '2015-10-13 10:53:56', '2015-10-13 10:53:56', '7', '[{\"color\":\"DB黑色\",\"material\":58,\"quantity\":5,\"standardyarn\":\"\"},{\"color\":\"DB蓝色\",\"material\":58,\"quantity\":5,\"standardyarn\":\"\"},{\"color\":\"DB灰色\",\"material\":58,\"quantity\":5,\"standardyarn\":\"\"},{\"color\":\"DB酒红\",\"material\":58,\"quantity\":5,\"standardyarn\":\"\"}]', '13', '0', '新建', '3', null, null, '提花帽子', null, null, '0', null, null, null, null, null, '', '15RS0663', '93W16DB01', '91');
+INSERT INTO `tb_coloringorder` VALUES ('664', null, '2015-10-13 11:13:28', '2015-10-13 11:13:28', '7', '[{\"color\":\"蓝色夹花\",\"material\":1,\"quantity\":300,\"standardyarn\":\"\"}]', '13', '0', '新建', '3', null, null, '小鱼鳞针帽子', null, null, '0', null, null, null, null, null, '', '15RS0664', '93W16YSB01', '91');
+INSERT INTO `tb_coloringorder` VALUES ('665', null, '2015-10-13 15:23:27', '2015-10-13 15:23:27', '7', '[{\"color\":\"白胚\",\"material\":47,\"quantity\":5,\"standardyarn\":\"30/70毛晴\"}]', '64', '0', '新建', '4', null, null, '围脖', null, null, '0', null, null, null, null, null, '', '15RS0665', '0', '3');
+INSERT INTO `tb_coloringorder` VALUES ('666', null, '2015-10-15 08:20:50', '2015-10-15 08:20:50', '7', '[{\"color\":\"ZB粉色\",\"material\":3,\"quantity\":16,\"standardyarn\":\"\"}]', '12', '0', '新建', '3', null, null, '冰岛毛五件套', null, null, '0', null, null, null, null, null, '大货颜色不确认，重新染色', '15RS0666', 'ZB ', '4');
+INSERT INTO `tb_coloringorder` VALUES ('667', null, '2015-10-15 08:46:48', '2015-10-15 08:46:48', '7', '[{\"color\":\"2H金黄\",\"material\":6,\"quantity\":309,\"standardyarn\":\"\"},{\"color\":\"2H米白\",\"material\":9,\"quantity\":9,\"standardyarn\":\"\"},{\"color\":\"2H金黄\",\"material\":9,\"quantity\":67,\"standardyarn\":\"\"}]', '15', '0', '新建', '3', null, null, '男士绞花夹档围巾', null, null, '0', null, null, null, null, null, '', '15RS0667', 'ETOF2H', '4');
+INSERT INTO `tb_coloringorder` VALUES ('668', null, '2015-10-15 13:40:46', '2015-10-15 13:40:46', '7', '[{\"color\":\"浅紫\",\"material\":41,\"quantity\":8,\"standardyarn\":\"\"},{\"color\":\"酒红\",\"material\":41,\"quantity\":4,\"standardyarn\":\"\"},{\"color\":\"孔雀蓝\",\"material\":41,\"quantity\":4,\"standardyarn\":\"\"}]', '50', '0', '新建', '3', null, null, 'AB 纱帽子/围脖', null, null, '0', null, null, null, null, null, '浅紫+酒红/浅紫+孔雀蓝', '15RS0668', 'BH 28816', '4');
+INSERT INTO `tb_coloringorder` VALUES ('669', null, '2015-10-15 13:52:21', '2015-10-15 13:52:21', '7', '[{\"color\":\"浅绿\",\"material\":59,\"quantity\":5,\"standardyarn\":\"\"}]', '13', '0', '新建', '3', null, null, '围脖/帽子', null, null, '0', null, null, null, null, null, '', '15RS0669', 'BH28820', '4');
+INSERT INTO `tb_coloringorder` VALUES ('670', null, '2015-10-15 15:09:21', '2015-10-15 15:09:21', '7', '[{\"color\":\"NX1004 藏青\",\"material\":39,\"quantity\":3,\"standardyarn\":\"\"},{\"color\":\"ＮＸ３７８７红色\",\"material\":39,\"quantity\":3,\"standardyarn\":\"\"},{\"color\":\"NX1416黄色\",\"material\":39,\"quantity\":3,\"standardyarn\":\"\"},{\"color\":\"NX1004藏青\",\"material\":1,\"quantity\":5,\"standardyarn\":\"\"}]', '13', '0', '新建', '1', null, null, '帽子', null, null, '0', null, null, null, null, null, '', '15RS0670', 'NEXT0047', '3');
+INSERT INTO `tb_coloringorder` VALUES ('671', null, '2015-10-15 16:52:26', '2015-10-15 16:52:26', '7', '[{\"color\":\"002深灰\",\"material\":1,\"quantity\":40,\"standardyarn\":\"\"},{\"color\":\"002浅灰\",\"material\":1,\"quantity\":80,\"standardyarn\":\"\"},{\"color\":\"002姜黄\",\"material\":1,\"quantity\":80,\"standardyarn\":\"\"},{\"color\":\"002黑色\",\"material\":1,\"quantity\":40,\"standardyarn\":\"\"},{\"color\":\"002深棕\",\"material\":1,\"quantity\":80,\"standardyarn\":\"\"}]', '15', '0', '新建', '2', null, null, '烫金披肩', null, null, '0', null, null, null, null, null, '', '15RS0671', 'EY 150511002', '3');
 INSERT INTO `tb_coloringprocessorder` VALUES ('1', '1', '2015-03-31 21:48:39', '2015-03-31 21:48:39', '7', '6', '执行完成');
 INSERT INTO `tb_coloringprocessorder` VALUES ('2', '2', '2015-04-02 22:09:03', '2015-04-02 22:09:03', '7', '0', '新建');
 INSERT INTO `tb_coloringprocessorder` VALUES ('3', '3', '2015-04-02 22:32:58', '2015-04-02 22:32:58', '7', '0', '新建');
@@ -2887,7 +3280,7 @@ INSERT INTO `tb_coloringprocessorder` VALUES ('10', '10', '2015-04-03 22:01:02',
 INSERT INTO `tb_coloringprocessorder` VALUES ('11', '11', '2015-04-03 22:08:13', '2015-04-03 22:08:13', '7', '0', '新建');
 INSERT INTO `tb_coloringprocessorder` VALUES ('12', '12', '2015-04-03 23:16:47', '2015-04-03 23:16:47', '7', '0', '新建');
 INSERT INTO `tb_coloringprocessorder` VALUES ('13', '13', '2015-04-03 23:52:25', '2015-04-03 23:52:25', '7', '6', '执行完成');
-INSERT INTO `tb_coloringprocessorder` VALUES ('14', '14', '2015-04-04 00:25:22', '2015-04-04 00:25:22', '7', '6', '执行完成');
+INSERT INTO `tb_coloringprocessorder` VALUES ('14', '14', '2015-04-04 00:25:22', '2015-04-04 00:25:22', '7', '0', '新建');
 INSERT INTO `tb_coloringprocessorder` VALUES ('15', '15', '2015-04-04 01:47:47', '2015-04-04 01:47:47', '7', '0', '新建');
 INSERT INTO `tb_coloringprocessorder` VALUES ('16', '16', '2015-04-04 01:52:57', '2015-04-04 01:52:57', '7', '0', '新建');
 INSERT INTO `tb_coloringprocessorder` VALUES ('17', '17', '2015-04-04 14:45:56', '2015-04-04 14:45:56', '7', '0', '新建');
@@ -2964,7 +3357,7 @@ INSERT INTO `tb_coloringprocessorder` VALUES ('87', '87', '2015-04-27 08:07:57',
 INSERT INTO `tb_coloringprocessorder` VALUES ('88', '88', '2015-04-27 08:24:57', '2015-04-27 08:24:57', '7', '0', '新建');
 INSERT INTO `tb_coloringprocessorder` VALUES ('89', '89', '2015-04-27 08:45:32', '2015-04-27 08:45:32', '7', '0', '新建');
 INSERT INTO `tb_coloringprocessorder` VALUES ('90', '90', '2015-04-30 13:32:44', '2015-04-30 13:32:44', '7', '0', '新建');
-INSERT INTO `tb_coloringprocessorder` VALUES ('91', '91', '2015-05-02 16:28:24', '2015-05-02 16:28:24', '7', '6', '执行完成');
+INSERT INTO `tb_coloringprocessorder` VALUES ('91', '91', '2015-05-02 16:28:24', '2015-05-02 16:28:24', '7', '0', '新建');
 INSERT INTO `tb_coloringprocessorder` VALUES ('92', '92', '2015-05-03 17:24:03', '2015-05-03 17:24:03', '7', '0', '新建');
 INSERT INTO `tb_coloringprocessorder` VALUES ('93', '93', '2015-05-03 17:34:23', '2015-05-03 17:34:23', '7', '0', '新建');
 INSERT INTO `tb_coloringprocessorder` VALUES ('94', '94', '2015-05-03 17:51:49', '2015-05-03 17:51:49', '7', '6', '执行完成');
@@ -3098,7 +3491,7 @@ INSERT INTO `tb_coloringprocessorder` VALUES ('221', '221', '2015-07-05 14:39:24
 INSERT INTO `tb_coloringprocessorder` VALUES ('222', '222', '2015-07-05 14:50:16', '2015-07-05 14:50:16', '7', '0', '新建');
 INSERT INTO `tb_coloringprocessorder` VALUES ('223', '223', '2015-07-05 15:09:32', '2015-07-05 15:09:32', '7', '0', '新建');
 INSERT INTO `tb_coloringprocessorder` VALUES ('224', '224', '2015-07-08 22:11:35', '2015-07-08 22:11:35', '7', '0', '新建');
-INSERT INTO `tb_coloringprocessorder` VALUES ('225', '225', '2015-07-11 13:10:46', '2015-07-11 13:10:46', '7', '6', '执行完成');
+INSERT INTO `tb_coloringprocessorder` VALUES ('225', '225', '2015-07-11 13:10:46', '2015-07-11 13:10:46', '7', '0', '新建');
 INSERT INTO `tb_coloringprocessorder` VALUES ('226', '226', '2015-07-12 16:23:22', '2015-07-12 16:23:22', '7', '0', '新建');
 INSERT INTO `tb_coloringprocessorder` VALUES ('227', '227', '2015-07-12 17:03:51', '2015-07-12 17:03:51', '7', '0', '新建');
 INSERT INTO `tb_coloringprocessorder` VALUES ('228', '228', '2015-07-15 20:20:47', '2015-07-15 20:20:47', '7', '0', '新建');
@@ -3132,10 +3525,36 @@ INSERT INTO `tb_coloringprocessorder` VALUES ('255', '255', '2015-08-09 22:05:28
 INSERT INTO `tb_coloringprocessorder` VALUES ('256', '256', '2015-08-09 22:19:56', '2015-08-09 22:19:56', '7', '0', '新建');
 INSERT INTO `tb_coloringprocessorder` VALUES ('257', '257', '2015-08-09 22:33:40', '2015-08-09 22:33:40', '7', '0', '新建');
 INSERT INTO `tb_coloringprocessorder` VALUES ('258', '258', '2015-08-11 17:53:09', '2015-08-11 17:53:09', '7', '0', '新建');
+INSERT INTO `tb_coloringprocessorder` VALUES ('259', '259', '2015-08-13 09:11:37', '2015-08-13 09:11:37', '7', '0', '新建');
+INSERT INTO `tb_coloringprocessorder` VALUES ('260', '260', '2015-08-13 09:23:32', '2015-08-13 09:23:32', '7', '0', '新建');
+INSERT INTO `tb_coloringprocessorder` VALUES ('261', '261', '2015-08-20 14:13:42', '2015-08-20 14:13:42', '7', '0', '新建');
+INSERT INTO `tb_coloringprocessorder` VALUES ('262', '262', '2015-08-24 15:08:35', '2015-08-24 15:08:35', '7', '0', '新建');
+INSERT INTO `tb_coloringprocessorder` VALUES ('263', '263', '2015-08-26 16:31:59', '2015-08-26 16:31:59', '7', '0', '新建');
+INSERT INTO `tb_coloringprocessorder` VALUES ('264', '264', '2015-08-26 16:49:07', '2015-08-26 16:49:07', '7', '0', '新建');
+INSERT INTO `tb_coloringprocessorder` VALUES ('265', '265', '2015-08-27 08:27:35', '2015-08-27 08:27:35', '7', '0', '新建');
+INSERT INTO `tb_coloringprocessorder` VALUES ('266', '266', '2015-08-27 08:37:24', '2015-08-27 08:37:24', '7', '0', '新建');
+INSERT INTO `tb_coloringprocessorder` VALUES ('267', '267', '2015-08-27 08:55:10', '2015-08-27 08:55:10', '7', '0', '新建');
+INSERT INTO `tb_coloringprocessorder` VALUES ('268', '268', '2015-09-04 15:35:09', '2015-09-04 15:35:09', '7', '0', '新建');
+INSERT INTO `tb_coloringprocessorder` VALUES ('269', '269', '2015-09-17 12:39:23', '2015-09-17 12:39:23', '7', '0', '新建');
+INSERT INTO `tb_coloringprocessorder` VALUES ('270', '270', '2015-09-17 12:55:22', '2015-09-17 12:55:22', '7', '0', '新建');
+INSERT INTO `tb_coloringprocessorder` VALUES ('271', '271', '2015-09-21 08:30:40', '2015-09-21 08:30:40', '7', '0', '新建');
+INSERT INTO `tb_coloringprocessorder` VALUES ('272', '272', '2015-09-23 12:27:17', '2015-09-23 12:27:17', '7', '0', '新建');
+INSERT INTO `tb_coloringprocessorder` VALUES ('273', '273', '2015-09-25 15:31:06', '2015-09-25 15:31:06', '7', '0', '新建');
+INSERT INTO `tb_coloringprocessorder` VALUES ('274', '274', '2015-09-28 09:05:47', '2015-09-28 09:05:47', '7', '0', '新建');
+INSERT INTO `tb_coloringprocessorder` VALUES ('275', '275', '2015-09-28 09:38:07', '2015-09-28 09:38:07', '7', '0', '新建');
+INSERT INTO `tb_coloringprocessorder` VALUES ('276', '276', '2015-10-04 10:24:40', '2015-10-04 10:24:40', '7', '0', '新建');
+INSERT INTO `tb_coloringprocessorder` VALUES ('277', '277', '2015-10-09 14:16:39', '2015-10-09 14:16:39', '7', '0', '新建');
+INSERT INTO `tb_coloringprocessorder` VALUES ('278', '278', '2015-10-09 14:36:54', '2015-10-09 14:36:54', '7', '0', '新建');
+INSERT INTO `tb_coloringprocessorder` VALUES ('279', '279', '2015-10-09 14:58:39', '2015-10-09 14:58:39', '7', '0', '新建');
+INSERT INTO `tb_coloringprocessorder` VALUES ('280', '280', '2015-10-09 15:05:02', '2015-10-09 15:05:02', '7', '0', '新建');
+INSERT INTO `tb_coloringprocessorder` VALUES ('281', '281', '2015-10-09 15:09:30', '2015-10-09 15:09:30', '7', '0', '新建');
+INSERT INTO `tb_coloringprocessorder` VALUES ('282', '282', '2015-10-10 08:50:23', '2015-10-10 08:50:23', '7', '0', '新建');
+INSERT INTO `tb_coloringprocessorder` VALUES ('283', '283', '2015-10-13 13:17:11', '2015-10-13 13:17:11', '7', '0', '新建');
+INSERT INTO `tb_coloringprocessorder` VALUES ('284', '284', '2015-10-15 09:22:03', '2015-10-15 09:22:03', '7', '0', '新建');
 INSERT INTO `tb_company` VALUES ('1', '拱墅区湖州街18号', '杭州', null, null, '2015-03-31 21:45:42', '杭州翔天实业有限公司', 'hzxtsyyxgs', '0', '翔天', '2015-03-31 21:45:42', '6');
 INSERT INTO `tb_company` VALUES ('2', '上海市长寿路1076号1902室', '上海', null, null, '2015-04-01 13:22:19', '上海逸韵服饰有限公司', 'shyyfsyxgs', '0', '逸韵', '2015-04-01 13:22:19', '9');
 INSERT INTO `tb_company` VALUES ('3', '杭州市西湖区文二路391号节能科技园E中楼6楼618室', '杭州', null, null, '2015-04-01 22:40:26', '杭州六昇服饰有限公司', 'hzlsfsyxgs', '0', '六昇', '2015-04-01 22:40:26', '9');
-INSERT INTO `tb_company` VALUES ('4', '上海市长寿路1076号飞雕大厦1406室', '上海', null, null, '2015-04-01 22:41:13', '上海棋韵服饰有限公司', 'shqyfsyxgs', '0', '棋韵', '2015-04-01 22:41:13', '9');
+INSERT INTO `tb_company` VALUES ('4', '上海市长寿路1076号飞雕大厦1406室', '上海', null, null, '2015-04-01 22:41:13', '上海祺韵服饰有限公司', 'shqyfsyxgs', '0', '祺韵', '2015-09-26 15:03:47', '9');
 INSERT INTO `tb_company` VALUES ('5', '杭州', '杭州', null, null, '2015-04-01 22:43:17', '杭州舜斓贸易有限公司', 'hzslmyyxgs', '0', '舜斓', '2015-04-01 22:43:17', '9');
 INSERT INTO `tb_company` VALUES ('6', '香港九龙荔枝角青山道704号和兴工业大厦8楼D室', '香港', null, null, '2015-04-01 22:44:23', '永盛创业有限公司', 'yscyyxgs', '0', '永盛', '2015-04-01 22:44:23', '9');
 INSERT INTO `tb_company` VALUES ('7', '杭州', '杭州', null, null, '2015-04-04 00:05:14', '源盛', 'ys', '0', '源盛', '2015-04-04 00:05:14', '9');
@@ -3159,7 +3578,7 @@ INSERT INTO `tb_department` VALUES ('7', '2015-05-09 14:49:42', '缝纫车间', 
 INSERT INTO `tb_department` VALUES ('8', '2015-05-09 14:49:59', '横机车间', '2015-05-09 16:54:20', '6');
 INSERT INTO `tb_department` VALUES ('9', '2015-05-09 16:28:55', '品管部', '2015-05-09 16:28:55', '6');
 INSERT INTO `tb_department` VALUES ('10', '2015-07-08 23:12:47', '检验车间', '2015-07-08 23:12:47', '9');
-INSERT INTO `tb_employee` VALUES ('1', '2015-05-02 19:32:16', '', 'hzq', '', '胡祖群', '', '13666663553', '2015-09-06 20:43:20', '女', 'FW1061', '2015-03-01 00:00:00', '330122198004243525', '1', '跟单', '浙江省桐庐县城南街道金东村石珠金东小区7弄19号', '浙江省桐庐县城南街道金东村石珠金东小区7弄19号', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '9', '汉', '', '', '', '101000942501030', '9', '1980-04-24 00:00:00', '');
+INSERT INTO `tb_employee` VALUES ('1', '2015-05-02 19:32:16', '', 'hzq', '', '胡祖群', '', '13666663553', '2015-05-09 16:24:43', '女', 'FW1061', '2015-03-01 00:00:00', '330122198004243525', '1', '跟单', '浙江省桐庐县城南街道金东村石珠金东小区7弄19号', '浙江省桐庐县城南街道金东村石珠金东小区7弄19号', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '9', '汉', '', '', '', '101000942501030', '9', '1980-04-24 00:00:00', '');
 INSERT INTO `tb_employee` VALUES ('2', '2015-05-02 19:33:35', '', 'rx', '', '任晓', '', '18958138796', '2015-07-10 08:30:04', '女', 'FW1062', '2015-03-01 00:00:00', '513025197502052866', '1', '跟单', '浙江省桐庐县横村镇柳茂村柳茂6组', '浙江省桐庐县横村镇柳茂村柳茂6组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '9.5', '汉', '', '', '', '', '9', '1975-02-05 00:00:00', '');
 INSERT INTO `tb_employee` VALUES ('3', '2015-05-02 19:35:28', '', 'wyp', '', '王宇平', '', '18857158975', '2015-05-12 17:58:07', '男', 'FW1003', '2011-09-01 00:00:00', '330122198410300919', '1', '跟单', '浙江省桐庐县横村镇杜预村8组', '浙江省桐庐县横村镇杜预村8组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '9.5', '汉', '', '', '', '6230910199008522662', '9', '1984-10-30 00:00:00', '');
 INSERT INTO `tb_employee` VALUES ('4', '2015-05-02 19:36:44', '', 'zmx', '', '张明霞', '', '15268805988', '2015-05-12 18:01:55', '女', 'FW1034', '2014-01-02 00:00:00', '330122198507110927', '1', '跟单', '浙江省桐庐县横村镇孙家村一组', '浙江省桐庐县横村镇孙家村一组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '9.5', '汉', '', '', '', '6230910199006474718', '9', '1985-07-11 00:00:00', '');
@@ -3378,13 +3797,13 @@ INSERT INTO `tb_expense_income` VALUES ('128', '1', '辅料款', '167', '宁波�
 INSERT INTO `tb_expense_income` VALUES ('129', '1', '辅料款', '173', '上海东兴服装服饰有限公司', '2', '上海逸韵服饰有限公司', null, null, '9898.33', '', '2015-05-07', '2015-06-11', '2015-06-11', '6', '', '9898.33');
 INSERT INTO `tb_expense_income` VALUES ('130', '1', '辅料款', '199', '苏州万美塑胶制品有限公司', '2', '上海逸韵服饰有限公司', null, null, '1680', '', '2015-05-08', '2015-06-11', '2015-06-11', '6', '', '1680');
 INSERT INTO `tb_expense_income` VALUES ('131', '1', '辅料款', '199', '苏州万美塑胶制品有限公司', '2', '上海逸韵服饰有限公司', null, null, '860', '', '2015-05-08', '2015-06-11', '2015-06-11', '6', '', '860');
-INSERT INTO `tb_expense_income` VALUES ('132', '1', '辅料款', '199', '苏州万美塑胶制品有限公司', '2', '上海逸韵服饰有限公司', null, null, '575', '', '2015-05-08', '2015-06-11', '2015-06-11', '6', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('132', '1', '辅料款', '199', '苏州万美塑胶制品有限公司', '2', '上海逸韵服饰有限公司', null, null, '575', '', '2015-05-08', '2015-06-11', '2015-06-11', '6', '', '575');
 INSERT INTO `tb_expense_income` VALUES ('133', '1', '辅料款', '199', '苏州万美塑胶制品有限公司', '2', '上海逸韵服饰有限公司', null, null, '980', '', '2015-05-08', '2015-06-11', '2015-06-11', '6', '', '980');
 INSERT INTO `tb_expense_income` VALUES ('134', '1', '辅料款', '199', '苏州万美塑胶制品有限公司', '2', '上海逸韵服饰有限公司', null, null, '450.01', '', '2015-05-08', '2015-06-11', '2015-06-11', '6', '', '0');
 INSERT INTO `tb_expense_income` VALUES ('135', '1', '辅料款', '201', '谭启祥', '4', '上海棋韵服饰有限公司', null, '未选择', '1635', '胡盼私人账户转', '2015-05-08', '2015-06-11', '2015-06-11', '6', '', '0');
 INSERT INTO `tb_expense_income` VALUES ('136', '2', '材料款', '202', '无锡全星纺织科技有限公司', '1', '杭州翔天实业有限公司', '8', '邓晓敏', '31200', '翔天GU提花手套 导电纱款', '2015-05-21', '2015-06-11', '2015-06-11', '6', '', '31200');
 INSERT INTO `tb_expense_income` VALUES ('137', '2', '材料款', '216', '宣伟英', '1', '杭州翔天实业有限公司', '4', '钱红莲', '1137.5', '绸带费用货款，胡盼私人帐号转', '2015-06-03', '2015-06-11', '2015-06-11', '6', '', '0');
-INSERT INTO `tb_expense_income` VALUES ('138', '2', '材料款', '215', '东莞市蓝辉纺织原料有限公司', '1', '杭州翔天实业有限公司', '8', '邓晓敏', '12924', '翔天GU客羊指加盖手套夹花灰色纱线', '2015-05-28', '2015-06-11', '2015-06-11', '6', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('138', '2', '材料款', '215', '东莞市蓝辉纺织原料有限公司', '1', '杭州翔天实业有限公司', '8', '邓晓敏', '12924', '翔天GU客羊指加盖手套夹花灰色纱线', '2015-05-28', '2015-06-11', '2015-06-11', '6', '', '12924');
 INSERT INTO `tb_expense_income` VALUES ('139', '2', '材料款', '145', '常熟市正太纺织有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '5904', '毛皮预付定金', '2015-06-04', '2015-06-11', '2015-06-11', '6', '', '0');
 INSERT INTO `tb_expense_income` VALUES ('140', '2', '材料款', '200', '台州凌翔毛纺有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '1000', '产前样样纱', '2015-06-08', '2015-06-11', '2015-06-11', '6', '', '0');
 INSERT INTO `tb_expense_income` VALUES ('141', '2', '材料款', '208', '张家港市和正进出口有限公司', '4', '上海棋韵服饰有限公司', null, '未选择', '14112', '面料尾款', '2015-05-05', '2015-06-11', '2015-06-11', '6', '', '0');
@@ -3427,7 +3846,7 @@ INSERT INTO `tb_expense_income` VALUES ('177', '1', '辅料款', '207', '张家�
 INSERT INTO `tb_expense_income` VALUES ('178', '1', '辅料款', '188', '上海雪玮服饰辅料有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '65731.79', '', '2015-06-11', '2015-06-12', '2015-06-12', '14', '', '65731.79');
 INSERT INTO `tb_expense_income` VALUES ('179', '1', '辅料款', '186', '上海西文服饰有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '10214.83', '', '2015-06-11', '2015-06-12', '2015-06-12', '14', '', '10214.83');
 INSERT INTO `tb_expense_income` VALUES ('180', '1', '辅料款', '179', '上海美宝印刷有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '771.28', '', '2015-06-11', '2015-06-12', '2015-06-12', '14', '', '771.28');
-INSERT INTO `tb_expense_income` VALUES ('181', '18', '黄圣河材料款', '131', '桐庐迦南针织有限公司', null, '未选择', null, '未选择', '30000', '', '2015-06-13', '2015-06-13', '2015-06-13', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('181', '18', '黄圣河材料款', '131', '桐庐迦南针织有限公司', null, '未选择', null, '未选择', '30000', '', '2015-06-13', '2015-06-13', '2015-06-13', '14', '', '30000');
 INSERT INTO `tb_expense_income` VALUES ('182', '17', '借款', '226', '桐庐文良贸易有限公司', null, '未选择', null, '未选择', '100000', '先借 预支10W', '2015-06-13', '2015-06-15', '2015-06-15', '14', '', '0');
 INSERT INTO `tb_expense_income` VALUES ('183', '12', '设备费', '227', '上海威阳数码科技有限公司__打印机', null, '未选择', null, '未选择', '1049.8', '胡盼天猫上的淘宝号购买', '2015-06-14', '2015-06-15', '2015-06-15', '14', '', '1049.8');
 INSERT INTO `tb_expense_income` VALUES ('184', '1', '辅料款', '143', '安底特(上海)贸易有限公司', '1', '杭州翔天实业有限公司', '4', '钱红莲', '2652', '', '2015-06-17', '2015-06-17', '2015-06-17', '14', '', '0');
@@ -3437,12 +3856,12 @@ INSERT INTO `tb_expense_income` VALUES ('187', '1', '辅料款', '147', '东莞�
 INSERT INTO `tb_expense_income` VALUES ('188', '1', '辅料款', '183', '上海诺同服饰辅料有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '2733.3', '', '2015-06-18', '2015-06-18', '2015-06-18', '14', '', '2733.3');
 INSERT INTO `tb_expense_income` VALUES ('189', '1', '辅料款', '191', '上海易轩干燥剂有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '4907.67', '', '2015-06-18', '2015-06-18', '2015-06-18', '14', '', '4907.67');
 INSERT INTO `tb_expense_income` VALUES ('190', '1', '辅料款', '182', '上海钮纽服装辅料有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '506.22', '', '2015-06-18', '2015-06-18', '2015-06-18', '14', '', '506.22');
-INSERT INTO `tb_expense_income` VALUES ('191', '1', '辅料款', '159', '江阴市通用纺织服饰有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '3980.15', '', '2015-06-18', '2015-06-18', '2015-06-18', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('191', '1', '辅料款', '159', '江阴市通用纺织服饰有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '3980.15', '', '2015-06-18', '2015-06-18', '2015-06-18', '14', '', '3980.15');
 INSERT INTO `tb_expense_income` VALUES ('192', '1', '辅料款', '184', '上海鹏信服饰有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '4616.35', '', '2015-06-18', '2015-06-18', '2015-06-18', '14', '', '4616.35');
 INSERT INTO `tb_expense_income` VALUES ('193', '1', '辅料款', '179', '上海美宝印刷有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '7923.46', '', '2015-06-18', '2015-06-18', '2015-06-18', '14', '', '7923.46');
 INSERT INTO `tb_expense_income` VALUES ('194', '1', '辅料款', '165', '南通中海印刷有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '3610.4', '', '2015-06-18', '2015-06-18', '2015-06-18', '14', '', '3610.4');
 INSERT INTO `tb_expense_income` VALUES ('195', '1', '辅料款', '164', '南京嘉美服饰标牌厂', '3', '杭州六昇服饰有限公司', null, '未选择', '18580.05', '', '2015-06-18', '2015-06-18', '2015-06-18', '14', '', '18580.05');
-INSERT INTO `tb_expense_income` VALUES ('196', '1', '辅料款', '148', '东莞键颖钮扣有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '347.48', '', '2015-06-18', '2015-06-18', '2015-06-18', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('196', '1', '辅料款', '148', '东莞键颖钮扣有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '347.48', '', '2015-06-18', '2015-06-18', '2015-06-18', '14', '', '347.48');
 INSERT INTO `tb_expense_income` VALUES ('197', '1', '辅料款', '189', '上海伊泽印刷有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '400.95', '', '2015-06-18', '2015-06-18', '2015-06-18', '14', '', '400.95');
 INSERT INTO `tb_expense_income` VALUES ('198', '1', '辅料款', '167', '宁波东钱湖旅游度假区铭腾纺织品经营部', '1', '杭州翔天实业有限公司', '22', '吴兴华', '2669', '张文莉', '2015-06-18', '2015-06-19', '2015-06-19', '14', '', '2669');
 INSERT INTO `tb_expense_income` VALUES ('199', '1', '辅料款', '228', '童建英', '3', '杭州六昇服饰有限公司', null, '未选择', '1515', '50*40*30袋子1500个，50*40袋子1500个，由王和法接手', '2015-04-26', '2015-06-20', '2015-06-20', '14', '', '0');
@@ -3455,7 +3874,7 @@ INSERT INTO `tb_expense_income` VALUES ('206', '1', '辅料款', '176', '上海�
 INSERT INTO `tb_expense_income` VALUES ('207', '4', '水费', '139', '浙江桑德富春水务开发有限公司', null, '未选择', null, '未选择', '225.75', '', '2015-06-24', '2015-06-24', '2015-06-24', '14', '', '225.75');
 INSERT INTO `tb_expense_income` VALUES ('208', '1', '辅料款', '233', '汪根女', '1', '杭州翔天实业有限公司', '16', '黄璐', '140', '贴纸费,胡盼支付宝私人账户转', '2015-06-24', '2015-06-25', '2015-06-25', '14', '', '0');
 INSERT INTO `tb_expense_income` VALUES ('209', '1', '辅料款', '171', '上海彩旭印务有限公司', '2', '上海逸韵服饰有限公司', '52', 'Lisa', '3239', '逸韵', '2015-06-25', '2015-06-25', '2015-06-25', '14', '', '3239');
-INSERT INTO `tb_expense_income` VALUES ('210', '1', '辅料款', '186', '上海西文服饰有限公司', '2', '上海逸韵服饰有限公司', '52', 'Lisa', '768', '逸韵', '2015-06-25', '2015-06-25', '2015-06-25', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('210', '1', '辅料款', '186', '上海西文服饰有限公司', '2', '上海逸韵服饰有限公司', '52', 'Lisa', '768', '逸韵', '2015-06-25', '2015-06-25', '2015-06-25', '14', '', '768');
 INSERT INTO `tb_expense_income` VALUES ('211', '2', '材料款', '127', '桐庐南源纺织有限公司', null, '未选择', null, '未选择', '150000', '', '2015-06-25', '2015-06-25', '2015-06-25', '14', '', '150000');
 INSERT INTO `tb_expense_income` VALUES ('212', '1', '辅料款', '234', '桐庐红华塑料有限公司', '2', '上海逸韵服饰有限公司', null, '未选择', '365', 'EY15-122挂钩', '2015-06-25', '2015-06-25', '2015-06-25', '14', '', '0');
 INSERT INTO `tb_expense_income` VALUES ('214', '2', '材料款', '235', '江阴市能信纱业有限公司', null, '未选择', null, '未选择', '122500', '26s/2 ， 5吨材料款，入库云珍', '2015-06-25', '2015-06-25', '2015-06-25', '14', '', '122500');
@@ -3493,7 +3912,7 @@ INSERT INTO `tb_expense_income` VALUES ('249', '8', '工资', '219', '厂员工�
 INSERT INTO `tb_expense_income` VALUES ('250', '1', '辅料款', '240', '是魄力塑胶制品贸易(上海)有限公司', '1', '杭州翔天实业有限公司', '10', '沈逸文', '6685.19', '绞花配套衣架的辅料费', '2015-07-03', '2015-07-03', '2015-07-03', '14', '', '6685.19');
 INSERT INTO `tb_expense_income` VALUES ('251', '1', '辅料款', '175', '上海金萃贸易有限公司', '1', '杭州翔天实业有限公司', '16', '黄璐', '660', '', '2015-07-03', '2015-07-03', '2015-07-03', '14', '', '660');
 INSERT INTO `tb_expense_income` VALUES ('252', '1', '辅料款', '183', '上海诺同服饰辅料有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '4096', '', '2015-07-02', '2015-07-03', '2015-07-03', '14', '', '4096');
-INSERT INTO `tb_expense_income` VALUES ('253', '1', '辅料款', '176', '上海骏协钮扣制品有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '5546.76', '', '2015-07-02', '2015-07-03', '2015-07-03', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('253', '1', '辅料款', '176', '上海骏协钮扣制品有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '5546.76', '', '2015-07-02', '2015-07-03', '2015-07-03', '14', '', '5546.76');
 INSERT INTO `tb_expense_income` VALUES ('254', '1', '辅料款', '186', '上海西文服饰有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '1016', '', '2015-07-02', '2015-07-03', '2015-07-03', '14', '', '1016');
 INSERT INTO `tb_expense_income` VALUES ('255', '1', '辅料款', '170', '青岛瑞豪包装有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '6634.36', '', '2015-07-02', '2015-07-03', '2015-07-03', '14', '', '6634.36');
 INSERT INTO `tb_expense_income` VALUES ('256', '1', '辅料款', '207', '张家港鸿运织标有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '1142.5', '', '2015-07-02', '2015-07-03', '2015-07-03', '14', '', '1142.5');
@@ -3511,12 +3930,12 @@ INSERT INTO `tb_expense_income` VALUES ('269', '1', '辅料款', '188', '上海�
 INSERT INTO `tb_expense_income` VALUES ('270', '1', '辅料款', '188', '上海雪玮服饰辅料有限公司', '2', '上海逸韵服饰有限公司', '52', 'Lisa', '1558.12', '', '2015-06-30', '2015-07-07', '2015-07-07', '14', '', '0');
 INSERT INTO `tb_expense_income` VALUES ('271', '1', '辅料款', '174', '上海界龙数码印刷有限公司', '1', '杭州翔天实业有限公司', '4', '钱红莲', '206.4', '032部门的4款辅料费用，胡祖群', '2015-06-29', '2015-07-07', '2015-07-07', '14', '', '0');
 INSERT INTO `tb_expense_income` VALUES ('273', '1', '辅料款', '156', '杭州添辉服饰有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '1074', '', '2015-07-10', '2015-07-10', '2015-07-10', '14', '', '1074');
-INSERT INTO `tb_expense_income` VALUES ('274', '1', '辅料款', '186', '上海西文服饰有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '3057.06', '', '2015-07-10', '2015-07-10', '2015-07-10', '14', '', '1712.98');
-INSERT INTO `tb_expense_income` VALUES ('275', '1', '辅料款', '182', '上海钮纽服装辅料有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '943.68', '', '2015-07-10', '2015-07-10', '2015-07-10', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('274', '1', '辅料款', '186', '上海西文服饰有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '3057.06', '', '2015-07-10', '2015-07-10', '2015-07-10', '14', '', '3057.06');
+INSERT INTO `tb_expense_income` VALUES ('275', '1', '辅料款', '182', '上海钮纽服装辅料有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '943.68', '', '2015-07-10', '2015-07-10', '2015-07-10', '14', '', '943.68');
 INSERT INTO `tb_expense_income` VALUES ('276', '1', '辅料款', '170', '青岛瑞豪包装有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '682.89', '', '2015-07-10', '2015-07-10', '2015-07-10', '14', '', '0');
-INSERT INTO `tb_expense_income` VALUES ('277', '1', '辅料款', '171', '上海彩旭印务有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '2481.57', '', '2015-07-10', '2015-07-10', '2015-07-10', '14', '', '0');
-INSERT INTO `tb_expense_income` VALUES ('278', '1', '辅料款', '188', '上海雪玮服饰辅料有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '594.59', '', '2015-07-10', '2015-07-10', '2015-07-10', '14', '', '0');
-INSERT INTO `tb_expense_income` VALUES ('279', '1', '辅料款', '191', '上海易轩干燥剂有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '618.02', '', '2015-07-10', '2015-07-10', '2015-07-10', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('277', '1', '辅料款', '171', '上海彩旭印务有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '2481.57', '', '2015-07-10', '2015-07-10', '2015-07-10', '14', '', '2481.57');
+INSERT INTO `tb_expense_income` VALUES ('278', '1', '辅料款', '188', '上海雪玮服饰辅料有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '594.59', '', '2015-07-10', '2015-07-10', '2015-07-10', '14', '', '594.59');
+INSERT INTO `tb_expense_income` VALUES ('279', '1', '辅料款', '191', '上海易轩干燥剂有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '618.02', '', '2015-07-10', '2015-07-10', '2015-07-10', '14', '', '618.02');
 INSERT INTO `tb_expense_income` VALUES ('280', '1', '辅料款', '244', '方琳', '1', '杭州翔天实业有限公司', '27', '杨峰俊', '196', '1400张ASOS主标， 余芬私人帐号转。放在黄璐文件夹。嘉兴锦华服饰有限公司', '2015-07-11', '2015-07-11', '2015-07-11', '14', '', '0');
 INSERT INTO `tb_expense_income` VALUES ('281', '2', '材料款', '245', '刘传林', '3', '杭州六昇服饰有限公司', null, '未选择', '500', '定金。意大利客人比尼帽的钻。余芬私人帐号转。 鑫盛辅料', '2015-07-11', '2015-07-11', '2015-07-11', '14', '', '0');
 INSERT INTO `tb_expense_income` VALUES ('283', '20', '缺省费', '195', '上海桠力实业发展有限公司', null, '未选择', null, '未选择', '1000006.95', '结清去年2014年的款', '2014-12-31', '2015-07-11', '2015-07-11', '14', '', '1000006.95');
@@ -3537,12 +3956,12 @@ INSERT INTO `tb_expense_income` VALUES ('298', '1', '辅料款', '143', '安底�
 INSERT INTO `tb_expense_income` VALUES ('299', '1', '辅料款', '251', '昆山中川包装用品有限公司', '1', '杭州翔天实业有限公司', '4', '钱红莲', '70.79', '', '2015-07-14', '2015-07-16', '2015-07-16', '14', '', '0');
 INSERT INTO `tb_expense_income` VALUES ('300', '25', '汽车修理费', '252', '富阳市奥达汽车销售服务有限公司', null, '未选择', null, '未选择', '4353', '1EY27保养费', '2015-07-16', '2015-07-16', '2015-07-16', '14', '', '4353');
 INSERT INTO `tb_expense_income` VALUES ('301', '1', '辅料款', '170', '青岛瑞豪包装有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '160', '', '2015-07-17', '2015-07-17', '2015-07-17', '14', '', '0');
-INSERT INTO `tb_expense_income` VALUES ('302', '1', '辅料款', '188', '上海雪玮服饰辅料有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '3121.83', '', '2015-07-17', '2015-07-17', '2015-07-17', '14', '', '0');
-INSERT INTO `tb_expense_income` VALUES ('303', '1', '辅料款', '191', '上海易轩干燥剂有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '1190', '', '2015-07-17', '2015-07-17', '2015-07-17', '14', '', '0');
-INSERT INTO `tb_expense_income` VALUES ('304', '1', '辅料款', '147', '东莞东兴商标织绣有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '888.52', '', '2015-07-17', '2015-07-17', '2015-07-17', '14', '', '0');
-INSERT INTO `tb_expense_income` VALUES ('305', '1', '辅料款', '149', '恩埃赛文数据处理(杭州)有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '32478.15', '', '2015-07-17', '2015-07-17', '2015-07-17', '14', '', '0');
-INSERT INTO `tb_expense_income` VALUES ('306', '1', '辅料款', '253', '海盐县联谊印刷有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '1411.7', '', '2015-07-17', '2015-07-17', '2015-07-17', '14', '', '0');
-INSERT INTO `tb_expense_income` VALUES ('307', '18', '黄圣河材料款', '131', '桐庐迦南针织有限公司', null, '未选择', null, '未选择', '20000', '', '2015-07-17', '2015-07-17', '2015-07-17', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('302', '1', '辅料款', '188', '上海雪玮服饰辅料有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '3121.83', '', '2015-07-17', '2015-07-17', '2015-07-17', '14', '', '3121.83');
+INSERT INTO `tb_expense_income` VALUES ('303', '1', '辅料款', '191', '上海易轩干燥剂有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '1190', '', '2015-07-17', '2015-07-17', '2015-07-17', '14', '', '1190');
+INSERT INTO `tb_expense_income` VALUES ('304', '1', '辅料款', '147', '东莞东兴商标织绣有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '888.52', '', '2015-07-17', '2015-07-17', '2015-07-17', '14', '', '888.52');
+INSERT INTO `tb_expense_income` VALUES ('305', '1', '辅料款', '149', '恩埃赛文数据处理(杭州)有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '32478.15', '', '2015-07-17', '2015-07-17', '2015-07-17', '14', '', '32478.15');
+INSERT INTO `tb_expense_income` VALUES ('306', '1', '辅料款', '253', '海盐县联谊印刷有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '1411.7', '', '2015-07-17', '2015-07-17', '2015-07-17', '14', '', '1411.7');
+INSERT INTO `tb_expense_income` VALUES ('307', '18', '黄圣河材料款', '131', '桐庐迦南针织有限公司', null, '未选择', null, '未选择', '20000', '', '2015-07-17', '2015-07-17', '2015-07-17', '14', '', '20000');
 INSERT INTO `tb_expense_income` VALUES ('308', '1', '辅料款', '233', '汪根女', '1', '杭州翔天实业有限公司', '16', '黄璐', '71.75', '2050张贴纸。王宇平、余芬接头。余芬私人帐号转', '2015-07-17', '2015-07-17', '2015-07-17', '14', '', '0');
 INSERT INTO `tb_expense_income` VALUES ('309', '1', '辅料款', '230', '建美', '3', '杭州六昇服饰有限公司', null, '未选择', '765', '中号袋，送货人名字不详， 暂写 建美', '2015-07-18', '2015-07-20', '2015-07-20', '14', '', '0');
 INSERT INTO `tb_expense_income` VALUES ('310', '6', '快递服务', '209', '浙江顺丰速运有限公司', null, '未选择', null, '未选择', '2126', '', '2015-07-20', '2015-07-20', '2015-07-20', '14', '', '0');
@@ -3553,10 +3972,10 @@ INSERT INTO `tb_expense_income` VALUES ('314', '1', '辅料款', '174', '上海�
 INSERT INTO `tb_expense_income` VALUES ('315', '26', '红包', '256', '法国客人QC陈丽平', '3', '杭州六昇服饰有限公司', null, '未选择', '800', '余芬支付宝私人帐号转', '2015-07-20', '2015-07-23', '2015-07-23', '14', '', '0');
 INSERT INTO `tb_expense_income` VALUES ('316', '25', '汽车修理费', '257', '俞玉芬', null, '未选择', null, '未选择', '3610', '轮胎', '2015-07-23', '2015-07-23', '2015-07-23', '14', '', '0');
 INSERT INTO `tb_expense_income` VALUES ('317', '4', '水费', '139', '浙江桑德富春水务开发有限公司', null, '未选择', null, '未选择', '395.25', '水费、污水费', '2015-07-23', '2015-07-23', '2015-07-23', '14', '', '0');
-INSERT INTO `tb_expense_income` VALUES ('318', '1', '辅料款', '167', '宁波东钱湖旅游度假区铭腾纺织品经营部', '2', '上海逸韵服饰有限公司', '51', 'lois', '1640.4', '加在订单EY15-177订单里', '2015-07-23', '2015-07-24', '2015-07-24', '14', '', '0');
-INSERT INTO `tb_expense_income` VALUES ('319', '1', '辅料款', '182', '上海钮纽服装辅料有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '259.6', '', '2015-07-23', '2015-07-24', '2015-07-24', '14', '', '0');
-INSERT INTO `tb_expense_income` VALUES ('320', '1', '辅料款', '183', '上海诺同服饰辅料有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '622.5', '', '2015-07-23', '2015-07-24', '2015-07-24', '14', '', '0');
-INSERT INTO `tb_expense_income` VALUES ('321', '1', '辅料款', '191', '上海易轩干燥剂有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '429', '', '2015-07-23', '2015-07-24', '2015-07-24', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('318', '1', '辅料款', '167', '宁波东钱湖旅游度假区铭腾纺织品经营部', '2', '上海逸韵服饰有限公司', '51', 'lois', '1640.4', '加在订单EY15-177订单里', '2015-07-23', '2015-07-24', '2015-07-24', '14', '', '1640.4');
+INSERT INTO `tb_expense_income` VALUES ('319', '1', '辅料款', '182', '上海钮纽服装辅料有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '259.6', '', '2015-07-23', '2015-07-24', '2015-07-24', '14', '', '259.6');
+INSERT INTO `tb_expense_income` VALUES ('320', '1', '辅料款', '183', '上海诺同服饰辅料有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '622.5', '', '2015-07-23', '2015-07-24', '2015-07-24', '14', '', '622.5');
+INSERT INTO `tb_expense_income` VALUES ('321', '1', '辅料款', '191', '上海易轩干燥剂有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '429', '', '2015-07-23', '2015-07-24', '2015-07-24', '14', '', '429');
 INSERT INTO `tb_expense_income` VALUES ('322', '1', '辅料款', '189', '上海伊泽印刷有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '305.04', '', '2015-07-23', '2015-07-24', '2015-07-24', '14', '', '0');
 INSERT INTO `tb_expense_income` VALUES ('323', '24', '汽车油费', '249', '中石化浙A.D8508阿良', null, '未选择', null, '未选择', '3000', '', '2015-07-25', '2015-07-26', '2015-07-26', '14', '', '0');
 INSERT INTO `tb_expense_income` VALUES ('324', '1', '辅料款', '281', '赵玲玲', '6', '永盛创业有限公司', null, '未选择', '2776', '余芬农村帐号转。 木纽扣', '2015-07-26', '2015-07-26', '2015-07-26', '14', '', '2776');
@@ -3564,10 +3983,10 @@ INSERT INTO `tb_expense_income` VALUES ('325', '25', '汽车修理费', '257', '
 INSERT INTO `tb_expense_income` VALUES ('326', '1', '辅料款', '188', '上海雪玮服饰辅料有限公司', '2', '上海逸韵服饰有限公司', '52', 'Lisa', '75', '补500LPP洗标', '2015-07-27', '2015-07-27', '2015-07-27', '14', '', '0');
 INSERT INTO `tb_expense_income` VALUES ('327', '2', '材料款', '282', '励争明', null, '未选择', null, '未选择', '270', '余芬现金支出。陈珍芳报销。翔天IVEXT 765384 ， 冰岛毛绞花毛球帽，毛球内里膨胶棉 27KG * 4元/KG  + 50元车费', '2015-07-28', '2015-07-28', '2015-07-28', '14', '', '0');
 INSERT INTO `tb_expense_income` VALUES ('328', '2', '材料款', '127', '桐庐南源纺织有限公司', null, '未选择', null, '未选择', '300000', '货款', '2015-07-29', '2015-07-29', '2015-07-29', '14', '', '300000');
-INSERT INTO `tb_expense_income` VALUES ('329', '1', '辅料款', '175', '上海金萃贸易有限公司', '1', '杭州翔天实业有限公司', '16', '黄璐', '147', '洗标费用', '2015-07-29', '2015-07-29', '2015-07-29', '14', '', '0');
-INSERT INTO `tb_expense_income` VALUES ('330', '1', '辅料款', '188', '上海雪玮服饰辅料有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '4767.12', '', '2015-07-30', '2015-07-30', '2015-07-30', '14', '', '0');
-INSERT INTO `tb_expense_income` VALUES ('331', '1', '辅料款', '171', '上海彩旭印务有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '1240.79', '', '2015-07-30', '2015-07-30', '2015-07-30', '14', '', '0');
-INSERT INTO `tb_expense_income` VALUES ('332', '1', '辅料款', '142', '艾利(苏州)有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '13.32', '', '2015-07-30', '2015-07-30', '2015-07-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('329', '1', '辅料款', '175', '上海金萃贸易有限公司', '1', '杭州翔天实业有限公司', '16', '黄璐', '147', '洗标费用', '2015-07-29', '2015-07-29', '2015-07-29', '14', '', '147');
+INSERT INTO `tb_expense_income` VALUES ('330', '1', '辅料款', '188', '上海雪玮服饰辅料有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '4767.12', '', '2015-07-30', '2015-07-30', '2015-07-30', '14', '', '4767.12');
+INSERT INTO `tb_expense_income` VALUES ('331', '1', '辅料款', '171', '上海彩旭印务有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '1240.79', '', '2015-07-30', '2015-07-30', '2015-07-30', '14', '', '1240.79');
+INSERT INTO `tb_expense_income` VALUES ('332', '1', '辅料款', '142', '艾利(苏州)有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '13.32', '', '2015-07-30', '2015-07-30', '2015-07-30', '14', '', '13.32');
 INSERT INTO `tb_expense_income` VALUES ('333', '2', '材料款', '283', '常熟市新志博纺织品有限公司', '6', '永盛创业有限公司', null, '未选择', '12017.2', '羊羔绒', '2015-07-31', '2015-07-31', '2015-07-31', '14', '', '0');
 INSERT INTO `tb_expense_income` VALUES ('334', '24', '汽车油费', '247', '中石化浙A.2VH51', null, '未选择', null, '未选择', '2000', '', '2015-07-31', '2015-07-31', '2015-07-31', '14', '', '0');
 INSERT INTO `tb_expense_income` VALUES ('335', '24', '汽车油费', '248', '中石化浙A.Y8695', null, '未选择', null, '未选择', '3000', '', '2015-07-31', '2015-07-31', '2015-07-31', '14', '', '0');
@@ -3647,16 +4066,288 @@ INSERT INTO `tb_expense_income` VALUES ('409', '2', '材料款', '285', '桐庐�
 INSERT INTO `tb_expense_income` VALUES ('410', '2', '材料款', '232', '慈溪市可丰毛绒制品有限公司', null, '未选择', null, '未选择', '20000', 'EY15-167毛皮定金。胡盼私人卡转账给 周荣来 雄鹰毛皮', '2015-06-22', '2015-08-05', '2015-08-05', '14', '', '0');
 INSERT INTO `tb_expense_income` VALUES ('411', '2', '材料款', '220', '申屠丽云', null, '未选择', null, '未选择', '15478', 'LPP纱线款 MB544，胡盼私人帐号转。2015.7.21已转10000元定金。 共25478元', '2015-08-06', '2015-08-06', '2015-08-06', '14', '', '0');
 INSERT INTO `tb_expense_income` VALUES ('412', '2', '材料款', '291', '东莞市辉美纺织品有限公司', '1', '杭州翔天实业有限公司', '50', '吕长静', '7099', 'PINKIE点子纱马海毛白胚款 135KG', '2015-08-06', '2015-08-06', '2015-08-06', '14', '', '0');
-INSERT INTO `tb_expense_income` VALUES ('413', '1', '辅料款', '164', '南京嘉美服饰标牌厂', '3', '杭州六昇服饰有限公司', null, '未选择', '408', '', '2015-08-06', '2015-08-06', '2015-08-06', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('413', '1', '辅料款', '164', '南京嘉美服饰标牌厂', '3', '杭州六昇服饰有限公司', null, '未选择', '408', '', '2015-08-06', '2015-08-06', '2015-08-06', '14', '', '408');
 INSERT INTO `tb_expense_income` VALUES ('414', '1', '辅料款', '188', '上海雪玮服饰辅料有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '3482.02', '', '2015-08-06', '2015-08-06', '2015-08-06', '14', '', '0');
-INSERT INTO `tb_expense_income` VALUES ('415', '1', '辅料款', '186', '上海西文服饰有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '667.45', '', '2015-08-06', '2015-08-06', '2015-08-06', '14', '', '0');
-INSERT INTO `tb_expense_income` VALUES ('416', '1', '辅料款', '184', '上海鹏信服饰有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '642.4', '', '2015-08-06', '2015-08-06', '2015-08-06', '14', '', '0');
-INSERT INTO `tb_expense_income` VALUES ('417', '1', '辅料款', '159', '江阴市通用纺织服饰有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '1388.8', '', '2015-08-06', '2015-08-06', '2015-08-06', '14', '', '0');
-INSERT INTO `tb_expense_income` VALUES ('418', '1', '辅料款', '180', '上海美声服饰辅料有限公司', '1', '杭州翔天实业有限公司', '16', '黄璐', '4499.81', '', '2015-08-07', '2015-08-08', '2015-08-08', '14', '', '0');
-INSERT INTO `tb_expense_income` VALUES ('419', '15', '其他支出', '292', '必维申美商品检测(上海)有限公司', '1', '杭州翔天实业有限公司', '4', '钱红莲', '1135.27', '743C900款的重新验货费，胡祖群', '2015-08-10', '2015-08-10', '2015-08-10', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('415', '1', '辅料款', '186', '上海西文服饰有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '667.45', '', '2015-08-06', '2015-08-06', '2015-08-06', '14', '', '667.45');
+INSERT INTO `tb_expense_income` VALUES ('416', '1', '辅料款', '184', '上海鹏信服饰有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '642.4', '', '2015-08-06', '2015-08-06', '2015-08-06', '14', '', '642.4');
+INSERT INTO `tb_expense_income` VALUES ('417', '1', '辅料款', '159', '江阴市通用纺织服饰有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '1388.8', '', '2015-08-06', '2015-08-06', '2015-08-06', '14', '', '1388.8');
+INSERT INTO `tb_expense_income` VALUES ('418', '1', '辅料款', '180', '上海美声服饰辅料有限公司', '1', '杭州翔天实业有限公司', '16', '黄璐', '4499.81', '', '2015-08-07', '2015-08-08', '2015-08-08', '14', '', '4499.81');
+INSERT INTO `tb_expense_income` VALUES ('419', '15', '其他支出', '292', '必维申美商品检测(上海)有限公司', '1', '杭州翔天实业有限公司', '4', '钱红莲', '1135.27', '743C900款的重新验货费，胡祖群', '2015-08-10', '2015-08-10', '2015-08-10', '14', '', '1135.27');
 INSERT INTO `tb_expense_income` VALUES ('420', '11', '加工费', '250', '吴柏富', null, '未选择', null, '未选择', '10000', '织手套加工费', '2015-08-10', '2015-08-11', '2015-08-11', '14', '', '0');
 INSERT INTO `tb_expense_income` VALUES ('421', '1', '辅料款', '251', '昆山中川包装用品有限公司', '1', '杭州翔天实业有限公司', '4', '钱红莲', '366.8', '', '2015-08-11', '2015-08-11', '2015-08-11', '14', '', '0');
 INSERT INTO `tb_expense_income` VALUES ('422', '2', '材料款', '293', '庄贤明', '6', '永盛创业有限公司', null, '未选择', '8365.5', '泡泡绒材料款', '2015-08-11', '2015-08-11', '2015-08-11', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('423', '9', '染色费', '121', '桐庐恒达纺织印染有限公司', null, '未选择', null, '未选择', '80000', '材料款', '2015-08-12', '2015-08-13', '2015-08-13', '14', '', '80000');
+INSERT INTO `tb_expense_income` VALUES ('424', '29', '运输费', '134', '夏爱珠', null, '未选择', null, '未选择', '50000', '运输', '2015-08-13', '2015-08-13', '2015-08-13', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('425', '6', '快递服务', '209', '浙江顺丰速运有限公司', null, '未选择', null, '未选择', '2989', '', '2015-08-13', '2015-08-13', '2015-08-13', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('426', '1', '辅料款', '180', '上海美声服饰辅料有限公司', '1', '杭州翔天实业有限公司', '16', '黄璐', '1272.34', '', '2015-08-14', '2015-08-14', '2015-08-14', '14', '', '1272.34');
+INSERT INTO `tb_expense_income` VALUES ('427', '1', '辅料款', '170', '青岛瑞豪包装有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '3631.94', '', '2015-08-13', '2015-08-14', '2015-08-14', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('428', '1', '辅料款', '188', '上海雪玮服饰辅料有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '203.19', '', '2015-08-13', '2015-08-14', '2015-08-14', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('429', '1', '辅料款', '171', '上海彩旭印务有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '336.3', '', '2015-08-13', '2015-08-14', '2015-08-14', '14', '', '336.3');
+INSERT INTO `tb_expense_income` VALUES ('430', '1', '辅料款', '186', '上海西文服饰有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '1574.03', '', '2015-08-13', '2015-08-14', '2015-08-14', '14', '', '1574.03');
+INSERT INTO `tb_expense_income` VALUES ('431', '1', '辅料款', '183', '上海诺同服饰辅料有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '2876.1', '', '2015-08-13', '2015-08-14', '2015-08-14', '14', '', '2876.1');
+INSERT INTO `tb_expense_income` VALUES ('432', '1', '辅料款', '191', '上海易轩干燥剂有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '1386.38', '', '2015-08-13', '2015-08-14', '2015-08-14', '14', '', '1386.38');
+INSERT INTO `tb_expense_income` VALUES ('433', '1', '辅料款', '147', '东莞东兴商标织绣有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '307.37', '', '2015-08-13', '2015-08-14', '2015-08-14', '14', '', '307.37');
+INSERT INTO `tb_expense_income` VALUES ('434', '1', '辅料款', '149', '恩埃赛文数据处理(杭州)有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '7540.03', '', '2015-08-13', '2015-08-14', '2015-08-14', '14', '', '7540.03');
+INSERT INTO `tb_expense_income` VALUES ('435', '1', '辅料款', '174', '上海界龙数码印刷有限公司', '1', '杭州翔天实业有限公司', '4', '钱红莲', '185.76', 'KH022243款围脖的贴纸费用', '2015-08-18', '2015-08-18', '2015-08-18', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('436', '16', '货款', '259', '余姚联合纺织进出口有限公司', '1', null, null, null, '34100', '货款', '2015-07-28', '2015-08-19', '2015-08-19', '14', '', '34100');
+INSERT INTO `tb_expense_income` VALUES ('437', '16', '货款', '265', '上海豪利杰国际贸易有限公司', '2', null, null, null, '1670', '货款', '2015-07-31', '2015-08-19', '2015-08-19', '14', '', '1670');
+INSERT INTO `tb_expense_income` VALUES ('438', '16', '货款', '272', '东方国际集团上海利泰进出口有限公司', '1', null, null, null, '72090', '货款 货款', '2015-07-31', '2015-08-19', '2015-08-19', '14', '', '72090');
+INSERT INTO `tb_expense_income` VALUES ('439', '28', '辅料款_代付', '276', '浙江悦和实业有限公司', '3', null, null, null, '31400', '货款', '2015-07-31', '2015-08-19', '2015-08-19', '14', '', '31400');
+INSERT INTO `tb_expense_income` VALUES ('440', '28', '辅料款_代付', '259', '余姚联合纺织进出口有限公司', '3', null, null, null, '64580', '货款 货款', '2015-08-03', '2015-08-19', '2015-08-19', '14', '', '64580');
+INSERT INTO `tb_expense_income` VALUES ('441', '16', '货款', '259', '余姚联合纺织进出口有限公司', '1', null, null, null, '645.6', '货款', '2015-08-04', '2015-08-19', '2015-08-19', '14', '', '645.6');
+INSERT INTO `tb_expense_income` VALUES ('442', '16', '货款', '268', '杭州翔天实业有限公司', '1', null, null, null, '24422.7', '货款，转桐庐农村合作银行横村支行', '2015-08-10', '2015-08-19', '2015-08-19', '14', '', '24422.7');
+INSERT INTO `tb_expense_income` VALUES ('443', '16', '货款', '286', '绍兴县卡玫拉服饰有限公司', '8', null, null, null, '68640', '货款 货款', '2015-08-11', '2015-08-19', '2015-08-19', '14', '', '68640');
+INSERT INTO `tb_expense_income` VALUES ('444', '16', '货款', '259', '余姚联合纺织进出口有限公司', '1', null, null, null, '66628.32', '货款', '2015-08-13', '2015-08-19', '2015-08-19', '14', '', '66628.32');
+INSERT INTO `tb_expense_income` VALUES ('445', '16', '货款', '259', '余姚联合纺织进出口有限公司', '1', null, null, null, '121982.5', '货款', '2015-08-13', '2015-08-19', '2015-08-19', '14', '', '121982.5');
+INSERT INTO `tb_expense_income` VALUES ('446', '16', '货款', '268', '杭州翔天实业有限公司', '1', null, null, null, '42000', '普通贷记来账自动入账', '2015-08-17', '2015-08-19', '2015-08-19', '14', '', '42000');
+INSERT INTO `tb_expense_income` VALUES ('447', '1', '辅料款', '205', '张家港保税区保点标签有限公司', '1', '杭州翔天实业有限公司', '9', '陈丹莉', '532.88', '李灵芝。AB线帽子SS16单子的POS标+箱贴的货款，大货中加回来', '2015-08-19', '2015-08-20', '2015-08-20', '14', '', '532.88');
+INSERT INTO `tb_expense_income` VALUES ('448', '2', '材料款', '296', '桐庐盛兴贸易有限公司', null, '未选择', null, '未选择', '289.5', '36支棉型晴纶，3.2支全晴圈文纱。 陈珍芳', '2015-08-19', '2015-08-20', '2015-08-20', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('449', '1', '辅料款', '198', '深圳顺黄纸品有限公司', '1', '杭州翔天实业有限公司', '9', '陈丹莉', '3641.54', 'pull and bear 三角巾辅料费', '2015-08-20', '2015-08-20', '2015-08-20', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('450', '28', '辅料款_代付', '276', '浙江悦和实业有限公司', '3', null, null, null, '356168.5', '有辅料款，也有货款', '2015-08-20', '2015-08-21', '2015-09-01', '14', '', '356168.5');
+INSERT INTO `tb_expense_income` VALUES ('451', '28', '辅料款_代付', '259', '余姚联合纺织进出口有限公司', '3', null, null, null, '188008', '货款 货款', '2015-08-21', '2015-08-21', '2015-09-01', '14', '', '188008');
+INSERT INTO `tb_expense_income` VALUES ('452', '16', '货款', '266', '浙江省轻纺集团进出口有限公司', '3', null, null, null, '1024323.94', '货款', '2015-08-21', '2015-08-21', '2015-08-21', '14', '', '1024323.94');
+INSERT INTO `tb_expense_income` VALUES ('453', '11', '加工费', '299', '袁来英', null, '未选择', null, '未选择', '100000', '倒纱费', '2015-08-20', '2015-08-21', '2015-08-21', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('455', '11', '加工费', '301', '李秀英', null, '未选择', null, '未选择', '2240', '缝手套半指加盖80打*28', '2015-08-24', '2015-08-25', '2015-08-25', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('456', '11', '加工费', '239', '余海燕', null, '未选择', null, '未选择', '8824.78', '车标加工费。已对账', '2015-08-25', '2015-08-25', '2015-08-25', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('457', '11', '加工费', '302', '叶勇', null, '未选择', null, '未选择', '618', '织带加工费，现金支出。已对账', '2015-08-25', '2015-08-25', '2015-08-25', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('458', '2', '材料款', '295', '桐庐心梦园服饰有限公司', null, '未选择', null, '未选择', '16720', '材料款。已对账', '2015-08-24', '2015-08-25', '2015-08-25', '14', '', '16720');
+INSERT INTO `tb_expense_income` VALUES ('459', '20', '缺省费', '303', '江阴欣彩纺织有限公司', null, '未选择', null, '未选择', '500003', '材料', '2015-08-25', '2015-08-25', '2015-08-25', '14', '', '500003');
+INSERT INTO `tb_expense_income` VALUES ('460', '1', '辅料款', '304', '杭州印美捷印务有限公司', '1', '杭州翔天实业有限公司', '4', '钱红莲', '43287.6', '胡祖群KH02224款的礼盒费用，加到合同金额里去', '2015-08-24', '2015-08-25', '2015-08-25', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('461', '1', '辅料款', '171', '上海彩旭印务有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '4889.17', '', '2015-08-21', '2015-08-30', '2015-08-30', '14', '', '4889.17');
+INSERT INTO `tb_expense_income` VALUES ('462', '1', '辅料款', '188', '上海雪玮服饰辅料有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '1206.3', '', '2015-08-21', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('463', '1', '辅料款', '170', '青岛瑞豪包装有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '880.16', '', '2015-08-21', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('464', '1', '辅料款', '186', '上海西文服饰有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '1262.52', '', '2015-08-21', '2015-08-30', '2015-08-30', '14', '', '1262.52');
+INSERT INTO `tb_expense_income` VALUES ('465', '1', '辅料款', '205', '张家港保税区保点标签有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '9352.05', '', '2015-08-28', '2015-08-30', '2015-08-30', '14', '', '9352.05');
+INSERT INTO `tb_expense_income` VALUES ('466', '1', '辅料款', '171', '上海彩旭印务有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '375.84', '', '2015-08-28', '2015-08-30', '2015-08-30', '14', '', '375.84');
+INSERT INTO `tb_expense_income` VALUES ('467', '1', '辅料款', '188', '上海雪玮服饰辅料有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '5738.82', '', '2015-08-28', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('468', '1', '辅料款', '186', '上海西文服饰有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '217', '', '2015-08-28', '2015-08-30', '2015-08-30', '14', '', '217');
+INSERT INTO `tb_expense_income` VALUES ('469', '2', '材料款', '293', '庄贤明', '6', '永盛创业有限公司', null, '未选择', '4914', 'W1500289泡泡绒，420米*11.7元/米， 陈珍芳', '2015-08-26', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('470', '9', '染色费', '294', '桐庐诚信针纺染整有限公司', null, '未选择', null, '未选择', '34204.5', '', '2015-08-26', '2015-08-30', '2015-08-30', '14', '', '34204.5');
+INSERT INTO `tb_expense_income` VALUES ('471', '30', '倒纱费', '307', '俞成昌', null, '未选择', null, '未选择', '1674', '现金支出。结清', '2015-08-29', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('472', '11', '加工费', '308', '洪兴', null, '未选择', null, '未选择', '216', '手工加工费。现金支出。', '2015-08-29', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('473', '11', '加工费', '309', '王伟清', null, '未选择', null, '未选择', '2270', '缝珠子加工费.现金支出，结清', '2015-08-29', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('474', '31', '机织加工费', '310', '华洪亮', null, '未选择', null, '未选择', '3413', '现金支出。结清。机织加工费', '2015-08-29', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('475', '11', '加工费', '311', '胡婉', null, '未选择', null, '未选择', '3196', '套口加工费结清。现金支出', '2015-08-29', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('476', '11', '加工费', '312', '袁银锋', null, '未选择', null, '未选择', '24730', '套口加工费。现金支票。', '2015-08-29', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('477', '31', '机织加工费', '313', '阮鑫波(金波机织)', null, '未选择', null, '未选择', '13189', '结清', '2015-08-29', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('479', '11', '加工费', '314', '宋文静', null, '未选择', null, '未选择', '5000', '手工，结清', '2015-08-29', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('480', '11', '加工费', '315', '卢荷瑛(邱方向套口费用)', null, '未选择', null, '未选择', '40000', '套口加工费，预付', '2015-08-28', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('481', '11', '加工费', '238', '石刚', null, '未选择', null, '未选择', '38300', '接指加工费。结清', '2015-08-29', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('482', '11', '加工费', '316', '邵菲', null, '未选择', null, '未选择', '960', '套口加工费。现金支出。 结清', '2015-08-30', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('483', '2', '材料款', '122', '桐庐红泰服装辅料有限公司', null, '未选择', null, '未选择', '17584', '胶带、涤纶线。结清', '2015-08-27', '2015-08-30', '2015-08-30', '14', '', '17584');
+INSERT INTO `tb_expense_income` VALUES ('484', '11', '加工费', '317', '沈燕平(立中套口)', null, '未选择', null, '未选择', '45000', '套口加工费，预付', '2015-08-27', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('485', '31', '机织加工费', '318', '杨跃芳(丁勇伟机织费用)', null, '未选择', null, '未选择', '20480.6', '结清', '2015-08-27', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('486', '11', '加工费', '319', '朱小马(套口)', null, '未选择', null, '未选择', '40000', '套口费，预付', '2015-08-26', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('487', '32', '半检费用', '320', '洪志江(柴玉萍等半检)', null, '未选择', null, '未选择', '53980', '柴玉萍等的半检费用', '2015-08-26', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('488', '11', '加工费', '321', '夏雪富', null, '未选择', null, '未选择', '7900', '生产手套', '2015-08-26', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('490', '20', '缺省费', '121', '桐庐恒达纺织印染有限公司', null, '未选择', null, '未选择', '100000', '', '2015-08-26', '2015-08-30', '2015-08-30', '14', '', '100000');
+INSERT INTO `tb_expense_income` VALUES ('491', '3', '纸箱费', '129', '桐庐勇佳包装有限公司', null, '未选择', null, '未选择', '80000', '纸箱费', '2015-08-26', '2015-08-30', '2015-08-30', '14', '', '80000');
+INSERT INTO `tb_expense_income` VALUES ('492', '6', '快递服务', '306', '杨跃君__申通代开', null, '未选择', null, '未选择', '7252', '申通快递服务费1月至7月', '2015-08-26', '2015-08-30', '2015-08-30', '14', '', '7252');
+INSERT INTO `tb_expense_income` VALUES ('493', '2', '材料款', '130', '桐庐泽诺贸易有限公司', null, '未选择', null, '未选择', '41300.4', '2015.5.22（26）发票', '2015-08-29', '2015-08-30', '2015-08-30', '14', '', '41300.4');
+INSERT INTO `tb_expense_income` VALUES ('494', '2', '材料款', '226', '桐庐文良贸易有限公司', null, '未选择', null, '未选择', '80000', '毛料款', '2015-08-29', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('495', '31', '机织加工费', '323', '王良军(君英)', null, '未选择', null, '未选择', '100000', '预付。机织加工费', '2015-08-29', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('496', '11', '加工费', '324', '周增土(龙金丽手工费)', null, '未选择', null, '未选择', '50000', '预付手工加工费', '2015-08-29', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('497', '11', '加工费', '108', '何红梅', null, '未选择', null, '未选择', '65000', '预付款', '2015-08-29', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('498', '2', '材料款', '305', '东阳市巍山晨光丝线厂', null, '未选择', null, '未选择', '100000', '金银丝线，沈权伟', '2015-08-28', '2015-08-30', '2015-08-30', '14', '', '100000');
+INSERT INTO `tb_expense_income` VALUES ('499', '2', '材料款', '127', '桐庐南源纺织有限公司', null, '未选择', null, '未选择', '200000', '纱线款', '2015-08-28', '2015-08-30', '2015-08-30', '14', '', '200000');
+INSERT INTO `tb_expense_income` VALUES ('500', '9', '染色费', '125', '桐庐金利印染有限公司', null, '未选择', null, '未选择', '100000', '', '2015-08-28', '2015-08-30', '2015-08-30', '14', '', '100000');
+INSERT INTO `tb_expense_income` VALUES ('501', '33', '烫工费', '326', '朱晓刚', null, '未选择', null, '未选择', '150000', '烫工费', '2015-08-28', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('502', '11', '加工费', '327', '郭亭芳(绣花加工)', null, '未选择', null, '未选择', '6680', '绣花加工费，结清', '2015-08-27', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('503', '31', '机织加工费', '328', '徐城林(机织加工)', null, '未选择', null, '未选择', '83138', '结清', '2015-08-30', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('504', '17', '借款', '329', '申屠万军', null, '未选择', null, '未选择', '100000', '借款', '2015-08-30', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('505', '11', '加工费', '330', '陈建生(秋月手工)', null, '未选择', null, '未选择', '1436', '手工费，结清', '2015-08-30', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('506', '31', '机织加工费', '331', '王爱民', null, '未选择', null, '未选择', '11900', '结清。机织', '2015-08-30', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('507', '11', '加工费', '332', '王培龙(王龙套口)', null, '未选择', null, '未选择', '1534', '套口加工费', '2015-08-30', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('508', '31', '机织加工费', '333', '潘立明', null, '未选择', null, '未选择', '10906', '机织加工费，结清', '2015-08-30', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('509', '12', '设备费', '334', '桐庐县横村镇兴通水电材料商行', null, '未选择', null, '未选择', '8791.5', '电器材料费', '2015-08-30', '2015-08-30', '2015-08-30', '14', '', '8791.5');
+INSERT INTO `tb_expense_income` VALUES ('510', '17', '借款', '335', '高清堂', null, '未选择', null, '未选择', '30000', '吊染费', '2015-08-30', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('511', '31', '机织加工费', '336', '林星付', null, '未选择', null, '未选择', '8980.91', '林星福机织加工费，结清', '2015-08-30', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('512', '11', '加工费', '337', '张玉贞', null, '未选择', null, '未选择', '8100', '接标', '2015-08-30', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('513', '17', '借款', '133', '王宇平', null, '未选择', null, '未选择', '5000', '借款', '2015-08-30', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('514', '12', '设备费', '338', '许国云(电梯)', null, '未选择', null, '未选择', '3600', '电梯保养费', '2015-08-30', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('515', '31', '机织加工费', '339', '张忠华', null, '未选择', null, '未选择', '32554.91', '机织加工 结清', '2015-08-30', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('516', '31', '机织加工费', '340', '袁秀梅', null, '未选择', null, '未选择', '2912', '现金支出，结清', '2015-08-28', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('517', '34', '电工费', '341', '王云良', null, '未选择', null, '未选择', '5300', '现金支出，结清', '2015-08-27', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('518', '24', '汽车油费', '249', '中石化浙A.D8508阿良', null, '未选择', null, '未选择', '3000', '', '2015-08-30', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('519', '11', '加工费', '344', '陈命形(手工)', null, '未选择', null, '未选择', '8531', '手工', '2015-08-30', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('520', '11', '加工费', '343', '胡尧来(平车)', null, '未选择', null, '未选择', '12139', '做毛领，结清', '2015-08-30', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('521', '11', '加工费', '345', '申屠永定(江荣妹手工)', null, '未选择', null, '未选择', '34000', '手工，结清，44000扣除一万元去年借款', '2015-08-30', '2015-08-30', '2015-08-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('522', '16', '货款', '258', '上海汉森环宇进出口有限公司', '6', null, null, null, '22230', '货款A4119', '2015-08-21', '2015-09-01', '2015-09-01', '14', '', '22230');
+INSERT INTO `tb_expense_income` VALUES ('523', '16', '货款', '270', '杭州六昇服饰有限公司', '3', null, null, null, '18409.7', '货款', '2015-08-21', '2015-09-01', '2015-09-01', '14', '', '18409.7');
+INSERT INTO `tb_expense_income` VALUES ('524', '16', '货款', '268', '杭州翔天实业有限公司', '1', null, null, null, '52430', '货款，转桐庐农村合作银行横村支行 货', '2015-08-21', '2015-09-01', '2015-09-01', '14', '', '52430');
+INSERT INTO `tb_expense_income` VALUES ('525', '16', '货款', '269', '杭州舜斓贸易有限公司', '5', null, null, null, '76800', '', '2015-08-26', '2015-09-01', '2015-09-01', '14', '', '76800');
+INSERT INTO `tb_expense_income` VALUES ('526', '16', '货款', '279', '浙江一达通企业服务有限公司', '1', null, null, null, '80345.92', '货款 货款', '2015-08-26', '2015-09-01', '2015-09-01', '14', '', '80345.92');
+INSERT INTO `tb_expense_income` VALUES ('527', '16', '货款', '272', '东方国际集团上海利泰进出口有限公司', '1', null, null, null, '665220', '货款 货款', '2015-08-26', '2015-09-01', '2015-09-01', '14', '', '665220');
+INSERT INTO `tb_expense_income` VALUES ('528', '16', '货款', '261', '航天通信控股集团股份有限公司', '1', null, null, null, '46800', '货款，转桐庐农村合作银行横村支行', '2015-08-26', '2015-09-01', '2015-09-01', '14', '', '46800');
+INSERT INTO `tb_expense_income` VALUES ('529', '28', '辅料款_代付', '276', '浙江悦和实业有限公司', '3', null, null, null, '99790', '货款 有辅料款，也有货款', '2015-08-26', '2015-09-01', '2015-09-01', '14', '', '99790');
+INSERT INTO `tb_expense_income` VALUES ('530', '16', '货款', '266', '浙江省轻纺集团进出口有限公司', '3', null, null, null, '88106.4', '', '2015-08-27', '2015-09-01', '2015-09-01', '14', '', '88106.4');
+INSERT INTO `tb_expense_income` VALUES ('531', '16', '货款', '263', '杭州市粮油食品土畜产进出口有限公司', '7', null, null, null, '26790', '货款转汇至横街支行', '2015-08-27', '2015-09-01', '2015-09-01', '14', '', '26790');
+INSERT INTO `tb_expense_income` VALUES ('532', '28', '辅料款_代付', '259', '余姚联合纺织进出口有限公司', '3', null, null, null, '2500', '货款', '2015-08-27', '2015-09-01', '2015-09-01', '14', '', '2500');
+INSERT INTO `tb_expense_income` VALUES ('533', '16', '货款', '265', '上海豪利杰国际贸易有限公司', '2', null, null, null, '343427.04', '货款 货款', '2015-08-28', '2015-09-01', '2015-09-01', '14', '', '343427.04');
+INSERT INTO `tb_expense_income` VALUES ('534', '16', '货款', '259', '余姚联合纺织进出口有限公司', '1', null, null, null, '167774.4', '货款', '2015-08-28', '2015-09-01', '2015-09-01', '14', '', '167774.4');
+INSERT INTO `tb_expense_income` VALUES ('535', '16', '货款', '268', '杭州翔天实业有限公司', '1', null, null, null, '12623.52', '货款，转桐庐农村合作银行横村支行', '2015-08-28', '2015-09-01', '2015-09-01', '14', '', '12623.52');
+INSERT INTO `tb_expense_income` VALUES ('536', '16', '货款', '268', '杭州翔天实业有限公司', '1', null, null, null, '62387.5', '货款，转桐庐农村合作银行横村支行 货', '2015-08-28', '2015-09-01', '2015-09-01', '14', '', '62387.5');
+INSERT INTO `tb_expense_income` VALUES ('537', '16', '货款', '272', '东方国际集团上海利泰进出口有限公司', '1', null, null, null, '123456.8', '货款 货款', '2015-09-01', '2015-09-01', '2015-09-01', '14', '', '123456.8');
+INSERT INTO `tb_expense_income` VALUES ('538', '11', '加工费', '346', '柴玉萍(代黄浦家)', null, '未选择', null, '未选择', '750', '验手套，现金支出，结清', '2015-08-31', '2015-09-01', '2015-09-01', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('540', '11', '加工费', '348', '岑平(手工)', null, '未选择', null, '未选择', '1583.4', '手工费，现金支出，结清', '2015-08-31', '2015-09-01', '2015-09-01', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('541', '11', '加工费', '347', '陈小平(小店)', null, '未选择', null, '未选择', '390', '贴纸，现金支出，结清', '2015-08-31', '2015-09-01', '2015-09-01', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('543', '29', '运输费', '350', '陈水钧', null, '未选择', null, '未选择', '2220', '运输费+住宿费+下车费 ， 现金付清', '2015-08-30', '2015-09-01', '2015-09-01', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('544', '11', '加工费', '349', '彩兰(妈)', null, '未选择', null, '未选择', '1001.6', '手工加工费，现金支出', '2015-08-31', '2015-09-01', '2015-09-01', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('545', '11', '加工费', '351', '钱潮英', null, '未选择', null, '未选择', '5996', '手工加工费，现金付清', '2015-08-31', '2015-09-01', '2015-09-01', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('546', '11', '加工费', '352', '喻孝娟', null, '未选择', null, '未选择', '9200', '工资+运费，开现金支票', '2015-08-31', '2015-09-01', '2015-09-01', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('547', '11', '加工费', '353', '毛香娣', null, '未选择', null, '未选择', '576', '合股打样加工费', '2015-08-31', '2015-09-01', '2015-09-01', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('548', '11', '加工费', '354', '王菊芳', null, '未选择', null, '未选择', '1438.8', '手工加工费，现金支出', '2015-09-01', '2015-09-01', '2015-09-01', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('549', '11', '加工费', '355', '章桂金', null, '未选择', null, '未选择', '1598.7', '手工加工费，现金支出', '2015-09-01', '2015-09-01', '2015-09-01', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('550', '11', '加工费', '356', '银仙(缝工)', null, '未选择', null, '未选择', '645.2', '手工加工费，现金支出', '2015-08-31', '2015-09-01', '2015-09-01', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('551', '11', '加工费', '357', '兰花', null, '未选择', null, '未选择', '11295.6', '手工加工费，现金支出。缝星星定位等', '2015-09-01', '2015-09-01', '2015-09-01', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('552', '11', '加工费', '358', '正梅', null, '未选择', null, '未选择', '7986.2', '现金支出。订珠子、铁片、针、星星等加工费', '2015-09-01', '2015-09-01', '2015-09-01', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('553', '11', '加工费', '360', '桂英', null, '未选择', null, '未选择', '3942', '手工加工费，现金支出', '2015-09-01', '2015-09-02', '2015-09-02', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('555', '11', '加工费', '351', '钱潮英', null, '未选择', null, '未选择', '74.8', '手工加工费，现金支出。（补单一张）', '2015-09-01', '2015-09-02', '2015-09-02', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('556', '11', '加工费', '362', '曹英', null, '未选择', null, '未选择', '168', '手工缝铁片加工费', '2015-09-01', '2015-09-02', '2015-09-02', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('557', '1', '辅料款', '363', '王娣', '3', '杭州六昇服饰有限公司', null, '未选择', '500', '公司用，帮公司买透明胶袋', '2015-09-01', '2015-09-02', '2015-09-02', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('558', '31', '机织加工费', '364', '杨继剑', null, '未选择', null, '未选择', '50000', '经编加工费。预付', '2015-08-30', '2015-09-02', '2015-09-02', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('559', '2', '材料款', '235', '江阴市能信纱业有限公司', null, '未选择', null, '未选择', '25000', '材料款', '2015-08-31', '2015-09-02', '2015-09-02', '14', '', '25000');
+INSERT INTO `tb_expense_income` VALUES ('560', '14', '自购辅料款', '228', '童建英(王勤做胶带)', null, '未选择', null, '未选择', '100000', '做胶带，预付款', '2015-08-31', '2015-09-02', '2015-09-02', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('561', '11', '加工费', '366', '王雪林(缝手工加工费)', null, '未选择', null, '未选择', '67200', '缝手工+下料 加工费，结清', '2015-08-31', '2015-09-02', '2015-09-02', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('562', '31', '机织加工费', '367', '黄建明(机织加工)', null, '未选择', null, '未选择', '12149', '机织加工费', '2015-08-31', '2015-09-02', '2015-09-02', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('563', '31', '机织加工费', '368', '岑国军(机织加工)', null, '未选择', null, '未选择', '10931.9', '机织加工费', '2015-08-31', '2015-09-02', '2015-09-02', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('564', '31', '机织加工费', '250', '吴柏富', null, '未选择', null, '未选择', '30000', '预支', '2015-08-31', '2015-09-02', '2015-09-02', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('565', '11', '加工费', '369', '叶小妹(胡斌套口)', null, '未选择', null, '未选择', '3230', '套口，结清', '2015-08-31', '2015-09-02', '2015-09-02', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('566', '11', '加工费', '370', '程小兵(陈峰拉毛)', null, '未选择', null, '未选择', '22600', '陈峰拉毛', '2015-08-31', '2015-09-02', '2015-09-02', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('567', '11', '加工费', '371', '徐小生(小生合股)', null, '未选择', null, '未选择', '4440', '合股加工费，结清', '2015-08-31', '2015-09-02', '2015-09-02', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('568', '11', '加工费', '372', '邵雪锋(平车)', null, '未选择', null, '未选择', '41600', '平车加工费', '2015-08-31', '2015-09-02', '2015-09-02', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('569', '35', '伙食费', '373', '李小红(百步岗)', null, '未选择', null, '未选择', '2500', '百步岗客人吃饭（王宇平、王和法），结清', '2015-08-31', '2015-09-02', '2015-09-02', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('570', '17', '借款', '374', '叶峰萍(翁黎明)', null, '未选择', null, '未选择', '200000', '借款，翁黎明', '2015-08-31', '2015-09-02', '2015-09-02', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('571', '11', '加工费', '375', '张家宽(张柳刚接指)', null, '未选择', null, '未选择', '13300', '接指加工费，结清', '2015-08-31', '2015-09-02', '2015-09-02', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('572', '11', '加工费', '376', '陈文源(文云手工)', null, '未选择', null, '未选择', '21600', '手工费，结清', '2015-08-31', '2015-09-02', '2015-09-02', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('573', '4', '水费', '139', '浙江桑德富春水务开发有限公司', null, '未选择', null, '未选择', '767.55', '水费+污水费', '2015-08-31', '2015-09-02', '2015-09-02', '14', '', '767.55');
+INSERT INTO `tb_expense_income` VALUES ('575', '2', '材料款', '291', '东莞市辉美纺织品有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '4080', '六昇pieces大货 1800条马海毛提花围巾纱线预付款（定金）', '2015-08-28', '2015-09-02', '2015-09-02', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('576', '31', '机织加工费', '377', '江波(机织加工)', null, '未选择', null, '未选择', '19816.7', '机织加工费', '2015-09-01', '2015-09-02', '2015-09-02', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('577', '11', '加工费', '378', '邵贞云(珍云平车)', null, '未选择', null, '未选择', '20000', '平车加工费，预付', '2015-09-01', '2015-09-02', '2015-09-02', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('578', '31', '机织加工费', '379', '徐高彬(胡亚萍机织)', null, '未选择', null, '未选择', '40000', '机织加工费', '2015-08-31', '2015-09-02', '2015-09-02', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('579', '31', '机织加工费', '380', '陆小珍(机织加工)', null, '未选择', null, '未选择', '2484', '机织加工费，GIII 手工帽+打样费 ， 结清', '2015-09-02', '2015-09-02', '2015-09-02', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('580', '37', '退款_支出', '381', '王春雅(卡玫拉)', '8', '绍兴卡玫拉服饰', null, '未选择', '5100', '卡玫拉多开发票退款 ， 余芬私人帐号转', '2015-09-02', '2015-09-02', '2015-09-02', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('581', '11', '加工费', '382', '姚金水(袁美丽套口加工)', null, '未选择', null, '未选择', '10672', '袁美丽套口加工费，结清', '2015-09-02', '2015-09-02', '2015-09-02', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('582', '31', '机织加工费', '383', '姚拥军(机织加工)', null, '未选择', null, '未选择', '40639.53', 'LPP MB504的机织加工费，结清', '2015-09-03', '2015-09-05', '2015-09-05', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('583', '1', '辅料款', '342', '上海新异服装辅料有限公司', '1', '杭州翔天实业有限公司', '54', '翟佳', '3087', '辅料款', '2015-09-02', '2015-09-05', '2015-09-05', '14', '', '3087');
+INSERT INTO `tb_expense_income` VALUES ('584', '31', '机织加工费', '224', '巴柳青', null, '未选择', null, '未选择', '4085.24', '机织费，结清', '2015-09-02', '2015-09-05', '2015-09-05', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('585', '31', '机织加工费', '384', '邱罗平(邱路平机织)', null, '未选择', null, '未选择', '11715.49', '机织加工费，结清', '2015-09-02', '2015-09-05', '2015-09-05', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('586', '11', '加工费', '385', '方群平(接指加工)', null, '未选择', null, '未选择', '33495', '接指加工费，结清', '2015-09-02', '2015-09-05', '2015-09-05', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('587', '30', '倒纱费', '299', '袁来英', null, '未选择', null, '未选择', '50000', '倒纱费预付', '2015-09-05', '2015-09-05', '2015-09-05', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('588', '13', '验厂费用', '386', '华测检测认证集团股份有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '2945', 'KMART质量验厂，费用与六昇平摊', '2015-09-04', '2015-09-05', '2015-09-05', '14', '', '2945');
+INSERT INTO `tb_expense_income` VALUES ('589', '13', '验厂费用', '387', '通标标准技术服务有限公司杭州分公司', '3', '杭州六昇服饰有限公司', null, '未选择', '3839.85', 'KMART人权验厂，费用与六昇平摊', '2015-09-04', '2015-09-05', '2015-09-05', '14', '', '3839.85');
+INSERT INTO `tb_expense_income` VALUES ('590', '1', '辅料款', '149', '恩埃赛文数据处理(杭州)有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '5333.3', '', '2015-09-04', '2015-09-05', '2015-09-05', '14', '', '5333.3');
+INSERT INTO `tb_expense_income` VALUES ('591', '1', '辅料款', '182', '上海钮纽服装辅料有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '1488.43', '', '2015-09-04', '2015-09-05', '2015-09-05', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('592', '1', '辅料款', '188', '上海雪玮服饰辅料有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '4384.11', '', '2015-09-04', '2015-09-05', '2015-09-05', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('593', '1', '辅料款', '171', '上海彩旭印务有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '2849.7', '', '2015-09-04', '2015-09-05', '2015-09-05', '14', '', '2849.7');
+INSERT INTO `tb_expense_income` VALUES ('594', '1', '辅料款', '170', '青岛瑞豪包装有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '719.28', '', '2015-09-04', '2015-09-05', '2015-09-05', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('595', '18', '黄圣河材料款', '131', '桐庐迦南针织有限公司', null, '未选择', null, '未选择', '13310', '黄圣河材料款', '2015-09-03', '2015-09-05', '2015-09-05', '14', '', '13310');
+INSERT INTO `tb_expense_income` VALUES ('596', '1', '辅料款', '191', '上海易轩干燥剂有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '864.2', '', '2015-09-10', '2015-09-13', '2015-09-13', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('597', '1', '辅料款', '165', '南通中海印刷有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '892.64', '', '2015-09-10', '2015-09-13', '2015-09-13', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('598', '1', '辅料款', '188', '上海雪玮服饰辅料有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '3003.56', '', '2015-09-10', '2015-09-13', '2015-09-13', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('599', '1', '辅料款', '171', '上海彩旭印务有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '7221.6', '', '2015-09-10', '2015-09-13', '2015-09-13', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('600', '11', '加工费', '388', '钱玉霞', null, '未选择', null, '未选择', '15800', '平车加工费，结清', '2015-09-12', '2015-09-13', '2015-09-13', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('601', '17', '借款', '390', '王和胜', null, '未选择', null, '未选择', '5000', '余芬私人帐号转', '2015-09-09', '2015-09-13', '2015-09-13', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('602', '3', '纸箱费', '391', '桐庐方兴印刷制品有限公司', null, '未选择', null, '未选择', '1500', '纸箱费，付现金。吴伟娟收 。 1590.44元', '2015-09-12', '2015-09-13', '2015-09-13', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('603', '1', '辅料款', '392', '深圳悦黄商标有限公司', '1', '杭州翔天实业有限公司', '9', '陈丹莉', '243.11', '翔天陈丹莉三角巾辅料款', '2015-09-09', '2015-09-13', '2015-09-13', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('604', '2', '材料款', '291', '东莞市辉美纺织品有限公司', null, '未选择', null, '未选择', '9432', '丹麦pcs大货纱线款', '2015-09-08', '2015-09-13', '2015-09-13', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('605', '20', '缺省费', '393', '宁波俊宇纤维科技有限公司', null, '未选择', null, '未选择', '200000', '缺省费', '2015-09-08', '2015-09-13', '2015-09-13', '14', '', '200000');
+INSERT INTO `tb_expense_income` VALUES ('606', '11', '加工费', '239', '余海燕', null, '未选择', null, '未选择', '58750', '手套检验费', '2015-09-10', '2015-09-13', '2015-09-13', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('607', '11', '加工费', '394', '刘衍庆(李云烫钻费)', null, '未选择', null, '未选择', '35800', '李云烫钻加工费，结清', '2015-09-12', '2015-09-13', '2015-09-13', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('608', '14', '自购辅料款', '389', '桐庐永大贸易有限公司', null, '未选择', null, '未选择', '613', '胶带，自购辅料款', '2015-09-12', '2015-09-13', '2015-09-13', '14', '', '613');
+INSERT INTO `tb_expense_income` VALUES ('609', '6', '快递服务', '209', '浙江顺丰速运有限公司', null, '未选择', null, '未选择', '4435', '9.7开票', '2015-09-12', '2015-09-13', '2015-09-13', '14', '', '4435');
+INSERT INTO `tb_expense_income` VALUES ('610', '11', '加工费', '395', '陆锡安(手工加工)', null, '未选择', null, '未选择', '10000', '手工加工费，现金支出，预付', '2015-09-01', '2015-09-13', '2015-09-13', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('611', '11', '加工费', '395', '陆锡安(手工加工)', null, '未选择', null, '未选择', '16680', '手工加工费，余芬现金支出，结清', '2015-09-13', '2015-09-13', '2015-09-13', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('612', '20', '缺省费', '396', '建湖县联烨化纤纺织有限公司', null, '未选择', null, '未选择', '504000', '材料款，缺省，汪松娣', '2015-09-14', '2015-09-14', '2015-09-14', '14', '', '504000');
+INSERT INTO `tb_expense_income` VALUES ('613', '11', '加工费', '397', '卢舟(罗舟手工+机织)', null, '未选择', null, '未选择', '42040', '结清，手工+机织加工费', '2015-09-15', '2015-09-16', '2015-09-16', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('614', '11', '加工费', '398', '周君晓(洪林平车)', null, '未选择', null, '未选择', '23946', '平车加工费', '2015-09-15', '2015-09-16', '2015-09-16', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('615', '3', '纸箱费', '128', '桐庐星火包装厂', null, '未选择', null, '未选择', '92823.68', '2014年度结清，纸箱费（刘飞）', '2015-09-16', '2015-09-17', '2015-09-17', '14', '', '92823.68');
+INSERT INTO `tb_expense_income` VALUES ('616', '15', '其他支出', '399', '方芝兰', null, '未选择', null, '未选择', '27072', '富伟财产保险费（人寿）', '2015-09-16', '2015-09-17', '2015-09-17', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('617', '25', '汽车修理费', '243', '桐庐万泰汽车修理有限公司', null, '未选择', null, '未选择', '3147', 'K8695', '2015-09-15', '2015-09-17', '2015-09-17', '14', '', '3147');
+INSERT INTO `tb_expense_income` VALUES ('618', '11', '加工费', '400', '吴小丽(小利平车)', null, '未选择', null, '未选择', '1995', '平车加工费，结清', '2015-09-17', '2015-09-17', '2015-09-17', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('619', '1', '辅料款', '191', '上海易轩干燥剂有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '510.4', '', '2015-09-17', '2015-09-18', '2015-09-18', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('620', '1', '辅料款', '183', '上海诺同服饰辅料有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '1215.9', '', '2015-09-17', '2015-09-18', '2015-09-18', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('621', '1', '辅料款', '182', '上海钮纽服装辅料有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '147.29', '', '2015-09-17', '2015-09-18', '2015-09-18', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('622', '1', '辅料款', '188', '上海雪玮服饰辅料有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '371.04', '', '2015-09-17', '2015-09-18', '2015-09-18', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('623', '11', '加工费', '108', '何红梅', null, '未选择', null, '未选择', '43800', '手工加工费，9.1前结清', '2015-09-18', '2015-09-18', '2015-09-18', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('624', '11', '加工费', '378', '邵贞云(珍云平车)', null, '未选择', null, '未选择', '4300', '平车加工费，结清', '2015-09-18', '2015-09-18', '2015-09-18', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('625', '4', '水费', '139', '浙江桑德富春水务开发有限公司', null, '未选择', null, '未选择', '392.7', '水费269.5+污水费123.2', '2015-09-18', '2015-09-18', '2015-09-18', '14', '', '392.7');
+INSERT INTO `tb_expense_income` VALUES ('626', '11', '加工费', '401', '胡杭平(杭平平车加工)', null, '未选择', null, '未选择', '10630', '平车加工费，结清', '2015-09-18', '2015-09-18', '2015-09-18', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('627', '14', '自购辅料款', '402', '杭州拱康医疗科技有限公司', null, '未选择', null, '未选择', '26667.4', '挂钩', '2015-09-18', '2015-09-18', '2015-09-18', '14', '', '26667.4');
+INSERT INTO `tb_expense_income` VALUES ('628', '14', '自购辅料款', '234', '桐庐红华塑料有限公司', null, '未选择', null, '未选择', '365', '挂钩，结清', '2015-09-18', '2015-09-18', '2015-09-18', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('629', '11', '加工费', '315', '卢荷瑛(邱方向套口费用)', null, '未选择', null, '未选择', '22000', '邱方向套口，结清', '2015-09-21', '2015-09-22', '2015-09-22', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('630', '11', '加工费', '317', '沈燕平(立中套口)', null, '未选择', null, '未选择', '11700', '立中套口加工费，结清', '2015-09-21', '2015-09-22', '2015-09-22', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('631', '11', '加工费', '319', '朱小马(套口)', null, '未选择', null, '未选择', '14200', '朱小马套口，结清', '2015-09-21', '2015-09-22', '2015-09-22', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('632', '25', '汽车修理费', '252', '富阳市奥达汽车销售服务有限公司', null, '未选择', null, '未选择', '1560', '1EY27汽车维修费', '2015-09-23', '2015-09-23', '2015-09-23', '14', '', '1560');
+INSERT INTO `tb_expense_income` VALUES ('634', '2', '材料款', '296', '桐庐盛兴贸易有限公司', '1', '杭州翔天实业有限公司', '4', '钱红莲', '30000', '翔天78189，36支双股丝光晴材料预付款 ， 胡祖群', '2015-09-23', '2015-09-23', '2015-09-23', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('635', '1', '辅料款', '147', '东莞东兴商标织绣有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '107.04', '', '2015-09-24', '2015-09-24', '2015-09-24', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('636', '1', '辅料款', '149', '恩埃赛文数据处理(杭州)有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '326.86', '', '2015-09-24', '2015-09-24', '2015-09-24', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('637', '1', '辅料款', '182', '上海钮纽服装辅料有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '85.6', '', '2015-09-24', '2015-09-24', '2015-09-24', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('638', '1', '辅料款', '205', '张家港保税区保点标签有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '12190.77', '', '2015-09-24', '2015-09-24', '2015-09-24', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('639', '1', '辅料款', '183', '上海诺同服饰辅料有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '824', '', '2015-09-24', '2015-09-24', '2015-09-24', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('640', '1', '辅料款', '191', '上海易轩干燥剂有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '160.6', '', '2015-09-24', '2015-09-24', '2015-09-24', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('641', '1', '辅料款', '186', '上海西文服饰有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '37540.46', '', '2015-09-24', '2015-09-24', '2015-09-24', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('642', '16', '货款', '268', '杭州翔天实业有限公司', null, null, null, null, '62387.5', '货款，转桐庐农村合作银行横村支行 货', '2015-09-01', '2015-09-26', '2015-09-26', '6', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('643', '16', '货款', '259', '余姚联合纺织进出口有限公司', '1', null, null, null, '113631.6', '货款', '2015-09-06', '2015-09-26', '2015-09-26', '6', '', '113631.6');
+INSERT INTO `tb_expense_income` VALUES ('644', '16', '货款', '278', '宁波雅励进出口有限公司', '9', null, null, null, '16805', '15AL907货款', '2015-09-10', '2015-09-26', '2015-09-26', '6', '', '16805');
+INSERT INTO `tb_expense_income` VALUES ('645', '16', '货款', '300', '上海锦弘纺织品有限公司', null, null, null, null, '194343.86', '7月发票货款 7月发票货款', '2015-09-10', '2015-09-26', '2015-09-26', '6', '', '194343.86');
+INSERT INTO `tb_expense_income` VALUES ('646', '16', '货款', '277', '深圳市一达通企业服务有限公司', '2', null, null, null, '260910.72', '货款 货款', '2015-09-11', '2015-09-26', '2015-09-26', '6', '', '260910.72');
+INSERT INTO `tb_expense_income` VALUES ('647', '16', '货款', '266', '浙江省轻纺集团进出口有限公司', '3', null, null, null, '22786.5', '普通贷记来账自动入账', '2015-09-14', '2015-09-26', '2015-09-26', '6', '', '22786.5');
+INSERT INTO `tb_expense_income` VALUES ('648', '16', '货款', '278', '宁波雅励进出口有限公司', '9', null, null, null, '64803.94', '15AL044和059和522货款', '2015-09-17', '2015-09-26', '2015-09-26', '6', '', '64803.94');
+INSERT INTO `tb_expense_income` VALUES ('649', '16', '货款', '272', '东方国际集团上海利泰进出口有限公司', '1', null, null, null, '32400', '货款', '2015-09-18', '2015-09-26', '2015-09-26', '6', '', '32400');
+INSERT INTO `tb_expense_income` VALUES ('650', '28', '辅料款_代付', '276', '浙江悦和实业有限公司', null, null, null, null, '1027648.2', '货款', '2015-09-23', '2015-09-26', '2015-09-26', '6', '', '56828.2');
+INSERT INTO `tb_expense_income` VALUES ('651', '16', '货款', '259', '余姚联合纺织进出口有限公司', '1', null, null, null, '343712.71', '货款 货款', '2015-09-23', '2015-09-26', '2015-09-26', '6', '', '343712.71');
+INSERT INTO `tb_expense_income` VALUES ('652', '16', '货款', '266', '浙江省轻纺集团进出口有限公司', '3', null, null, null, '851337.3', '货款', '2015-09-24', '2015-09-26', '2015-09-26', '6', '', '851337.3');
+INSERT INTO `tb_expense_income` VALUES ('653', '16', '货款', '405', '上海逸韵服饰有限公司', null, null, null, null, '41588.4', '货款，转桐庐农村合作银行横村支行', '2015-09-24', '2015-09-26', '2015-09-26', '6', '', '41558.4');
+INSERT INTO `tb_expense_income` VALUES ('654', '28', '辅料款_代付', '259', '余姚联合纺织进出口有限公司', '3', null, null, null, '45000', '货款', '2015-09-25', '2015-09-26', '2015-09-26', '6', '', '45000');
+INSERT INTO `tb_expense_income` VALUES ('655', '11', '加工费', '406', '田红英(红英平车)', null, '未选择', null, '未选择', '1997', '平车加工费', '2015-09-28', '2015-09-29', '2015-09-29', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('656', '2', '材料款', '197', '绍兴市柯桥区叶展纺织有限公司', null, '未选择', null, '未选择', '43904', '针织布', '2015-09-24', '2015-09-29', '2015-09-29', '14', '', '43904');
+INSERT INTO `tb_expense_income` VALUES ('657', '29', '运输费', '407', '史爱莲', null, '未选择', null, '未选择', '500', '翔天运费（日本单）', '2015-09-27', '2015-09-29', '2015-09-29', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('658', '2', '材料款', '127', '桐庐南源纺织有限公司', null, '未选择', null, '未选择', '200000', '', '2015-09-29', '2015-09-30', '2015-09-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('659', '17', '借款', '326', '朱晓刚', null, '未选择', null, '未选择', '10000', '', '2015-09-29', '2015-09-30', '2015-09-30', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('660', '11', '加工费', '408', '胡建平(机织+倒纱)', null, '未选择', null, '未选择', '16500', 'MB504围脖加工费+倒纱费', '2015-10-14', '2015-10-15', '2015-10-15', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('661', '1', '辅料款', '409', '张顺(棉纱帽)', '1', '杭州翔天实业有限公司', '55', '张文莉', '150', '余芬私人帐号转', '2015-10-12', '2015-10-15', '2015-10-15', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('662', '2', '材料款', '410', '杨柯庭', null, '未选择', null, '未选择', '500', '现金支出', '2015-10-09', '2015-10-15', '2015-10-15', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('663', '11', '加工费', '411', '彭祥云(平车加工)', null, '未选择', null, '未选择', '4322.4', '平车加工费', '2015-09-30', '2015-10-15', '2015-10-15', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('664', '11', '加工费', '412', '桐庐伟丰压花有限公司', null, '未选择', null, '未选择', '6056', '印花加工费', '2015-09-30', '2015-10-15', '2015-10-15', '14', '', '6056');
+INSERT INTO `tb_expense_income` VALUES ('665', '14', '自购辅料款', '191', '上海易轩干燥剂有限公司', null, '未选择', null, '未选择', '170', '张明霞用，自购', '2015-10-08', '2015-10-15', '2015-10-15', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('666', '1', '辅料款', '205', '张家港保税区保点标签有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '2141.63', '', '2015-10-09', '2015-10-15', '2015-10-15', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('667', '1', '辅料款', '182', '上海钮纽服装辅料有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '176', '', '2015-10-09', '2015-10-15', '2015-10-15', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('668', '11', '加工费', '413', '祝志平(机织加工)', null, '未选择', null, '未选择', '3419.2', '', '2015-10-13', '2015-10-15', '2015-10-15', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('669', '1', '辅料款', '180', '上海美声服饰辅料有限公司', '1', '杭州翔天实业有限公司', '16', '黄璐', '1705.82', '', '2015-10-14', '2015-10-15', '2015-10-15', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('670', '29', '运输费', '414', '沈松根(运费)', null, '未选择', null, '未选择', '3480', '结清', '2015-10-06', '2015-10-15', '2015-10-15', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('671', '9', '染色费', '113', '建德云珍线业有限公司', null, '未选择', null, '未选择', '57549.2', '染色加工费，姜利纲', '2015-09-29', '2015-10-15', '2015-10-15', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('673', '1', '辅料款', '293', '庄贤明', '6', '永盛创业有限公司', null, '未选择', '2055', '永盛袜子内里及辅料剩余款', '2015-10-06', '2015-10-15', '2015-10-15', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('674', '2', '材料款', '305', '东阳市巍山晨光丝线厂', null, '未选择', null, '未选择', '67990.1', '沈全伟，结清。金银丝线，扣除100条件围巾23元/条，共扣2300元', '2015-10-07', '2015-10-15', '2015-10-15', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('675', '2', '材料款', '131', '桐庐迦南针织有限公司', null, '未选择', null, '未选择', '14762', '材料款', '2015-10-12', '2015-10-15', '2015-10-15', '14', '', '14762');
+INSERT INTO `tb_expense_income` VALUES ('676', '20', '缺省费', '415', '建湖艺龙纺织有限公司', null, '未选择', null, '未选择', '500000', '货款', '2015-10-12', '2015-10-15', '2015-10-15', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('677', '11', '加工费', '250', '吴柏富', null, '未选择', null, '未选择', '20000', '预付手套机织加工费', '2015-10-12', '2015-10-15', '2015-10-15', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('678', '11', '加工费', '416', '徐林标(机织加工)', null, '未选择', null, '未选择', '15126.37', '', '2015-10-09', '2015-10-15', '2015-10-15', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('679', '11', '加工费', '417', '赵炳军(冰军平车加工)', null, '未选择', null, '未选择', '5250', '平车加工费', '2015-10-06', '2015-10-15', '2015-10-15', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('680', '6', '快递服务', '209', '浙江顺丰速运有限公司', null, '未选择', null, '未选择', '1773', '', '2015-10-14', '2015-10-15', '2015-10-15', '14', '', '1773');
+INSERT INTO `tb_expense_income` VALUES ('681', '12', '设备费', '418', '王炜平', null, '未选择', null, '未选择', '2600', '套口机', '2015-10-14', '2015-10-15', '2015-10-15', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('682', '1', '辅料款', '180', '上海美声服饰辅料有限公司', '1', '杭州翔天实业有限公司', '16', '黄璐', '1476.9', '代付', '2015-10-15', '2015-10-15', '2015-10-15', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('683', '1', '辅料款', '163', '莉晰(上海)贸易有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '298.94', '六昇辅料款', '2015-10-15', '2015-10-15', '2015-10-15', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('684', '1', '辅料款', '186', '上海西文服饰有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '5497.61', '六昇辅料款', '2015-10-15', '2015-10-15', '2015-10-15', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('685', '1', '辅料款', '191', '上海易轩干燥剂有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '776.6', '六昇辅料款', '2015-10-15', '2015-10-15', '2015-10-15', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('686', '1', '辅料款', '171', '上海彩旭印务有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '1401.17', '六昇辅料款', '2015-10-15', '2015-10-15', '2015-10-15', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('687', '1', '辅料款', '188', '上海雪玮服饰辅料有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '391.05', '六昇辅料款', '2015-10-15', '2015-10-15', '2015-10-15', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('688', '1', '辅料款', '207', '张家港鸿运织标有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '300', '六昇辅料款', '2015-10-15', '2015-10-15', '2015-10-15', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('689', '1', '辅料款', '170', '青岛瑞豪包装有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '2839.38', '六昇辅料款', '2015-10-15', '2015-10-15', '2015-10-15', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('690', '1', '辅料款', '183', '上海诺同服饰辅料有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '3311.55', '六昇辅料款', '2015-10-15', '2015-10-15', '2015-10-15', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('691', '1', '辅料款', '149', '恩埃赛文数据处理(杭州)有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '13605.15', '六昇辅料款', '2015-10-15', '2015-10-15', '2015-10-15', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('692', '1', '辅料款', '147', '东莞东兴商标织绣有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '1188.64', '六昇辅料款', '2015-10-15', '2015-10-15', '2015-10-15', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('693', '1', '辅料款', '205', '张家港保税区保点标签有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '6008.42', '六昇辅料款', '2015-10-15', '2015-10-15', '2015-10-15', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('694', '1', '辅料款', '182', '上海钮纽服装辅料有限公司', '3', '杭州六昇服饰有限公司', null, '未选择', '897.78', '六昇辅料款', '2015-10-15', '2015-10-15', '2015-10-15', '14', '', '0');
+INSERT INTO `tb_expense_income` VALUES ('695', '16', '货款', '268', '杭州翔天实业有限公司', '1', '杭州翔天实业有限公司', null, '未选择', '661920', '', '2015-10-14', '2015-10-15', '2015-10-15', '14', '', '661920');
+INSERT INTO `tb_expense_income` VALUES ('696', '16', '货款', '259', '余姚联合纺织进出口有限公司', '1', '未选择', null, '未选择', '51180', '', '2015-10-13', '2015-10-15', '2015-10-15', '14', '', '51180');
+INSERT INTO `tb_expense_income` VALUES ('697', '16', '货款', '265', '上海豪利杰国际贸易有限公司', '2', '未选择', null, '未选择', '60940.93', '', '2015-10-13', '2015-10-15', '2015-10-15', '14', '', '60940.93');
+INSERT INTO `tb_expense_income` VALUES ('698', '16', '货款', '258', '上海汉森环宇进出口有限公司', '6', '永盛创业有限公司', null, '未选择', '92340.4', '', '2015-10-12', '2015-10-15', '2015-10-15', '14', '', '92340.4');
+INSERT INTO `tb_expense_income` VALUES ('699', '16', '货款', '263', '杭州市粮油食品土畜产进出口有限公司', '7', '未选择', null, '未选择', '52479.2', '', '2015-10-10', '2015-10-15', '2015-10-15', '14', '', '52479.2');
+INSERT INTO `tb_expense_income` VALUES ('700', '16', '货款', '300', '上海锦弘纺织品有限公司', '4', '未选择', null, '未选择', '1065098.64', '实际付了1065098.65', '2015-10-10', '2015-10-15', '2015-10-15', '14', '', '1065098.64');
+INSERT INTO `tb_expense_income` VALUES ('701', '16', '货款', '263', '杭州市粮油食品土畜产进出口有限公司', '7', '未选择', null, '未选择', '24706.4', '', '2015-10-09', '2015-10-15', '2015-10-15', '14', '', '24706.4');
+INSERT INTO `tb_expense_income` VALUES ('702', '16', '货款', '268', '杭州翔天实业有限公司', '1', '杭州翔天实业有限公司', null, '未选择', '43000', '', '2015-09-28', '2015-10-15', '2015-10-15', '14', '', '43000');
+INSERT INTO `tb_expense_income` VALUES ('703', '16', '货款', '268', '杭州翔天实业有限公司', '1', '杭州翔天实业有限公司', null, '未选择', '29641.92', '', '2015-09-28', '2015-10-15', '2015-10-15', '14', '', '29641.92');
 INSERT INTO `tb_expense_income_invoice` VALUES ('4', '27', '141', '1260.53', '2015-06-11', '2015-06-11', '14');
 INSERT INTO `tb_expense_income_invoice` VALUES ('5', '54', '148', '213.84', '2015-06-12', '2015-06-12', '14');
 INSERT INTO `tb_expense_income_invoice` VALUES ('6', '54', '149', '136.66', '2015-06-12', '2015-06-12', '14');
@@ -4033,6 +4724,309 @@ INSERT INTO `tb_expense_income_invoice` VALUES ('389', '339', '625', '23580', '2
 INSERT INTO `tb_expense_income_invoice` VALUES ('390', '339', '626', '21319.5', '2015-08-07', '2015-08-07', '14');
 INSERT INTO `tb_expense_income_invoice` VALUES ('392', '336', '628', '14250', '2015-08-07', '2015-08-07', '14');
 INSERT INTO `tb_expense_income_invoice` VALUES ('393', '337', '627', '8985', '2015-08-07', '2015-08-07', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('394', '210', '634', '768', '2015-08-16', '2015-08-16', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('395', '433', '635', '307.37', '2015-08-16', '2015-08-16', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('396', '304', '636', '888.52', '2015-08-16', '2015-08-16', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('397', '434', '637', '6645.9', '2015-08-16', '2015-08-16', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('398', '434', '638', '894.13', '2015-08-16', '2015-08-16', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('399', '305', '639', '25756.57', '2015-08-16', '2015-08-16', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('400', '305', '640', '6721.58', '2015-08-16', '2015-08-16', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('401', '253', '641', '5546.76', '2015-08-16', '2015-08-16', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('402', '413', '642', '408', '2015-08-16', '2015-08-16', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('403', '278', '643', '594.59', '2015-08-16', '2015-08-16', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('404', '302', '643', '3121.83', '2015-08-16', '2015-08-16', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('405', '330', '643', '4767.12', '2015-08-16', '2015-08-16', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('406', '416', '644', '642.4', '2015-08-16', '2015-08-16', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('407', '196', '645', '347.48', '2015-08-16', '2015-08-16', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('408', '191', '646', '3980.15', '2015-08-16', '2015-08-16', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('409', '417', '646', '1388.8', '2015-08-16', '2015-08-16', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('410', '275', '647', '943.68', '2015-08-16', '2015-08-16', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('411', '319', '647', '259.6', '2015-08-16', '2015-08-16', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('412', '277', '649', '2481.57', '2015-08-16', '2015-08-16', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('413', '332', '650', '13.32', '2015-08-16', '2015-08-16', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('414', '303', '652', '1190', '2015-08-16', '2015-08-16', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('415', '321', '653', '429', '2015-08-16', '2015-08-16', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('416', '274', '654', '1344.08', '2015-08-16', '2015-08-16', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('417', '320', '655', '622.5', '2015-08-16', '2015-08-16', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('418', '306', '656', '1411.7', '2015-08-16', '2015-08-16', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('419', '279', '651', '618.02', '2015-08-16', '2015-08-16', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('420', '436', '465', '34100', '2015-08-19', '2015-08-19', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('421', '437', '466', '1670', '2015-08-19', '2015-08-19', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('422', '438', '440', '72090', '2015-08-19', '2015-08-19', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('423', '441', '441', '645.6', '2015-08-19', '2015-08-19', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('424', '442', '485', '24422.7', '2015-08-19', '2015-08-19', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('425', '443', '505', '68640', '2015-08-19', '2015-08-19', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('426', '444', '709', '13553.6', '2015-08-19', '2015-08-19', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('427', '444', '710', '22575', '2015-08-19', '2015-08-19', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('428', '444', '711', '30499.72', '2015-08-19', '2015-08-19', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('429', '445', '707', '60682.2', '2015-08-19', '2015-08-19', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('430', '445', '708', '61300.3', '2015-08-19', '2015-08-19', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('431', '446', '439', '42000', '2015-08-19', '2015-08-19', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('432', '439', '443', '31400', '2015-08-19', '2015-08-19', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('433', '440', '456', '13810', '2015-08-19', '2015-08-19', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('434', '440', '457', '1920', '2015-08-19', '2015-08-19', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('435', '440', '500', '1850', '2015-08-19', '2015-08-19', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('436', '440', '501', '4500', '2015-08-19', '2015-08-19', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('437', '440', '502', '34400', '2015-08-19', '2015-08-19', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('438', '440', '503', '8100', '2015-08-19', '2015-08-19', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('440', '318', '727', '1640.4', '2015-08-20', '2015-08-20', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('441', '452', '680', '44910', '2015-08-21', '2015-08-21', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('442', '452', '681', '116100', '2015-08-21', '2015-08-21', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('443', '452', '682', '108000', '2015-08-21', '2015-08-21', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('444', '452', '683', '74722.4', '2015-08-21', '2015-08-21', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('445', '452', '684', '116874', '2015-08-21', '2015-08-21', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('446', '452', '685', '116874', '2015-08-21', '2015-08-21', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('447', '452', '691', '86400', '2015-08-21', '2015-08-21', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('448', '452', '692', '26000.8', '2015-08-21', '2015-08-21', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('449', '452', '718', '49620', '2015-08-21', '2015-08-21', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('450', '452', '719', '13000', '2015-08-21', '2015-08-21', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('451', '452', '721', '56463.2', '2015-08-21', '2015-08-21', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('452', '452', '722', '19419.54', '2015-08-21', '2015-08-21', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('453', '452', '723', '99400', '2015-08-21', '2015-08-21', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('454', '452', '724', '96540', '2015-08-21', '2015-08-21', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('455', '138', '764', '12924', '2015-08-26', '2015-08-26', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('456', '470', '657', '34204.5', '2015-08-30', '2015-08-30', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('457', '423', '603', '33440.7', '2015-08-30', '2015-08-30', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('458', '423', '195', '34033.8', '2015-08-30', '2015-08-30', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('459', '423', '394', '12525.5', '2015-08-30', '2015-08-30', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('460', '491', '633', '60394.7', '2015-08-30', '2015-08-30', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('461', '491', '632', '19605.300000000003', '2015-08-30', '2015-08-30', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('462', '492', '766', '7252', '2015-08-30', '2015-08-30', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('463', '493', '196', '41300.4', '2015-08-30', '2015-08-30', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('464', '498', '765', '85145', '2015-08-30', '2015-08-30', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('465', '498', '767', '14855', '2015-08-30', '2015-08-30', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('466', '499', '199', '116683.5', '2015-08-30', '2015-08-30', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('467', '499', '288', '83316.5', '2015-08-30', '2015-08-30', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('468', '500', '280', '54287', '2015-08-30', '2015-08-30', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('469', '500', '281', '22716', '2015-08-30', '2015-08-30', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('470', '500', '388', '22997', '2015-08-30', '2015-08-30', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('471', '447', '769', '532.88', '2015-08-30', '2015-08-30', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('472', '509', '770', '8791.5', '2015-08-30', '2015-08-30', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('473', '522', '679', '22230', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('474', '523', '704', '18409.7', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('475', '524', '703', '52430', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('476', '525', '729', '76800', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('477', '526', '494', '13459', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('478', '526', '495', '13295.6', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('479', '526', '496', '26501.32', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('480', '526', '498', '13545', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('481', '526', '499', '13545', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('482', '527', '667', '107920', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('483', '527', '668', '80500', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('484', '527', '669', '80500', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('485', '527', '670', '23000', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('486', '527', '671', '30000', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('487', '527', '672', '100000', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('488', '527', '673', '66000', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('489', '527', '674', '72000', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('490', '527', '675', '72000', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('491', '527', '676', '28800', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('492', '527', '677', '1350', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('493', '527', '678', '3150', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('494', '528', '706', '46800', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('495', '530', '686', '88106.4', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('496', '531', '463', '26790', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('497', '533', '658', '104496', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('498', '533', '659', '68081.94', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('499', '533', '660', '106076.1', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('501', '533', '662', '27393.6', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('502', '533', '663', '16036.8', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('503', '534', '664', '25785', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('504', '534', '665', '66587.8', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('505', '534', '666', '75401.6', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('506', '535', '698', '12623.52', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('507', '536', '702', '62387.5', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('508', '533', '780', '21342.6', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('509', '537', '776', '37800', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('510', '537', '777', '28800', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('511', '537', '778', '56856.8', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('512', '451', '454', '15000', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('513', '451', '455', '51088', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('514', '451', '458', '1580', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('515', '451', '459', '55300', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('516', '451', '460', '24000', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('517', '451', '461', '34500', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('518', '451', '462', '6540', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('519', '532', '743', '2500', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('520', '450', '444', '12568.5', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('521', '450', '445', '38000', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('522', '450', '446', '10200', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('523', '450', '447', '6800', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('524', '450', '448', '28600', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('525', '450', '449', '37740', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('526', '450', '450', '32260', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('527', '450', '451', '26000', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('528', '450', '452', '38500', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('529', '450', '453', '31500', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('530', '450', '490', '45360', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('531', '450', '491', '19360', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('532', '450', '492', '29280', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('539', '529', '744', '43000', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('540', '529', '748', '8500', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('541', '529', '750', '11040', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('542', '529', '753', '10250', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('543', '529', '756', '10850', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('544', '529', '757', '16150', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('545', '459', '783', '74803', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('546', '459', '784', '105000', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('547', '459', '785', '110000', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('548', '459', '786', '110000', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('549', '459', '787', '100200', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('550', '458', '725', '16720', '2015-09-01', '2015-09-01', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('551', '132', '788', '230', '2015-09-04', '2015-09-04', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('552', '132', '789', '345', '2015-09-04', '2015-09-04', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('553', '419', '790', '1135.27', '2015-09-05', '2015-09-05', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('554', '583', '771', '3087', '2015-09-05', '2015-09-05', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('555', '181', '791', '30000', '2015-09-13', '2015-09-13', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('556', '307', '791', '20000', '2015-09-13', '2015-09-13', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('557', '595', '791', '13310', '2015-09-13', '2015-09-13', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('558', '609', '793', '4435', '2015-09-13', '2015-09-13', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('559', '608', '792', '613', '2015-09-13', '2015-09-13', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('560', '559', '768', '25000', '2015-09-13', '2015-09-13', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('561', '483', '763', '17584', '2015-09-13', '2015-09-13', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('562', '573', '761', '526.75', '2015-09-13', '2015-09-13', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('563', '573', '762', '240.8', '2015-09-13', '2015-09-13', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('564', '418', '795', '970.48', '2015-09-13', '2015-09-13', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('565', '418', '796', '1974.28', '2015-09-13', '2015-09-13', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('566', '418', '798', '1004.61', '2015-09-13', '2015-09-13', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('567', '418', '799', '550.44', '2015-09-13', '2015-09-13', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('568', '329', '800', '147', '2015-09-13', '2015-09-13', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('569', '426', '794', '584.37', '2015-09-13', '2015-09-13', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('570', '426', '797', '687.97', '2015-09-13', '2015-09-13', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('571', '468', '806', '217', '2015-09-16', '2015-09-16', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('572', '430', '807', '1574.03', '2015-09-16', '2015-09-16', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('573', '464', '808', '1262.52', '2015-09-16', '2015-09-16', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('574', '431', '809', '2876.1', '2015-09-16', '2015-09-16', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('575', '432', '651', '0.18000000000006366', '2015-09-16', '2015-09-16', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('576', '432', '810', '1386.2', '2015-09-16', '2015-09-16', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('577', '465', '811', '9352.05', '2015-09-16', '2015-09-16', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('578', '590', '812', '2403.58', '2015-09-16', '2015-09-16', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('579', '590', '813', '2929.72', '2015-09-16', '2015-09-16', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('580', '331', '814', '1240.79', '2015-09-16', '2015-09-16', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('581', '429', '814', '336.3', '2015-09-16', '2015-09-16', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('582', '461', '814', '4889.17', '2015-09-16', '2015-09-16', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('583', '466', '814', '375.84', '2015-09-16', '2015-09-16', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('584', '593', '814', '2849.7', '2015-09-16', '2015-09-16', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('585', '415', '805', '667.45', '2015-09-17', '2015-09-17', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('586', '615', '194', '92823.68', '2015-09-17', '2015-09-17', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('587', '617', '815', '3147', '2015-09-17', '2015-09-17', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('588', '625', '817', '123.2', '2015-09-18', '2015-09-18', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('589', '625', '818', '269.5', '2015-09-18', '2015-09-18', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('590', '627', '819', '26667.4', '2015-09-18', '2015-09-18', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('591', '589', '821', '3839.85', '2015-09-22', '2015-09-22', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('592', '612', '823', '504000', '2015-09-22', '2015-09-22', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('593', '605', '826', '200000', '2015-09-22', '2015-09-22', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('594', '490', '830', '100000', '2015-09-22', '2015-09-22', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('595', '632', '831', '1560', '2015-09-23', '2015-09-23', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('596', '652', '697', '91164', '2015-09-26', '2015-09-26', '6');
+INSERT INTO `tb_expense_income_invoice` VALUES ('597', '652', '933', '97968', '2015-09-26', '2015-09-26', '6');
+INSERT INTO `tb_expense_income_invoice` VALUES ('598', '652', '934', '116586', '2015-09-26', '2015-09-26', '6');
+INSERT INTO `tb_expense_income_invoice` VALUES ('599', '652', '935', '70473', '2015-09-26', '2015-09-26', '6');
+INSERT INTO `tb_expense_income_invoice` VALUES ('600', '652', '936', '84988.8', '2015-09-26', '2015-09-26', '6');
+INSERT INTO `tb_expense_income_invoice` VALUES ('601', '652', '937', '93600', '2015-09-26', '2015-09-26', '6');
+INSERT INTO `tb_expense_income_invoice` VALUES ('602', '652', '938', '72433.5', '2015-09-26', '2015-09-26', '6');
+INSERT INTO `tb_expense_income_invoice` VALUES ('603', '652', '939', '96456', '2015-09-26', '2015-09-26', '6');
+INSERT INTO `tb_expense_income_invoice` VALUES ('604', '652', '940', '113160', '2015-09-26', '2015-09-26', '6');
+INSERT INTO `tb_expense_income_invoice` VALUES ('605', '652', '944', '14508', '2015-09-26', '2015-09-26', '6');
+INSERT INTO `tb_expense_income_invoice` VALUES ('606', '649', '927', '3816', '2015-09-26', '2015-09-26', '6');
+INSERT INTO `tb_expense_income_invoice` VALUES ('607', '649', '928', '13776', '2015-09-26', '2015-09-26', '6');
+INSERT INTO `tb_expense_income_invoice` VALUES ('608', '649', '929', '5904', '2015-09-26', '2015-09-26', '6');
+INSERT INTO `tb_expense_income_invoice` VALUES ('609', '649', '930', '8904', '2015-09-26', '2015-09-26', '6');
+INSERT INTO `tb_expense_income_invoice` VALUES ('610', '648', '699', '9112.18', '2015-09-26', '2015-09-26', '6');
+INSERT INTO `tb_expense_income_invoice` VALUES ('611', '648', '700', '37254', '2015-09-26', '2015-09-26', '6');
+INSERT INTO `tb_expense_income_invoice` VALUES ('612', '648', '701', '18437.76', '2015-09-26', '2015-09-26', '6');
+INSERT INTO `tb_expense_income_invoice` VALUES ('613', '647', '687', '22786.5', '2015-09-26', '2015-09-26', '6');
+INSERT INTO `tb_expense_income_invoice` VALUES ('614', '646', '950', '74874.77', '2015-09-26', '2015-09-26', '6');
+INSERT INTO `tb_expense_income_invoice` VALUES ('615', '646', '951', '19987.15', '2015-09-26', '2015-09-26', '6');
+INSERT INTO `tb_expense_income_invoice` VALUES ('616', '646', '952', '59236.8', '2015-09-26', '2015-09-26', '6');
+INSERT INTO `tb_expense_income_invoice` VALUES ('617', '646', '953', '106812', '2015-09-26', '2015-09-26', '6');
+INSERT INTO `tb_expense_income_invoice` VALUES ('618', '645', '733', '6236.74', '2015-09-26', '2015-09-26', '6');
+INSERT INTO `tb_expense_income_invoice` VALUES ('619', '645', '734', '23846.4', '2015-09-26', '2015-09-26', '6');
+INSERT INTO `tb_expense_income_invoice` VALUES ('620', '645', '735', '13398.4', '2015-09-26', '2015-09-26', '6');
+INSERT INTO `tb_expense_income_invoice` VALUES ('621', '645', '736', '28047.6', '2015-09-26', '2015-09-26', '6');
+INSERT INTO `tb_expense_income_invoice` VALUES ('622', '645', '737', '81553.92', '2015-09-26', '2015-09-26', '6');
+INSERT INTO `tb_expense_income_invoice` VALUES ('623', '645', '739', '15048', '2015-09-26', '2015-09-26', '6');
+INSERT INTO `tb_expense_income_invoice` VALUES ('624', '645', '741', '26212.8', '2015-09-26', '2015-09-26', '6');
+INSERT INTO `tb_expense_income_invoice` VALUES ('625', '643', '772', '18576', '2015-09-26', '2015-09-26', '6');
+INSERT INTO `tb_expense_income_invoice` VALUES ('626', '643', '773', '52735', '2015-09-26', '2015-09-26', '6');
+INSERT INTO `tb_expense_income_invoice` VALUES ('627', '643', '774', '18068.6', '2015-09-26', '2015-09-26', '6');
+INSERT INTO `tb_expense_income_invoice` VALUES ('628', '643', '775', '18060', '2015-09-26', '2015-09-26', '6');
+INSERT INTO `tb_expense_income_invoice` VALUES ('629', '643', '781', '6192', '2015-09-26', '2015-09-26', '6');
+INSERT INTO `tb_expense_income_invoice` VALUES ('630', '644', '442', '16805', '2015-09-26', '2015-09-26', '6');
+INSERT INTO `tb_expense_income_invoice` VALUES ('632', '654', '742', '45000', '2015-09-26', '2015-09-26', '6');
+INSERT INTO `tb_expense_income_invoice` VALUES ('633', '656', '758', '43904', '2015-09-29', '2015-09-29', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('634', '651', '885', '31918.8', '2015-09-29', '2015-09-29', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('635', '651', '886', '112411.7', '2015-09-29', '2015-09-29', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('636', '651', '887', '18243.6', '2015-09-29', '2015-09-29', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('637', '651', '888', '93163.8', '2015-09-29', '2015-09-29', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('639', '651', '890', '32027', '2015-09-29', '2015-09-29', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('640', '651', '889', '55947.81', '2015-09-29', '2015-09-29', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('643', '653', '957', '41558.4', '2015-09-29', '2015-09-29', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('644', '588', '973', '2945', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('645', '664', '974', '6056', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('646', '680', '975', '1773', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('647', '675', '976', '14762', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('648', '695', '891', '116620', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('649', '695', '892', '110800', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('650', '695', '893', '110000', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('651', '695', '894', '110000', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('652', '695', '895', '110000', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('653', '695', '896', '104500', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('654', '696', '964', '11830', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('655', '696', '965', '13600', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('656', '696', '966', '12875', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('657', '696', '967', '12875', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('658', '697', '847', '31075.33', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('659', '697', '848', '10894.4', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('660', '697', '849', '18971.2', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('661', '698', '960', '84945.4', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('662', '698', '961', '7395', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('663', '699', '962', '52479.2', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('664', '701', '779', '24706.4', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('665', '702', '926', '43000', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('666', '703', '897', '29641.92', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('667', '700', '730', '4579.2', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('668', '700', '731', '1651.2', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('669', '700', '732', '6393.6', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('670', '700', '738', '7776', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('671', '700', '835', '306', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('672', '700', '740', '284.4', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('673', '700', '837', '68442', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('674', '700', '840', '76058.4', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('675', '700', '836', '21726', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('676', '700', '836', '0', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('677', '700', '838', '102000', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('678', '700', '839', '707.52', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('679', '700', '842', '88440', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('680', '700', '850', '21807.9', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('681', '700', '844', '51244.56', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('682', '700', '852', '54990', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('683', '700', '853', '14805', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('684', '700', '854', '2737.8', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('685', '700', '855', '7792.2', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('686', '700', '871', '1771.2', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('687', '700', '872', '8221.2', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('688', '700', '873', '1142.4', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('689', '700', '874', '29181.6', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('690', '700', '841', '88440', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('691', '700', '843', '20564.16', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('692', '700', '851', '8155.8', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('693', '700', '856', '12654.26', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('694', '700', '857', '271.16', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('695', '700', '858', '3796.28', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('696', '700', '859', '96187.2', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('697', '700', '860', '29868', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('698', '700', '861', '5030.4', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('699', '700', '862', '4401.6', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('700', '700', '863', '79500', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('701', '700', '864', '45830.4', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('702', '700', '865', '12499.2', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('703', '700', '866', '41184', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('704', '700', '867', '41040', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('705', '700', '868', '205.2', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('706', '700', '869', '1641.6', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('707', '700', '870', '1771.2', '2015-10-15', '2015-10-15', '14');
+INSERT INTO `tb_expense_income_invoice` VALUES ('708', '650', '754', '56828.2', '2015-10-15', '2015-10-15', '14');
 INSERT INTO `tb_factory` VALUES ('1', '江波', '孙家村', '2015-03-31 21:24:01', 'jb', '2015-03-31 21:24:01', '6', '0');
 INSERT INTO `tb_factory` VALUES ('2', '本厂', '孙家村', '2015-04-01 13:21:31', 'bc', '2015-04-01 13:21:31', '9', '0');
 INSERT INTO `tb_factory` VALUES ('3', '诚信', '横村镇', '2015-04-01 20:24:03', 'cx', '2015-06-04 14:36:16', '9', '2');
@@ -4095,6 +5089,8 @@ INSERT INTO `tb_factory` VALUES ('61', '朱淑英', '未知', '2015-07-06 16:29:
 INSERT INTO `tb_factory` VALUES ('62', '华洪亮', '未知', '2015-07-12 16:31:25', 'hhl', '2015-07-12 16:31:25', '9', '0');
 INSERT INTO `tb_factory` VALUES ('63', '金熙', '未知', '2015-07-18 10:55:58', 'jx', '2015-07-18 10:55:58', '6', '2');
 INSERT INTO `tb_factory` VALUES ('64', '申屠丽云', '桐乡', '2015-07-21 16:07:15', 'stly', '2015-07-21 16:07:15', '7', '2');
+INSERT INTO `tb_factory` VALUES ('65', '包彬杰', '方埠', '2015-08-26 16:34:00', 'bbj', '2015-08-26 16:34:00', '7', '0');
+INSERT INTO `tb_factory` VALUES ('66', '张建华', '横村', '2015-10-13 13:18:36', 'zjh', '2015-10-13 13:18:36', '7', '0');
 INSERT INTO `tb_finalstoreorder` VALUES ('1', '1', '2015-03-31 21:48:39', '2015-03-31 21:48:39', '7', '6', '执行完成');
 INSERT INTO `tb_finalstoreorder` VALUES ('2', '2', '2015-04-02 22:09:03', '2015-04-02 22:09:03', '7', '0', '新建');
 INSERT INTO `tb_finalstoreorder` VALUES ('3', '3', '2015-04-02 22:32:58', '2015-04-02 22:32:58', '7', '0', '新建');
@@ -4108,7 +5104,7 @@ INSERT INTO `tb_finalstoreorder` VALUES ('10', '10', '2015-04-03 22:01:02', '201
 INSERT INTO `tb_finalstoreorder` VALUES ('11', '11', '2015-04-03 22:08:13', '2015-04-03 22:08:13', '7', '0', '新建');
 INSERT INTO `tb_finalstoreorder` VALUES ('12', '12', '2015-04-03 23:16:47', '2015-04-03 23:16:47', '7', '0', '新建');
 INSERT INTO `tb_finalstoreorder` VALUES ('13', '13', '2015-04-03 23:52:25', '2015-04-03 23:52:25', '7', '6', '执行完成');
-INSERT INTO `tb_finalstoreorder` VALUES ('14', '14', '2015-04-04 00:25:22', '2015-04-04 00:25:22', '7', '6', '执行完成');
+INSERT INTO `tb_finalstoreorder` VALUES ('14', '14', '2015-04-04 00:25:22', '2015-04-04 00:25:22', '7', '0', '新建');
 INSERT INTO `tb_finalstoreorder` VALUES ('15', '15', '2015-04-04 01:47:47', '2015-04-04 01:47:47', '7', '0', '新建');
 INSERT INTO `tb_finalstoreorder` VALUES ('16', '16', '2015-04-04 01:52:57', '2015-04-04 01:52:57', '7', '0', '新建');
 INSERT INTO `tb_finalstoreorder` VALUES ('17', '17', '2015-04-04 14:45:56', '2015-04-04 14:45:56', '7', '0', '新建');
@@ -4185,7 +5181,7 @@ INSERT INTO `tb_finalstoreorder` VALUES ('87', '87', '2015-04-27 08:07:57', '201
 INSERT INTO `tb_finalstoreorder` VALUES ('88', '88', '2015-04-27 08:24:57', '2015-04-27 08:24:57', '7', '0', '新建');
 INSERT INTO `tb_finalstoreorder` VALUES ('89', '89', '2015-04-27 08:45:32', '2015-04-27 08:45:32', '7', '0', '新建');
 INSERT INTO `tb_finalstoreorder` VALUES ('90', '90', '2015-04-30 13:32:44', '2015-04-30 13:32:44', '7', '0', '新建');
-INSERT INTO `tb_finalstoreorder` VALUES ('91', '91', '2015-05-02 16:28:24', '2015-05-02 16:28:24', '7', '6', '执行完成');
+INSERT INTO `tb_finalstoreorder` VALUES ('91', '91', '2015-05-02 16:28:24', '2015-05-02 16:28:24', '7', '0', '新建');
 INSERT INTO `tb_finalstoreorder` VALUES ('92', '92', '2015-05-03 17:24:03', '2015-05-03 17:24:03', '7', '0', '新建');
 INSERT INTO `tb_finalstoreorder` VALUES ('93', '93', '2015-05-03 17:34:23', '2015-05-03 17:34:23', '7', '0', '新建');
 INSERT INTO `tb_finalstoreorder` VALUES ('94', '94', '2015-05-03 17:51:49', '2015-05-03 17:51:49', '7', '6', '执行完成');
@@ -4319,7 +5315,7 @@ INSERT INTO `tb_finalstoreorder` VALUES ('221', '221', '2015-07-05 14:39:24', '2
 INSERT INTO `tb_finalstoreorder` VALUES ('222', '222', '2015-07-05 14:50:16', '2015-07-05 14:50:16', '7', '0', '新建');
 INSERT INTO `tb_finalstoreorder` VALUES ('223', '223', '2015-07-05 15:09:33', '2015-07-05 15:09:33', '7', '0', '新建');
 INSERT INTO `tb_finalstoreorder` VALUES ('224', '224', '2015-07-08 22:11:35', '2015-07-08 22:11:35', '7', '0', '新建');
-INSERT INTO `tb_finalstoreorder` VALUES ('225', '225', '2015-07-11 13:10:46', '2015-07-11 13:10:46', '7', '6', '执行完成');
+INSERT INTO `tb_finalstoreorder` VALUES ('225', '225', '2015-07-11 13:10:46', '2015-07-11 13:10:46', '7', '0', '新建');
 INSERT INTO `tb_finalstoreorder` VALUES ('226', '226', '2015-07-12 16:23:22', '2015-07-12 16:23:22', '7', '0', '新建');
 INSERT INTO `tb_finalstoreorder` VALUES ('227', '227', '2015-07-12 17:03:51', '2015-07-12 17:03:51', '7', '0', '新建');
 INSERT INTO `tb_finalstoreorder` VALUES ('228', '228', '2015-07-15 20:20:48', '2015-07-15 20:20:48', '7', '0', '新建');
@@ -4353,6 +5349,32 @@ INSERT INTO `tb_finalstoreorder` VALUES ('255', '255', '2015-08-09 22:05:28', '2
 INSERT INTO `tb_finalstoreorder` VALUES ('256', '256', '2015-08-09 22:19:56', '2015-08-09 22:19:56', '7', '0', '新建');
 INSERT INTO `tb_finalstoreorder` VALUES ('257', '257', '2015-08-09 22:33:40', '2015-08-09 22:33:40', '7', '0', '新建');
 INSERT INTO `tb_finalstoreorder` VALUES ('258', '258', '2015-08-11 17:53:10', '2015-08-11 17:53:10', '7', '0', '新建');
+INSERT INTO `tb_finalstoreorder` VALUES ('259', '259', '2015-08-13 09:11:37', '2015-08-13 09:11:37', '7', '0', '新建');
+INSERT INTO `tb_finalstoreorder` VALUES ('260', '260', '2015-08-13 09:23:32', '2015-08-13 09:23:32', '7', '0', '新建');
+INSERT INTO `tb_finalstoreorder` VALUES ('261', '261', '2015-08-20 14:13:42', '2015-08-20 14:13:42', '7', '0', '新建');
+INSERT INTO `tb_finalstoreorder` VALUES ('262', '262', '2015-08-24 15:08:35', '2015-08-24 15:08:35', '7', '0', '新建');
+INSERT INTO `tb_finalstoreorder` VALUES ('263', '263', '2015-08-26 16:31:59', '2015-08-26 16:31:59', '7', '0', '新建');
+INSERT INTO `tb_finalstoreorder` VALUES ('264', '264', '2015-08-26 16:49:07', '2015-08-26 16:49:07', '7', '0', '新建');
+INSERT INTO `tb_finalstoreorder` VALUES ('265', '265', '2015-08-27 08:27:35', '2015-08-27 08:27:35', '7', '0', '新建');
+INSERT INTO `tb_finalstoreorder` VALUES ('266', '266', '2015-08-27 08:37:24', '2015-08-27 08:37:24', '7', '0', '新建');
+INSERT INTO `tb_finalstoreorder` VALUES ('267', '267', '2015-08-27 08:55:10', '2015-08-27 08:55:10', '7', '0', '新建');
+INSERT INTO `tb_finalstoreorder` VALUES ('268', '268', '2015-09-04 15:35:09', '2015-09-04 15:35:09', '7', '0', '新建');
+INSERT INTO `tb_finalstoreorder` VALUES ('269', '269', '2015-09-17 12:39:23', '2015-09-17 12:39:23', '7', '0', '新建');
+INSERT INTO `tb_finalstoreorder` VALUES ('270', '270', '2015-09-17 12:55:22', '2015-09-17 12:55:22', '7', '0', '新建');
+INSERT INTO `tb_finalstoreorder` VALUES ('271', '271', '2015-09-21 08:30:41', '2015-09-21 08:30:41', '7', '0', '新建');
+INSERT INTO `tb_finalstoreorder` VALUES ('272', '272', '2015-09-23 12:27:17', '2015-09-23 12:27:17', '7', '0', '新建');
+INSERT INTO `tb_finalstoreorder` VALUES ('273', '273', '2015-09-25 15:31:07', '2015-09-25 15:31:07', '7', '0', '新建');
+INSERT INTO `tb_finalstoreorder` VALUES ('274', '274', '2015-09-28 09:05:47', '2015-09-28 09:05:47', '7', '0', '新建');
+INSERT INTO `tb_finalstoreorder` VALUES ('275', '275', '2015-09-28 09:38:07', '2015-09-28 09:38:07', '7', '0', '新建');
+INSERT INTO `tb_finalstoreorder` VALUES ('276', '276', '2015-10-04 10:24:40', '2015-10-04 10:24:40', '7', '0', '新建');
+INSERT INTO `tb_finalstoreorder` VALUES ('277', '277', '2015-10-09 14:16:39', '2015-10-09 14:16:39', '7', '0', '新建');
+INSERT INTO `tb_finalstoreorder` VALUES ('278', '278', '2015-10-09 14:36:54', '2015-10-09 14:36:54', '7', '0', '新建');
+INSERT INTO `tb_finalstoreorder` VALUES ('279', '279', '2015-10-09 14:58:39', '2015-10-09 14:58:39', '7', '0', '新建');
+INSERT INTO `tb_finalstoreorder` VALUES ('280', '280', '2015-10-09 15:05:02', '2015-10-09 15:05:02', '7', '0', '新建');
+INSERT INTO `tb_finalstoreorder` VALUES ('281', '281', '2015-10-09 15:09:30', '2015-10-09 15:09:30', '7', '0', '新建');
+INSERT INTO `tb_finalstoreorder` VALUES ('282', '282', '2015-10-10 08:50:24', '2015-10-10 08:50:24', '7', '0', '新建');
+INSERT INTO `tb_finalstoreorder` VALUES ('283', '283', '2015-10-13 13:17:11', '2015-10-13 13:17:11', '7', '0', '新建');
+INSERT INTO `tb_finalstoreorder` VALUES ('284', '284', '2015-10-15 09:22:03', '2015-10-15 09:22:03', '7', '0', '新建');
 INSERT INTO `tb_fuliaopurchaseorder` VALUES ('1', null, '2015-04-07 09:00:59', '2015-04-07 09:00:59', '7', '[{\"memo\":\"\",\"quantity\":3,\"style\":19},{\"memo\":\"\",\"quantity\":5,\"style\":19}]', '31', '0', '新建', '7', null, null, '马海毛亮丝围脖', null, null, '0', null, null, null, null, null, '15FL0001', '76346', '3');
 INSERT INTO `tb_fuliaopurchaseorder` VALUES ('2', null, '2015-04-09 18:28:23', '2015-04-09 18:28:23', '7', '[{\"memo\":\"黑色\",\"quantity\":93,\"style\":19},{\"memo\":\"桔红\",\"quantity\":84,\"style\":19},{\"memo\":\"酒红\",\"quantity\":67,\"style\":19},{\"memo\":\"绿色待定\",\"quantity\":116,\"style\":19},{\"memo\":\"米白色\",\"quantity\":10,\"style\":18}]', '25', '0', '新建', '4', null, null, '马海毛珠片纱围脖', null, null, '0', null, null, null, null, '3', '15FL0002', 'QY15-114', '3');
 INSERT INTO `tb_fuliaopurchaseorder` VALUES ('3', null, '2015-04-10 13:26:14', '2015-04-10 13:26:14', '7', '[{\"memo\":\"MH151\",\"quantity\":33,\"style\":19},{\"memo\":\"MH72\",\"quantity\":33,\"style\":19},{\"memo\":\"MH106\",\"quantity\":26,\"style\":19},{\"memo\":\"粉色\",\"quantity\":163,\"style\":19},{\"memo\":\"MH02\",\"quantity\":158,\"style\":19},{\"memo\":\"MH07\",\"quantity\":12,\"style\":19}]', '31', '0', '新建', '1', null, null, '夹亮丝三件套', null, null, '0', null, null, null, null, null, '15FL0003', '15NY-FW08', '2');
@@ -4426,39 +5448,49 @@ INSERT INTO `tb_fuliaopurchaseorder` VALUES ('70', null, '2015-08-01 12:11:04', 
 INSERT INTO `tb_fuliaopurchaseorder` VALUES ('71', null, '2015-08-06 14:50:29', '2015-08-06 14:50:29', '7', '[{\"memo\":\"按原样\",\"quantity\":5030,\"style\":27}]', '38', '0', '新建', '3', null, null, '马海毛毛球帽子', null, null, '0', null, null, null, null, null, '15FL0071', '961008', '4');
 INSERT INTO `tb_fuliaopurchaseorder` VALUES ('72', null, '2015-08-06 14:58:46', '2015-08-06 14:58:46', '7', '[{\"memo\":\"黑色\",\"quantity\":2015,\"style\":30},{\"memo\":\"白色\",\"quantity\":1812,\"style\":30},{\"memo\":\"海蓝色\",\"quantity\":1512,\"style\":30}]', '38', '0', '新建', '4', null, null, '毛皮领子', null, null, '0', null, null, null, null, null, '15FL0072', 'CAROLLFUR', '3');
 INSERT INTO `tb_fuliaopurchaseorder` VALUES ('73', null, '2015-08-06 16:43:37', '2015-08-06 16:43:37', '7', '[{\"memo\":\"\",\"quantity\":3220,\"style\":30}]', '38', '0', '新建', '1', null, null, '机织加毛条围脖', null, null, '0', null, null, null, null, null, '15FL0073', '11165162', '3');
-INSERT INTO `tb_gongxu` VALUES ('1', '2015-03-31 21:33:40', '机织', '2015-03-31 21:33:40', '9');
-INSERT INTO `tb_gongxu` VALUES ('2', '2015-03-31 21:33:48', '锁口', '2015-03-31 21:33:48', '9');
-INSERT INTO `tb_gongxu` VALUES ('3', '2015-03-31 21:33:58', '套口', '2015-03-31 21:33:58', '9');
-INSERT INTO `tb_gongxu` VALUES ('4', '2015-03-31 21:34:10', '挂须', '2015-03-31 21:34:10', '9');
-INSERT INTO `tb_gongxu` VALUES ('5', '2015-03-31 21:34:18', '整烫', '2015-03-31 21:34:18', '9');
-INSERT INTO `tb_gongxu` VALUES ('6', '2015-03-31 21:34:25', '费用+后道', '2015-03-31 21:34:25', '9');
-INSERT INTO `tb_gongxu` VALUES ('7', '2015-04-02 11:18:42', '套抽', '2015-04-02 11:18:42', '9');
-INSERT INTO `tb_gongxu` VALUES ('8', '2015-04-02 11:18:47', '吊球', '2015-04-02 11:18:47', '9');
-INSERT INTO `tb_gongxu` VALUES ('9', '2015-04-02 14:22:28', '衬里', '2015-04-02 14:22:28', '9');
-INSERT INTO `tb_gongxu` VALUES ('10', '2015-04-02 14:22:38', '接指', '2015-04-02 14:22:38', '9');
-INSERT INTO `tb_gongxu` VALUES ('11', '2015-04-02 14:22:45', '抽顶', '2015-04-02 14:22:45', '9');
-INSERT INTO `tb_gongxu` VALUES ('12', '2015-04-03 00:32:43', '拷边', '2015-04-03 00:32:43', '9');
-INSERT INTO `tb_gongxu` VALUES ('13', '2015-04-03 00:39:40', '球', '2015-04-03 00:39:40', '9');
-INSERT INTO `tb_gongxu` VALUES ('14', '2015-04-04 00:18:06', '拉毛', '2015-04-04 00:18:06', '9');
-INSERT INTO `tb_gongxu` VALUES ('15', '2015-04-04 00:20:43', '烫钻', '2015-04-04 00:20:43', '9');
-INSERT INTO `tb_gongxu` VALUES ('16', '2015-04-23 10:58:40', '整烫+费用+后道', '2015-04-23 10:58:40', '9');
-INSERT INTO `tb_gongxu` VALUES ('17', '2015-04-23 14:00:42', '做工', '2015-04-23 14:00:42', '9');
-INSERT INTO `tb_gongxu` VALUES ('18', '2015-04-24 15:02:58', '裁剪', '2015-04-24 15:02:58', '9');
-INSERT INTO `tb_gongxu` VALUES ('19', '2015-04-27 17:00:09', '平车', '2015-04-27 17:00:09', '9');
-INSERT INTO `tb_gongxu` VALUES ('20', '2015-05-02 17:19:56', '手工', '2015-05-02 17:19:56', '9');
-INSERT INTO `tb_half_current_stock` VALUES ('257', '0', '[{\"color\":\"米色\",\"planOrderDetailId\":1,\"produce_weight\":90,\"size\":\"24*9.5\",\"stock_quantity\":0}]', '1');
-INSERT INTO `tb_half_current_stock` VALUES ('233', '50', '[{\"color\":\"黑色\",\"planOrderDetailId\":1,\"produce_weight\":163,\"size\":\"30*80x2\",\"stock_quantity\":50},{\"color\":\"白色\",\"planOrderDetailId\":2,\"produce_weight\":163,\"size\":\"30*80x2\",\"stock_quantity\":0}]', '2');
-INSERT INTO `tb_half_current_stock` VALUES ('235', '419', '[{\"color\":\"米色\",\"planOrderDetailId\":1,\"produce_weight\":402,\"size\":\"40*80x2\",\"stock_quantity\":0},{\"color\":\"浅灰色\",\"planOrderDetailId\":2,\"produce_weight\":402,\"size\":\"40*80x2\",\"stock_quantity\":0},{\"color\":\"714\",\"planOrderDetailId\":3,\"produce_weight\":402,\"size\":\"40*80x2\",\"stock_quantity\":169},{\"color\":\"黑色\",\"planOrderDetailId\":4,\"produce_weight\":402,\"size\":\"40*80x2\",\"stock_quantity\":250}]', '3');
-INSERT INTO `tb_half_store_in_out` VALUES ('4', '2015-10-09 19:33:29', '2015-10-10 16:02:56', '6', '[{\"color\":\"米色\",\"id\":1,\"planOrderDetailId\":1,\"quantity\":300,\"size\":\"24*9.5\",\"weight\":90}]', '0', '新建', 'FWA20257', '1', 'resource.fuwei.com/images/sample/1433425564610图片1.jpg', '6', '冰岛毛点子纱包套', 'FWA30165', '按原样', '125', '165', 'resource.fuwei.com/images/sample/s/1433425564610图片1.png', 'resource.fuwei.com/images/sample/ss/1433425564610图片1.png', null, '58461', '1', '', '2015-10-09 00:00:00', '7', null, '', '15HRK0004', '257', '');
-INSERT INTO `tb_half_store_in_out` VALUES ('5', '2015-10-10 13:22:31', '2015-10-10 13:45:15', '6', '[{\"color\":\"米色\",\"id\":0,\"planOrderDetailId\":1,\"quantity\":280,\"size\":\"24*9.5\",\"weight\":90}]', '0', '新建', 'FWA20257', '1', 'resource.fuwei.com/images/sample/1433425564610图片1.jpg', '6', '冰岛毛点子纱包套', 'FWA30165', '按原样', '125', '165', 'resource.fuwei.com/images/sample/s/1433425564610图片1.png', 'resource.fuwei.com/images/sample/ss/1433425564610图片1.png', null, '58461', '1', '', '2015-10-10 00:00:00', '4', null, '', '15HCK0005', '257', '');
-INSERT INTO `tb_half_store_in_out` VALUES ('6', '2015-10-10 15:00:34', '2015-10-10 15:05:14', '6', '[{\"color\":\"米色\",\"id\":1,\"planOrderDetailId\":1,\"quantity\":1800,\"size\":\"24*9.5\",\"weight\":90}]', '0', '新建', 'FWA20257', '1', 'resource.fuwei.com/images/sample/1433425564610图片1.jpg', '6', '冰岛毛点子纱包套', 'FWA30165', '按原样', '125', '165', 'resource.fuwei.com/images/sample/s/1433425564610图片1.png', 'resource.fuwei.com/images/sample/ss/1433425564610图片1.png', null, '58461', '1', '', '2015-10-10 00:00:00', '1', null, '', '15HRK0006', '257', '');
-INSERT INTO `tb_half_store_in_out` VALUES ('9', '2015-10-10 15:12:37', '2015-10-10 15:12:53', '6', '[{\"color\":\"米色\",\"id\":0,\"planOrderDetailId\":1,\"quantity\":1820,\"size\":\"24*9.5\",\"weight\":90}]', '0', '新建', 'FWA20257', '1', 'resource.fuwei.com/images/sample/1433425564610图片1.jpg', '6', '冰岛毛点子纱包套', 'FWA30165', '按原样', '125', '165', 'resource.fuwei.com/images/sample/s/1433425564610图片1.png', 'resource.fuwei.com/images/sample/ss/1433425564610图片1.png', null, '58461', '1', '', '2015-10-10 00:00:00', '1', null, '', '15HCK0009', '257', '');
-INSERT INTO `tb_half_store_in_out` VALUES ('11', '2015-10-10 16:55:58', '2015-10-10 16:55:58', '6', '[{\"color\":\"米色\",\"id\":0,\"planOrderDetailId\":1,\"quantity\":300,\"size\":\"24*9.5\",\"weight\":90}]', '0', '新建', 'FWA20257', '1', 'resource.fuwei.com/images/sample/1433425564610图片1.jpg', '6', '冰岛毛点子纱包套', 'FWA30165', '按原样', '125', '165', 'resource.fuwei.com/images/sample/s/1433425564610图片1.png', 'resource.fuwei.com/images/sample/ss/1433425564610图片1.png', null, '58461', '1', '', '2015-10-10 00:00:00', '4', null, '', '15HCK0011', '257', '');
-INSERT INTO `tb_half_store_in_out` VALUES ('12', '2015-10-10 16:57:12', '2015-10-10 16:57:12', '6', '[{\"color\":\"米色\",\"id\":1,\"planOrderDetailId\":1,\"quantity\":300,\"size\":\"24*9.5\",\"weight\":90}]', '0', '新建', 'FWA20257', '1', 'resource.fuwei.com/images/sample/1433425564610图片1.jpg', '6', '冰岛毛点子纱包套', 'FWA30165', '按原样', '125', '165', 'resource.fuwei.com/images/sample/s/1433425564610图片1.png', 'resource.fuwei.com/images/sample/ss/1433425564610图片1.png', null, '58461', '1', '', '2015-10-10 00:00:00', '4', null, '', '15HRK0012', '257', '');
-INSERT INTO `tb_half_store_in_out` VALUES ('13', '2015-10-10 20:56:52', '2015-10-10 20:56:52', '6', '[{\"color\":\"黑色\",\"id\":1,\"planOrderDetailId\":1,\"quantity\":200,\"size\":\"30*80x2\",\"weight\":163},{\"color\":\"白色\",\"id\":2,\"planOrderDetailId\":2,\"quantity\":100,\"size\":\"30*80x2\",\"weight\":163}]', '0', '新建', 'FWA20233', '5', 'resource.fuwei.com/images/sample/14369512947741(07-14-13-12-11).png', '9', '马海毛亮丝围脖', 'FWA30209', '80*2*30cm', '157', '209', 'resource.fuwei.com/images/sample/s/14369512947741(07-14-13-12-11).png', 'resource.fuwei.com/images/sample/ss/14369512947741(07-14-13-12-11).png', null, 'FW15892ES', '3', '', '2015-10-10 00:00:00', '6', null, '', '15HRK0013', '233', '');
-INSERT INTO `tb_half_store_in_out` VALUES ('14', '2015-10-10 20:59:04', '2015-10-10 20:59:04', '6', '[{\"color\":\"黑色\",\"id\":0,\"planOrderDetailId\":1,\"quantity\":150,\"size\":\"30*80x2\",\"weight\":163},{\"color\":\"白色\",\"id\":0,\"planOrderDetailId\":2,\"quantity\":100,\"size\":\"30*80x2\",\"weight\":163}]', '0', '新建', 'FWA20233', '5', 'resource.fuwei.com/images/sample/14369512947741(07-14-13-12-11).png', '9', '马海毛亮丝围脖', 'FWA30209', '80*2*30cm', '157', '209', 'resource.fuwei.com/images/sample/s/14369512947741(07-14-13-12-11).png', 'resource.fuwei.com/images/sample/ss/14369512947741(07-14-13-12-11).png', null, 'FW15892ES', '3', '', '2015-10-10 00:00:00', '18', null, '', '15HCK0014', '233', '');
-INSERT INTO `tb_half_store_in_out` VALUES ('17', '2015-10-10 21:25:44', '2015-10-10 21:25:44', '6', '[{\"color\":\"米色\",\"id\":1,\"planOrderDetailId\":1,\"quantity\":182,\"size\":\"40*80x2\",\"weight\":402},{\"color\":\"浅灰色\",\"id\":2,\"planOrderDetailId\":2,\"quantity\":176,\"size\":\"40*80x2\",\"weight\":402},{\"color\":\"714\",\"id\":3,\"planOrderDetailId\":3,\"quantity\":169,\"size\":\"40*80x2\",\"weight\":402},{\"color\":\"黑色\",\"id\":4,\"planOrderDetailId\":4,\"quantity\":250,\"size\":\"40*80x2\",\"weight\":402}]', '0', '新建', 'FWA20235', '7', 'resource.fuwei.com/images/sample/1432719192391QQ截图20150527172818.jpg', '6', '冰岛毛攀花围脖', 'FWA30157', '40高*80宽', '405', '157', 'resource.fuwei.com/images/sample/s/1432719192391QQ截图20150527172818.png', 'resource.fuwei.com/images/sample/ss/1432719192391QQ截图20150527172818.png', null, '76369', '3', '', '2015-10-10 00:00:00', '6', null, '', '15HRK0017', '235', '');
-INSERT INTO `tb_half_store_in_out` VALUES ('18', '2015-10-10 21:31:01', '2015-10-10 21:31:01', '6', '[{\"color\":\"米色\",\"id\":0,\"planOrderDetailId\":1,\"quantity\":182,\"size\":\"40*80x2\",\"weight\":402},{\"color\":\"浅灰色\",\"id\":0,\"planOrderDetailId\":2,\"quantity\":176,\"size\":\"40*80x2\",\"weight\":402}]', '0', '新建', 'FWA20235', '7', 'resource.fuwei.com/images/sample/1432719192391QQ截图20150527172818.jpg', '6', '冰岛毛攀花围脖', 'FWA30157', '40高*80宽', '405', '157', 'resource.fuwei.com/images/sample/s/1432719192391QQ截图20150527172818.png', 'resource.fuwei.com/images/sample/ss/1432719192391QQ截图20150527172818.png', null, '76369', '3', '', '2015-10-10 00:00:00', '4', null, '', '15HCK0018', '235', '');
+INSERT INTO `tb_fuliaopurchaseorder` VALUES ('74', null, '2015-08-16 12:56:50', '2015-08-16 12:56:50', '7', '[{\"memo\":\"高31寛56      0.25元/片\",\"quantity\":3622,\"style\":51}]', '38', '0', '新建', '6', null, null, '冰岛毛+段染纱护耳帽', null, null, '0', null, null, null, null, null, '15FL0074', 'W1500225-00', '1');
+INSERT INTO `tb_fuliaopurchaseorder` VALUES ('75', null, '2015-08-16 13:00:14', '2015-08-16 13:00:14', '7', '[{\"memo\":\"4片/双     0.6元/双\",\"quantity\":6840,\"style\":52}]', '38', '0', '新建', '6', null, null, '冰岛毛+段染纱脚袜', null, null, '0', null, null, null, null, null, '15FL0075', 'W1500289-00', '1');
+INSERT INTO `tb_fuliaopurchaseorder` VALUES ('76', null, '2015-08-22 21:48:32', '2015-08-22 21:48:32', '7', '[{\"memo\":\"白色短毛\",\"quantity\":2760,\"style\":30}]', '38', '0', '新建', '1', null, null, '雪花提花圣诞袜', null, null, '0', null, null, null, null, null, '15FL0076', '76932', '1');
+INSERT INTO `tb_fuliaopurchaseorder` VALUES ('77', null, '2015-08-25 08:32:06', '2015-08-25 08:32:06', '7', '[{\"memo\":\"25元/条\",\"quantity\":140,\"style\":30}]', '38', '0', '新建', '2', null, null, '毛皮领围巾', null, null, '0', null, null, null, null, null, '15FL0077', '37515', '3');
+INSERT INTO `tb_fuliaopurchaseorder` VALUES ('78', '264', '2015-08-29 09:55:31', '2015-08-29 09:55:31', '7', '[{\"memo\":\"MH-178\",\"quantity\":31,\"style\":19}]', '31', '0', '新建', '3', 'resource.fuwei.com/images/sample/1440485678383QQ截图20150825145021.jpg', '10', '女款马海毛双层帽', 'FWA30231', '26高*22宽', '46', '231', 'FWA20264', 'resource.fuwei.com/images/sample/s/1440485678383QQ截图20150825145021.png', 'resource.fuwei.com/images/sample/ss/1440485678383QQ截图20150825145021.png', null, '15FL0078', 'MQ073', '4');
+INSERT INTO `tb_fuliaopurchaseorder` VALUES ('79', '263', '2015-08-29 09:57:26', '2015-09-02 15:42:11', '7', '[{\"memo\":\"MH-178\",\"quantity\":46,\"style\":19}]', '31', '0', '新建', '3', 'resource.fuwei.com/images/sample/14404856201321B78CED5BF6A40F0D15323455CA5ABC6.png', '10', '女款马海毛围脖', 'FWA30230', '80*2*65', '0', '230', 'FWA20263', 'resource.fuwei.com/images/sample/s/14404856201321B78CED5BF6A40F0D15323455CA5ABC6.png', 'resource.fuwei.com/images/sample/ss/14404856201321B78CED5BF6A40F0D15323455CA5ABC6.png', null, '15FL0079', 'MP 869', '4');
+INSERT INTO `tb_fuliaopurchaseorder` VALUES ('80', null, '2015-09-02 15:45:43', '2015-09-02 15:45:43', '7', '[{\"memo\":\"MH-178\",\"quantity\":51,\"style\":19},{\"memo\":\"银丝\",\"quantity\":84,\"style\":19}]', '31', '0', '新建', '3', null, null, '女款马海毛围脖', null, null, '0', null, null, null, null, null, '15FL0080', 'MP 869', '4');
+INSERT INTO `tb_fuliaopurchaseorder` VALUES ('81', null, '2015-10-05 12:47:24', '2015-10-05 12:47:24', '7', '[{\"memo\":\"黑色\",\"quantity\":35,\"style\":25},{\"memo\":\"灰色\",\"quantity\":20,\"style\":25},{\"memo\":\"奶白\",\"quantity\":20,\"style\":25},{\"memo\":\"紫色\",\"quantity\":21,\"style\":25}]', '31', '0', '新建', '3', null, null, '基本款帽子', null, null, '0', null, null, null, null, null, '15FL0081', 'G3222H', '91');
+INSERT INTO `tb_fuliaopurchaseorder` VALUES ('82', null, '2015-10-06 12:59:08', '2015-10-06 12:59:08', '7', '[{\"memo\":\"加工裁剪，0.15元/片\",\"quantity\":2222,\"style\":51}]', '38', '0', '新建', '6', null, null, '冰岛毛段染纱头带', null, null, '0', null, null, null, null, null, '15FL0082', 'W1500287-00', '1');
+INSERT INTO `tb_fuliaopurchaseorder` VALUES ('83', null, '2015-10-08 16:22:58', '2015-10-08 16:22:58', '7', '[{\"memo\":\"\",\"quantity\":7050,\"style\":27}]', '38', '0', '新建', '3', null, null, '马海毛抽条帽子', null, null, '0', null, null, null, null, null, '15FL0083', 'OSO', '4');
+INSERT INTO `tb_fuliaopurchaseorder` VALUES ('84', null, '2015-10-10 15:15:07', '2015-10-10 15:15:07', '7', '[{\"memo\":\"银丝\",\"quantity\":29.5,\"style\":19}]', '31', '0', '新建', '3', null, null, '马海毛抽条帽子', null, null, '0', null, null, null, null, null, '15FL0084', 'OSO', '4');
+INSERT INTO `tb_fuliaopurchaseorder` VALUES ('85', null, '2015-10-15 15:31:37', '2015-10-15 15:31:37', '7', '[{\"memo\":\"粉色\",\"quantity\":55,\"style\":24},{\"memo\":\"黑色\",\"quantity\":20,\"style\":24}]', '36', '0', '新建', '3', null, null, '冰岛毛五件套', null, null, '0', null, null, null, null, null, '15FL0085', 'ZB', '4');
+INSERT INTO `tb_gongxu` VALUES ('1', '2015-03-31 21:33:40', '机织', '2015-03-31 21:33:40', '9', '');
+INSERT INTO `tb_gongxu` VALUES ('2', '2015-03-31 21:33:48', '锁口', '2015-03-31 21:33:48', '9', '');
+INSERT INTO `tb_gongxu` VALUES ('3', '2015-03-31 21:33:58', '套口', '2015-03-31 21:33:58', '9', '');
+INSERT INTO `tb_gongxu` VALUES ('4', '2015-03-31 21:34:10', '挂须', '2015-03-31 21:34:10', '9', '');
+INSERT INTO `tb_gongxu` VALUES ('5', '2015-03-31 21:34:18', '整烫', '2015-03-31 21:34:18', '9', '');
+INSERT INTO `tb_gongxu` VALUES ('6', '2015-03-31 21:34:25', '费用+后道', '2015-03-31 21:34:25', '9', '');
+INSERT INTO `tb_gongxu` VALUES ('7', '2015-04-02 11:18:42', '套抽', '2015-04-02 11:18:42', '9', '');
+INSERT INTO `tb_gongxu` VALUES ('8', '2015-04-02 11:18:47', '吊球', '2015-04-02 11:18:47', '9', '');
+INSERT INTO `tb_gongxu` VALUES ('9', '2015-04-02 14:22:28', '衬里', '2015-04-02 14:22:28', '9', '');
+INSERT INTO `tb_gongxu` VALUES ('10', '2015-04-02 14:22:38', '接指', '2015-04-02 14:22:38', '9', '');
+INSERT INTO `tb_gongxu` VALUES ('11', '2015-04-02 14:22:45', '抽顶', '2015-04-02 14:22:45', '9', '');
+INSERT INTO `tb_gongxu` VALUES ('12', '2015-04-03 00:32:43', '拷边', '2015-04-03 00:32:43', '9', '');
+INSERT INTO `tb_gongxu` VALUES ('13', '2015-04-03 00:39:40', '球', '2015-04-03 00:39:40', '9', '');
+INSERT INTO `tb_gongxu` VALUES ('14', '2015-04-04 00:18:06', '拉毛', '2015-04-04 00:18:06', '9', '');
+INSERT INTO `tb_gongxu` VALUES ('15', '2015-04-04 00:20:43', '烫钻', '2015-04-04 00:20:43', '9', '');
+INSERT INTO `tb_gongxu` VALUES ('16', '2015-04-23 10:58:40', '整烫+费用+后道', '2015-04-23 10:58:40', '9', '');
+INSERT INTO `tb_gongxu` VALUES ('17', '2015-04-23 14:00:42', '做工', '2015-04-23 14:00:42', '9', '');
+INSERT INTO `tb_gongxu` VALUES ('18', '2015-04-24 15:02:58', '裁剪', '2015-04-24 15:02:58', '9', '');
+INSERT INTO `tb_gongxu` VALUES ('19', '2015-04-27 17:00:09', '平车', '2015-04-27 17:00:09', '9', '');
+INSERT INTO `tb_gongxu` VALUES ('20', '2015-05-02 17:19:56', '手工', '2015-05-02 17:19:56', '9', '');
+INSERT INTO `tb_gongxu_producingorder` VALUES ('3', '3', '10', '2015-10-19 17:47:56', '2015-10-19 17:47:56', '6', '[{\"color\":\"QY米色\",\"planOrderDetailId\":1,\"price\":1.2,\"produce_weight\":0,\"quantity\":1200,\"size\":\"S/M 25*9cm\",\"weight\":114,\"yarn\":6},{\"color\":\"深夹花灰\",\"planOrderDetailId\":2,\"price\":1.2,\"produce_weight\":0,\"quantity\":1200,\"size\":\"25*9cm S/M\",\"weight\":114,\"yarn\":7}]', null, '2', '0', '新建', '4', 'resource.fuwei.com/images/sample/1428068026985图片1.png', '绞花包套', 'FWA30016', '25*9cm S/M', '114', '16', 'FWA20010', 'resource.fuwei.com/images/sample/s/1428068026985图片1.png', 'resource.fuwei.com/images/sample/ss/1428068026985图片1.png', '3', '3', '15GX0003', 'FWA30016', '测试用');
+INSERT INTO `tb_half_current_stock` VALUES ('233', '0', '[{\"color\":\"黑色\",\"planOrderDetailId\":1,\"produce_weight\":163,\"size\":\"30*80x2\",\"stock_quantity\":0},{\"color\":\"白色\",\"planOrderDetailId\":2,\"produce_weight\":163,\"size\":\"30*80x2\",\"stock_quantity\":0}]', '1');
+INSERT INTO `tb_half_current_stock` VALUES ('10', '3405', '[{\"color\":\"QY米色\",\"planOrderDetailId\":1,\"produce_weight\":100,\"size\":\"S/M 25*9cm\",\"stock_quantity\":2030,\"yarn\":6},{\"color\":\"深夹花灰\",\"planOrderDetailId\":2,\"produce_weight\":100,\"size\":\"25*9cm S/M\",\"stock_quantity\":1375,\"yarn\":7}]', '2');
+INSERT INTO `tb_half_store_in_out` VALUES ('1', '2015-10-18 20:05:51', '2015-10-18 20:05:51', '6', '[{\"color\":\"黑色\",\"id\":1,\"planOrderDetailId\":1,\"quantity\":100,\"size\":\"30*80x2\",\"weight\":163},{\"color\":\"白色\",\"id\":2,\"planOrderDetailId\":2,\"quantity\":100,\"size\":\"30*80x2\",\"weight\":163}]', '0', '新建', 'FWA20233', '5', 'resource.fuwei.com/images/sample/14369512947741(07-14-13-12-11).png', '9', '马海毛亮丝围脖', 'FWA30209', '80*2*30cm', '157', '209', 'resource.fuwei.com/images/sample/s/14369512947741(07-14-13-12-11).png', 'resource.fuwei.com/images/sample/ss/14369512947741(07-14-13-12-11).png', null, 'FW15892ES', '3', '', '2015-10-18 00:00:00', '7', null, '', '15HRK0001', '233', '', '1');
+INSERT INTO `tb_half_store_in_out` VALUES ('2', '2015-10-18 20:49:22', '2015-10-18 20:49:22', '6', '[{\"color\":\"黑色\",\"id\":0,\"planOrderDetailId\":1,\"quantity\":100,\"size\":\"30*80x2\",\"weight\":163},{\"color\":\"白色\",\"id\":0,\"planOrderDetailId\":2,\"quantity\":100,\"size\":\"30*80x2\",\"weight\":163}]', '0', '新建', 'FWA20233', '5', 'resource.fuwei.com/images/sample/14369512947741(07-14-13-12-11).png', '9', '马海毛亮丝围脖', 'FWA30209', '80*2*30cm', '157', '209', 'resource.fuwei.com/images/sample/s/14369512947741(07-14-13-12-11).png', 'resource.fuwei.com/images/sample/ss/14369512947741(07-14-13-12-11).png', null, 'FW15892ES', '3', '', '2015-10-18 00:00:00', '5', null, '', '15HCK0002', '233', '', '1');
+INSERT INTO `tb_half_store_in_out` VALUES ('9', '2015-10-20 15:38:29', '2015-10-20 15:38:29', '6', '[{\"color\":\"QY米色\",\"id\":1,\"planOrderDetailId\":1,\"quantity\":1000,\"size\":\"S/M 25*9cm\",\"weight\":100,\"yarn\":6},{\"color\":\"深夹花灰\",\"id\":2,\"planOrderDetailId\":2,\"quantity\":1000,\"size\":\"25*9cm S/M\",\"weight\":100,\"yarn\":7}]', '0', '新建', 'FWA20010', '4', 'resource.fuwei.com/images/sample/1428068026985图片1.png', '6', '绞花包套', 'FWA30016', '25*9cm S/M', '114', '16', 'resource.fuwei.com/images/sample/s/1428068026985图片1.png', 'resource.fuwei.com/images/sample/ss/1428068026985图片1.png', '3', 'FWA30016', '3', '', '2015-10-20 00:00:00', '2', null, '', '15HRK0009', '10', '', '1');
+INSERT INTO `tb_half_store_in_out` VALUES ('10', '2015-10-20 15:41:23', '2015-10-20 15:41:23', '6', '[{\"color\":\"QY米色\",\"id\":0,\"planOrderDetailId\":1,\"quantity\":125,\"size\":\"S/M 25*9cm\",\"weight\":100,\"yarn\":6},{\"color\":\"深夹花灰\",\"id\":0,\"planOrderDetailId\":2,\"quantity\":300,\"size\":\"25*9cm S/M\",\"weight\":100,\"yarn\":7}]', '0', '新建', 'FWA20010', '4', 'resource.fuwei.com/images/sample/1428068026985图片1.png', '6', '绞花包套', 'FWA30016', '25*9cm S/M', '114', '16', 'resource.fuwei.com/images/sample/s/1428068026985图片1.png', 'resource.fuwei.com/images/sample/ss/1428068026985图片1.png', '3', 'FWA30016', '3', '', '2015-10-20 00:00:00', '2', null, '', '15HCK0010', '10', '', '3');
+INSERT INTO `tb_half_store_in_out` VALUES ('11', '2015-10-20 16:03:37', '2015-10-20 16:03:37', '6', '[{\"color\":\"QY米色\",\"id\":1,\"planOrderDetailId\":1,\"quantity\":875,\"size\":\"S/M 25*9cm\",\"weight\":100,\"yarn\":6},{\"color\":\"深夹花灰\",\"id\":2,\"planOrderDetailId\":2,\"quantity\":910,\"size\":\"25*9cm S/M\",\"weight\":100,\"yarn\":7}]', '0', '新建', 'FWA20010', '4', 'resource.fuwei.com/images/sample/1428068026985图片1.png', '6', '绞花包套', 'FWA30016', '25*9cm S/M', '114', '16', 'resource.fuwei.com/images/sample/s/1428068026985图片1.png', 'resource.fuwei.com/images/sample/ss/1428068026985图片1.png', '3', 'FWA30016', '3', '', '2015-10-20 00:00:00', '2', null, '', '15HRK0011', '10', '', '1');
+INSERT INTO `tb_half_store_in_out` VALUES ('14', '2015-10-28 20:11:29', '2015-10-28 20:11:29', '6', '[{\"color\":\"QY米色\",\"id\":1,\"planOrderDetailId\":1,\"quantity\":500,\"size\":\"S/M 25*9cm\",\"weight\":102,\"yarn\":6}]', '0', '新建', 'FWA20010', '4', 'resource.fuwei.com/images/sample/1428068026985图片1.png', '6', '绞花包套', 'FWA30016', '25*9cm S/M', '114', '16', 'resource.fuwei.com/images/sample/s/1428068026985图片1.png', 'resource.fuwei.com/images/sample/ss/1428068026985图片1.png', '3', 'FWA30016', '3', '', '2015-10-28 00:00:00', '2', null, '', '15HRK0014', '10', '', '3');
+INSERT INTO `tb_half_store_return` VALUES ('1', '2015-10-20 15:39:05', '2015-10-20 15:39:05', '6', '[{\"color\":\"QY米色\",\"id\":1,\"planOrderDetailId\":1,\"quantity\":200,\"size\":\"S/M 25*9cm\",\"weight\":100,\"yarn\":6},{\"color\":\"深夹花灰\",\"id\":2,\"planOrderDetailId\":2,\"quantity\":235,\"size\":\"25*9cm S/M\",\"weight\":100,\"yarn\":7}]', '0', '新建', 'FWA20010', '4', 'resource.fuwei.com/images/sample/1428068026985图片1.png', '绞花包套', 'FWA30016', '16', 'resource.fuwei.com/images/sample/s/1428068026985图片1.png', 'resource.fuwei.com/images/sample/ss/1428068026985图片1.png', '3', 'FWA30016', '3', '2015-10-20 00:00:00', '2', null, '尺寸过大', '15HR0001', '10', '', '1');
+INSERT INTO `tb_half_store_return` VALUES ('2', '2015-10-20 17:38:11', '2015-10-20 17:38:11', '6', '[{\"color\":\"QY米色\",\"id\":1,\"planOrderDetailId\":1,\"quantity\":20,\"size\":\"S/M 25*9cm\",\"weight\":100,\"yarn\":6}]', '0', '新建', 'FWA20010', '4', 'resource.fuwei.com/images/sample/1428068026985图片1.png', '绞花包套', 'FWA30016', '16', 'resource.fuwei.com/images/sample/s/1428068026985图片1.png', 'resource.fuwei.com/images/sample/ss/1428068026985图片1.png', '3', 'FWA30016', '3', '2015-10-20 00:00:00', '2', null, '', '15HR0002', '10', '', '3');
 INSERT INTO `tb_halfcheckrecordorder` VALUES ('1', '1', '2015-03-31 21:48:39', '2015-03-31 21:48:39', '7', '[{\"color\":\"黑白色组\",\"colorsample\":\"\",\"material\":1}]', '6', '执行完成');
 INSERT INTO `tb_halfcheckrecordorder` VALUES ('2', '2', '2015-04-02 22:09:03', '2015-04-02 22:09:03', '7', '[{\"color\":\"米色\",\"colorsample\":\"\",\"material\":4},{\"color\":\"藏青\",\"colorsample\":\"\",\"material\":4}]', '0', '新建');
 INSERT INTO `tb_halfcheckrecordorder` VALUES ('3', '3', '2015-04-02 22:32:58', '2015-04-02 22:32:58', '7', '[{\"color\":\"米色\",\"colorsample\":\"\",\"material\":4},{\"color\":\"藏青\",\"colorsample\":\"\",\"material\":4}]', '0', '新建');
@@ -4468,11 +5500,11 @@ INSERT INTO `tb_halfcheckrecordorder` VALUES ('6', '6', '2015-04-03 09:52:51', '
 INSERT INTO `tb_halfcheckrecordorder` VALUES ('7', '7', '2015-04-03 15:04:20', '2015-04-03 15:04:20', '7', '[{\"color\":\"深夹花灰\",\"colorsample\":\"\",\"material\":9},{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":9}]', '0', '新建');
 INSERT INTO `tb_halfcheckrecordorder` VALUES ('8', '8', '2015-04-03 15:22:38', '2015-04-03 15:22:38', '7', '[{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":9},{\"color\":\"深夹花灰\",\"colorsample\":\"\",\"material\":9}]', '0', '新建');
 INSERT INTO `tb_halfcheckrecordorder` VALUES ('9', '9', '2015-04-03 21:39:34', '2015-04-03 21:39:34', '7', '[{\"color\":\"深夹花灰\",\"colorsample\":\"\",\"material\":7},{\"color\":\"白色\",\"colorsample\":\"\",\"material\":6}]', '0', '新建');
-INSERT INTO `tb_halfcheckrecordorder` VALUES ('10', '10', '2015-04-03 22:01:02', '2015-04-03 22:01:02', '7', '[{\"color\":\"QY米色\",\"colorsample\":\"\",\"material\":6},{\"color\":\"深夹花灰\",\"colorsample\":\"\",\"material\":7}]', '0', '新建');
+INSERT INTO `tb_halfcheckrecordorder` VALUES ('10', '10', '2015-04-03 22:01:02', '2015-10-21 15:20:50', '7', '[{\"color\":\"QY米色\",\"colorsample\":\"\",\"material\":6},{\"color\":\"深夹花灰\",\"colorsample\":\"\",\"material\":7}]', '0', '新建');
 INSERT INTO `tb_halfcheckrecordorder` VALUES ('11', '11', '2015-04-03 22:08:13', '2015-04-03 22:08:13', '7', '[{\"color\":\"米色\",\"colorsample\":\"\",\"material\":6},{\"color\":\"深夹花灰\",\"colorsample\":\"\",\"material\":7}]', '0', '新建');
 INSERT INTO `tb_halfcheckrecordorder` VALUES ('12', '12', '2015-04-03 23:16:47', '2015-04-03 23:16:47', '7', '[{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":1},{\"color\":\"深夹花灰\",\"colorsample\":\"\",\"material\":1},{\"color\":\"暗红色\",\"colorsample\":\"\",\"material\":1}]', '0', '新建');
 INSERT INTO `tb_halfcheckrecordorder` VALUES ('13', '13', '2015-04-03 23:52:25', '2015-04-03 23:52:25', '7', '[{\"color\":\"灰色\",\"colorsample\":\"\",\"material\":8}]', '6', '执行完成');
-INSERT INTO `tb_halfcheckrecordorder` VALUES ('14', '14', '2015-04-04 00:25:22', '2015-04-04 00:25:22', '7', '[{\"color\":\"褐色\",\"colorsample\":\"\",\"material\":13},{\"color\":\"红棕色\",\"colorsample\":\"\",\"material\":13},{\"color\":\"旧粉色\",\"colorsample\":\"\",\"material\":13}]', '6', '执行完成');
+INSERT INTO `tb_halfcheckrecordorder` VALUES ('14', '14', '2015-04-04 00:25:22', '2015-04-04 00:25:22', '7', '[{\"color\":\"褐色\",\"colorsample\":\"\",\"material\":13},{\"color\":\"红棕色\",\"colorsample\":\"\",\"material\":13},{\"color\":\"旧粉色\",\"colorsample\":\"\",\"material\":13}]', '0', '新建');
 INSERT INTO `tb_halfcheckrecordorder` VALUES ('15', '15', '2015-04-04 01:47:47', '2015-04-04 01:47:47', '7', '[{\"color\":\"白色\",\"colorsample\":\"\",\"material\":17}]', '0', '新建');
 INSERT INTO `tb_halfcheckrecordorder` VALUES ('16', '16', '2015-04-04 01:52:57', '2015-04-04 01:52:57', '7', '[{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":9},{\"color\":\"米色\",\"colorsample\":\"\",\"material\":9}]', '0', '新建');
 INSERT INTO `tb_halfcheckrecordorder` VALUES ('17', '17', '2015-04-04 14:45:56', '2015-04-04 14:45:56', '7', '[{\"color\":\"QY114-灰色\",\"colorsample\":\"\",\"material\":9},{\"color\":\"QY114-粉色\",\"colorsample\":\"\",\"material\":9},{\"color\":\"QY114-酒红\",\"colorsample\":\"\",\"material\":9},{\"color\":\"QY114-深驼\",\"colorsample\":\"\",\"material\":9}]', '0', '新建');
@@ -4549,7 +5581,7 @@ INSERT INTO `tb_halfcheckrecordorder` VALUES ('87', '87', '2015-04-27 08:07:57',
 INSERT INTO `tb_halfcheckrecordorder` VALUES ('88', '88', '2015-04-27 08:24:57', '2015-04-27 08:24:57', '7', '[{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":10},{\"color\":\"棕色\",\"colorsample\":\"\",\"material\":10},{\"color\":\"白色\",\"colorsample\":\"\",\"material\":10},{\"color\":\"灰色\",\"colorsample\":\"\",\"material\":10}]', '0', '新建');
 INSERT INTO `tb_halfcheckrecordorder` VALUES ('89', '89', '2015-04-27 08:45:32', '2015-04-27 08:45:32', '7', '[{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":10},{\"color\":\"棕色\",\"colorsample\":\"\",\"material\":10},{\"color\":\"白色\",\"colorsample\":\"\",\"material\":10},{\"color\":\"褐色\",\"colorsample\":\"\",\"material\":10},{\"color\":\"灰色\",\"colorsample\":\"\",\"material\":10}]', '0', '新建');
 INSERT INTO `tb_halfcheckrecordorder` VALUES ('90', '90', '2015-04-30 13:32:44', '2015-04-30 13:32:44', '7', '[{\"color\":\"714\",\"colorsample\":\"\",\"material\":10}]', '0', '新建');
-INSERT INTO `tb_halfcheckrecordorder` VALUES ('91', '91', '2015-05-02 16:28:24', '2015-05-02 16:28:24', '7', '[{\"color\":\"粉色\",\"colorsample\":\"\",\"material\":9},{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":9},{\"color\":\"本白\",\"colorsample\":\"\",\"material\":9}]', '6', '执行完成');
+INSERT INTO `tb_halfcheckrecordorder` VALUES ('91', '91', '2015-05-02 16:28:24', '2015-05-02 16:28:24', '7', '[{\"color\":\"粉色\",\"colorsample\":\"\",\"material\":9},{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":9},{\"color\":\"本白\",\"colorsample\":\"\",\"material\":9}]', '0', '新建');
 INSERT INTO `tb_halfcheckrecordorder` VALUES ('92', '92', '2015-05-03 17:24:03', '2015-05-03 17:24:03', '7', '[{\"color\":\"AU16蓝色\",\"colorsample\":\"\",\"material\":10},{\"color\":\"K974\",\"colorsample\":\"\",\"material\":10}]', '0', '新建');
 INSERT INTO `tb_halfcheckrecordorder` VALUES ('93', '93', '2015-05-03 17:34:23', '2015-05-03 17:34:23', '7', '[{\"color\":\"多色\",\"colorsample\":\"\",\"material\":11}]', '0', '新建');
 INSERT INTO `tb_halfcheckrecordorder` VALUES ('94', '94', '2015-05-03 17:51:49', '2015-05-03 17:51:49', '7', '[{\"color\":\"黑/灰\",\"colorsample\":\"\",\"material\":1}]', '6', '执行完成');
@@ -4683,7 +5715,7 @@ INSERT INTO `tb_halfcheckrecordorder` VALUES ('221', '221', '2015-07-05 14:39:24
 INSERT INTO `tb_halfcheckrecordorder` VALUES ('222', '222', '2015-07-05 14:50:16', '2015-07-05 14:50:16', '7', '[{\"color\":\"姜黄\",\"colorsample\":\"\",\"material\":6},{\"color\":\"深绿/浅绿\",\"colorsample\":\"\",\"material\":6},{\"color\":\"酒红/黑色\",\"colorsample\":\"\",\"material\":6}]', '0', '新建');
 INSERT INTO `tb_halfcheckrecordorder` VALUES ('223', '223', '2015-07-05 15:09:32', '2015-07-05 15:09:32', '7', '[{\"color\":\"姜黄\",\"colorsample\":\"\",\"material\":6},{\"color\":\"深绿/浅绿\",\"colorsample\":\"\",\"material\":6},{\"color\":\"酒红/黑色\",\"colorsample\":\"\",\"material\":6}]', '0', '新建');
 INSERT INTO `tb_halfcheckrecordorder` VALUES ('224', '224', '2015-07-08 22:11:35', '2015-07-08 22:11:35', '7', '[{\"color\":\"米色\",\"colorsample\":\"\",\"material\":38},{\"color\":\"灰色/米色\",\"colorsample\":\"\",\"material\":38}]', '0', '新建');
-INSERT INTO `tb_halfcheckrecordorder` VALUES ('225', '225', '2015-07-11 13:10:46', '2015-07-11 13:10:46', '7', '[{\"color\":\"粉色\",\"colorsample\":\"\",\"material\":9}]', '6', '执行完成');
+INSERT INTO `tb_halfcheckrecordorder` VALUES ('225', '225', '2015-07-11 13:10:46', '2015-07-11 13:10:46', '7', '[{\"color\":\"粉色\",\"colorsample\":\"\",\"material\":9}]', '0', '新建');
 INSERT INTO `tb_halfcheckrecordorder` VALUES ('226', '226', '2015-07-12 16:23:22', '2015-07-12 16:23:22', '7', '[{\"color\":\"浅灰夹·花·组·\",\"colorsample\":\"\",\"material\":1},{\"color\":\"深灰夹·花·组·\",\"colorsample\":\"\",\"material\":1}]', '0', '新建');
 INSERT INTO `tb_halfcheckrecordorder` VALUES ('227', '227', '2015-07-12 17:03:51', '2015-07-12 17:03:51', '7', '[{\"color\":\"灰色组\",\"colorsample\":\"\",\"material\":11},{\"color\":\"灰色组\",\"colorsample\":\"\",\"material\":11},{\"color\":\"灰色组\",\"colorsample\":\"\",\"material\":11},{\"color\":\"灰色组\",\"colorsample\":\"\",\"material\":11},{\"color\":\"灰色组\",\"colorsample\":\"\",\"material\":11}]', '0', '新建');
 INSERT INTO `tb_halfcheckrecordorder` VALUES ('228', '228', '2015-07-15 20:20:47', '2015-07-15 20:20:47', '7', '[{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":1}]', '0', '新建');
@@ -4717,6 +5749,33 @@ INSERT INTO `tb_halfcheckrecordorder` VALUES ('255', '255', '2015-08-09 22:05:28
 INSERT INTO `tb_halfcheckrecordorder` VALUES ('256', '256', '2015-08-09 22:19:56', '2015-08-09 22:19:56', '7', '[{\"color\":\"本白色\",\"colorsample\":\"\",\"material\":10}]', '0', '新建');
 INSERT INTO `tb_halfcheckrecordorder` VALUES ('257', '257', '2015-08-09 22:33:40', '2015-08-09 22:33:40', '7', '[{\"color\":\"米色\",\"colorsample\":\"\",\"material\":6}]', '0', '新建');
 INSERT INTO `tb_halfcheckrecordorder` VALUES ('258', '258', '2015-08-11 17:53:10', '2015-08-11 17:53:10', '7', '[{\"color\":\"本白色\",\"colorsample\":\"\",\"material\":10}]', '0', '新建');
+INSERT INTO `tb_halfcheckrecordorder` VALUES ('259', '259', '2015-08-13 09:11:37', '2015-08-13 09:11:37', '7', '[{\"color\":\"酒红色\",\"colorsample\":\"\",\"material\":4},{\"color\":\"褐色/白色\",\"colorsample\":\"\",\"material\":4}]', '0', '新建');
+INSERT INTO `tb_halfcheckrecordorder` VALUES ('260', '260', '2015-08-13 09:23:32', '2015-08-13 09:23:32', '7', '[{\"color\":\"红色\",\"colorsample\":\"\",\"material\":1}]', '0', '新建');
+INSERT INTO `tb_halfcheckrecordorder` VALUES ('261', '261', '2015-08-20 14:13:42', '2015-08-20 14:13:42', '7', '[{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":1}]', '0', '新建');
+INSERT INTO `tb_halfcheckrecordorder` VALUES ('262', '262', '2015-08-24 15:08:35', '2015-08-24 15:08:35', '7', '[{\"color\":\"白色\",\"colorsample\":\"\",\"material\":11}]', '0', '新建');
+INSERT INTO `tb_halfcheckrecordorder` VALUES ('263', '263', '2015-08-26 16:31:59', '2015-08-26 16:31:59', '7', '[{\"color\":\"粉色\",\"colorsample\":\"\",\"material\":10},{\"color\":\"712\",\"colorsample\":\"\",\"material\":10},{\"color\":\"沙色\",\"colorsample\":\"\",\"material\":10}]', '0', '新建');
+INSERT INTO `tb_halfcheckrecordorder` VALUES ('264', '264', '2015-08-26 16:49:07', '2015-08-26 16:49:07', '7', '[{\"color\":\"粉色\",\"colorsample\":\"\",\"material\":10},{\"color\":\"沙色\",\"colorsample\":\"\",\"material\":10},{\"color\":\"712\",\"colorsample\":\"\",\"material\":10}]', '0', '新建');
+INSERT INTO `tb_halfcheckrecordorder` VALUES ('265', '265', '2015-08-27 08:27:35', '2015-08-27 08:27:35', '7', '[{\"color\":\"米色\",\"colorsample\":\"\",\"material\":2}]', '0', '新建');
+INSERT INTO `tb_halfcheckrecordorder` VALUES ('266', '266', '2015-08-27 08:37:24', '2015-08-27 08:37:24', '7', '[{\"color\":\"米白/深灰\",\"colorsample\":\"\",\"material\":10}]', '0', '新建');
+INSERT INTO `tb_halfcheckrecordorder` VALUES ('267', '267', '2015-08-27 08:55:10', '2015-08-27 08:55:10', '7', '[{\"color\":\"紫色\",\"colorsample\":\"\",\"material\":9},{\"color\":\"绿色\",\"colorsample\":\"\",\"material\":9}]', '0', '新建');
+INSERT INTO `tb_halfcheckrecordorder` VALUES ('268', '268', '2015-09-04 15:35:09', '2015-09-04 15:35:09', '7', '[{\"color\":\"本白\",\"colorsample\":\"\",\"material\":6}]', '0', '新建');
+INSERT INTO `tb_halfcheckrecordorder` VALUES ('269', '269', '2015-09-17 12:39:23', '2015-09-17 12:39:23', '7', '[{\"color\":\"浅粉色组\",\"colorsample\":\"\",\"material\":3},{\"color\":\"蓝色组\",\"colorsample\":\"\",\"material\":3}]', '0', '新建');
+INSERT INTO `tb_halfcheckrecordorder` VALUES ('270', '270', '2015-09-17 12:55:22', '2015-09-17 12:55:22', '7', '[{\"color\":\"灰色组\",\"colorsample\":\"\",\"material\":3},{\"color\":\"蓝色组\",\"colorsample\":\"\",\"material\":3}]', '0', '新建');
+INSERT INTO `tb_halfcheckrecordorder` VALUES ('271', '271', '2015-09-21 08:30:40', '2015-09-21 08:30:40', '7', '[{\"color\":\"旧粉\",\"colorsample\":\"\",\"material\":13}]', '0', '新建');
+INSERT INTO `tb_halfcheckrecordorder` VALUES ('272', '272', '2015-09-23 12:27:17', '2015-09-23 12:27:17', '7', '[{\"color\":\"白色\",\"colorsample\":\"\",\"material\":54},{\"color\":\"绿色\",\"colorsample\":\"\",\"material\":54},{\"color\":\"酒红\",\"colorsample\":\"\",\"material\":54},{\"color\":\"浅蓝\",\"colorsample\":\"\",\"material\":54}]', '0', '新建');
+INSERT INTO `tb_halfcheckrecordorder` VALUES ('273', '273', '2015-09-25 15:31:06', '2015-09-25 15:31:06', '7', '[{\"color\":\"本白色\",\"colorsample\":\"\",\"material\":42}]', '0', '新建');
+INSERT INTO `tb_halfcheckrecordorder` VALUES ('274', '274', '2015-09-28 09:05:47', '2015-09-28 09:05:47', '7', '[{\"color\":\"褐色\",\"colorsample\":\"\",\"material\":13}]', '0', '新建');
+INSERT INTO `tb_halfcheckrecordorder` VALUES ('275', '275', '2015-09-28 09:38:07', '2015-09-28 09:38:07', '7', '[{\"color\":\"黑/白\",\"colorsample\":\"\",\"material\":9},{\"color\":\"藏青/浅蓝\",\"colorsample\":\"\",\"material\":9},{\"color\":\"深绿/浅卡其\",\"colorsample\":\"\",\"material\":9}]', '0', '新建');
+INSERT INTO `tb_halfcheckrecordorder` VALUES ('276', '276', '2015-10-04 10:24:40', '2015-10-04 10:24:40', '7', '[{\"color\":\"驼色组\",\"colorsample\":\"\",\"material\":1},{\"color\":\"蓝色组\",\"colorsample\":\"\",\"material\":1},{\"color\":\"红色组\",\"colorsample\":\"\",\"material\":1}]', '0', '新建');
+INSERT INTO `tb_halfcheckrecordorder` VALUES ('277', '277', '2015-10-09 14:16:39', '2015-10-09 14:16:39', '7', '[{\"color\":\"粉色\",\"colorsample\":\"\",\"material\":6}]', '0', '新建');
+INSERT INTO `tb_halfcheckrecordorder` VALUES ('278', '278', '2015-10-09 14:36:54', '2015-10-09 14:36:54', '7', '[{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":3},{\"color\":\"粉色\",\"colorsample\":\"\",\"material\":3}]', '0', '新建');
+INSERT INTO `tb_halfcheckrecordorder` VALUES ('279', '279', '2015-10-09 14:58:39', '2015-10-09 14:58:39', '7', '[{\"color\":\"本白\",\"colorsample\":\"\",\"material\":6},{\"color\":\"粉色\",\"colorsample\":\"\",\"material\":6}]', '0', '新建');
+INSERT INTO `tb_halfcheckrecordorder` VALUES ('280', '280', '2015-10-09 15:05:02', '2015-10-09 15:05:02', '7', '[{\"color\":\"本白\",\"colorsample\":\"\",\"material\":6},{\"color\":\"粉色\",\"colorsample\":\"\",\"material\":6}]', '0', '新建');
+INSERT INTO `tb_halfcheckrecordorder` VALUES ('281', '281', '2015-10-09 15:09:30', '2015-10-09 15:09:30', '7', '[{\"color\":\"粉色\",\"colorsample\":\"\",\"material\":4}]', '0', '新建');
+INSERT INTO `tb_halfcheckrecordorder` VALUES ('282', '282', '2015-10-10 08:50:24', '2015-10-10 08:50:24', '7', '[{\"color\":\"红棕色\",\"colorsample\":\"\",\"material\":13}]', '0', '新建');
+INSERT INTO `tb_halfcheckrecordorder` VALUES ('283', '283', '2015-10-13 13:17:11', '2015-10-13 13:17:11', '7', '[{\"color\":\"灰色\",\"colorsample\":\"\",\"material\":1},{\"color\":\"驼色\",\"colorsample\":\"\",\"material\":1},{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":1}]', '0', '新建');
+INSERT INTO `tb_halfcheckrecordorder` VALUES ('284', '284', '2015-10-15 09:22:03', '2015-10-15 09:22:03', '7', '[{\"color\":\"灰色组\",\"colorsample\":\"\",\"material\":9},{\"color\":\"粉色组\",\"colorsample\":\"\",\"material\":9}]', '0', '新建');
+INSERT INTO `tb_halfcheckrecordorder` VALUES ('285', '285', '2015-10-29 21:07:54', '2015-10-29 21:07:54', '6', '[{\"color\":\"红色\",\"colorsample\":\"\",\"material\":5}]', '0', '新建');
 INSERT INTO `tb_headbankorder` VALUES ('1', '1', '2015-03-31 21:48:39', '2015-03-31 21:48:39', '7', '6', '执行完成');
 INSERT INTO `tb_headbankorder` VALUES ('2', '2', '2015-04-02 22:09:03', '2015-04-02 22:09:03', '7', '0', '新建');
 INSERT INTO `tb_headbankorder` VALUES ('3', '3', '2015-04-02 22:32:58', '2015-04-02 22:32:58', '7', '0', '新建');
@@ -4730,7 +5789,7 @@ INSERT INTO `tb_headbankorder` VALUES ('10', '10', '2015-04-03 22:01:02', '2015-
 INSERT INTO `tb_headbankorder` VALUES ('11', '11', '2015-04-03 22:08:13', '2015-04-03 22:08:13', '7', '0', '新建');
 INSERT INTO `tb_headbankorder` VALUES ('12', '12', '2015-04-03 23:16:47', '2015-04-03 23:16:47', '7', '0', '新建');
 INSERT INTO `tb_headbankorder` VALUES ('13', '13', '2015-04-03 23:52:25', '2015-04-03 23:52:25', '7', '6', '执行完成');
-INSERT INTO `tb_headbankorder` VALUES ('14', '14', '2015-04-04 00:25:22', '2015-04-04 00:25:22', '7', '6', '执行完成');
+INSERT INTO `tb_headbankorder` VALUES ('14', '14', '2015-04-04 00:25:22', '2015-04-04 00:25:22', '7', '0', '新建');
 INSERT INTO `tb_headbankorder` VALUES ('15', '15', '2015-04-04 01:47:47', '2015-04-04 01:47:47', '7', '0', '新建');
 INSERT INTO `tb_headbankorder` VALUES ('16', '16', '2015-04-04 01:52:57', '2015-04-04 01:52:57', '7', '0', '新建');
 INSERT INTO `tb_headbankorder` VALUES ('17', '17', '2015-04-04 14:45:56', '2015-04-04 14:45:56', '7', '0', '新建');
@@ -4807,7 +5866,7 @@ INSERT INTO `tb_headbankorder` VALUES ('87', '87', '2015-04-27 08:07:57', '2015-
 INSERT INTO `tb_headbankorder` VALUES ('88', '88', '2015-04-27 08:24:57', '2015-04-27 08:24:57', '7', '0', '新建');
 INSERT INTO `tb_headbankorder` VALUES ('89', '89', '2015-04-27 08:45:32', '2015-04-27 08:45:32', '7', '0', '新建');
 INSERT INTO `tb_headbankorder` VALUES ('90', '90', '2015-04-30 13:32:44', '2015-04-30 13:32:44', '7', '0', '新建');
-INSERT INTO `tb_headbankorder` VALUES ('91', '91', '2015-05-02 16:28:24', '2015-05-02 16:28:24', '7', '6', '执行完成');
+INSERT INTO `tb_headbankorder` VALUES ('91', '91', '2015-05-02 16:28:24', '2015-05-02 16:28:24', '7', '0', '新建');
 INSERT INTO `tb_headbankorder` VALUES ('92', '92', '2015-05-03 17:24:03', '2015-05-03 17:24:03', '7', '0', '新建');
 INSERT INTO `tb_headbankorder` VALUES ('93', '93', '2015-05-03 17:34:23', '2015-05-03 17:34:23', '7', '0', '新建');
 INSERT INTO `tb_headbankorder` VALUES ('94', '94', '2015-05-03 17:51:49', '2015-05-03 17:51:49', '7', '6', '执行完成');
@@ -4941,7 +6000,7 @@ INSERT INTO `tb_headbankorder` VALUES ('221', '221', '2015-07-05 14:39:24', '201
 INSERT INTO `tb_headbankorder` VALUES ('222', '222', '2015-07-05 14:50:16', '2015-07-05 14:50:16', '7', '0', '新建');
 INSERT INTO `tb_headbankorder` VALUES ('223', '223', '2015-07-05 15:09:32', '2015-07-05 15:09:32', '7', '0', '新建');
 INSERT INTO `tb_headbankorder` VALUES ('224', '224', '2015-07-08 22:11:35', '2015-07-08 22:11:35', '7', '0', '新建');
-INSERT INTO `tb_headbankorder` VALUES ('225', '225', '2015-07-11 13:10:46', '2015-07-11 13:10:46', '7', '6', '执行完成');
+INSERT INTO `tb_headbankorder` VALUES ('225', '225', '2015-07-11 13:10:46', '2015-07-11 13:10:46', '7', '0', '新建');
 INSERT INTO `tb_headbankorder` VALUES ('226', '226', '2015-07-12 16:23:22', '2015-07-12 16:23:22', '7', '0', '新建');
 INSERT INTO `tb_headbankorder` VALUES ('227', '227', '2015-07-12 17:03:51', '2015-07-12 17:03:51', '7', '0', '新建');
 INSERT INTO `tb_headbankorder` VALUES ('228', '228', '2015-07-15 20:20:47', '2015-07-15 20:20:47', '7', '0', '新建');
@@ -4975,6 +6034,32 @@ INSERT INTO `tb_headbankorder` VALUES ('255', '255', '2015-08-09 22:05:28', '201
 INSERT INTO `tb_headbankorder` VALUES ('256', '256', '2015-08-09 22:19:56', '2015-08-09 22:19:56', '7', '0', '新建');
 INSERT INTO `tb_headbankorder` VALUES ('257', '257', '2015-08-09 22:33:40', '2015-08-09 22:33:40', '7', '0', '新建');
 INSERT INTO `tb_headbankorder` VALUES ('258', '258', '2015-08-11 17:53:09', '2015-08-11 17:53:09', '7', '0', '新建');
+INSERT INTO `tb_headbankorder` VALUES ('259', '259', '2015-08-13 09:11:37', '2015-08-13 09:11:37', '7', '0', '新建');
+INSERT INTO `tb_headbankorder` VALUES ('260', '260', '2015-08-13 09:23:32', '2015-08-13 09:23:32', '7', '0', '新建');
+INSERT INTO `tb_headbankorder` VALUES ('261', '261', '2015-08-20 14:13:42', '2015-08-20 14:13:42', '7', '0', '新建');
+INSERT INTO `tb_headbankorder` VALUES ('262', '262', '2015-08-24 15:08:35', '2015-08-24 15:08:35', '7', '0', '新建');
+INSERT INTO `tb_headbankorder` VALUES ('263', '263', '2015-08-26 16:31:59', '2015-08-26 16:31:59', '7', '0', '新建');
+INSERT INTO `tb_headbankorder` VALUES ('264', '264', '2015-08-26 16:49:07', '2015-08-26 16:49:07', '7', '0', '新建');
+INSERT INTO `tb_headbankorder` VALUES ('265', '265', '2015-08-27 08:27:35', '2015-08-27 08:27:35', '7', '0', '新建');
+INSERT INTO `tb_headbankorder` VALUES ('266', '266', '2015-08-27 08:37:24', '2015-08-27 08:37:24', '7', '0', '新建');
+INSERT INTO `tb_headbankorder` VALUES ('267', '267', '2015-08-27 08:55:10', '2015-08-27 08:55:10', '7', '0', '新建');
+INSERT INTO `tb_headbankorder` VALUES ('268', '268', '2015-09-04 15:35:09', '2015-09-04 15:35:09', '7', '0', '新建');
+INSERT INTO `tb_headbankorder` VALUES ('269', '269', '2015-09-17 12:39:23', '2015-09-17 12:39:23', '7', '0', '新建');
+INSERT INTO `tb_headbankorder` VALUES ('270', '270', '2015-09-17 12:55:22', '2015-09-17 12:55:22', '7', '0', '新建');
+INSERT INTO `tb_headbankorder` VALUES ('271', '271', '2015-09-21 08:30:40', '2015-09-21 08:30:40', '7', '0', '新建');
+INSERT INTO `tb_headbankorder` VALUES ('272', '272', '2015-09-23 12:27:17', '2015-09-23 12:27:17', '7', '0', '新建');
+INSERT INTO `tb_headbankorder` VALUES ('273', '273', '2015-09-25 15:31:06', '2015-09-25 15:31:06', '7', '0', '新建');
+INSERT INTO `tb_headbankorder` VALUES ('274', '274', '2015-09-28 09:05:47', '2015-09-28 09:05:47', '7', '0', '新建');
+INSERT INTO `tb_headbankorder` VALUES ('275', '275', '2015-09-28 09:38:07', '2015-09-28 09:38:07', '7', '0', '新建');
+INSERT INTO `tb_headbankorder` VALUES ('276', '276', '2015-10-04 10:24:40', '2015-10-04 10:24:40', '7', '0', '新建');
+INSERT INTO `tb_headbankorder` VALUES ('277', '277', '2015-10-09 14:16:39', '2015-10-09 14:16:39', '7', '0', '新建');
+INSERT INTO `tb_headbankorder` VALUES ('278', '278', '2015-10-09 14:36:54', '2015-10-09 14:36:54', '7', '0', '新建');
+INSERT INTO `tb_headbankorder` VALUES ('279', '279', '2015-10-09 14:58:39', '2015-10-09 14:58:39', '7', '0', '新建');
+INSERT INTO `tb_headbankorder` VALUES ('280', '280', '2015-10-09 15:05:02', '2015-10-09 15:05:02', '7', '0', '新建');
+INSERT INTO `tb_headbankorder` VALUES ('281', '281', '2015-10-09 15:09:30', '2015-10-09 15:09:30', '7', '0', '新建');
+INSERT INTO `tb_headbankorder` VALUES ('282', '282', '2015-10-10 08:50:24', '2015-10-10 08:50:24', '7', '0', '新建');
+INSERT INTO `tb_headbankorder` VALUES ('283', '283', '2015-10-13 13:17:11', '2015-10-13 13:17:11', '7', '0', '新建');
+INSERT INTO `tb_headbankorder` VALUES ('284', '284', '2015-10-15 09:22:03', '2015-10-15 09:22:03', '7', '0', '新建');
 INSERT INTO `tb_invoice` VALUES ('121', '142', '艾利(苏州)有限公司', '316.15', '', '2015-03-15', '2015-03-15', '2015-03-15', '6', '', '04732156', '0', '0', '3', '316.15', '3', '1');
 INSERT INTO `tb_invoice` VALUES ('122', '142', '艾利(苏州)有限公司', '81.12', '', '2015-03-15', '2015-03-15', '2015-03-15', '6', '', '04732247', '0', '0', '3', '81.12', '3', '1');
 INSERT INTO `tb_invoice` VALUES ('123', '142', '艾利(苏州)有限公司', '151.41', '', '2015-03-15', '2015-03-15', '2015-03-15', '6', '', '04731710', '0', '0', '3', '151.41', '3', '1');
@@ -5048,12 +6133,12 @@ INSERT INTO `tb_invoice` VALUES ('190', '205', '张家港保税区保点标签�
 INSERT INTO `tb_invoice` VALUES ('191', '152', '广州柏盛包装有限公司', '858.94', '翔天王菁', '2015-06-08', '2015-06-08', '2015-06-08', '6', '', '07813299', '0', '0', '3', '858.94', '1', '1');
 INSERT INTO `tb_invoice` VALUES ('192', '173', '上海东兴服装服饰有限公司', '9898.33', '辅料款', '2015-05-07', '2015-05-07', '2015-05-07', '6', '', ' 23042747', '0', '0', '3', '9898.33', '2', '1');
 INSERT INTO `tb_invoice` VALUES ('193', '128', '桐庐星火包装厂', '83921.87', '', '2014-09-01', '2014-09-01', '2014-09-01', '14', '', '18826645', '0', '0', '3', '83921.87', null, '3');
-INSERT INTO `tb_invoice` VALUES ('194', '128', '桐庐星火包装厂', '192823.68', '2014年收的发票，号码未知', '2014-09-01', '2014-09-01', '2014-09-01', '14', '', '2014年纸箱发票', '0', '0', '3', '100000', null, '3');
-INSERT INTO `tb_invoice` VALUES ('195', '121', '桐庐恒达纺织印染有限公司', '34033.8', '染色费', '2015-05-07', '2015-05-07', '2015-05-07', '14', '', '10325918', '0', '0', '3', '0', null, null);
-INSERT INTO `tb_invoice` VALUES ('196', '130', '桐庐泽诺贸易有限公司', '101300.4', '金熙', '2015-05-26', '2015-05-26', '2015-05-26', '14', '', '03620860', '0', '0', '3', '60000', null, '2');
+INSERT INTO `tb_invoice` VALUES ('194', '128', '桐庐星火包装厂', '192823.68', '2014年收的发票，号码未知', '2014-09-01', '2014-09-01', '2014-09-01', '14', '', '2014年纸箱发票', '0', '0', '3', '192823.68', null, '3');
+INSERT INTO `tb_invoice` VALUES ('195', '121', '桐庐恒达纺织印染有限公司', '34033.8', '染色费', '2015-05-07', '2015-05-07', '2015-05-07', '14', '', '10325918', '0', '0', '3', '34033.8', null, '9');
+INSERT INTO `tb_invoice` VALUES ('196', '130', '桐庐泽诺贸易有限公司', '101300.4', '金熙', '2015-05-26', '2015-05-26', '2015-05-26', '14', '', '03620860', '0', '0', '3', '101300.4', null, '2');
 INSERT INTO `tb_invoice` VALUES ('197', '126', '桐庐锦欣纺织有限公司', '677426.5', '', '2015-06-09', '2015-06-09', '2015-06-09', '14', '', '12825221', '0', '0', '3', '0', null, null);
 INSERT INTO `tb_invoice` VALUES ('198', '127', '桐庐南源纺织有限公司', '113834', '', '2015-05-07', '2015-05-07', '2015-05-07', '14', '', '03627180', '0', '0', '3', '113834', null, '2');
-INSERT INTO `tb_invoice` VALUES ('199', '127', '桐庐南源纺织有限公司', '116683.5', '', '2015-05-07', '2015-05-07', '2015-05-07', '14', '', '03627181', '0', '0', '3', '0', null, '2');
+INSERT INTO `tb_invoice` VALUES ('199', '127', '桐庐南源纺织有限公司', '116683.5', '', '2015-05-07', '2015-05-07', '2015-05-07', '14', '', '03627181', '0', '0', '3', '116683.5', null, '2');
 INSERT INTO `tb_invoice` VALUES ('200', '127', '桐庐南源纺织有限公司', '76152', '', '2015-05-07', '2015-05-07', '2015-05-07', '14', '', '03627182', '0', '0', '3', '76152', null, '2');
 INSERT INTO `tb_invoice` VALUES ('201', '127', '桐庐南源纺织有限公司', '13214', '', '2015-05-07', '2015-05-07', '2015-05-07', '14', '', '03627070', '0', '0', '3', '13214', null, '2');
 INSERT INTO `tb_invoice` VALUES ('202', '127', '桐庐南源纺织有限公司', '113799', '', '2015-06-04', '2015-06-04', '2015-06-04', '14', '', '04184785', '0', '0', '3', '113799', null, '2');
@@ -5133,15 +6218,15 @@ INSERT INTO `tb_invoice` VALUES ('275', '229', '深圳市度点科技有限公�
 INSERT INTO `tb_invoice` VALUES ('276', '231', '桐乡市桐仑纺织有限公司', '12725.2', '本厂用', '2015-06-15', '2015-06-23', '2015-06-23', '14', '', '15769792', '0', '0', '3', '12725.2', null, '22');
 INSERT INTO `tb_invoice` VALUES ('277', '112', '嘉兴市海燕印刷有限公司', '374', '王菁，已收销售单两张', '2015-06-23', '2015-06-24', '2015-06-24', '14', '', '24900472', '0', '0', '3', '0', '1', '1');
 INSERT INTO `tb_invoice` VALUES ('279', '139', '浙江桑德富春水务开发有限公司', '225.75', '', '2015-06-05', '2015-06-24', '2015-06-24', '14', '', '04179632', '0', '0', '3', '225.75', null, '4');
-INSERT INTO `tb_invoice` VALUES ('280', '125', '桐庐金利印染有限公司', '54287', '', '2015-06-15', '2015-06-25', '2015-06-25', '14', '', '04173187', '0', '0', '3', '0', null, '9');
-INSERT INTO `tb_invoice` VALUES ('281', '125', '桐庐金利印染有限公司', '22716', '', '2015-05-16', '2015-06-25', '2015-06-25', '14', '', '04173123', '0', '0', '3', '0', null, '9');
+INSERT INTO `tb_invoice` VALUES ('280', '125', '桐庐金利印染有限公司', '54287', '', '2015-06-15', '2015-06-25', '2015-06-25', '14', '', '04173187', '0', '0', '3', '54287', null, '9');
+INSERT INTO `tb_invoice` VALUES ('281', '125', '桐庐金利印染有限公司', '22716', '', '2015-05-16', '2015-06-25', '2015-06-25', '14', '', '04173123', '0', '0', '3', '22716', null, '9');
 INSERT INTO `tb_invoice` VALUES ('282', '194', '上海珩润实业有限公司', '13747.5', '吊牌', '2015-06-18', '2015-06-25', '2015-06-25', '14', '', '48489129', '0', '0', '3', '13747.5', '1', '1');
 INSERT INTO `tb_invoice` VALUES ('283', '235', '江阴市能信纱业有限公司', '35000', '', '2015-06-23', '2015-06-25', '2015-06-25', '14', '', '06537243', '0', '0', '3', '35000', null, '2');
 INSERT INTO `tb_invoice` VALUES ('284', '235', '江阴市能信纱业有限公司', '87500', '', '2015-06-23', '2015-06-25', '2015-06-25', '14', '', '06537242', '0', '0', '3', '87500', null, '2');
 INSERT INTO `tb_invoice` VALUES ('285', '202', '无锡全星纺织科技有限公司', '31200', '', '2015-06-26', '2015-06-28', '2015-06-28', '14', '', '11646734', '0', '0', '3', '31200', '1', '2');
 INSERT INTO `tb_invoice` VALUES ('286', '167', '宁波东钱湖旅游度假区铭腾纺织品经营部', '2669', '', '2015-06-22', '2015-06-28', '2015-06-28', '14', '', '04761860', '0', '0', '3', '2669', '1', '1');
 INSERT INTO `tb_invoice` VALUES ('287', '127', '桐庐南源纺织有限公司', '111899.4', '', '2015-06-24', '2015-07-02', '2015-07-02', '14', '', '04184880', '0', '0', '3', '111899.4', null, '2');
-INSERT INTO `tb_invoice` VALUES ('288', '127', '桐庐南源纺织有限公司', '108155.5', '', '2016-06-24', '2015-07-02', '2015-07-02', '14', '', '04184881', '0', '0', '3', '12374.6', null, '2');
+INSERT INTO `tb_invoice` VALUES ('288', '127', '桐庐南源纺织有限公司', '108155.5', '', '2016-06-24', '2015-07-02', '2015-07-02', '14', '', '04184881', '0', '0', '3', '95691.1', null, '2');
 INSERT INTO `tb_invoice` VALUES ('289', '127', '桐庐南源纺织有限公司', '97500', '', '2015-06-24', '2015-07-02', '2015-07-02', '14', '', '04184882', '0', '0', '3', '0', null, '2');
 INSERT INTO `tb_invoice` VALUES ('290', '127', '桐庐南源纺织有限公司', '65000', '', '2015-06-24', '2015-07-02', '2015-07-02', '14', '', '04184883', '0', '0', '3', '0', null, '2');
 INSERT INTO `tb_invoice` VALUES ('291', '139', '浙江桑德富春水务开发有限公司', '103.2', '污水费', '2015-06-30', '2015-06-30', '2015-06-30', '14', '', '00016166', '0', '0', '1', '103.2', null, '4');
@@ -5201,44 +6286,44 @@ INSERT INTO `tb_invoice` VALUES ('344', '154', '杭州灵峰商标印刷有限�
 INSERT INTO `tb_invoice` VALUES ('345', '152', '广州柏盛包装有限公司', '2391.33', '', '2015-07-14', '2015-07-18', '2015-07-18', '14', '', '04114284', '0', '0', '3', '2391.33', '1', '1');
 INSERT INTO `tb_invoice` VALUES ('346', '175', '上海金萃贸易有限公司', '1012', '', '2015-07-16', '2015-07-22', '2015-07-22', '14', '', '47229265', '0', '0', '3', '1012', '1', '1');
 INSERT INTO `tb_invoice` VALUES ('387', '167', '宁波东钱湖旅游度假区铭腾纺织品经营部', '14236.1', '', '2015-07-22', '2015-07-24', '2015-07-24', '6', '', '04804841', '0', '0', '3', '14236.1', '2', '1');
-INSERT INTO `tb_invoice` VALUES ('388', '125', '桐庐金利印染有限公司', '35994', '', '2015-07-16', '2015-07-26', '2015-07-26', '14', '', '15912260', '0', '0', '3', '0', null, '9');
+INSERT INTO `tb_invoice` VALUES ('388', '125', '桐庐金利印染有限公司', '35994', '', '2015-07-16', '2015-07-26', '2015-07-26', '14', '', '15912260', '0', '0', '3', '22997', null, '9');
 INSERT INTO `tb_invoice` VALUES ('389', '240', '是魄力塑胶制品贸易(上海)有限公司', '6685.19', '挂钩', '2015-07-21', '2015-07-26', '2015-07-26', '14', '', '12330236', '0', '0', '3', '6685.19', '1', '1');
 INSERT INTO `tb_invoice` VALUES ('390', '281', '赵玲玲', '2776', '永盛木纽扣 ， 3%税率。 是常熟市国家税务局代开的发票', '2015-07-22', '2015-07-26', '2015-07-26', '14', '', '00637923', '0', '0', '3', '2776', '6', '1');
 INSERT INTO `tb_invoice` VALUES ('391', '180', '上海美声服饰辅料有限公司', '888.81', '', '2015-07-29', '2015-07-29', '2015-07-29', '14', '', '18022139', '0', '0', '3', '0', null, '1');
 INSERT INTO `tb_invoice` VALUES ('392', '168', '宁波东拓塑业有限公司', '3450', '丢失证明', '2015-06-04', '2015-07-29', '2015-07-29', '14', '', '05539685', '0', '0', '3', '3450', null, '12');
 INSERT INTO `tb_invoice` VALUES ('393', '168', '宁波东拓塑业有限公司', '3450', '丢失证明', '2015-07-29', '2015-07-29', '2015-07-29', '14', '', '05539692', '0', '0', '3', '3450', null, '12');
-INSERT INTO `tb_invoice` VALUES ('394', '121', '桐庐恒达纺织印染有限公司', '91521.5', '', '2015-06-29', '2015-07-29', '2015-07-29', '14', '', '12826643', '0', '0', '3', '0', null, '9');
+INSERT INTO `tb_invoice` VALUES ('394', '121', '桐庐恒达纺织印染有限公司', '91521.5', '', '2015-06-29', '2015-07-29', '2015-07-29', '14', '', '12826643', '0', '0', '3', '12525.5', null, '9');
 INSERT INTO `tb_invoice` VALUES ('395', '284', '中石化', '23328.19', '2015年3月25日支2015年7月29日的油费', '2015-07-31', '2015-07-31', '2015-07-31', '14', '', '06097003', '0', '0', '3', '0', null, '24');
 INSERT INTO `tb_invoice` VALUES ('397', '281', '赵玲玲', '5782.01', '3%税率。代开发票。永盛木纽扣', '2015-07-29', '2015-08-01', '2015-08-01', '14', '', '00782079', '0', '0', '3', '5782.01', '6', '1');
 INSERT INTO `tb_invoice` VALUES ('398', '285', '桐庐凌华纺织有限公司', '21375.7', '夹花纱', '2015-07-14', '2015-08-01', '2015-08-01', '14', '', '04196048', '0', '0', '3', '0', null, '2');
-INSERT INTO `tb_invoice` VALUES ('439', '268', '杭州翔天实业有限公司', '42000', '', '2015-07-24', '2015-08-02', '2015-08-02', '14', '', '15937118', '0', '0', '3', '0', '1', '16');
-INSERT INTO `tb_invoice` VALUES ('440', '272', '东方国际集团上海利泰进出口有限公司', '72090', '', '2015-07-24', '2015-08-02', '2015-08-02', '14', '', '15937117', '0', '0', '3', '0', '1', '16');
-INSERT INTO `tb_invoice` VALUES ('441', '259', '余姚联合纺织进出口有限公司', '645.6', '', '2015-07-24', '2015-08-02', '2015-08-02', '14', '', '15937116', '0', '0', '3', '0', '1', '16');
-INSERT INTO `tb_invoice` VALUES ('442', '278', '宁波雅励进出口有限公司', '16805', '', '2015-07-24', '2015-08-02', '2015-08-02', '14', '', '15937115', '0', '0', '3', '0', '9', '16');
-INSERT INTO `tb_invoice` VALUES ('443', '276', '浙江悦和实业有限公司', '31400', '多开', '2015-07-21', '2015-08-02', '2015-08-02', '14', '', '15937114', '0', '0', '3', '0', '3', '28');
-INSERT INTO `tb_invoice` VALUES ('444', '276', '浙江悦和实业有限公司', '12568.5', '', '2015-07-21', '2015-08-02', '2015-08-02', '14', '', '15937113', '0', '0', '3', '0', '3', '16');
-INSERT INTO `tb_invoice` VALUES ('445', '276', '浙江悦和实业有限公司', '38000', '多开', '2015-07-21', '2015-08-02', '2015-08-02', '14', '', '15937112', '0', '0', '3', '0', '3', '28');
-INSERT INTO `tb_invoice` VALUES ('446', '276', '浙江悦和实业有限公司', '10200', '多开', '2015-07-21', '2015-08-02', '2015-08-02', '14', '', '15937111', '0', '0', '3', '0', '3', '28');
-INSERT INTO `tb_invoice` VALUES ('447', '276', '浙江悦和实业有限公司', '6800', '多开', '2015-07-21', '2015-08-02', '2015-08-02', '14', '', '15937110', '0', '0', '3', '0', '3', '28');
-INSERT INTO `tb_invoice` VALUES ('448', '276', '浙江悦和实业有限公司', '28600', '多开', '2015-07-21', '2015-08-02', '2015-08-02', '14', '', '15937109', '0', '0', '3', '0', '3', '28');
-INSERT INTO `tb_invoice` VALUES ('449', '276', '浙江悦和实业有限公司', '37740', '多开', '2015-07-21', '2015-08-02', '2015-08-02', '14', '', '15937108', '0', '0', '3', '0', '3', '28');
-INSERT INTO `tb_invoice` VALUES ('450', '276', '浙江悦和实业有限公司', '32260', '多开', '2015-07-21', '2015-08-02', '2015-08-02', '14', '', '15937107', '0', '0', '3', '0', '3', '28');
-INSERT INTO `tb_invoice` VALUES ('451', '276', '浙江悦和实业有限公司', '26000', '多开', '2015-07-21', '2015-08-02', '2015-08-02', '14', '', '15937106', '0', '0', '3', '0', '3', '28');
-INSERT INTO `tb_invoice` VALUES ('452', '276', '浙江悦和实业有限公司', '38500', '多开', '2015-07-21', '2015-08-02', '2015-08-02', '14', '', '15937105', '0', '0', '3', '0', '3', '28');
-INSERT INTO `tb_invoice` VALUES ('453', '276', '浙江悦和实业有限公司', '31500', '多开', '2015-07-21', '2015-08-02', '2015-08-02', '14', '', '15937104', '0', '0', '3', '0', '3', '28');
-INSERT INTO `tb_invoice` VALUES ('454', '259', '余姚联合纺织进出口有限公司', '15000', '', '2015-07-21', '2015-08-02', '2015-08-02', '14', '', '15937103', '0', '0', '3', '0', '3', '16');
-INSERT INTO `tb_invoice` VALUES ('455', '259', '余姚联合纺织进出口有限公司', '51088', '', '2015-07-21', '2015-08-02', '2015-08-02', '14', '', '15937102', '0', '0', '3', '0', '3', '16');
-INSERT INTO `tb_invoice` VALUES ('456', '259', '余姚联合纺织进出口有限公司', '13810', '多开', '2015-07-21', '2015-08-02', '2015-08-02', '14', '', '15937101', '0', '0', '3', '0', '3', '28');
-INSERT INTO `tb_invoice` VALUES ('457', '259', '余姚联合纺织进出口有限公司', '1920', '多开', '2015-07-21', '2015-08-02', '2015-08-02', '14', '', '15937100', '0', '0', '3', '0', '3', '28');
-INSERT INTO `tb_invoice` VALUES ('458', '259', '余姚联合纺织进出口有限公司', '1580', '多开', '2015-07-21', '2015-08-02', '2015-08-02', '14', '', '15937099', '0', '0', '3', '0', '3', '28');
-INSERT INTO `tb_invoice` VALUES ('459', '259', '余姚联合纺织进出口有限公司', '55300', '多开', '2015-07-21', '2015-08-02', '2015-08-02', '14', '', '15937098', '0', '0', '3', '0', '3', '28');
-INSERT INTO `tb_invoice` VALUES ('460', '259', '余姚联合纺织进出口有限公司', '24000', '多开', '2015-07-21', '2015-08-02', '2015-08-02', '14', '', '15937097', '0', '0', '3', '0', '3', '28');
-INSERT INTO `tb_invoice` VALUES ('461', '259', '余姚联合纺织进出口有限公司', '34500', '多开', '2015-07-21', '2015-08-02', '2015-08-02', '14', '', '15937096', '0', '0', '3', '0', '3', '28');
-INSERT INTO `tb_invoice` VALUES ('462', '259', '余姚联合纺织进出口有限公司', '6540', '多开', '2015-07-21', '2015-08-02', '2015-08-02', '14', '', '15937095', '0', '0', '3', '0', '3', '28');
-INSERT INTO `tb_invoice` VALUES ('463', '263', '杭州市粮油食品土畜产进出口有限公司', '26790', '', '2015-07-20', '2015-08-02', '2015-08-02', '14', '', '15937094', '0', '0', '3', '0', '7', '16');
+INSERT INTO `tb_invoice` VALUES ('439', '268', '杭州翔天实业有限公司', '42000', '', '2015-07-24', '2015-08-02', '2015-08-02', '14', '', '15937118', '0', '0', '3', '42000', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('440', '272', '东方国际集团上海利泰进出口有限公司', '72090', '', '2015-07-24', '2015-08-02', '2015-08-02', '14', '', '15937117', '0', '0', '3', '72090', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('441', '259', '余姚联合纺织进出口有限公司', '645.6', '', '2015-07-24', '2015-08-02', '2015-08-02', '14', '', '15937116', '0', '0', '3', '645.6', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('442', '278', '宁波雅励进出口有限公司', '16805', '', '2015-07-24', '2015-08-02', '2015-08-02', '14', '', '15937115', '0', '0', '3', '16805', '9', '16');
+INSERT INTO `tb_invoice` VALUES ('443', '276', '浙江悦和实业有限公司', '31400', '多开', '2015-07-21', '2015-08-02', '2015-08-02', '14', '', '15937114', '0', '0', '3', '31400', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('444', '276', '浙江悦和实业有限公司', '12568.5', '', '2015-07-21', '2015-08-02', '2015-08-02', '14', '', '15937113', '0', '0', '3', '12568.5', null, '16');
+INSERT INTO `tb_invoice` VALUES ('445', '276', '浙江悦和实业有限公司', '38000', '多开', '2015-07-21', '2015-08-02', '2015-08-02', '14', '', '15937112', '0', '0', '3', '38000', null, '16');
+INSERT INTO `tb_invoice` VALUES ('446', '276', '浙江悦和实业有限公司', '10200', '多开', '2015-07-21', '2015-08-02', '2015-08-02', '14', '', '15937111', '0', '0', '3', '10200', null, '16');
+INSERT INTO `tb_invoice` VALUES ('447', '276', '浙江悦和实业有限公司', '6800', '多开', '2015-07-21', '2015-08-02', '2015-08-02', '14', '', '15937110', '0', '0', '3', '6800', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('448', '276', '浙江悦和实业有限公司', '28600', '多开', '2015-07-21', '2015-08-02', '2015-08-02', '14', '', '15937109', '0', '0', '3', '28600', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('449', '276', '浙江悦和实业有限公司', '37740', '多开', '2015-07-21', '2015-08-02', '2015-08-02', '14', '', '15937108', '0', '0', '3', '37740', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('450', '276', '浙江悦和实业有限公司', '32260', '多开', '2015-07-21', '2015-08-02', '2015-08-02', '14', '', '15937107', '0', '0', '3', '32260', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('451', '276', '浙江悦和实业有限公司', '26000', '多开', '2015-07-21', '2015-08-02', '2015-08-02', '14', '', '15937106', '0', '0', '3', '26000', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('452', '276', '浙江悦和实业有限公司', '38500', '多开', '2015-07-21', '2015-08-02', '2015-08-02', '14', '', '15937105', '0', '0', '3', '38500', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('453', '276', '浙江悦和实业有限公司', '31500', '多开', '2015-07-21', '2015-08-02', '2015-08-02', '14', '', '15937104', '0', '0', '3', '31500', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('454', '259', '余姚联合纺织进出口有限公司', '15000', '', '2015-07-21', '2015-08-02', '2015-08-02', '14', '', '15937103', '0', '0', '3', '15000', null, '28');
+INSERT INTO `tb_invoice` VALUES ('455', '259', '余姚联合纺织进出口有限公司', '51088', '', '2015-07-21', '2015-08-02', '2015-08-02', '14', '', '15937102', '0', '0', '3', '51088', null, '28');
+INSERT INTO `tb_invoice` VALUES ('456', '259', '余姚联合纺织进出口有限公司', '13810', '多开', '2015-07-21', '2015-08-02', '2015-08-02', '14', '', '15937101', '0', '0', '3', '13810', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('457', '259', '余姚联合纺织进出口有限公司', '1920', '多开', '2015-07-21', '2015-08-02', '2015-08-02', '14', '', '15937100', '0', '0', '3', '1920', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('458', '259', '余姚联合纺织进出口有限公司', '1580', '多开', '2015-07-21', '2015-08-02', '2015-08-02', '14', '', '15937099', '0', '0', '3', '1580', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('459', '259', '余姚联合纺织进出口有限公司', '55300', '多开', '2015-07-21', '2015-08-02', '2015-08-02', '14', '', '15937098', '0', '0', '3', '55300', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('460', '259', '余姚联合纺织进出口有限公司', '24000', '多开', '2015-07-21', '2015-08-02', '2015-08-02', '14', '', '15937097', '0', '0', '3', '24000', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('461', '259', '余姚联合纺织进出口有限公司', '34500', '多开', '2015-07-21', '2015-08-02', '2015-08-02', '14', '', '15937096', '0', '0', '3', '34500', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('462', '259', '余姚联合纺织进出口有限公司', '6540', '多开', '2015-07-21', '2015-08-02', '2015-08-02', '14', '', '15937095', '0', '0', '3', '6540', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('463', '263', '杭州市粮油食品土畜产进出口有限公司', '26790', '', '2015-07-20', '2015-08-02', '2015-08-02', '14', '', '15937094', '0', '0', '3', '26790', '7', '16');
 INSERT INTO `tb_invoice` VALUES ('464', '268', '杭州翔天实业有限公司', '960', '', '2015-07-20', '2015-08-02', '2015-08-02', '14', '', '15937093', '0', '0', '3', '960', '1', '16');
-INSERT INTO `tb_invoice` VALUES ('465', '259', '余姚联合纺织进出口有限公司', '34100', '', '2015-07-17', '2015-08-02', '2015-08-02', '14', '', '15937092', '0', '0', '3', '0', '1', '16');
-INSERT INTO `tb_invoice` VALUES ('466', '265', '上海豪利杰国际贸易有限公司', '1670', '', '2015-07-16', '2015-08-02', '2015-08-02', '14', '', '15937091', '0', '0', '3', '0', '2', '16');
+INSERT INTO `tb_invoice` VALUES ('465', '259', '余姚联合纺织进出口有限公司', '34100', '', '2015-07-17', '2015-08-02', '2015-08-02', '14', '', '15937092', '0', '0', '3', '34100', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('466', '265', '上海豪利杰国际贸易有限公司', '1670', '', '2015-07-16', '2015-08-02', '2015-08-02', '14', '', '15937091', '0', '0', '3', '1670', '2', '16');
 INSERT INTO `tb_invoice` VALUES ('467', '277', '深圳市一达通企业服务有限公司', '21381.42', '', '2015-07-16', '2015-08-02', '2015-08-02', '14', '', '15937090', '0', '0', '3', '21381.42', '2', '16');
 INSERT INTO `tb_invoice` VALUES ('468', '277', '深圳市一达通企业服务有限公司', '103125.82', '', '2015-07-16', '2015-08-02', '2015-08-02', '14', '', '15937089', '0', '0', '3', '103125.82', '2', '16');
 INSERT INTO `tb_invoice` VALUES ('469', '266', '浙江省轻纺集团进出口有限公司', '38000', '多开', '2015-07-13', '2015-08-02', '2015-08-02', '14', '', '15937088', '0', '0', '3', '0', '3', '28');
@@ -5257,27 +6342,27 @@ INSERT INTO `tb_invoice` VALUES ('481', '270', '杭州六昇服饰有限公司',
 INSERT INTO `tb_invoice` VALUES ('482', '270', '杭州市六昇服饰有限公司', '-9200', '发票开错，杭州市六昇应改为杭州六昇', '2015-07-10', '2015-08-02', '2015-08-02', '14', '', '12828168', '0', '0', '3', '-9200', '3', '28');
 INSERT INTO `tb_invoice` VALUES ('483', '270', '杭州六昇服饰有限公司', '14800', '多开', '2015-07-10', '2015-08-02', '2015-08-02', '14', '', '12828167', '0', '0', '3', '14800', '3', '28');
 INSERT INTO `tb_invoice` VALUES ('484', '270', '杭州市六昇服饰有限公司', '-14800', '发票开错，杭州市六昇应改为杭州六昇', '2015-07-10', '2015-08-02', '2015-08-02', '14', '', '12828166', '0', '0', '3', '-14800', '3', '28');
-INSERT INTO `tb_invoice` VALUES ('485', '268', '杭州翔天实业有限公司', '24422.7', '', '2015-07-09', '2015-08-02', '2015-08-02', '14', '', '12828165', '0', '0', '3', '0', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('485', '268', '杭州翔天实业有限公司', '24422.7', '', '2015-07-09', '2015-08-02', '2015-08-02', '14', '', '12828165', '0', '0', '3', '24422.7', '1', '16');
 INSERT INTO `tb_invoice` VALUES ('486', '268', '杭州翔天实业有限公司', '1050', '', '2015-07-09', '2015-08-02', '2015-08-02', '14', '', '12828164', '0', '0', '3', '1050', '1', '16');
 INSERT INTO `tb_invoice` VALUES ('487', '270', '杭州六昇服饰有限公司', '6300', '多开', '2015-07-09', '2015-08-02', '2015-08-02', '14', '', '12828163', '0', '0', '3', '6300', '3', '28');
 INSERT INTO `tb_invoice` VALUES ('488', '266', '浙江省轻纺集团进出口有限公司', '15800', '多开', '2015-07-08', '2015-08-02', '2015-08-02', '14', '', '12828162', '0', '0', '3', '0', '3', '28');
 INSERT INTO `tb_invoice` VALUES ('489', '266', '浙江省轻纺集团进出口有限公司', '69000', '多开', '2015-07-08', '2015-08-02', '2015-08-02', '14', '', '12828161', '0', '0', '3', '0', '3', '28');
-INSERT INTO `tb_invoice` VALUES ('490', '276', '浙江悦和实业有限公司', '45360', '多开', '2015-07-08', '2015-08-02', '2015-08-02', '14', '', '12828160', '0', '0', '3', '0', '3', '28');
-INSERT INTO `tb_invoice` VALUES ('491', '276', '浙江悦和实业有限公司', '19360', '多开', '2015-07-08', '2015-08-02', '2015-08-02', '14', '', '12828159', '0', '0', '3', '0', '3', '28');
-INSERT INTO `tb_invoice` VALUES ('492', '276', '浙江悦和实业有限公司', '29280', '多开', '2015-07-08', '2015-08-02', '2015-08-02', '14', '', '12828158', '0', '0', '3', '0', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('490', '276', '浙江悦和实业有限公司', '45360', '多开', '2015-07-08', '2015-08-02', '2015-08-02', '14', '', '12828160', '0', '0', '3', '45360', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('491', '276', '浙江悦和实业有限公司', '19360', '多开', '2015-07-08', '2015-08-02', '2015-08-02', '14', '', '12828159', '0', '0', '3', '19360', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('492', '276', '浙江悦和实业有限公司', '29280', '多开', '2015-07-08', '2015-08-02', '2015-08-02', '14', '', '12828158', '0', '0', '3', '29280', '3', '16');
 INSERT INTO `tb_invoice` VALUES ('493', '279', '浙江一达通企业服务有限公司', '9030', '', '2015-07-06', '2015-08-02', '2015-08-02', '14', '', '12828157', '0', '0', '3', '0', '1', '16');
-INSERT INTO `tb_invoice` VALUES ('494', '279', '浙江一达通企业服务有限公司', '13459', '', '2015-07-06', '2015-08-02', '2015-08-02', '14', '', '12828156', '0', '0', '3', '0', '1', '16');
-INSERT INTO `tb_invoice` VALUES ('495', '279', '浙江一达通企业服务有限公司', '13295.6', '', '2015-07-06', '2015-08-02', '2015-08-02', '14', '', '12828155', '0', '0', '3', '0', '1', '16');
-INSERT INTO `tb_invoice` VALUES ('496', '279', '浙江一达通企业服务有限公司', '26501.32', '', '2015-07-06', '2015-08-02', '2015-08-02', '14', '', '12828154', '0', '0', '3', '0', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('494', '279', '浙江一达通企业服务有限公司', '13459', '', '2015-07-06', '2015-08-02', '2015-08-02', '14', '', '12828156', '0', '0', '3', '13459', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('495', '279', '浙江一达通企业服务有限公司', '13295.6', '', '2015-07-06', '2015-08-02', '2015-08-02', '14', '', '12828155', '0', '0', '3', '13295.6', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('496', '279', '浙江一达通企业服务有限公司', '26501.32', '', '2015-07-06', '2015-08-02', '2015-08-02', '14', '', '12828154', '0', '0', '3', '26501.32', '1', '16');
 INSERT INTO `tb_invoice` VALUES ('497', '279', '浙江一达通企业服务有限公司', '1539.4', '', '2015-07-06', '2015-08-02', '2015-08-02', '14', '', '12828153', '0', '0', '3', '0', '1', '16');
-INSERT INTO `tb_invoice` VALUES ('498', '279', '浙江一达通企业服务有限公司', '13545', '', '2015-07-06', '2015-08-02', '2015-08-02', '14', '', '12828152', '0', '0', '3', '0', '1', '16');
-INSERT INTO `tb_invoice` VALUES ('499', '279', '浙江一达通企业服务有限公司', '13545', '', '2015-07-06', '2015-08-02', '2015-08-02', '14', '', '12828151', '0', '0', '3', '0', '1', '16');
-INSERT INTO `tb_invoice` VALUES ('500', '259', '余姚联合纺织进出口有限公司', '1850', '多开', '2015-07-06', '2015-08-02', '2015-08-02', '14', '', '12828150', '0', '0', '3', '0', '3', '28');
-INSERT INTO `tb_invoice` VALUES ('501', '259', '余姚联合纺织进出口有限公司', '4500', '多开', '2015-07-06', '2015-08-02', '2015-08-02', '14', '', '12828149', '0', '0', '3', '0', '3', '28');
-INSERT INTO `tb_invoice` VALUES ('502', '259', '余姚联合纺织进出口有限公司', '34400', '多开', '2015-07-06', '2015-08-02', '2015-08-02', '14', '', '12828148', '0', '0', '3', '0', '3', '28');
-INSERT INTO `tb_invoice` VALUES ('503', '259', '余姚联合纺织进出口有限公司', '8100', '多开', '2015-07-06', '2015-08-02', '2015-08-02', '14', '', '12828147', '0', '0', '3', '0', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('498', '279', '浙江一达通企业服务有限公司', '13545', '', '2015-07-06', '2015-08-02', '2015-08-02', '14', '', '12828152', '0', '0', '3', '13545', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('499', '279', '浙江一达通企业服务有限公司', '13545', '', '2015-07-06', '2015-08-02', '2015-08-02', '14', '', '12828151', '0', '0', '3', '13545', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('500', '259', '余姚联合纺织进出口有限公司', '1850', '多开', '2015-07-06', '2015-08-02', '2015-08-02', '14', '', '12828150', '0', '0', '3', '1850', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('501', '259', '余姚联合纺织进出口有限公司', '4500', '多开', '2015-07-06', '2015-08-02', '2015-08-02', '14', '', '12828149', '0', '0', '3', '4500', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('502', '259', '余姚联合纺织进出口有限公司', '34400', '多开', '2015-07-06', '2015-08-02', '2015-08-02', '14', '', '12828148', '0', '0', '3', '34400', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('503', '259', '余姚联合纺织进出口有限公司', '8100', '多开', '2015-07-06', '2015-08-02', '2015-08-02', '14', '', '12828147', '0', '0', '3', '8100', '3', '28');
 INSERT INTO `tb_invoice` VALUES ('504', '258', '上海汉森环宇进出口有限公司', '28413', '', '2015-07-04', '2015-08-02', '2015-08-02', '14', '', '12828145', '0', '0', '3', '28413', '6', '16');
-INSERT INTO `tb_invoice` VALUES ('505', '286', '绍兴县卡玫拉服饰有限公司', '68640', '', '2015-06-23', '2015-08-02', '2015-08-02', '14', '', '12828144', '0', '0', '3', '0', '8', '16');
+INSERT INTO `tb_invoice` VALUES ('505', '286', '绍兴县卡玫拉服饰有限公司', '68640', '', '2015-06-23', '2015-08-02', '2015-08-02', '14', '', '12828144', '0', '0', '3', '68640', '8', '16');
 INSERT INTO `tb_invoice` VALUES ('506', '259', '余姚联合纺织进出口有限公司', '25200', '', '2015-06-15', '2015-08-02', '2015-08-02', '14', '', '12828143', '0', '0', '3', '25200', '1', '16');
 INSERT INTO `tb_invoice` VALUES ('507', '266', '浙江省轻纺集团进出口有限公司', '4219.2', '', '2015-06-10', '2015-08-02', '2015-08-02', '14', '', '12828142', '0', '0', '3', '4219.2', '3', '16');
 INSERT INTO `tb_invoice` VALUES ('508', '265', '上海豪利杰国际贸易有限公司', '32000', '加了4000辅料费', '2015-06-09', '2015-08-02', '2015-08-02', '14', '', '12828141', '0', '0', '3', '32000', '2', '16');
@@ -5293,7 +6378,7 @@ INSERT INTO `tb_invoice` VALUES ('517', '259', '余姚联合纺织进出口有�
 INSERT INTO `tb_invoice` VALUES ('518', '259', '余姚联合纺织进出口有限公司', '48000', '多开', '2015-05-30', '2015-08-02', '2015-08-02', '14', '', '12828131', '0', '0', '3', '48000', '3', '28');
 INSERT INTO `tb_invoice` VALUES ('519', '259', '余姚联合纺织进出口有限公司', '52000', '多开', '2015-05-30', '2015-08-02', '2015-08-02', '14', '', '12828130', '0', '0', '3', '52000', '3', '28');
 INSERT INTO `tb_invoice` VALUES ('520', '259', '余姚联合纺织进出口有限公司', '48000', '多开', '2015-05-30', '2015-08-02', '2015-08-02', '14', '', '12828129', '0', '0', '3', '48000', '3', '28');
-INSERT INTO `tb_invoice` VALUES ('521', '276', '浙江悦和实业有限公司', '14000', '多开', '2015-05-14', '2015-08-02', '2015-08-02', '14', '', '12828128', '0', '0', '3', '14000', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('521', '276', '浙江悦和实业有限公司', '14000', '多开', '2015-05-14', '2015-08-02', '2015-08-02', '14', '', '12828128', '0', '0', '3', '14000', '3', '16');
 INSERT INTO `tb_invoice` VALUES ('522', '266', '浙江省轻纺集团进出口有限公司', '4501.8', '', '2015-05-14', '2015-08-02', '2015-08-02', '14', '', '12828127', '0', '0', '3', '4501.8', '3', '16');
 INSERT INTO `tb_invoice` VALUES ('523', '266', '浙江省轻纺集团进出口有限公司', '8001.6', '', '2015-05-14', '2015-08-02', '2015-08-02', '14', '', '12828126', '0', '0', '3', '8001.6', '3', '16');
 INSERT INTO `tb_invoice` VALUES ('524', '266', '浙江省轻纺集团进出口有限公司', '15796.8', '', '2015-05-14', '2015-08-02', '2015-08-02', '14', '', '12828125', '0', '0', '3', '15796.8', '3', '16');
@@ -5314,7 +6399,7 @@ INSERT INTO `tb_invoice` VALUES ('538', '266', '浙江省轻纺集团进出口�
 INSERT INTO `tb_invoice` VALUES ('539', '266', '浙江省轻纺集团进出口有限公司', '85054.2', '', '2015-04-26', '2015-08-02', '2015-08-02', '14', '', '03622266', '0', '0', '3', '85054.2', '3', '16');
 INSERT INTO `tb_invoice` VALUES ('540', '266', '浙江省轻纺集团进出口有限公司', '41161.2', '', '2015-04-26', '2015-08-02', '2015-08-02', '14', '', '03622265', '0', '0', '3', '41161.2', '3', '16');
 INSERT INTO `tb_invoice` VALUES ('541', '266', '浙江省轻纺集团进出口有限公司', '93114', '', '2015-04-26', '2015-08-02', '2015-08-02', '14', '', '03622264', '0', '0', '3', '93114', '3', '16');
-INSERT INTO `tb_invoice` VALUES ('542', '276', '浙江悦和实业有限公司', '16000', '多开', '2015-04-26', '2015-08-02', '2015-08-02', '14', '', '03622263', '0', '0', '3', '16000', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('542', '276', '浙江悦和实业有限公司', '16000', '多开', '2015-04-26', '2015-08-02', '2015-08-02', '14', '', '03622263', '0', '0', '3', '16000', '3', '16');
 INSERT INTO `tb_invoice` VALUES ('543', '266', '浙江省轻纺集团进出口有限公司', '28401', '', '2015-04-26', '2015-08-02', '2015-08-02', '14', '', '03622262', '0', '0', '3', '28401', '3', '16');
 INSERT INTO `tb_invoice` VALUES ('544', '266', '浙江省轻纺集团进出口有限公司', '92622.6', '', '2015-04-26', '2015-08-02', '2015-08-02', '14', '', '03622261', '0', '0', '3', '92622.6', '3', '16');
 INSERT INTO `tb_invoice` VALUES ('545', '266', '浙江省轻纺集团进出口有限公司', '45056.4', '', '2015-04-26', '2015-08-02', '2015-08-02', '14', '', '03622260', '0', '0', '3', '45056.4', '3', '16');
@@ -5329,7 +6414,7 @@ INSERT INTO `tb_invoice` VALUES ('553', '270', '杭州市六昇服饰有限公�
 INSERT INTO `tb_invoice` VALUES ('554', '259', '余姚联合纺织进出口有限公司', '8430', '多开', '2015-04-26', '2015-08-02', '2015-08-02', '14', '', '03622251', '0', '0', '3', '8430', '3', '28');
 INSERT INTO `tb_invoice` VALUES ('555', '259', '余姚联合纺织进出口有限公司', '10609', '多开', '2015-04-26', '2015-08-02', '2015-08-02', '14', '', '03622250', '0', '0', '3', '10609', '3', '28');
 INSERT INTO `tb_invoice` VALUES ('556', '259', '余姚联合纺织进出口有限公司', '961', '多开', '2015-04-26', '2015-08-02', '2015-08-02', '14', '', '03622249', '0', '0', '3', '961', '3', '28');
-INSERT INTO `tb_invoice` VALUES ('557', '276', '浙江悦和实业有限公司', '24000', '多开', '2015-04-26', '2015-08-02', '2015-08-02', '14', '', '03622248', '0', '0', '3', '24000', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('557', '276', '浙江悦和实业有限公司', '24000', '多开', '2015-04-26', '2015-08-02', '2015-08-02', '14', '', '03622248', '0', '0', '3', '24000', '3', '16');
 INSERT INTO `tb_invoice` VALUES ('558', '272', '东方国际集团上海利泰进出口有限公司', '3456', '', '2015-04-26', '2015-08-02', '2015-08-02', '14', '', '03622246', '0', '0', '3', '3456', '1', '16');
 INSERT INTO `tb_invoice` VALUES ('559', '266', '浙江省轻纺集团进出口有限公司', '10600', '', '2015-04-11', '2015-08-02', '2015-08-02', '14', '', '03622245', '0', '0', '3', '10600', '3', '16');
 INSERT INTO `tb_invoice` VALUES ('560', '266', '浙江省轻纺集团进出口有限公司', '13600', '', '2015-04-11', '2015-08-02', '2015-08-02', '14', '', '03622244', '0', '0', '3', '13600', '3', '16');
@@ -5348,11 +6433,11 @@ INSERT INTO `tb_invoice` VALUES ('572', '266', '浙江省轻纺集团进出口�
 INSERT INTO `tb_invoice` VALUES ('573', '266', '浙江省轻纺集团进出口有限公司', '33810', '', '2015-04-10', '2015-08-02', '2015-08-02', '14', '', '03622229', '0', '0', '3', '33810', '3', '16');
 INSERT INTO `tb_invoice` VALUES ('574', '266', '浙江省轻纺集团进出口有限公司', '4567.5', '', '2015-04-10', '2015-08-02', '2015-08-02', '14', '', '03622228', '0', '0', '3', '4567.5', '3', '16');
 INSERT INTO `tb_invoice` VALUES ('575', '266', '浙江省轻纺集团进出口有限公司', '17797.5', '', '2015-04-10', '2015-08-02', '2015-08-02', '14', '', '03622227', '0', '0', '3', '17797.5', '3', '16');
-INSERT INTO `tb_invoice` VALUES ('576', '276', '浙江悦和实业有限公司', '11000', '多开', '2015-04-10', '2015-08-02', '2015-08-02', '14', '', '03622226', '0', '0', '3', '11000', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('576', '276', '浙江悦和实业有限公司', '11000', '多开', '2015-04-10', '2015-08-02', '2015-08-02', '14', '', '03622226', '0', '0', '3', '11000', '3', '16');
 INSERT INTO `tb_invoice` VALUES ('577', '270', '杭州市六昇服饰有限公司', '14800', '发票开错，杭州市六昇应改为杭州六昇', '2015-04-10', '2015-08-02', '2015-08-02', '14', '', '03622225', '0', '0', '3', '14800', '3', '28');
 INSERT INTO `tb_invoice` VALUES ('578', '270', '杭州市六昇服饰有限公司', '9200', '发票开错，杭州市六昇应改为杭州六昇', '2015-04-10', '2015-08-02', '2015-08-02', '14', '', '03622224', '0', '0', '3', '9200', '3', '28');
-INSERT INTO `tb_invoice` VALUES ('579', '276', '浙江悦和实业有限公司', '2000', '多开', '2015-03-30', '2015-08-02', '2015-08-02', '14', '', '03622223', '0', '0', '3', '2000', '3', '28');
-INSERT INTO `tb_invoice` VALUES ('580', '276', '浙江悦和实业有限公司', '3000', '多开', '2015-03-30', '2015-08-02', '2015-08-02', '14', '', '03622222', '0', '0', '3', '3000', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('579', '276', '浙江悦和实业有限公司', '2000', '多开', '2015-03-30', '2015-08-02', '2015-08-02', '14', '', '03622223', '0', '0', '3', '2000', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('580', '276', '浙江悦和实业有限公司', '3000', '多开', '2015-03-30', '2015-08-02', '2015-08-02', '14', '', '03622222', '0', '0', '3', '3000', '3', '16');
 INSERT INTO `tb_invoice` VALUES ('581', '259', '余姚联合纺织进出口有限公司', '5211', '多开', '2015-03-26', '2015-08-02', '2015-08-02', '14', '', '03622221', '0', '0', '3', '5211', '3', '28');
 INSERT INTO `tb_invoice` VALUES ('582', '259', '余姚联合纺织进出口有限公司', '725', '多开', '2015-03-26', '2015-08-02', '2015-08-02', '14', '', '03622220', '0', '0', '3', '725', '3', '28');
 INSERT INTO `tb_invoice` VALUES ('583', '259', '余姚联合纺织进出口有限公司', '1624', '多开', '2015-03-26', '2015-08-02', '2015-08-02', '14', '', '03622219', '0', '0', '3', '1624', '3', '28');
@@ -5375,7 +6460,7 @@ INSERT INTO `tb_invoice` VALUES ('599', '266', '浙江省轻纺集团进出口�
 INSERT INTO `tb_invoice` VALUES ('600', '266', '浙江省轻纺集团进出口有限公司', '15048', '', '2015-03-16', '2015-08-02', '2015-08-02', '14', '', '03335582', '0', '0', '3', '15048', '3', '16');
 INSERT INTO `tb_invoice` VALUES ('601', '270', '杭州市六昇服饰有限公司', '6000', '发票开错，杭州市六昇应改为杭州六昇', '2015-03-16', '2015-08-02', '2015-08-02', '14', '', '03335581', '0', '0', '3', '6000', '3', '28');
 INSERT INTO `tb_invoice` VALUES ('602', '266', '浙江省轻纺集团进出口有限公司', '675', '多开', '2015-03-15', '2015-08-02', '2015-08-02', '14', '', '03335579', '0', '0', '3', '0', '3', '28');
-INSERT INTO `tb_invoice` VALUES ('603', '121', '桐庐恒达纺织印染有限公司', '33440.7', '', '2015-08-04', '2015-08-05', '2015-08-05', '14', '', '15969326', '0', '0', '3', '0', null, '9');
+INSERT INTO `tb_invoice` VALUES ('603', '121', '桐庐恒达纺织印染有限公司', '33440.7', '', '2015-08-04', '2015-08-05', '2015-08-05', '14', '', '15969326', '0', '0', '3', '33440.7', null, '9');
 INSERT INTO `tb_invoice` VALUES ('604', '127', '桐庐南源纺织有限公司', '93583', '', '2015-07-26', '2015-08-05', '2015-08-05', '14', '', '15919143', '0', '0', '3', '0', null, '2');
 INSERT INTO `tb_invoice` VALUES ('605', '127', '桐庐南源纺织有限公司', '90080', '', '2015-07-26', '2015-08-05', '2015-08-05', '14', '', '15919144', '0', '0', '3', '0', null, '2');
 INSERT INTO `tb_invoice` VALUES ('606', '127', '桐庐南源纺织有限公司', '102465', '', '2015-07-26', '2015-08-05', '2015-08-05', '14', '', '15919145', '0', '0', '3', '0', null, '2');
@@ -5403,6 +6488,353 @@ INSERT INTO `tb_invoice` VALUES ('627', '265', '上海豪利杰国际贸易有�
 INSERT INTO `tb_invoice` VALUES ('628', '263', '杭州市粮油食品土畜产进出口有限公司', '14250', '', '2014-12-11', '2015-08-07', '2015-08-07', '14', '', '03335548', '0', '0', '3', '14250', '7', '16');
 INSERT INTO `tb_invoice` VALUES ('629', '180', '上海美声服饰辅料有限公司', '275.17', '', '2015-07-27', '2015-08-10', '2015-08-10', '14', '', '18022198', '0', '0', '3', '0', null, '1');
 INSERT INTO `tb_invoice` VALUES ('630', '180', '上海美声服饰辅料有限公司', '241.52', '', '2015-07-30', '2015-08-10', '2015-08-10', '14', '', '18022411', '0', '0', '3', '0', null, '1');
+INSERT INTO `tb_invoice` VALUES ('631', '125', '桐庐金利印染有限公司', '28654', '7月对账', '2015-08-11', '2015-08-13', '2015-08-13', '14', '', '25167409', '0', '0', '3', '0', null, '9');
+INSERT INTO `tb_invoice` VALUES ('632', '129', '桐庐勇佳包装有限公司', '76900.57', '', '2015-08-09', '2015-08-13', '2015-08-13', '14', '', '15959838', '0', '0', '3', '19605.3', null, '3');
+INSERT INTO `tb_invoice` VALUES ('633', '129', '桐庐勇佳包装有限公司', '60394.7', '', '2015-08-09', '2015-08-13', '2015-08-13', '14', '', '15959837', '0', '0', '3', '60394.7', null, '3');
+INSERT INTO `tb_invoice` VALUES ('634', '186', '上海西文服饰有限公司', '768', '', '2015-06-27', '2015-08-16', '2015-08-16', '14', '', '46208657', '0', '0', '3', '768', '2', '1');
+INSERT INTO `tb_invoice` VALUES ('635', '147', '东莞东兴商标织绣有限公司', '307.37', '', '2015-08-06', '2015-08-16', '2015-08-16', '14', '', '14094353', '0', '0', '3', '307.37', '3', '1');
+INSERT INTO `tb_invoice` VALUES ('636', '147', '东莞东兴商标织绣有限公司', '888.52', '', '2015-07-08', '2015-08-16', '2015-08-16', '14', '', '00510649', '0', '0', '3', '888.52', '3', '1');
+INSERT INTO `tb_invoice` VALUES ('637', '149', '恩埃赛文数据处理(杭州)有限公司', '6645.9', '', '2015-07-29', '2015-08-16', '2015-08-16', '14', '', '03417136', '0', '0', '3', '6645.9', '3', '1');
+INSERT INTO `tb_invoice` VALUES ('638', '149', '恩埃赛文数据处理(杭州)有限公司', '894.13', '', '2015-07-29', '2015-08-16', '2015-08-16', '14', '', '03417137', '0', '0', '3', '894.13', '3', '1');
+INSERT INTO `tb_invoice` VALUES ('639', '149', '恩埃赛文数据处理(杭州)有限公司', '25756.57', '', '2015-06-29', '2015-08-16', '2015-08-16', '14', '', '03333761', '0', '0', '3', '25756.57', '3', '1');
+INSERT INTO `tb_invoice` VALUES ('640', '149', '恩埃赛文数据处理(杭州)有限公司', '6721.58', '', '2015-06-29', '2015-08-16', '2015-08-16', '14', '', '03333762', '0', '0', '3', '6721.58', '3', '1');
+INSERT INTO `tb_invoice` VALUES ('641', '176', '上海骏协钮扣制品有限公司', '5546.76', '', '2015-07-14', '2015-08-16', '2015-08-16', '14', '', '44477906', '0', '0', '3', '5546.76', '3', '1');
+INSERT INTO `tb_invoice` VALUES ('642', '164', '南京嘉美服饰标牌厂', '408', '', '2015-08-12', '2015-08-16', '2015-08-16', '14', '', '27380043', '0', '0', '3', '408', '3', '1');
+INSERT INTO `tb_invoice` VALUES ('643', '188', '上海雪玮服饰辅料有限公司', '8483.54', '', '2015-08-12', '2015-08-16', '2015-08-16', '14', '', '09663043', '0', '0', '3', '8483.54', '3', '1');
+INSERT INTO `tb_invoice` VALUES ('644', '184', '上海鹏信服饰有限公司', '642.4', '', '2015-08-11', '2015-08-16', '2015-08-16', '14', '', '07469661', '0', '0', '3', '642.4', '3', '1');
+INSERT INTO `tb_invoice` VALUES ('645', '148', '东莞键颖钮扣有限公司', '347.48', '', '2015-08-06', '2015-08-16', '2015-08-16', '14', '', '02831374', '0', '0', '3', '347.48', '3', '1');
+INSERT INTO `tb_invoice` VALUES ('646', '159', '江阴市通用纺织服饰有限公司', '5368.95', '', '2015-08-09', '2015-08-16', '2015-08-16', '14', '', '07115455', '0', '0', '3', '5368.95', '3', '1');
+INSERT INTO `tb_invoice` VALUES ('647', '182', '上海钮纽服装辅料有限公司', '1203.28', '', '2015-08-06', '2015-08-16', '2015-08-16', '14', '', '20827614', '0', '0', '3', '1203.28', '3', '1');
+INSERT INTO `tb_invoice` VALUES ('649', '171', '上海彩旭印务有限公司', '2481.57', '', '2015-08-05', '2015-08-16', '2015-08-16', '14', '', '20803545', '0', '0', '3', '2481.57', '3', '1');
+INSERT INTO `tb_invoice` VALUES ('650', '142', '艾利(苏州)有限公司', '13.32', '', '2015-07-20', '2015-08-16', '2015-08-16', '14', '', '16192028', '0', '0', '3', '13.32', '3', '1');
+INSERT INTO `tb_invoice` VALUES ('651', '191', '上海易轩干燥剂有限公司', '618.2', '', '2015-07-21', '2015-08-16', '2015-08-16', '14', '', '01197770', '0', '0', '3', '618.2', '3', '1');
+INSERT INTO `tb_invoice` VALUES ('652', '191', '上海易轩干燥剂有限公司', '1190', '', '2015-07-21', '2015-08-16', '2015-08-16', '14', '', '01197769', '0', '0', '3', '1190', '3', '1');
+INSERT INTO `tb_invoice` VALUES ('653', '191', '上海易轩干燥剂有限公司', '429', '', '2015-07-24', '2015-08-16', '2015-08-16', '14', '', '01197787', '0', '0', '3', '429', '3', '1');
+INSERT INTO `tb_invoice` VALUES ('654', '186', '上海西文服饰有限公司', '1344.08', '', '2015-07-15', '2015-08-16', '2015-08-16', '14', '', '46215170', '0', '0', '3', '1344.08', '3', '1');
+INSERT INTO `tb_invoice` VALUES ('655', '183', '上海诺同服饰辅料有限公司', '622.5', '', '2015-07-24', '2015-08-16', '2015-08-16', '14', '', '44240601', '0', '0', '3', '622.5', '3', '1');
+INSERT INTO `tb_invoice` VALUES ('656', '253', '海盐县联谊印刷有限公司', '1411.7', '', '2015-07-08', '2015-08-16', '2015-08-16', '14', '', '16333010', '0', '0', '3', '1411.7', '3', '1');
+INSERT INTO `tb_invoice` VALUES ('657', '294', '桐庐诚信针纺染整有限公司', '34204.5', '', '2015-08-06', '2015-08-16', '2015-08-16', '14', '', '12824926', '0', '0', '3', '34204.5', null, '9');
+INSERT INTO `tb_invoice` VALUES ('658', '265', '上海豪利杰国际贸易有限公司', '104496', '', '2015-08-18', '2015-08-19', '2015-08-19', '14', '', '25170478', '0', '0', '3', '104496', '2', '16');
+INSERT INTO `tb_invoice` VALUES ('659', '265', '上海豪利杰国际贸易有限公司', '68081.94', '', '2015-08-18', '2015-08-19', '2015-08-19', '14', '', '25170477', '0', '0', '3', '68081.94', '2', '16');
+INSERT INTO `tb_invoice` VALUES ('660', '265', '上海豪利杰国际贸易有限公司', '106076.1', '', '2015-08-18', '2015-08-19', '2015-08-19', '14', '', '25170476', '0', '0', '3', '106076.1', '2', '16');
+INSERT INTO `tb_invoice` VALUES ('662', '265', '上海豪利杰国际贸易有限公司', '27393.6', '', '2015-08-18', '2015-08-19', '2015-08-19', '14', '', '25170474', '0', '0', '3', '27393.6', '2', '16');
+INSERT INTO `tb_invoice` VALUES ('663', '265', '上海豪利杰国际贸易有限公司', '16036.8', '', '2015-08-18', '2015-08-19', '2015-08-19', '14', '', '25170473', '0', '0', '3', '16036.8', '2', '16');
+INSERT INTO `tb_invoice` VALUES ('664', '259', '余姚联合纺织进出口有限公司', '25785', '', '2015-08-17', '2015-08-19', '2015-08-19', '14', '', '25170472', '0', '0', '3', '25785', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('665', '259', '余姚联合纺织进出口有限公司', '66587.8', '', '2015-08-17', '2015-08-19', '2015-08-19', '14', '', '25170471', '0', '0', '3', '66587.8', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('666', '259', '余姚联合纺织进出口有限公司', '75401.6', '', '2015-08-17', '2015-08-19', '2015-08-19', '14', '', '25170470', '0', '0', '3', '75401.6', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('667', '272', '东方国际集团上海利泰进出口有限公司', '107920', '', '2015-08-17', '2015-08-19', '2015-08-19', '14', '', '25170469', '0', '0', '3', '107920', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('668', '272', '东方国际集团上海利泰进出口有限公司', '80500', '', '2015-08-17', '2015-08-19', '2015-08-19', '14', '', '25170468', '0', '0', '3', '80500', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('669', '272', '东方国际集团上海利泰进出口有限公司', '80500', '', '2015-08-17', '2015-08-19', '2015-08-19', '14', '', '25170467', '0', '0', '3', '80500', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('670', '272', '东方国际集团上海利泰进出口有限公司', '23000', '', '2015-08-17', '2015-08-19', '2015-08-19', '14', '', '25170466', '0', '0', '3', '23000', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('671', '272', '东方国际集团上海利泰进出口有限公司', '30000', '', '2015-08-17', '2015-08-19', '2015-08-19', '14', '', '25170465', '0', '0', '3', '30000', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('672', '272', '东方国际集团上海利泰进出口有限公司', '100000', '', '2015-08-17', '2015-08-19', '2015-08-19', '14', '', '25170464', '0', '0', '3', '100000', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('673', '272', '东方国际集团上海利泰进出口有限公司', '66000', '', '2015-08-17', '2015-08-19', '2015-08-19', '14', '', '25170463', '0', '0', '3', '66000', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('674', '272', '东方国际集团上海利泰进出口有限公司', '72000', '', '2015-08-17', '2015-08-19', '2015-08-19', '14', '', '25170462', '0', '0', '3', '72000', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('675', '272', '东方国际集团上海利泰进出口有限公司', '72000', '', '2015-08-17', '2015-08-19', '2015-08-19', '14', '', '25170461', '0', '0', '3', '72000', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('676', '272', '东方国际集团上海利泰进出口有限公司', '28800', '', '2015-08-17', '2015-08-19', '2015-08-19', '14', '', '25170460', '0', '0', '3', '28800', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('677', '272', '东方国际集团上海利泰进出口有限公司', '1350', '', '2015-08-17', '2015-08-19', '2015-08-19', '14', '', '25170459', '0', '0', '3', '1350', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('678', '272', '东方国际集团上海利泰进出口有限公司', '3150', '', '2015-08-17', '2015-08-19', '2015-08-19', '14', '', '25170458', '0', '0', '3', '3150', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('679', '258', '上海汉森环宇进出口有限公司', '22230', '', '2015-08-17', '2015-08-19', '2015-08-19', '14', '', '25170457', '0', '0', '3', '22230', '6', '16');
+INSERT INTO `tb_invoice` VALUES ('680', '266', '浙江省轻纺集团进出口有限公司', '44910', '', '2015-08-13', '2015-08-19', '2015-08-19', '14', '', '25170456', '0', '0', '3', '44910', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('681', '266', '浙江省轻纺集团进出口有限公司', '116100', '', '2015-08-13', '2015-08-19', '2015-08-19', '14', '', '25170455', '0', '0', '3', '116100', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('682', '266', '浙江省轻纺集团进出口有限公司', '108000', '', '2015-08-13', '2015-08-19', '2015-08-19', '14', '', '25170454', '0', '0', '3', '108000', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('683', '266', '浙江省轻纺集团进出口有限公司', '74722.4', '', '2015-08-13', '2015-08-19', '2015-08-19', '14', '', '25170453', '0', '0', '3', '74722.4', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('684', '266', '浙江省轻纺集团进出口有限公司', '116874', '', '2015-08-13', '2015-08-19', '2015-08-19', '14', '', '25170452', '0', '0', '3', '116874', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('685', '266', '浙江省轻纺集团进出口有限公司', '116874', '', '2015-08-13', '2015-08-19', '2015-08-19', '14', '', '25170451', '0', '0', '3', '116874', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('686', '266', '浙江省轻纺集团进出口有限公司', '88106.4', '', '2015-08-13', '2015-08-19', '2015-08-19', '14', '', '15937157', '0', '0', '3', '88106.4', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('687', '266', '浙江省轻纺集团进出口有限公司', '22786.5', '', '2015-08-13', '2015-08-19', '2015-08-19', '14', '', '15937156', '0', '0', '3', '22786.5', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('688', '266', '浙江省轻纺集团进出口有限公司', '30370', '多开', '2015-08-13', '2015-08-19', '2015-08-19', '14', '', '15937155', '0', '0', '3', '0', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('689', '266', '浙江省轻纺集团进出口有限公司', '60670', '多开', '2015-08-13', '2015-08-19', '2015-08-19', '14', '', '15937154', '0', '0', '3', '0', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('690', '266', '浙江省轻纺集团进出口有限公司', '44370', '多开', '2015-08-13', '2015-08-19', '2015-08-19', '14', '', '15937153', '0', '0', '3', '0', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('691', '266', '浙江省轻纺集团进出口有限公司', '86400', '', '2015-08-13', '2015-08-19', '2015-08-19', '14', '', '15937152', '0', '0', '3', '86400', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('692', '266', '浙江省轻纺集团进出口有限公司', '26000.8', '', '2015-08-13', '2015-08-19', '2015-08-19', '14', '', '15937151', '0', '0', '3', '26000.8', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('693', '266', '浙江省轻纺集团进出口有限公司', '45730', '多开', '2015-08-13', '2015-08-19', '2015-08-19', '14', '', '15937150', '0', '0', '3', '0', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('694', '266', '浙江省轻纺集团进出口有限公司', '20750', '多开', '2015-08-13', '2015-08-19', '2015-08-19', '14', '', '15937149', '0', '0', '3', '0', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('695', '266', '浙江省轻纺集团进出口有限公司', '30780', '多开', '2015-08-13', '2015-08-19', '2015-08-19', '14', '', '15937148', '0', '0', '3', '0', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('696', '266', '浙江省轻纺集团进出口有限公司', '41280', '多开', '2015-08-13', '2015-08-19', '2015-08-19', '14', '', '15937147', '0', '0', '3', '0', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('697', '266', '浙江省轻纺集团进出口有限公司', '91164', '', '2015-08-13', '2015-08-19', '2015-08-19', '14', '', '15937146', '0', '0', '3', '91164', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('698', '268', '杭州翔天实业有限公司', '12623.52', '', '2015-08-10', '2015-08-19', '2015-08-19', '14', '', '15937145', '0', '0', '3', '12623.52', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('699', '278', '宁波雅励进出口有限公司', '9112.18', '', '2015-08-06', '2015-08-19', '2015-08-19', '14', '', '15937144', '0', '0', '3', '9112.18', '9', '16');
+INSERT INTO `tb_invoice` VALUES ('700', '278', '宁波雅励进出口有限公司', '37254', '', '2015-08-06', '2015-08-19', '2015-08-19', '14', '', '15937143', '0', '0', '3', '37254', '9', '16');
+INSERT INTO `tb_invoice` VALUES ('701', '278', '宁波雅励进出口有限公司', '18437.76', '', '2015-08-06', '2015-08-19', '2015-08-19', '14', '', '15937142', '0', '0', '3', '18437.76', '9', '16');
+INSERT INTO `tb_invoice` VALUES ('702', '268', '杭州翔天实业有限公司', '62387.5', '', '2015-08-06', '2015-08-19', '2015-08-19', '14', '', '15937141', '0', '0', '3', '62387.5', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('703', '268', '杭州翔天实业有限公司', '52430', '', '2015-08-06', '2015-08-19', '2015-08-19', '14', '', '15937140', '0', '0', '3', '52430', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('704', '270', '杭州六昇服饰有限公司', '18409.7', '', '2015-08-03', '2015-08-19', '2015-08-19', '14', '', '15937139', '0', '0', '3', '18409.7', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('705', '266', '浙江省轻纺集团进出口有限公司', '18210', '多开', '2015-08-03', '2015-08-19', '2015-08-19', '14', '', '15937138', '0', '0', '3', '0', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('706', '261', '航天通信控股集团股份有限公司', '46800', '', '2015-08-03', '2015-08-19', '2015-08-19', '14', '', '15937137', '0', '0', '3', '46800', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('707', '259', '余姚联合纺织进出口有限公司', '60682.2', '', '2015-08-03', '2015-08-19', '2015-08-19', '14', '', '15937136', '0', '0', '3', '60682.2', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('708', '259', '余姚联合纺织进出口有限公司', '61300.3', '', '2015-08-03', '2015-08-19', '2015-08-19', '14', '', '15937135', '0', '0', '3', '61300.3', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('709', '259', '余姚联合纺织进出口有限公司', '13553.6', '', '2015-08-03', '2015-08-19', '2015-08-19', '14', '', '15937134', '0', '0', '3', '13553.6', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('710', '259', '余姚联合纺织进出口有限公司', '22575', '', '2015-08-03', '2015-08-19', '2015-08-19', '14', '', '15937133', '0', '0', '3', '22575', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('711', '259', '余姚联合纺织进出口有限公司', '30499.72', '', '2015-08-03', '2015-08-19', '2015-08-19', '14', '', '15937132', '0', '0', '3', '30499.72', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('712', '266', '浙江省轻纺集团进出口有限公司', '35700', '多开', '2015-08-02', '2015-08-19', '2015-08-19', '14', '', '15937131', '0', '0', '3', '0', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('713', '266', '浙江省轻纺集团进出口有限公司', '32750', '多开', '2015-08-02', '2015-08-19', '2015-08-19', '14', '', '15937130', '0', '0', '3', '0', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('714', '266', '浙江省轻纺集团进出口有限公司', '47250', '多开', '2015-08-02', '2015-08-19', '2015-08-19', '14', '', '15937129', '0', '0', '3', '0', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('715', '266', '浙江省轻纺集团进出口有限公司', '44300', '多开', '2015-08-02', '2015-08-19', '2015-08-19', '14', '', '15937128', '0', '0', '3', '0', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('716', '266', '浙江省轻纺集团进出口有限公司', '62200', '多开', '2015-08-02', '2015-08-19', '2015-08-19', '14', '', '15937127', '0', '0', '3', '0', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('717', '266', '浙江省轻纺集团进出口有限公司', '58000', '多开', '2015-08-02', '2015-08-19', '2015-08-19', '14', '', '15937126', '0', '0', '3', '0', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('718', '266', '浙江省轻纺集团进出口有限公司', '49620', '', '2015-08-02', '2015-08-19', '2015-08-19', '14', '', '15937125', '0', '0', '3', '49620', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('719', '266', '浙江省轻纺集团进出口有限公司', '13000', '', '2015-08-02', '2015-08-19', '2015-08-19', '14', '', '15937124', '0', '0', '3', '13000', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('720', '266', '浙江省轻纺集团进出口有限公司', '42000', '多开', '2015-08-02', '2015-08-19', '2015-08-19', '14', '', '15937123', '0', '0', '3', '0', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('721', '266', '浙江省轻纺集团进出口有限公司', '56463.2', '', '2015-08-02', '2015-08-19', '2015-08-19', '14', '', '15937122', '0', '0', '3', '56463.2', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('722', '266', '浙江省轻纺集团进出口有限公司', '19419.54', '', '2015-08-02', '2015-08-19', '2015-08-19', '14', '', '15937121', '0', '0', '3', '19419.54', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('723', '266', '浙江省轻纺集团进出口有限公司', '99400', '', '2015-08-02', '2015-08-19', '2015-08-19', '14', '', '15937120', '0', '0', '3', '99400', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('724', '266', '浙江省轻纺集团进出口有限公司', '96540', '', '2015-08-02', '2015-08-19', '2015-08-19', '14', '', '15937119', '0', '0', '3', '96540', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('725', '295', '桐庐心梦园服饰有限公司', '16720', '纱线款', '2015-08-17', '2015-08-19', '2015-08-19', '14', '', '12820262', '0', '0', '3', '16720', null, '2');
+INSERT INTO `tb_invoice` VALUES ('726', '180', '上海美声服饰辅料有限公司', '1705.82', '', '2015-07-28', '2015-08-20', '2015-08-20', '14', '', '18020740', '0', '0', '3', '0', '1', '1');
+INSERT INTO `tb_invoice` VALUES ('727', '167', '宁波东钱湖旅游度假区铭腾纺织品经营部', '1640.4', '', '2015-08-17', '2015-08-20', '2015-08-20', '14', '', '00405809', '0', '0', '3', '1640.4', '2', '1');
+INSERT INTO `tb_invoice` VALUES ('728', '298', '上海维琼服饰有限公司', '1383', '商标', '2015-08-10', '2015-08-20', '2015-08-20', '14', '', '22397939', '0', '0', '3', '0', '1', '1');
+INSERT INTO `tb_invoice` VALUES ('729', '269', '杭州舜斓贸易有限公司', '76800', '', '2015-08-21', '2015-08-21', '2015-08-21', '14', '', '25170507', '0', '0', '3', '76800', '5', '16');
+INSERT INTO `tb_invoice` VALUES ('730', '300', '上海锦弘纺织品有限公司', '4579.2', '', '2015-08-21', '2015-08-21', '2015-08-21', '14', '', '25170506', '0', '0', '3', '4579.2', null, '16');
+INSERT INTO `tb_invoice` VALUES ('731', '300', '上海锦弘纺织品有限公司', '1651.2', '', '2015-08-21', '2015-08-21', '2015-08-21', '14', '', '25170505', '0', '0', '3', '1651.2', null, '16');
+INSERT INTO `tb_invoice` VALUES ('732', '300', '上海锦弘纺织品有限公司', '6393.6', '', '2015-08-21', '2015-08-21', '2015-08-21', '14', '', '25170504', '0', '0', '3', '6393.6', null, '16');
+INSERT INTO `tb_invoice` VALUES ('733', '300', '上海锦弘纺织品有限公司', '6236.74', '', '2015-08-21', '2015-08-21', '2015-08-21', '14', '', '25170503', '0', '0', '3', '6236.74', null, '16');
+INSERT INTO `tb_invoice` VALUES ('734', '300', '上海锦弘纺织品有限公司', '23846.4', '', '2015-08-21', '2015-08-21', '2015-08-21', '14', '', '25170502', '0', '0', '3', '23846.4', null, '16');
+INSERT INTO `tb_invoice` VALUES ('735', '300', '上海锦弘纺织品有限公司', '13398.4', '', '2015-08-21', '2015-08-21', '2015-08-21', '14', '', '25170501', '0', '0', '3', '13398.4', null, '16');
+INSERT INTO `tb_invoice` VALUES ('736', '300', '上海锦弘纺织品有限公司', '28047.6', '', '2015-08-20', '2015-08-21', '2015-08-21', '14', '', '25170500', '0', '0', '3', '28047.6', null, '16');
+INSERT INTO `tb_invoice` VALUES ('737', '300', '上海锦弘纺织品有限公司', '81553.92', '', '2015-08-20', '2015-08-21', '2015-08-21', '14', '', '25170499', '0', '0', '3', '81553.92', null, '16');
+INSERT INTO `tb_invoice` VALUES ('738', '300', '上海锦弘纺织品有限公司', '7776', '', '2015-08-20', '2015-08-21', '2015-08-21', '14', '', '25170498', '0', '0', '3', '7776', null, '16');
+INSERT INTO `tb_invoice` VALUES ('739', '300', '上海锦弘纺织品有限公司', '15048', '', '2015-08-20', '2015-08-21', '2015-08-21', '14', '', '25170497', '0', '0', '3', '15048', null, '16');
+INSERT INTO `tb_invoice` VALUES ('740', '300', '上海锦弘纺织品有限公司', '284.4', '', '2015-08-20', '2015-08-21', '2015-08-21', '14', '', '25170496', '0', '0', '3', '284.4', null, '16');
+INSERT INTO `tb_invoice` VALUES ('741', '300', '上海锦弘纺织品有限公司', '26212.8', '', '2015-08-20', '2015-08-21', '2015-08-21', '14', '', '25170495', '0', '0', '3', '26212.8', null, '16');
+INSERT INTO `tb_invoice` VALUES ('742', '259', '余姚联合纺织进出口有限公司', '45000', '多开', '2015-08-20', '2015-08-21', '2015-08-21', '14', '', '25170494', '0', '0', '3', '45000', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('743', '259', '余姚联合纺织进出口有限公司', '2500', '多开', '2015-08-20', '2015-08-21', '2015-08-21', '14', '', '25170493', '0', '0', '3', '2500', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('744', '276', '浙江悦和实业有限公司', '43000', '', '2015-08-20', '2015-08-21', '2015-08-21', '14', '', '25170492', '0', '0', '3', '43000', null, '16');
+INSERT INTO `tb_invoice` VALUES ('745', '276', '浙江悦和实业有限公司', '40250', '', '2015-08-20', '2015-08-21', '2015-08-21', '14', '', '25170491', '0', '0', '3', '0', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('746', '276', '浙江悦和实业有限公司', '16500', '多开', '2015-08-20', '2015-08-21', '2015-08-21', '14', '', '25170490', '0', '0', '3', '0', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('747', '276', '浙江悦和实业有限公司', '20750', '多开', '2015-08-20', '2015-08-21', '2015-08-21', '14', '', '25170489', '0', '0', '3', '0', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('748', '276', '浙江悦和实业有限公司', '8500', '多开', '2015-08-20', '2015-08-21', '2015-08-21', '14', '', '25170488', '0', '0', '3', '8500', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('749', '276', '浙江悦和实业有限公司', '13600', '多开', '2015-08-20', '2015-08-21', '2015-08-21', '14', '', '25170487', '0', '0', '3', '0', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('750', '276', '浙江悦和实业有限公司', '11040', '多开', '2015-08-20', '2015-08-21', '2015-08-21', '14', '', '25170486', '0', '0', '3', '11040', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('751', '276', '浙江悦和实业有限公司', '88550', '', '2015-08-20', '2015-08-21', '2015-08-21', '14', '', '25170485', '0', '0', '3', '0', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('752', '276', '浙江悦和实业有限公司', '17360', '多开', '2015-08-20', '2015-08-21', '2015-08-21', '14', '', '25170484', '0', '0', '3', '0', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('753', '276', '浙江悦和实业有限公司', '10250', '多开', '2015-08-20', '2015-08-21', '2015-08-21', '14', '', '25170483', '0', '0', '3', '10250', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('754', '276', '浙江悦和实业有限公司', '56828.2', '', '2015-08-20', '2015-08-21', '2015-08-21', '14', '', '25170482', '0', '0', '3', '56828.2', null, '16');
+INSERT INTO `tb_invoice` VALUES ('755', '276', '浙江悦和实业有限公司', '35000', '', '2015-08-20', '2015-08-21', '2015-08-21', '14', '', '25170481', '0', '0', '3', '0', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('756', '276', '浙江悦和实业有限公司', '10850', '多开', '2015-08-20', '2015-08-21', '2015-08-21', '14', '', '25170480', '0', '0', '3', '10850', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('757', '276', '浙江悦和实业有限公司', '16150', '多开', '2015-08-20', '2015-08-21', '2015-08-21', '14', '', '25170479', '0', '0', '3', '16150', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('758', '197', '绍兴市柯桥区叶展纺织有限公司', '43904', '针织布', '2015-08-18', '2015-08-22', '2015-08-22', '14', '', '12512965', '0', '0', '3', '43904', null, '2');
+INSERT INTO `tb_invoice` VALUES ('759', '128', '桐庐星火包装厂', '22652.4', '纸箱', '2015-07-01', '2015-08-23', '2015-08-23', '14', '', '12802412', '0', '0', '3', '0', null, '3');
+INSERT INTO `tb_invoice` VALUES ('761', '139', '浙江桑德富春水务开发有限公司', '526.75', '水费', '2015-08-06', '2015-08-23', '2015-08-23', '14', '', '25161011', '0', '0', '3', '526.75', null, '4');
+INSERT INTO `tb_invoice` VALUES ('762', '139', '浙江桑德富春水务开发有限公司', '240.8', '污水费', '2015-08-04', '2015-08-23', '2015-08-23', '14', '', '00018797', '0', '0', '2', '240.8', null, '4');
+INSERT INTO `tb_invoice` VALUES ('763', '122', '桐庐红泰服装辅料有限公司', '17584', '胶带、涤纶线', '2015-08-21', '2015-08-26', '2015-08-26', '14', '', '12839807', '0', '0', '3', '17584', null, '2');
+INSERT INTO `tb_invoice` VALUES ('764', '215', '东莞市蓝辉纺织原料有限公司', '12924', '粘胶纱', '2015-07-27', '2015-08-26', '2015-08-26', '14', '', '13359848', '0', '0', '3', '12924', '1', '2');
+INSERT INTO `tb_invoice` VALUES ('765', '305', '东阳市巍山晨光丝线厂', '85145', '金银丝线', '2015-08-20', '2015-08-26', '2015-08-26', '14', '', '05241041', '0', '0', '3', '85145', null, '2');
+INSERT INTO `tb_invoice` VALUES ('766', '306', '杨跃军__申通代开', '7252', '税务局代开发票，3%税率', '2015-08-10', '2015-08-26', '2015-08-26', '14', '', '00405212', '0', '0', '3', '7252', null, '6');
+INSERT INTO `tb_invoice` VALUES ('767', '305', '东阳市巍山晨光丝线厂', '85145.1', '金银丝线', '2015-08-20', '2015-08-26', '2015-08-26', '14', '', '05241042', '0', '0', '3', '14855', null, '2');
+INSERT INTO `tb_invoice` VALUES ('768', '235', '江阴市能信纱业有限公司', '25000', '晴纶纱', '2015-08-26', '2015-08-28', '2015-08-28', '14', '', '04752042', '0', '0', '3', '25000', null, '2');
+INSERT INTO `tb_invoice` VALUES ('769', '205', '张家港保税区保点标签有限公司', '532.88', '', '2015-08-23', '2015-08-30', '2015-08-30', '14', '', '23127056', '0', '0', '3', '532.88', '1', '1');
+INSERT INTO `tb_invoice` VALUES ('770', '334', '桐庐县横村镇兴通水电材料商行', '8791.5', '电器材料。代开发票。税率3%', '2015-08-18', '2015-08-30', '2015-08-30', '14', '', '00405602', '0', '0', '3', '8791.5', null, '12');
+INSERT INTO `tb_invoice` VALUES ('771', '342', '上海新异服装辅料有限公司', '3087', '', '2015-08-14', '2015-08-30', '2015-08-30', '14', '', '32248226', '0', '0', '3', '3087', '1', '1');
+INSERT INTO `tb_invoice` VALUES ('772', '259', '余姚联合纺织进出口有限公司', '18576', '', '2015-08-23', '2015-09-01', '2015-09-01', '14', '', '25170514', '0', '0', '3', '18576', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('773', '259', '余姚联合纺织进出口有限公司', '52735', '', '2015-08-23', '2015-09-01', '2015-09-01', '14', '', '25170513', '0', '0', '3', '52735', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('774', '259', '余姚联合纺织进出口有限公司', '18068.6', '', '2015-08-23', '2015-09-01', '2015-09-01', '14', '', '25170512', '0', '0', '3', '18068.6', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('775', '259', '余姚联合纺织进出口有限公司', '18060', '', '2015-08-23', '2015-09-01', '2015-09-01', '14', '', '25170511', '0', '0', '3', '18060', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('776', '272', '东方国际集团上海利泰进出口有限公司', '37800', '', '2015-08-23', '2015-09-01', '2015-09-01', '14', '', '25170510', '0', '0', '3', '37800', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('777', '272', '东方国际集团上海利泰进出口有限公司', '28800', '', '2015-08-23', '2015-09-01', '2015-09-01', '14', '', '25170509', '0', '0', '3', '28800', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('778', '272', '东方国际集团上海利泰进出口有限公司', '56856.8', '', '2015-08-23', '2015-09-01', '2015-09-01', '14', '', '25170508', '0', '0', '3', '56856.8', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('779', '263', '杭州市粮油食品土畜产进出口有限公司', '24706.4', '', '2015-08-27', '2015-09-01', '2015-09-01', '14', '', '25170517', '0', '0', '3', '24706.4', '7', '16');
+INSERT INTO `tb_invoice` VALUES ('780', '265', '上海豪利杰国际贸易有限公司', '21342.6', 'NO.25170475作废重开', '2015-08-24', '2015-09-01', '2015-09-01', '14', '', '25170516', '0', '0', '3', '21342.6', '2', '16');
+INSERT INTO `tb_invoice` VALUES ('781', '259', '余姚联合纺织进出口有限公司', '6192', '', '2015-08-23', '2015-09-01', '2015-09-01', '14', '', '25170515', '0', '0', '3', '6192', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('783', '303', '江阴欣彩纺织有限公司', '74803', '', '2015-08-26', '2015-09-01', '2015-09-01', '14', '', '07221114', '0', '0', '3', '74803', null, '20');
+INSERT INTO `tb_invoice` VALUES ('784', '303', '江阴欣彩纺织有限公司', '105000', '', '2015-08-26', '2015-09-01', '2015-09-01', '14', '', '07221112', '0', '0', '3', '105000', null, '20');
+INSERT INTO `tb_invoice` VALUES ('785', '303', '江阴欣彩纺织有限公司', '110000', '', '2015-08-26', '2015-09-01', '2015-09-01', '14', '', '07221111', '0', '0', '3', '110000', null, '20');
+INSERT INTO `tb_invoice` VALUES ('786', '303', '江阴欣彩纺织有限公司', '110000', '', '2015-08-26', '2015-09-01', '2015-09-01', '14', '', '07221110', '0', '0', '3', '110000', null, '20');
+INSERT INTO `tb_invoice` VALUES ('787', '303', '江阴欣彩纺织有限公司', '100200', '', '2015-08-26', '2015-09-01', '2015-09-01', '14', '', '07221113', '0', '0', '3', '100200', null, '20');
+INSERT INTO `tb_invoice` VALUES ('788', '199', '苏州万美塑胶制品有限公司', '230', '', '2015-08-18', '2015-09-04', '2015-09-04', '14', '', '01690895', '0', '0', '3', '230', '2', '1');
+INSERT INTO `tb_invoice` VALUES ('789', '199', '苏州万美塑胶制品有限公司', '345', '', '2015-08-05', '2015-09-04', '2015-09-04', '14', '', '01690238', '0', '0', '3', '345', '2', '1');
+INSERT INTO `tb_invoice` VALUES ('790', '292', '必维申美商品检测(上海)有限公司', '1135.27', '验货费', '2015-08-30', '2015-09-05', '2015-09-05', '14', '', '20029728', '0', '0', '3', '1135.27', '1', '15');
+INSERT INTO `tb_invoice` VALUES ('791', '131', '桐庐迦南针织有限公司', '63310', '羽毛纱', '2015-09-10', '2015-09-13', '2015-09-13', '14', '', '04173268', '0', '0', '3', '63310', null, '18');
+INSERT INTO `tb_invoice` VALUES ('792', '389', '桐庐永大贸易有限公司', '613', '胶带等', '2015-09-02', '2015-09-13', '2015-09-13', '14', '', '25169592', '0', '0', '3', '613', null, '14');
+INSERT INTO `tb_invoice` VALUES ('793', '209', '浙江顺丰速运有限公司', '4435', '收派服务', '2015-09-07', '2015-09-13', '2015-09-13', '14', '', '29670948', '0', '0', '3', '4435', null, '6');
+INSERT INTO `tb_invoice` VALUES ('794', '180', '上海美声服饰辅料有限公司', '584.37', '', '2015-08-19', '2015-09-13', '2015-09-13', '14', '', '18021635', '0', '0', '3', '584.37', '1', '1');
+INSERT INTO `tb_invoice` VALUES ('795', '180', '上海美声服饰辅料有限公司', '970.48', '', '2015-08-13', '2015-09-13', '2015-09-13', '14', '', '18021434', '0', '0', '3', '970.48', '1', '1');
+INSERT INTO `tb_invoice` VALUES ('796', '180', '上海美声服饰辅料有限公司', '1974.28', '', '2015-08-18', '2015-09-13', '2015-09-13', '14', '', '18021585', '0', '0', '3', '1974.28', '1', '1');
+INSERT INTO `tb_invoice` VALUES ('797', '180', '上海美声服饰辅料有限公司', '687.97', '', '2015-08-18', '2015-09-13', '2015-09-13', '14', '', '18021586', '0', '0', '3', '687.97', '1', '1');
+INSERT INTO `tb_invoice` VALUES ('798', '180', '上海美声服饰辅料有限公司', '1004.61', '', '2015-08-10', '2015-09-13', '2015-09-13', '14', '', '18021252', '0', '0', '3', '1004.61', '1', '1');
+INSERT INTO `tb_invoice` VALUES ('799', '180', '上海美声服饰辅料有限公司', '550.44', '', '2015-08-11', '2015-09-13', '2015-09-13', '14', '', '18021326', '0', '0', '3', '550.44', '1', '1');
+INSERT INTO `tb_invoice` VALUES ('800', '175', '上海金萃贸易有限公司', '147', '', '2015-08-12', '2015-09-13', '2015-09-13', '14', '', '47229300', '0', '0', '3', '147', '1', '1');
+INSERT INTO `tb_invoice` VALUES ('802', '180', '上海美声服饰辅料有限公司', '62.31', '', '2015-08-19', '2015-09-13', '2015-09-13', '14', '', '18025296', '0', '0', '3', '0', '1', '1');
+INSERT INTO `tb_invoice` VALUES ('803', '127', '桐庐南源纺织有限公司', '72819.5', '', '2015-08-26', '2015-09-13', '2015-09-13', '14', '', '25206009', '0', '0', '3', '0', null, '2');
+INSERT INTO `tb_invoice` VALUES ('804', '130', '桐庐泽诺贸易有限公司', '98787', '纱线', '2015-09-09', '2015-09-16', '2015-09-16', '14', '', '25203697', '0', '0', '3', '0', null, '2');
+INSERT INTO `tb_invoice` VALUES ('805', '186', '上海西文服饰有限公司', '667.45', '', '2015-08-13', '2015-09-16', '2015-09-16', '14', '', '46225474', '0', '0', '3', '667.45', '3', '1');
+INSERT INTO `tb_invoice` VALUES ('806', '186', '上海西文服饰有限公司', '217', '主标', '2015-08-29', '2015-09-16', '2015-09-16', '14', '', '46294544', '0', '0', '3', '217', '3', '1');
+INSERT INTO `tb_invoice` VALUES ('807', '186', '上海西文服饰有限公司', '1574.03', '', '2015-08-14', '2015-09-16', '2015-09-16', '14', '', '46225522', '0', '0', '3', '1574.03', '3', '1');
+INSERT INTO `tb_invoice` VALUES ('808', '186', '上海西文服饰有限公司', '1262.52', '', '2015-08-17', '2015-09-16', '2015-09-16', '14', '', '46225551', '0', '0', '3', '1262.52', '3', '1');
+INSERT INTO `tb_invoice` VALUES ('809', '183', '上海诺同服饰辅料有限公司', '2876.1', '', '2015-08-17', '2015-09-16', '2015-09-16', '14', '', '10018443', '0', '0', '3', '2876.1', '3', '1');
+INSERT INTO `tb_invoice` VALUES ('810', '191', '上海易轩干燥剂有限公司', '1386.2', '', '2015-08-17', '2015-09-16', '2015-09-16', '14', '', '01197839', '0', '0', '3', '1386.2', '3', '1');
+INSERT INTO `tb_invoice` VALUES ('811', '205', '张家港保税区保点标签有限公司', '9352.05', '', '2015-08-18', '2015-09-16', '2015-09-16', '14', '', '23127359', '0', '0', '3', '9352.05', '3', '1');
+INSERT INTO `tb_invoice` VALUES ('812', '149', '恩埃赛文数据处理(杭州)有限公司', '2403.58', '', '2015-08-27', '2015-09-16', '2015-09-16', '14', '', '03417330', '0', '0', '3', '2403.58', '3', '1');
+INSERT INTO `tb_invoice` VALUES ('813', '149', '恩埃赛文数据处理(杭州)有限公司', '2929.72', '', '2015-08-27', '2015-09-16', '2015-09-16', '14', '', '03417322', '0', '0', '3', '2929.72', '3', '1');
+INSERT INTO `tb_invoice` VALUES ('814', '171', '上海彩旭印务有限公司', '9691.8', '', '2015-09-10', '2015-09-16', '2015-09-16', '14', '', '30079315', '0', '0', '3', '9691.8', '3', '1');
+INSERT INTO `tb_invoice` VALUES ('815', '243', '桐庐万泰汽车修理有限公司', '3147', '', '2015-09-10', '2015-09-17', '2015-09-17', '14', '', '03660285', '0', '0', '3', '3147', null, '25');
+INSERT INTO `tb_invoice` VALUES ('816', '128', '桐庐星火包装厂', '43118.6', '', '2015-08-27', '2015-09-18', '2015-09-18', '14', '', '12802426', '0', '0', '3', '0', null, '3');
+INSERT INTO `tb_invoice` VALUES ('817', '139', '浙江桑德富春水务开发有限公司', '123.2', '污水费', '2015-09-10', '2015-09-18', '2015-09-18', '14', '', '00020302', '0', '0', '1', '123.2', null, '4');
+INSERT INTO `tb_invoice` VALUES ('818', '139', '浙江桑德富春水务开发有限公司', '269.5', '水费', '2015-09-09', '2015-09-18', '2015-09-18', '14', '', '00302007', '0', '0', '3', '269.5', null, '4');
+INSERT INTO `tb_invoice` VALUES ('819', '402', '杭州拱康医疗科技有限公司', '26667.4', '挂钩', '2015-09-15', '2015-09-18', '2015-09-18', '14', '', '25218679', '0', '0', '3', '26667.4', null, '14');
+INSERT INTO `tb_invoice` VALUES ('820', '234', '桐庐红华塑料有限公司', '365', '挂钩', '2015-09-15', '2015-09-18', '2015-09-18', '14', '', '25218576', '0', '0', '3', '0', null, '14');
+INSERT INTO `tb_invoice` VALUES ('821', '387', '通标标准技术服务有限公司杭州分公司', '3839.85', 'KMART验厂费用', '2015-09-21', '2015-09-22', '2015-09-22', '14', '', '00078461', '0', '0', '3', '3839.85', '3', '13');
+INSERT INTO `tb_invoice` VALUES ('822', '113', '建德云珍线业有限公司', '30000', '', '2015-09-13', '2015-09-22', '2015-09-22', '14', '', '26970387', '0', '0', '3', '0', null, '9');
+INSERT INTO `tb_invoice` VALUES ('823', '396', '建湖县联烨化纤纺织有限公司', '504000', '材料款', '2015-09-17', '2015-09-22', '2015-09-22', '14', '', '18007469', '0', '0', '3', '504000', null, '20');
+INSERT INTO `tb_invoice` VALUES ('824', '403', '国网浙江桐庐县供电公司', '3712.9', '', '2015-09-10', '2015-09-22', '2015-09-22', '14', '', '25214120', '0', '0', '3', '0', null, '5');
+INSERT INTO `tb_invoice` VALUES ('825', '403', '国网浙江桐庐县供电公司', '14882.52', '', '2015-09-10', '2015-09-22', '2015-09-22', '14', '', '25214121', '0', '0', '3', '0', null, '5');
+INSERT INTO `tb_invoice` VALUES ('826', '393', '宁波俊宇纤维科技有限公司', '200000', '', '2015-09-21', '2015-09-22', '2015-09-22', '14', '', '01466137', '0', '0', '3', '200000', null, '20');
+INSERT INTO `tb_invoice` VALUES ('827', '404', '横村镇尚云针织厂', '800000', '代开专用发票，税率3%，加工费', '2015-09-22', '2015-09-22', '2015-09-22', '14', '', '00407961', '0', '0', '2', '0', null, '11');
+INSERT INTO `tb_invoice` VALUES ('828', '404', '横村镇尚云针织厂', '800000', '代开专用发票，税率3%，加工费', '2015-09-22', '2015-09-22', '2015-09-22', '14', '', '00407960', '0', '0', '2', '0', null, '11');
+INSERT INTO `tb_invoice` VALUES ('829', '404', '横村镇尚云针织厂', '800000', '代开专用发票，税率3%，加工费', '2015-09-22', '2015-09-22', '2015-09-22', '14', '', '00407959', '0', '0', '2', '0', null, '11');
+INSERT INTO `tb_invoice` VALUES ('830', '121', '桐庐恒达纺织印染有限公司', '100000', '材料款', '2015-09-18', '2015-09-22', '2015-09-22', '14', '', '15969362', '0', '0', '3', '100000', null, '20');
+INSERT INTO `tb_invoice` VALUES ('831', '252', '富阳市奥达汽车销售服务有限公司', '1560', '汽车维修费', '2015-09-23', '2015-09-23', '2015-09-23', '14', '', '26776859', '0', '0', '3', '1560', null, '25');
+INSERT INTO `tb_invoice` VALUES ('832', '113', '建德云珍线业有限公司', '57549.2', '染色费', '2015-09-21', '2015-09-24', '2015-09-24', '14', '', '26970403', '0', '0', '3', '0', null, '9');
+INSERT INTO `tb_invoice` VALUES ('833', '269', '杭州舜斓贸易有限公司', '57997.5', '', '2015-09-24', '2015-09-26', '2015-09-26', '6', '', '00316407', '0', '0', '3', '0', '5', '16');
+INSERT INTO `tb_invoice` VALUES ('834', '269', '杭州舜斓贸易有限公司', '85192.5', '', '2015-09-24', '2015-09-26', '2015-09-26', '6', '', '00316406', '0', '0', '3', '0', '5', '16');
+INSERT INTO `tb_invoice` VALUES ('835', '300', '上海锦弘纺织品有限公司', '306', '', '2015-09-22', '2015-09-26', '2015-09-26', '6', '', '00316405', '0', '0', '3', '306', null, '16');
+INSERT INTO `tb_invoice` VALUES ('836', '300', '上海锦弘纺织品有限公司', '21726', '', '2015-09-22', '2015-09-26', '2015-09-26', '6', '', '00316404', '0', '0', '3', '21726', null, '16');
+INSERT INTO `tb_invoice` VALUES ('837', '300', '上海锦弘纺织品有限公司', '68442', '', '2015-09-22', '2015-09-26', '2015-09-26', '6', '', '00316403', '0', '0', '3', '68442', null, '16');
+INSERT INTO `tb_invoice` VALUES ('838', '300', '上海锦弘纺织品有限公司', '102000', '', '2015-09-22', '2015-09-26', '2015-09-26', '6', '', '00316402', '0', '0', '3', '102000', null, '16');
+INSERT INTO `tb_invoice` VALUES ('839', '300', '上海锦弘纺织品有限公司', '707.52', '', '2015-09-22', '2015-09-26', '2015-09-26', '6', '', '00316401', '0', '0', '3', '707.52', null, '16');
+INSERT INTO `tb_invoice` VALUES ('840', '300', '上海锦弘纺织品有限公司', '76058.4', '', '2015-09-22', '2015-09-26', '2015-09-26', '6', '', '00316400', '0', '0', '3', '76058.4', null, '16');
+INSERT INTO `tb_invoice` VALUES ('841', '300', '上海锦弘纺织品有限公司', '88440', '', '2015-09-22', '2015-09-26', '2015-09-26', '6', '', '00316399', '0', '0', '3', '88440', null, '16');
+INSERT INTO `tb_invoice` VALUES ('842', '300', '上海锦弘纺织品有限公司', '88440', '', '2015-09-22', '2015-09-26', '2015-09-26', '6', '', '00316398', '0', '0', '3', '88440', null, '16');
+INSERT INTO `tb_invoice` VALUES ('843', '300', '上海锦弘纺织品有限公司', '20564.16', '', '2015-09-22', '2015-09-26', '2015-09-26', '6', '', '00316397', '0', '0', '3', '20564.16', null, '16');
+INSERT INTO `tb_invoice` VALUES ('844', '300', '上海锦弘纺织品有限公司', '51244.56', '', '2015-09-22', '2015-09-26', '2015-09-26', '6', '', '00316396', '0', '0', '3', '51244.56', null, '16');
+INSERT INTO `tb_invoice` VALUES ('845', '405', '上海逸韵服饰有限公司', '30361.7', '', '2015-09-22', '2015-09-26', '2015-09-26', '6', '', '00316395', '0', '0', '3', '0', '2', '16');
+INSERT INTO `tb_invoice` VALUES ('847', '265', '上海豪利杰国际贸易有限公司', '31075.33', '', '2015-09-22', '2015-09-26', '2015-09-26', '6', '', '00316393', '0', '0', '3', '31075.33', '2', '16');
+INSERT INTO `tb_invoice` VALUES ('848', '265', '上海豪利杰国际贸易有限公司', '10894.4', '', '2015-09-22', '2015-09-26', '2015-09-26', '6', '', '00316392', '0', '0', '3', '10894.4', '2', '16');
+INSERT INTO `tb_invoice` VALUES ('849', '265', '上海豪利杰国际贸易有限公司', '18971.2', '', '2015-09-22', '2015-09-26', '2015-09-26', '6', '', '00316391', '0', '0', '3', '18971.2', '2', '16');
+INSERT INTO `tb_invoice` VALUES ('850', '300', '上海锦弘纺织品有限公司', '21807.9', '', '2015-09-21', '2015-09-26', '2015-09-26', '6', '', '00314440', '0', '0', '3', '21807.9', null, '16');
+INSERT INTO `tb_invoice` VALUES ('851', '300', '上海锦弘纺织品有限公司', '8155.8', '', '2015-09-21', '2015-09-26', '2015-09-26', '6', '', '00314439', '0', '0', '3', '8155.8', '4', '16');
+INSERT INTO `tb_invoice` VALUES ('852', '300', '上海锦弘纺织品有限公司', '54990', '', '2015-09-21', '2015-09-26', '2015-09-26', '6', '', '00314438', '0', '0', '3', '54990', null, '16');
+INSERT INTO `tb_invoice` VALUES ('853', '300', '上海锦弘纺织品有限公司', '14805', '', '2015-09-21', '2015-09-26', '2015-09-26', '6', '', '00314437', '0', '0', '3', '14805', null, '16');
+INSERT INTO `tb_invoice` VALUES ('854', '300', '上海锦弘纺织品有限公司', '2737.8', '', '2015-09-21', '2015-09-26', '2015-09-26', '6', '', '00314436', '0', '0', '3', '2737.8', null, '16');
+INSERT INTO `tb_invoice` VALUES ('855', '300', '上海锦弘纺织品有限公司', '7792.2', '', '2015-09-21', '2015-09-26', '2015-09-26', '6', '', '00314435', '0', '0', '3', '7792.2', null, '16');
+INSERT INTO `tb_invoice` VALUES ('856', '300', '上海锦弘纺织品有限公司', '12654.26', '', '2015-09-21', '2015-09-26', '2015-09-26', '6', '', '00314434', '0', '0', '3', '12654.26', '4', '16');
+INSERT INTO `tb_invoice` VALUES ('857', '300', '上海锦弘纺织品有限公司', '271.16', '', '2015-09-21', '2015-09-26', '2015-09-26', '6', '', '00314433', '0', '0', '3', '271.16', '4', '16');
+INSERT INTO `tb_invoice` VALUES ('858', '300', '上海锦弘纺织品有限公司', '3796.28', '', '2015-09-21', '2015-09-26', '2015-09-26', '6', '', '00314432', '0', '0', '3', '3796.28', '4', '16');
+INSERT INTO `tb_invoice` VALUES ('859', '300', '上海锦弘纺织品有限公司', '96187.2', '', '2015-09-21', '2015-09-26', '2015-09-26', '6', '', '00314431', '0', '0', '3', '96187.2', '4', '16');
+INSERT INTO `tb_invoice` VALUES ('860', '300', '上海锦弘纺织品有限公司', '29868', '', '2015-09-21', '2015-09-26', '2015-09-26', '6', '', '00314430', '0', '0', '3', '29868', '4', '16');
+INSERT INTO `tb_invoice` VALUES ('861', '300', '上海锦弘纺织品有限公司', '5030.4', '', '2015-09-21', '2015-09-26', '2015-09-26', '6', '', '00314429', '0', '0', '3', '5030.4', '4', '16');
+INSERT INTO `tb_invoice` VALUES ('862', '300', '上海锦弘纺织品有限公司', '4401.6', '', '2015-09-21', '2015-09-26', '2015-09-26', '6', '', '00314428', '0', '0', '3', '4401.6', '4', '16');
+INSERT INTO `tb_invoice` VALUES ('863', '300', '上海锦弘纺织品有限公司', '79500', '', '2015-09-21', '2015-09-26', '2015-09-26', '6', '', '00314427', '0', '0', '3', '79500', '4', '16');
+INSERT INTO `tb_invoice` VALUES ('864', '300', '上海锦弘纺织品有限公司', '45830.4', '', '2015-09-21', '2015-09-26', '2015-09-26', '6', '', '00314426', '0', '0', '3', '45830.4', '4', '16');
+INSERT INTO `tb_invoice` VALUES ('865', '300', '上海锦弘纺织品有限公司', '12499.2', '', '2015-09-21', '2015-09-26', '2015-09-26', '6', '', '00314425', '0', '0', '3', '12499.2', '4', '16');
+INSERT INTO `tb_invoice` VALUES ('866', '300', '上海锦弘纺织品有限公司', '41184', '', '2015-09-21', '2015-09-26', '2015-09-26', '6', '', '00314424', '0', '0', '3', '41184', '4', '16');
+INSERT INTO `tb_invoice` VALUES ('867', '300', '上海锦弘纺织品有限公司', '41040', '', '2015-09-21', '2015-09-26', '2015-09-26', '6', '', '00314423', '0', '0', '3', '41040', '4', '16');
+INSERT INTO `tb_invoice` VALUES ('868', '300', '上海锦弘纺织品有限公司', '205.2', '', '2015-09-21', '2015-09-26', '2015-09-26', '6', '', '00314422', '0', '0', '3', '205.2', '4', '16');
+INSERT INTO `tb_invoice` VALUES ('869', '300', '上海锦弘纺织品有限公司', '1641.6', '', '2015-09-21', '2015-09-26', '2015-09-26', '6', '', '00314421', '0', '0', '3', '1641.6', '4', '16');
+INSERT INTO `tb_invoice` VALUES ('870', '300', '上海锦弘纺织品有限公司', '1771.2', '', '2015-09-21', '2015-09-26', '2015-09-26', '6', '', '00314420', '0', '0', '3', '1771.2', '4', '16');
+INSERT INTO `tb_invoice` VALUES ('871', '300', '上海锦弘纺织品有限公司', '1771.2', '', '2015-09-21', '2015-09-26', '2015-09-26', '6', '', '00314419', '0', '0', '3', '1771.2', null, '16');
+INSERT INTO `tb_invoice` VALUES ('872', '300', '上海锦弘纺织品有限公司', '8221.2', '', '2015-09-21', '2015-09-26', '2015-09-26', '6', '', '00314418', '0', '0', '3', '8221.2', null, '16');
+INSERT INTO `tb_invoice` VALUES ('873', '300', '上海锦弘纺织品有限公司', '1142.4', '', '2015-09-21', '2015-09-26', '2015-09-26', '6', '', '00314417', '0', '0', '3', '1142.4', null, '16');
+INSERT INTO `tb_invoice` VALUES ('874', '300', '上海锦弘纺织品有限公司', '29181.6', '', '2015-09-21', '2015-09-26', '2015-09-26', '6', '', '00314416', '0', '0', '3', '29181.6', null, '16');
+INSERT INTO `tb_invoice` VALUES ('875', '259', '余姚联合纺织进出口有限公司', '20250', '', '2015-09-21', '2015-09-26', '2015-09-26', '6', '', '00314415', '0', '0', '3', '0', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('876', '259', '余姚联合纺织进出口有限公司', '28900', '', '2015-09-21', '2015-09-26', '2015-09-26', '6', '', '00314414', '0', '0', '3', '0', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('877', '259', '余姚联合纺织进出口有限公司', '15800', '', '2015-09-21', '2015-09-26', '2015-09-26', '6', '', '00314413', '0', '0', '3', '0', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('878', '259', '余姚联合纺织进出口有限公司', '16200', '', '2015-09-21', '2015-09-26', '2015-09-26', '6', '', '00314412', '0', '0', '3', '0', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('879', '259', '余姚联合纺织进出口有限公司', '25600', '', '2015-09-21', '2015-09-26', '2015-09-26', '6', '', '00314411', '0', '0', '3', '0', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('880', '259', '余姚联合纺织进出口有限公司', '22900', '', '2015-09-21', '2015-09-26', '2015-09-26', '6', '', '00314410', '0', '0', '3', '0', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('881', '259', '余姚联合纺织进出口有限公司', '20520', '', '2015-09-21', '2015-09-26', '2015-09-26', '6', '', '00314409', '0', '0', '3', '0', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('882', '259', '余姚联合纺织进出口有限公司', '71400', '', '2015-09-21', '2015-09-26', '2015-09-26', '6', '', '00314408', '0', '0', '3', '0', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('883', '259', '余姚联合纺织进出口有限公司', '23400', '', '2015-09-21', '2015-09-26', '2015-09-26', '6', '', '00314407', '0', '0', '3', '0', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('884', '259', '余姚联合纺织进出口有限公司', '52550', '', '2015-09-21', '2015-09-26', '2015-09-26', '6', '', '00314406', '0', '0', '3', '0', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('885', '259', '余姚联合纺织进出口有限公司', '31918.8', '', '2015-09-15', '2015-09-26', '2015-09-26', '6', '', '00300115', '0', '0', '3', '31918.8', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('886', '259', '余姚联合纺织进出口有限公司', '112411.7', '', '2015-09-15', '2015-09-26', '2015-09-26', '6', '', '00300114', '0', '0', '3', '112411.7', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('887', '259', '余姚联合纺织进出口有限公司', '18243.6', '', '2015-09-15', '2015-09-26', '2015-09-26', '6', '', '00300113', '0', '0', '3', '18243.6', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('888', '259', '余姚联合纺织进出口有限公司', '93163.8', '', '2015-09-15', '2015-09-26', '2015-09-26', '6', '', '00300112', '0', '0', '3', '93163.8', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('889', '259', '余姚联合纺织进出口有限公司', '55947.81', '', '2015-09-15', '2015-09-26', '2015-09-26', '6', '', '00300111', '0', '0', '3', '55947.81', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('890', '259', '余姚联合纺织进出口有限公司', '32028', '', '2015-09-15', '2015-09-26', '2015-09-26', '6', '', '00300110', '0', '0', '3', '32027', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('891', '268', '杭州翔天实业有限公司', '116620', '', '2015-09-15', '2015-09-26', '2015-09-26', '6', '', '00300109', '0', '0', '3', '116620', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('892', '268', '杭州翔天实业有限公司', '110800', '', '2015-09-15', '2015-09-26', '2015-09-26', '6', '', '00300108', '0', '0', '3', '110800', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('893', '268', '杭州翔天实业有限公司', '110000', '', '2015-09-15', '2015-09-26', '2015-09-26', '6', '', '00300107', '0', '0', '3', '110000', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('894', '268', '杭州翔天实业有限公司', '110000', '', '2015-09-15', '2015-09-26', '2015-09-26', '6', '', '00300106', '0', '0', '3', '110000', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('895', '268', '杭州翔天实业有限公司', '110000', '', '2015-09-15', '2015-09-26', '2015-09-26', '6', '', '00300105', '0', '0', '3', '110000', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('896', '268', '杭州翔天实业有限公司', '104500', '', '2015-09-15', '2015-09-26', '2015-09-26', '6', '', '00300104', '0', '0', '3', '104500', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('897', '268', '杭州翔天实业有限公司', '29641.92', '', '2015-09-15', '2015-09-26', '2015-09-26', '6', '', '00300103', '0', '0', '3', '29641.92', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('898', '276', '浙江悦和实业有限公司', '37000', '', '2015-09-15', '2015-09-26', '2015-09-26', '6', '', '00300102', '0', '0', '3', '0', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('899', '276', '浙江悦和实业有限公司', '37000', '', '2015-09-15', '2015-09-26', '2015-09-26', '6', '', '00300101', '0', '0', '3', '0', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('900', '276', '浙江悦和实业有限公司', '80350', '', '2015-09-15', '2015-09-26', '2015-09-26', '6', '', '00300100', '0', '0', '3', '0', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('901', '276', '浙江悦和实业有限公司', '22500', '', '2015-09-15', '2015-09-26', '2015-09-26', '6', '', '00300099', '0', '0', '3', '0', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('902', '276', '浙江悦和实业有限公司', '84300', '', '2015-09-15', '2015-09-26', '2015-09-26', '6', '', '00300098', '0', '0', '3', '0', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('903', '276', '浙江悦和实业有限公司', '43350', '', '2015-09-15', '2015-09-26', '2015-09-26', '6', '', '00300097', '0', '0', '3', '0', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('904', '276', '浙江悦和实业有限公司', '70400', '', '2015-09-15', '2015-09-26', '2015-09-26', '6', '', '00300096', '0', '0', '3', '0', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('905', '276', '浙江悦和实业有限公司', '95837.5', '', '2015-09-15', '2015-09-26', '2015-09-26', '6', '', '00300095', '0', '0', '3', '0', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('906', '276', '浙江悦和实业有限公司', '109020', '', '2015-09-15', '2015-09-26', '2015-09-26', '6', '', '00300094', '0', '0', '3', '0', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('907', '276', '浙江悦和实业有限公司', '35750', '', '2015-09-15', '2015-09-26', '2015-09-26', '6', '', '00300093', '0', '0', '3', '0', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('908', '276', '浙江悦和实业有限公司', '25000', '', '2015-09-15', '2015-09-26', '2015-09-26', '6', '', '00300092', '0', '0', '3', '0', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('909', '276', '浙江悦和实业有限公司', '18280', '', '2015-09-15', '2015-09-26', '2015-09-26', '6', '', '00300091', '0', '0', '3', '0', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('910', '276', '浙江悦和实业有限公司', '38700', '', '2015-09-15', '2015-09-26', '2015-09-26', '6', '', '00300090', '0', '0', '3', '0', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('911', '276', '浙江悦和实业有限公司', '36780', '', '2015-09-15', '2015-09-26', '2015-09-26', '6', '', '00300089', '0', '0', '3', '0', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('912', '276', '浙江悦和实业有限公司', '16270', '', '2015-09-15', '2015-09-26', '2015-09-26', '6', '', '00300088', '0', '0', '3', '0', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('913', '276', '浙江悦和实业有限公司', '58710', '', '2015-09-15', '2015-09-26', '2015-09-26', '6', '', '00300087', '0', '0', '3', '0', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('914', '276', '浙江悦和实业有限公司', '17830', '', '2015-09-15', '2015-09-26', '2015-09-26', '6', '', '00300086', '0', '0', '3', '0', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('915', '276', '浙江悦和实业有限公司', '5010', '', '2015-09-15', '2015-09-26', '2015-09-26', '6', '', '00300085', '0', '0', '3', '0', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('916', '276', '浙江悦和实业有限公司', '34120', '', '2015-09-15', '2015-09-26', '2015-09-26', '6', '', '00300084', '0', '0', '3', '0', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('917', '276', '浙江悦和实业有限公司', '34015', '', '2015-09-15', '2015-09-26', '2015-09-26', '6', '', '00300083', '0', '0', '3', '0', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('918', '276', '浙江悦和实业有限公司', '110530', '', '2015-09-15', '2015-09-26', '2015-09-26', '6', '', '00300082', '0', '0', '3', '0', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('919', '276', '浙江悦和实业有限公司', '38670', '', '2015-09-15', '2015-09-26', '2015-09-26', '6', '', '00300081', '0', '0', '3', '0', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('921', '276', '浙江悦和实业有限公司', '20900', '', '2015-09-15', '2015-09-26', '2015-09-26', '6', '', '00300079', '0', '0', '3', '0', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('922', '276', '浙江悦和实业有限公司', '32100', '', '2015-09-15', '2015-09-26', '2015-09-26', '6', '', '00300078', '0', '0', '3', '0', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('923', '276', '浙江悦和实业有限公司', '99310.34', '', '2015-09-15', '2015-09-26', '2015-09-26', '6', '', '00300077', '0', '0', '3', '0', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('924', '276', '浙江悦和实业有限公司', '109869.66', '', '2015-09-15', '2015-09-26', '2015-09-26', '6', '', '00300076', '0', '0', '3', '0', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('925', '276', '浙江悦和实业有限公司', '16150', '', '2015-09-15', '2015-09-26', '2015-09-26', '6', '', '00300075', '0', '0', '3', '0', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('926', '268', '杭州翔天实业有限公司', '43000', '', '2015-09-09', '2015-09-26', '2015-09-26', '6', '', '00300074', '0', '0', '3', '43000', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('927', '272', '东方国际集团上海利泰进出口有限公司', '3816', '', '2015-09-09', '2015-09-26', '2015-09-26', '6', '', '00300073', '0', '0', '3', '3816', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('928', '272', '东方国际集团上海利泰进出口有限公司', '13776', '', '2015-09-09', '2015-09-26', '2015-09-26', '6', '', '00300072', '0', '0', '3', '13776', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('929', '272', '东方国际集团上海利泰进出口有限公司', '5904', '', '2015-09-09', '2015-09-26', '2015-09-26', '6', '', '00300071', '0', '0', '3', '5904', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('930', '272', '东方国际集团上海利泰进出口有限公司', '8904', '', '2015-09-09', '2015-09-26', '2015-09-26', '6', '', '00300070', '0', '0', '3', '8904', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('931', '266', '浙江省轻纺集团进出口有限公司', '6800', '', '2015-09-08', '2015-09-26', '2015-09-26', '6', '', '00300069', '0', '0', '3', '0', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('932', '266', '浙江省轻纺集团进出口有限公司', '30140', '', '2015-09-08', '2015-09-26', '2015-09-26', '6', '', '00300068', '0', '0', '3', '0', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('933', '266', '浙江省轻纺集团进出口有限公司', '97968', '', '2015-09-08', '2015-09-26', '2015-09-26', '6', '', '00300067', '0', '0', '3', '97968', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('934', '266', '浙江省轻纺集团进出口有限公司', '116586', '', '2015-09-08', '2015-09-26', '2015-09-26', '6', '', '00300066', '0', '0', '3', '116586', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('935', '266', '浙江省轻纺集团进出口有限公司', '70473', '', '2015-09-08', '2015-09-26', '2015-09-26', '6', '', '00300065', '0', '0', '3', '70473', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('936', '266', '浙江省轻纺集团进出口有限公司', '84988.8', '', '2015-09-08', '2015-09-26', '2015-09-26', '6', '', '00300064', '0', '0', '3', '84988.8', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('937', '266', '浙江省轻纺集团进出口有限公司', '93600', '', '2015-09-08', '2015-09-26', '2015-09-26', '6', '', '00300063', '0', '0', '3', '93600', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('938', '266', '浙江省轻纺集团进出口有限公司', '72433.5', '', '2015-09-08', '2015-09-26', '2015-09-26', '6', '', '00300062', '0', '0', '3', '72433.5', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('939', '266', '浙江省轻纺集团进出口有限公司', '96456', '', '2015-09-08', '2015-09-26', '2015-09-26', '6', '', '00300061', '0', '0', '3', '96456', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('940', '266', '浙江省轻纺集团进出口有限公司', '113160', '', '2015-09-08', '2015-09-26', '2015-09-26', '6', '', '00300060', '0', '0', '3', '113160', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('941', '266', '浙江省轻纺集团进出口有限公司', '90900', '', '2015-09-08', '2015-09-26', '2015-09-26', '6', '', '00300059', '0', '0', '3', '0', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('942', '266', '浙江省轻纺集团进出口有限公司', '42900', '', '2015-09-08', '2015-09-26', '2015-09-26', '6', '', '00300058', '0', '0', '3', '0', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('943', '266', '浙江省轻纺集团进出口有限公司', '37900', '', '2015-09-08', '2015-09-26', '2015-09-26', '6', '', '00300057', '0', '0', '3', '0', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('944', '266', '浙江省轻纺集团进出口有限公司', '14508', '', '2015-09-08', '2015-09-26', '2015-09-26', '6', '', '00300056', '0', '0', '3', '14508', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('945', '266', '浙江省轻纺集团进出口有限公司', '92100', '', '2015-09-08', '2015-09-26', '2015-09-26', '6', '', '00300055', '0', '0', '3', '0', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('946', '266', '浙江省轻纺集团进出口有限公司', '32433', '', '2015-09-08', '2015-09-26', '2015-09-26', '6', '', '00300054', '0', '0', '3', '0', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('947', '266', '浙江省轻纺集团进出口有限公司', '71760', '', '2015-09-08', '2015-09-26', '2015-09-26', '6', '', '00300053', '0', '0', '3', '0', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('948', '266', '浙江省轻纺集团进出口有限公司', '5124', '', '2015-09-08', '2015-09-26', '2015-09-26', '6', '', '00300052', '0', '0', '3', '0', '3', '16');
+INSERT INTO `tb_invoice` VALUES ('949', '266', '浙江省轻纺集团进出口有限公司', '27100', '', '2015-09-08', '2015-09-26', '2015-09-26', '6', '', '00300051', '0', '0', '3', '0', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('950', '277', '深圳市一达通企业服务有限公司', '74874.77', '', '2015-09-08', '2015-09-26', '2015-09-26', '6', '', '00300050', '0', '0', '3', '74874.77', '2', '16');
+INSERT INTO `tb_invoice` VALUES ('951', '277', '深圳市一达通企业服务有限公司', '19987.15', '', '2015-09-08', '2015-09-26', '2015-09-26', '6', '', '00300049', '0', '0', '3', '19987.15', '2', '16');
+INSERT INTO `tb_invoice` VALUES ('952', '277', '深圳市一达通企业服务有限公司', '59236.8', '', '2015-09-08', '2015-09-26', '2015-09-26', '6', '', '00300048', '0', '0', '3', '59236.8', '2', '16');
+INSERT INTO `tb_invoice` VALUES ('953', '277', '深圳市一达通企业服务有限公司', '106812', '', '2015-09-08', '2015-09-26', '2015-09-26', '6', '', '00300047', '0', '0', '3', '106812', '2', '16');
+INSERT INTO `tb_invoice` VALUES ('954', '278', '宁波雅励进出口有限公司', '23590.56', '', '2015-09-08', '2015-09-26', '2015-09-26', '6', '', '00300046', '0', '0', '3', '0', '9', '16');
+INSERT INTO `tb_invoice` VALUES ('955', '270', '杭州六昇服饰有限公司', '7400', '', '2015-09-05', '2015-09-26', '2015-09-26', '6', '', '25170520', '0', '0', '3', '0', '3', '28');
+INSERT INTO `tb_invoice` VALUES ('956', '278', '宁波雅励进出口有限公司', '81860.64', '', '2015-09-05', '2015-09-26', '2015-09-26', '6', '', '25170519', '0', '0', '3', '0', '9', '16');
+INSERT INTO `tb_invoice` VALUES ('957', '405', '上海逸韵服饰有限公司', '41558.4', '', '2015-09-01', '2015-09-26', '2015-09-26', '6', '', '25170518', '0', '0', '3', '41558.4', null, '16');
+INSERT INTO `tb_invoice` VALUES ('958', '126', '桐庐锦欣纺织有限公司', '1071508.85', '纱线款', '2015-09-25', '2015-09-29', '2015-09-29', '14', '', '00324105', '0', '0', '3', '0', null, '2');
+INSERT INTO `tb_invoice` VALUES ('959', '291', '东莞市辉美纺织品有限公司', '20611', '', '2015-09-25', '2015-09-30', '2015-09-30', '14', '', '09653699', '0', '0', '3', '0', null, '2');
+INSERT INTO `tb_invoice` VALUES ('960', '258', '上海汉森环宇进出口有限公司', '84945.4', '', '2015-10-07', '2015-10-07', '2015-10-07', '14', '', '00316423', '0', '0', '3', '84945.4', '6', '16');
+INSERT INTO `tb_invoice` VALUES ('961', '258', '上海汉森环宇进出口有限公司', '7395', '', '2015-10-07', '2015-10-07', '2015-10-07', '14', '', '00316422', '0', '0', '3', '7395', '6', '16');
+INSERT INTO `tb_invoice` VALUES ('962', '263', '杭州市粮油食品土畜产进出口有限公司', '52479.2', '', '2015-10-07', '2015-10-07', '2015-10-07', '14', '', '00316421', '0', '0', '3', '52479.2', '7', '16');
+INSERT INTO `tb_invoice` VALUES ('963', '259', '余姚联合纺织进出口有限公司', '94686.6', '', '2015-10-07', '2015-10-07', '2015-10-07', '14', '', '00316420', '0', '0', '3', '0', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('964', '259', '余姚联合纺织进出口有限公司', '11830', '', '2015-10-07', '2015-10-07', '2015-10-07', '14', '', '00316419', '0', '0', '3', '11830', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('965', '259', '余姚联合纺织进出口有限公司', '13600', '', '2015-10-07', '2015-10-07', '2015-10-07', '14', '', '00316418', '0', '0', '3', '13600', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('966', '259', '余姚联合纺织进出口有限公司', '12875', '', '2015-10-07', '2015-10-07', '2015-10-07', '14', '', '00316417', '0', '0', '3', '12875', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('967', '259', '余姚联合纺织进出口有限公司', '12875', '', '2015-10-07', '2015-10-07', '2015-10-07', '14', '', '00316416', '0', '0', '3', '12875', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('968', '268', '杭州翔天实业有限公司', '115800', '15H0891', '2015-10-07', '2015-10-07', '2015-10-07', '14', '', '00316414', '0', '0', '3', '0', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('969', '268', '杭州翔天实业有限公司', '42840', '15H0891', '2015-10-07', '2015-10-07', '2015-10-07', '14', '', '00316415', '0', '0', '3', '0', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('970', '261', '航天通信控股集团股份有限公司', '92384.62', '15FSN295', '2015-10-07', '2015-10-07', '2015-10-07', '14', '', '00316412', '0', '0', '3', '0', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('971', '261', '航天通信控股集团股份有限公司', '106603.56', '15FSN295 ， 内含还代付辅料费 50588.18元', '2015-10-07', '2015-10-07', '2015-10-07', '14', '', '00316413', '0', '0', '3', '0', '1', '16');
+INSERT INTO `tb_invoice` VALUES ('972', '112', '嘉兴市海燕印刷有限公司', '891', '王菁，销售单写明欠款为742.5元', '2015-10-13', '2015-10-15', '2015-10-15', '14', '', '04057293', '0', '0', '3', '0', '1', '1');
+INSERT INTO `tb_invoice` VALUES ('973', '386', '华测检测认证集团股份有限公司', '2945', '', '2015-09-25', '2015-10-15', '2015-10-15', '14', '', '00426578', '0', '0', '3', '2945', '3', '13');
+INSERT INTO `tb_invoice` VALUES ('974', '412', '桐庐伟丰压花有限公司', '6056', '代开发票，3%税率', '2015-09-25', '2015-10-15', '2015-10-15', '14', '', '00405965', '0', '0', '3', '6056', null, '11');
+INSERT INTO `tb_invoice` VALUES ('975', '209', '浙江顺丰速运有限公司', '1773', '', '2015-10-09', '2015-10-15', '2015-10-15', '14', '', '00850858', '0', '0', '3', '1773', null, '6');
+INSERT INTO `tb_invoice` VALUES ('976', '131', '桐庐迦南针织有限公司', '14762', '', '2015-10-10', '2015-10-15', '2015-10-15', '14', '', '00305285', '0', '0', '3', '14762', null, '2');
+INSERT INTO `tb_invoice` VALUES ('977', '278', '宁波雅励进出口有限公司', '95065.38', '扣除洗标207.72元', '2015-10-15', '2015-10-15', '2015-10-15', '14', '', '00316428', '0', '0', '3', '0', '9', '16');
+INSERT INTO `tb_invoice` VALUES ('978', '278', '宁波雅励进出口有限公司', '110853.28', '扣除洗标568.32元', '2015-10-15', '2015-10-15', '2015-10-15', '14', '', '00316426', '0', '0', '3', '0', '9', '16');
+INSERT INTO `tb_invoice` VALUES ('979', '278', '宁波雅励进出口有限公司', '28443', '与00316426同一个合同，分两张发票开', '2015-10-15', '2015-10-15', '2015-10-15', '14', '', '00316427', '0', '0', '3', '0', '9', '16');
+INSERT INTO `tb_invoice` VALUES ('980', '277', '深圳市一达通企业服务有限公司', '24933.02', '多开893.02', '2015-10-13', '2015-10-15', '2015-10-15', '14', '', '00316424', '0', '0', '3', '0', '2', '16');
+INSERT INTO `tb_invoice` VALUES ('981', '277', '深圳市一达通企业服务有限公司', '8310.98', '多开150.98 元，下次开票会自动扣除', '2015-10-13', '2015-10-15', '2015-10-15', '14', '', '00316425', '0', '0', '3', '0', '2', '16');
+INSERT INTO `tb_invoice` VALUES ('983', '269', '杭州舜斓贸易有限公司', '1665', '', '2015-09-29', '2015-10-15', '2015-10-15', '14', '', '00316411', '0', '0', '3', '0', '5', '16');
+INSERT INTO `tb_invoice` VALUES ('984', '269', '杭州舜斓贸易有限公司', '56332.5', '', '2015-09-29', '2015-10-15', '2015-10-15', '14', '', '00316410', '0', '0', '3', '0', '5', '16');
+INSERT INTO `tb_invoice` VALUES ('985', '269', '杭州舜斓贸易有限公司', '85192.5', '', '2015-09-29', '2015-10-15', '2015-10-15', '14', '', '00316408', '0', '0', '3', '0', '5', '16');
 INSERT INTO `tb_ironingrecordorder` VALUES ('1', '1', '2015-03-31 21:48:39', '2015-03-31 21:48:39', '7', '6', '执行完成');
 INSERT INTO `tb_ironingrecordorder` VALUES ('2', '2', '2015-04-02 22:09:03', '2015-04-02 22:09:03', '7', '0', '新建');
 INSERT INTO `tb_ironingrecordorder` VALUES ('3', '3', '2015-04-02 22:32:58', '2015-04-02 22:32:58', '7', '0', '新建');
@@ -5416,7 +6848,7 @@ INSERT INTO `tb_ironingrecordorder` VALUES ('10', '10', '2015-04-03 22:01:02', '
 INSERT INTO `tb_ironingrecordorder` VALUES ('11', '11', '2015-04-03 22:08:13', '2015-04-03 22:08:13', '7', '0', '新建');
 INSERT INTO `tb_ironingrecordorder` VALUES ('12', '12', '2015-04-03 23:16:47', '2015-04-03 23:16:47', '7', '0', '新建');
 INSERT INTO `tb_ironingrecordorder` VALUES ('13', '13', '2015-04-03 23:52:25', '2015-04-03 23:52:25', '7', '6', '执行完成');
-INSERT INTO `tb_ironingrecordorder` VALUES ('14', '14', '2015-04-04 00:25:22', '2015-04-04 00:25:22', '7', '6', '执行完成');
+INSERT INTO `tb_ironingrecordorder` VALUES ('14', '14', '2015-04-04 00:25:22', '2015-04-04 00:25:22', '7', '0', '新建');
 INSERT INTO `tb_ironingrecordorder` VALUES ('15', '15', '2015-04-04 01:47:47', '2015-04-04 01:47:47', '7', '0', '新建');
 INSERT INTO `tb_ironingrecordorder` VALUES ('16', '16', '2015-04-04 01:52:57', '2015-04-04 01:52:57', '7', '0', '新建');
 INSERT INTO `tb_ironingrecordorder` VALUES ('17', '17', '2015-04-04 14:45:56', '2015-04-04 14:45:56', '7', '0', '新建');
@@ -5493,7 +6925,7 @@ INSERT INTO `tb_ironingrecordorder` VALUES ('87', '87', '2015-04-27 08:07:57', '
 INSERT INTO `tb_ironingrecordorder` VALUES ('88', '88', '2015-04-27 08:24:57', '2015-04-27 08:24:57', '7', '0', '新建');
 INSERT INTO `tb_ironingrecordorder` VALUES ('89', '89', '2015-04-27 08:45:32', '2015-04-27 08:45:32', '7', '0', '新建');
 INSERT INTO `tb_ironingrecordorder` VALUES ('90', '90', '2015-04-30 13:32:44', '2015-04-30 13:32:44', '7', '0', '新建');
-INSERT INTO `tb_ironingrecordorder` VALUES ('91', '91', '2015-05-02 16:28:24', '2015-05-02 16:28:24', '7', '6', '执行完成');
+INSERT INTO `tb_ironingrecordorder` VALUES ('91', '91', '2015-05-02 16:28:24', '2015-05-02 16:28:24', '7', '0', '新建');
 INSERT INTO `tb_ironingrecordorder` VALUES ('92', '92', '2015-05-03 17:24:03', '2015-05-03 17:24:03', '7', '0', '新建');
 INSERT INTO `tb_ironingrecordorder` VALUES ('93', '93', '2015-05-03 17:34:23', '2015-05-03 17:34:23', '7', '0', '新建');
 INSERT INTO `tb_ironingrecordorder` VALUES ('94', '94', '2015-05-03 17:51:49', '2015-05-03 17:51:49', '7', '6', '执行完成');
@@ -5627,7 +7059,7 @@ INSERT INTO `tb_ironingrecordorder` VALUES ('221', '221', '2015-07-05 14:39:24',
 INSERT INTO `tb_ironingrecordorder` VALUES ('222', '222', '2015-07-05 14:50:16', '2015-07-05 14:50:16', '7', '0', '新建');
 INSERT INTO `tb_ironingrecordorder` VALUES ('223', '223', '2015-07-05 15:09:32', '2015-07-05 15:09:32', '7', '0', '新建');
 INSERT INTO `tb_ironingrecordorder` VALUES ('224', '224', '2015-07-08 22:11:35', '2015-07-08 22:11:35', '7', '0', '新建');
-INSERT INTO `tb_ironingrecordorder` VALUES ('225', '225', '2015-07-11 13:10:46', '2015-07-11 13:10:46', '7', '6', '执行完成');
+INSERT INTO `tb_ironingrecordorder` VALUES ('225', '225', '2015-07-11 13:10:46', '2015-07-11 13:10:46', '7', '0', '新建');
 INSERT INTO `tb_ironingrecordorder` VALUES ('226', '226', '2015-07-12 16:23:22', '2015-07-12 16:23:22', '7', '0', '新建');
 INSERT INTO `tb_ironingrecordorder` VALUES ('227', '227', '2015-07-12 17:03:51', '2015-07-12 17:03:51', '7', '0', '新建');
 INSERT INTO `tb_ironingrecordorder` VALUES ('228', '228', '2015-07-15 20:20:47', '2015-07-15 20:20:47', '7', '0', '新建');
@@ -5661,6 +7093,32 @@ INSERT INTO `tb_ironingrecordorder` VALUES ('255', '255', '2015-08-09 22:05:28',
 INSERT INTO `tb_ironingrecordorder` VALUES ('256', '256', '2015-08-09 22:19:56', '2015-08-09 22:19:56', '7', '0', '新建');
 INSERT INTO `tb_ironingrecordorder` VALUES ('257', '257', '2015-08-09 22:33:40', '2015-08-09 22:33:40', '7', '0', '新建');
 INSERT INTO `tb_ironingrecordorder` VALUES ('258', '258', '2015-08-11 17:53:10', '2015-08-11 17:53:10', '7', '0', '新建');
+INSERT INTO `tb_ironingrecordorder` VALUES ('259', '259', '2015-08-13 09:11:37', '2015-08-13 09:11:37', '7', '0', '新建');
+INSERT INTO `tb_ironingrecordorder` VALUES ('260', '260', '2015-08-13 09:23:32', '2015-08-13 09:23:32', '7', '0', '新建');
+INSERT INTO `tb_ironingrecordorder` VALUES ('261', '261', '2015-08-20 14:13:42', '2015-08-20 14:13:42', '7', '0', '新建');
+INSERT INTO `tb_ironingrecordorder` VALUES ('262', '262', '2015-08-24 15:08:35', '2015-08-24 15:08:35', '7', '0', '新建');
+INSERT INTO `tb_ironingrecordorder` VALUES ('263', '263', '2015-08-26 16:31:59', '2015-08-26 16:31:59', '7', '0', '新建');
+INSERT INTO `tb_ironingrecordorder` VALUES ('264', '264', '2015-08-26 16:49:07', '2015-08-26 16:49:07', '7', '0', '新建');
+INSERT INTO `tb_ironingrecordorder` VALUES ('265', '265', '2015-08-27 08:27:35', '2015-08-27 08:27:35', '7', '0', '新建');
+INSERT INTO `tb_ironingrecordorder` VALUES ('266', '266', '2015-08-27 08:37:24', '2015-08-27 08:37:24', '7', '0', '新建');
+INSERT INTO `tb_ironingrecordorder` VALUES ('267', '267', '2015-08-27 08:55:10', '2015-08-27 08:55:10', '7', '0', '新建');
+INSERT INTO `tb_ironingrecordorder` VALUES ('268', '268', '2015-09-04 15:35:09', '2015-09-04 15:35:09', '7', '0', '新建');
+INSERT INTO `tb_ironingrecordorder` VALUES ('269', '269', '2015-09-17 12:39:23', '2015-09-17 12:39:23', '7', '0', '新建');
+INSERT INTO `tb_ironingrecordorder` VALUES ('270', '270', '2015-09-17 12:55:22', '2015-09-17 12:55:22', '7', '0', '新建');
+INSERT INTO `tb_ironingrecordorder` VALUES ('271', '271', '2015-09-21 08:30:40', '2015-09-21 08:30:40', '7', '0', '新建');
+INSERT INTO `tb_ironingrecordorder` VALUES ('272', '272', '2015-09-23 12:27:17', '2015-09-23 12:27:17', '7', '0', '新建');
+INSERT INTO `tb_ironingrecordorder` VALUES ('273', '273', '2015-09-25 15:31:06', '2015-09-25 15:31:06', '7', '0', '新建');
+INSERT INTO `tb_ironingrecordorder` VALUES ('274', '274', '2015-09-28 09:05:47', '2015-09-28 09:05:47', '7', '0', '新建');
+INSERT INTO `tb_ironingrecordorder` VALUES ('275', '275', '2015-09-28 09:38:07', '2015-09-28 09:38:07', '7', '0', '新建');
+INSERT INTO `tb_ironingrecordorder` VALUES ('276', '276', '2015-10-04 10:24:40', '2015-10-04 10:24:40', '7', '0', '新建');
+INSERT INTO `tb_ironingrecordorder` VALUES ('277', '277', '2015-10-09 14:16:39', '2015-10-09 14:16:39', '7', '0', '新建');
+INSERT INTO `tb_ironingrecordorder` VALUES ('278', '278', '2015-10-09 14:36:54', '2015-10-09 14:36:54', '7', '0', '新建');
+INSERT INTO `tb_ironingrecordorder` VALUES ('279', '279', '2015-10-09 14:58:39', '2015-10-09 14:58:39', '7', '0', '新建');
+INSERT INTO `tb_ironingrecordorder` VALUES ('280', '280', '2015-10-09 15:05:02', '2015-10-09 15:05:02', '7', '0', '新建');
+INSERT INTO `tb_ironingrecordorder` VALUES ('281', '281', '2015-10-09 15:09:30', '2015-10-09 15:09:30', '7', '0', '新建');
+INSERT INTO `tb_ironingrecordorder` VALUES ('282', '282', '2015-10-10 08:50:24', '2015-10-10 08:50:24', '7', '0', '新建');
+INSERT INTO `tb_ironingrecordorder` VALUES ('283', '283', '2015-10-13 13:17:11', '2015-10-13 13:17:11', '7', '0', '新建');
+INSERT INTO `tb_ironingrecordorder` VALUES ('284', '284', '2015-10-15 09:22:03', '2015-10-15 09:22:03', '7', '0', '新建');
 INSERT INTO `tb_material` VALUES ('1', '2015-03-31 21:23:41', '26s晴纶', '2015-06-02 10:53:08', '6');
 INSERT INTO `tb_material` VALUES ('2', '2015-04-02 11:14:05', '0.85s冰岛毛', '2015-04-02 11:14:05', '9');
 INSERT INTO `tb_material` VALUES ('3', '2015-04-02 11:14:14', '1.3s冰岛毛', '2015-04-02 11:14:14', '9');
@@ -5710,6 +7168,17 @@ INSERT INTO `tb_material` VALUES ('46', '2015-07-10 14:46:44', '全晴点子纱'
 INSERT INTO `tb_material` VALUES ('47', '2015-07-16 16:24:05', '1.28支包蕊大肚纱', '2015-07-16 16:24:05', '6');
 INSERT INTO `tb_material` VALUES ('48', '2015-07-18 16:56:25', '6.3支冰岛毛', '2015-07-18 16:56:25', '7');
 INSERT INTO `tb_material` VALUES ('49', '2015-07-21 16:02:54', '3.5支棉晴涤马海毛混纺纱', '2015-07-21 16:02:54', '7');
+INSERT INTO `tb_material` VALUES ('50', '2015-08-14 16:44:43', '3.2支圈圈纱', '2015-08-14 16:44:43', '7');
+INSERT INTO `tb_material` VALUES ('51', '2015-08-16 12:53:13', '羊羔绒', '2015-08-16 12:53:13', '7');
+INSERT INTO `tb_material` VALUES ('52', '2015-08-16 12:53:29', '泡泡绒', '2015-08-16 12:53:29', '7');
+INSERT INTO `tb_material` VALUES ('53', '2015-08-27 08:39:57', '13支真马海毛', '2015-08-27 08:39:57', '7');
+INSERT INTO `tb_material` VALUES ('54', '2015-09-12 12:59:42', '1.8支全晴带子纱', '2015-09-12 12:59:42', '7');
+INSERT INTO `tb_material` VALUES ('55', '2015-09-14 15:27:30', ' 半边绒', '2015-09-14 15:27:30', '7');
+INSERT INTO `tb_material` VALUES ('56', '2015-09-22 14:13:44', '2s空心带子纱', '2015-09-22 14:13:44', '9');
+INSERT INTO `tb_material` VALUES ('57', '2015-09-25 14:50:46', '30支双股人棉', '2015-09-25 14:50:46', '7');
+INSERT INTO `tb_material` VALUES ('58', '2015-10-13 10:51:53', '28支晴纶', '2015-10-13 10:51:53', '7');
+INSERT INTO `tb_material` VALUES ('59', '2015-10-15 13:51:02', '1.05支包心大肚纱', '2015-10-15 13:51:02', '7');
+INSERT INTO `tb_material_current_stock` VALUES ('10', '346', '[{\"color\":\"QY米色\",\"id\":0,\"in_quantity\":179,\"material\":6,\"plan_quantity\":178,\"return_quantity\":4,\"stock_quantity\":173},{\"color\":\"深夹花灰\",\"id\":0,\"in_quantity\":179,\"material\":7,\"plan_quantity\":178,\"return_quantity\":4,\"stock_quantity\":173}]', '1', null);
 INSERT INTO `tb_materialpurchaseorder` VALUES ('1', '2', '2015-04-02 22:21:59', '2015-04-02 22:21:59', '7', '[{\"batch_number\":\"1\",\"material\":4,\"price\":1,\"quantity\":1360,\"scale\":\"1\"},{\"batch_number\":\"1\",\"material\":8,\"price\":1,\"quantity\":3,\"scale\":\"1\"}]', '2015-04-02 00:00:00', '19', '0', '新建', '4', 'resource.fuwei.com/images/sample/1427955494579图片1.png', '4', '冰岛毛正反针挂须围巾', 'FWA30003', '190*40+2*20CM F', '285', '3', 'FWA20002', 'resource.fuwei.com/images/sample/s/1427955494579图片1.png', 'resource.fuwei.com/images/sample/ss/1427955494579图片1.png', '2', '15CG0001', 'FWA30003', '3');
 INSERT INTO `tb_materialpurchaseorder` VALUES ('2', '3', '2015-04-02 22:33:53', '2015-04-02 22:33:53', '7', '[{\"batch_number\":\"1\",\"material\":4,\"price\":1,\"quantity\":381,\"scale\":\"381\"},{\"batch_number\":\"1\",\"material\":8,\"price\":1,\"quantity\":3,\"scale\":\"1\"}]', '2015-04-02 00:00:00', '19', '0', '新建', '4', 'resource.fuwei.com/images/sample/1427955562784图片1.png', '4', '冰岛毛正反针吊球帽', 'FWA30004', '24CMH *20CM', '66', '4', 'FWA20003', 'resource.fuwei.com/images/sample/s/1427955562784图片1.png', 'resource.fuwei.com/images/sample/ss/1427955562784图片1.png', '2', '15CG0002', 'FWA30004', '3');
 INSERT INTO `tb_materialpurchaseorder` VALUES ('3', '4', '2015-04-02 22:46:02', '2015-04-02 22:46:02', '7', '[{\"batch_number\":\"1\",\"material\":4,\"price\":1,\"quantity\":56,\"scale\":\"1\"},{\"batch_number\":\"1\",\"material\":8,\"price\":1,\"quantity\":1,\"scale\":\"1\"}]', '2015-04-02 00:00:00', '19', '0', '新建', '4', 'resource.fuwei.com/images/sample/1427955633832图片1.png', '4', '冰岛正反针包套', 'FWA30005', '24CM L *10CM W ，做为S/M码', '83', '5', 'FWA20004', 'resource.fuwei.com/images/sample/s/1427955633832图片1.png', 'resource.fuwei.com/images/sample/ss/1427955633832图片1.png', '2', '15CG0003', 'FWA30005', '3');
@@ -5717,7 +7186,7 @@ INSERT INTO `tb_materialpurchaseorder` VALUES ('4', '9', '2015-04-03 21:40:22', 
 INSERT INTO `tb_materialpurchaseorder` VALUES ('5', '9', '2015-04-03 21:41:19', '2015-04-03 21:41:19', '7', '[{\"batch_number\":\"1\",\"material\":7,\"price\":1,\"quantity\":525,\"scale\":\"1\"}]', '2015-04-03 00:00:00', '23', '0', '新建', '4', 'resource.fuwei.com/images/sample/1428066399895图片1.png', '6', '冰岛毛绞花毛球帽', 'FWA30014', '21*20CM', '123', '14', 'FWA20009', 'resource.fuwei.com/images/sample/s/1428066399895图片1.png', 'resource.fuwei.com/images/sample/ss/1428066399895图片1.png', '3', '15CG0005', 'FWA30014', '3');
 INSERT INTO `tb_materialpurchaseorder` VALUES ('6', '10', '2015-04-03 22:02:28', '2015-04-03 22:02:28', '7', '[{\"batch_number\":\"1\",\"material\":6,\"price\":1,\"quantity\":178,\"scale\":\"1\"}]', '2015-04-03 00:00:00', '19', '0', '新建', '4', 'resource.fuwei.com/images/sample/1428068026985图片1.png', '6', '绞花包套', 'FWA30016', '25*9cm S/M', '114', '16', 'FWA20010', 'resource.fuwei.com/images/sample/s/1428068026985图片1.png', 'resource.fuwei.com/images/sample/ss/1428068026985图片1.png', '3', '15CG0006', 'FWA30016', '3');
 INSERT INTO `tb_materialpurchaseorder` VALUES ('7', '13', '2015-04-03 23:52:59', '2015-04-03 23:52:59', '7', '[{\"batch_number\":\"1\",\"material\":8,\"price\":1,\"quantity\":177,\"scale\":\"1\"}]', '2015-04-03 00:00:00', '19', '6', '执行完成', '1', 'resource.fuwei.com/images/sample/1427993082909Adoree loop SMS 8019 carbon solid.JPG', '8', '冰岛毛羽毛纱围脖', 'FWA30010', '33*2*27', '198', '10', 'FWA20013', 'resource.fuwei.com/images/sample/s/1427993082909Adoree loop SMS 8019 carbon solid.png', 'resource.fuwei.com/images/sample/ss/1427993082909Adoree loop SMS 8019 carbon solid.png', '5', '15CG0007', 'FWA30010', '2');
-INSERT INTO `tb_materialpurchaseorder` VALUES ('8', '14', '2015-04-04 00:26:20', '2015-04-04 00:26:20', '7', '[{\"batch_number\":\"1\",\"material\":13,\"price\":1,\"quantity\":50,\"scale\":\"1\"}]', '2015-04-04 00:00:00', '17', '6', '执行完成', '7', 'resource.fuwei.com/images/sample/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', '13', '仿羊绒成品染色拉毛围脖', 'FWA30021', '40H*75W', '152', '21', 'FWA20014', 'resource.fuwei.com/images/sample/s/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', 'resource.fuwei.com/images/sample/ss/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', null, '15CG0008', 'FWA30021', '3');
+INSERT INTO `tb_materialpurchaseorder` VALUES ('8', '14', '2015-04-04 00:26:20', '2015-04-04 00:26:20', '7', '[{\"batch_number\":\"1\",\"material\":13,\"price\":1,\"quantity\":50,\"scale\":\"1\"}]', '2015-04-04 00:00:00', '17', '0', '新建', '7', 'resource.fuwei.com/images/sample/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', '13', '仿羊绒成品染色拉毛围脖', 'FWA30021', '40H*75W', '152', '21', 'FWA20014', 'resource.fuwei.com/images/sample/s/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', 'resource.fuwei.com/images/sample/ss/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', null, '15CG0008', 'FWA30021', '3');
 INSERT INTO `tb_materialpurchaseorder` VALUES ('9', '17', '2015-04-04 16:11:35', '2015-04-04 16:11:35', '7', '[{\"material\":19,\"memo\":\"铜丝\",\"quantity\":16}]', null, '31', '0', '新建', '4', 'resource.fuwei.com/images/sample/1428129724477图片1.png', '9', '马海毛抽条加亮丝围脖', 'FWA30023', '70*2*40cm', '115', '23', 'FWA20017', 'resource.fuwei.com/images/sample/s/1428129724477图片1.png', 'resource.fuwei.com/images/sample/ss/1428129724477图片1.png', '3', '15CG0009', 'FWA30023', '3');
 INSERT INTO `tb_materialpurchaseorder` VALUES ('10', null, '2015-04-07 13:14:23', '2015-04-07 13:14:23', '7', '[{\"material\":20,\"memo\":\"\",\"quantity\":302}]', null, '34', '0', '新建', '1', null, null, '金属管状纱三件套', null, null, '0', null, null, null, null, null, '15CG0010', 'M49771D', '2');
 INSERT INTO `tb_materialpurchaseorder` VALUES ('11', null, '2015-04-07 15:28:47', '2015-04-07 15:28:47', '7', '[{\"material\":9,\"memo\":\"\",\"quantity\":898}]', null, '17', '0', '新建', '2', null, null, '马海毛混色围巾', null, null, '0', null, null, null, null, null, '15CG0011', 'OB954525', '3');
@@ -5822,6 +7291,29 @@ INSERT INTO `tb_materialpurchaseorder` VALUES ('109', null, '2015-07-28 21:18:22
 INSERT INTO `tb_materialpurchaseorder` VALUES ('110', null, '2015-07-30 17:15:58', '2015-07-30 17:15:58', '7', '[{\"factoryId\":29,\"material\":11,\"memo\":\"白配筒纱     杨继剑机织\",\"quantity\":1460}]', null, '34', '0', '新建', '3', null, null, '晴纶四边散须围脖', null, null, '0', null, null, null, null, null, '15CG0110', 'W14.K.01.WE', '4');
 INSERT INTO `tb_materialpurchaseorder` VALUES ('111', null, '2015-08-04 20:39:22', '2015-08-04 20:39:22', '7', '[{\"factoryId\":13,\"material\":48,\"memo\":\"\",\"quantity\":25}]', null, '23', '0', '新建', '3', null, null, '围巾/帽子', null, null, '0', null, null, null, null, null, '15CG0111', '36W16WHB001/H15850', '91');
 INSERT INTO `tb_materialpurchaseorder` VALUES ('112', null, '2015-08-06 17:34:01', '2015-08-07 08:36:45', '7', '[{\"factoryId\":15,\"material\":4,\"memo\":\"\",\"quantity\":1360}]', null, '19', '0', '新建', '3', null, null, '正反针围巾', null, null, '0', null, null, null, null, null, '15CG0112', 'G7411', '4');
+INSERT INTO `tb_materialpurchaseorder` VALUES ('113', null, '2015-08-13 12:47:50', '2015-08-13 13:37:57', '7', '[{\"factoryId\":3,\"material\":1,\"memo\":\"\",\"quantity\":0}]', null, '17', '0', '新建', '1', null, null, '提花圣诞袜', null, null, '0', null, null, null, null, null, '15CG0113', '76932', '1');
+INSERT INTO `tb_materialpurchaseorder` VALUES ('114', null, '2015-08-14 13:31:39', '2015-08-14 13:31:39', '7', '[{\"factoryId\":3,\"material\":1,\"memo\":\"15-34\",\"quantity\":500}]', null, '17', '0', '新建', '2', null, null, '烫金披肩', null, null, '0', null, null, null, null, null, '15CG0114', 'H38042229', '3');
+INSERT INTO `tb_materialpurchaseorder` VALUES ('115', null, '2015-08-15 10:18:58', '2015-08-15 10:18:58', '7', '[{\"factoryId\":13,\"material\":48,\"memo\":\"\",\"quantity\":5}]', null, '23', '0', '新建', '3', null, null, '羽毛纱两配套', null, null, '0', null, null, null, null, null, '15CG0115', 'HB001', '91');
+INSERT INTO `tb_materialpurchaseorder` VALUES ('116', null, '2015-08-15 10:25:01', '2015-08-15 10:25:01', '7', '[{\"factoryId\":15,\"material\":7,\"memo\":\"\",\"quantity\":36},{\"factoryId\":15,\"material\":4,\"memo\":\"\",\"quantity\":3}]', null, '19', '0', '新建', '3', null, null, '绞花两配套', null, null, '0', null, null, null, null, null, '15CG0116', 'H25237', '91');
+INSERT INTO `tb_materialpurchaseorder` VALUES ('117', null, '2015-08-28 14:20:28', '2015-08-28 14:20:28', '7', '[{\"factoryId\":13,\"material\":4,\"memo\":\"\",\"quantity\":10}]', null, '19', '0', '新建', '3', null, null, '女款球球帽', null, null, '0', null, null, null, null, null, '15CG0117', 'HB012', '91');
+INSERT INTO `tb_materialpurchaseorder` VALUES ('118', null, '2015-08-28 14:25:08', '2015-08-28 14:25:08', '7', '[{\"factoryId\":12,\"material\":3,\"memo\":\"\",\"quantity\":165}]', null, '19', '0', '新建', '3', null, null, '混纱帽子/围脖', null, null, '0', null, null, null, null, null, '15CG0118', '21ACAG-008-W115', '3');
+INSERT INTO `tb_materialpurchaseorder` VALUES ('119', null, '2015-08-30 15:47:40', '2015-08-30 15:47:40', '7', '[{\"factoryId\":13,\"material\":47,\"memo\":\"\",\"quantity\":12}]', null, '23', '0', '新建', '2', null, null, '围巾', null, null, '0', null, null, null, null, null, '15CG0119', '0', '3');
+INSERT INTO `tb_materialpurchaseorder` VALUES ('120', null, '2015-08-30 15:58:58', '2015-08-30 15:58:58', '7', '[{\"factoryId\":3,\"material\":17,\"memo\":\"\",\"quantity\":125}]', null, '57', '0', '新建', '1', null, null, '绞花包套', null, null, '0', null, null, null, null, null, '15CG0120', '0', '1');
+INSERT INTO `tb_materialpurchaseorder` VALUES ('121', null, '2015-08-31 14:36:47', '2015-08-31 14:36:47', '7', '[{\"factoryId\":29,\"material\":6,\"memo\":\"白胚绞纱\",\"quantity\":10}]', null, '19', '0', '新建', '2', null, null, '成品染色围脖', null, null, '0', null, null, null, null, null, '15CG0121', '0', '3');
+INSERT INTO `tb_materialpurchaseorder` VALUES ('122', null, '2015-08-31 14:38:51', '2015-08-31 14:38:51', '7', '[{\"factoryId\":29,\"material\":11,\"memo\":\"白胚筒纱\",\"quantity\":5}]', null, '17', '0', '新建', '2', null, null, '成品染色围脖', null, null, '0', null, null, null, null, null, '15CG0122', '0', '3');
+INSERT INTO `tb_materialpurchaseorder` VALUES ('123', null, '2015-09-14 08:41:04', '2015-09-14 08:41:04', '7', '[{\"factoryId\":15,\"material\":40,\"memo\":\"\",\"quantity\":140}]', null, '19', '0', '新建', '3', null, null, '绞花两头夹挡围巾', null, null, '0', null, null, null, null, null, '15CG0123', '17069333', '3');
+INSERT INTO `tb_materialpurchaseorder` VALUES ('124', null, '2015-10-04 09:22:25', '2015-10-04 09:22:25', '7', '[{\"factoryId\":12,\"material\":3,\"memo\":\"\",\"quantity\":165}]', null, '19', '0', '新建', '3', null, null, '混纱帽子/围脖', null, null, '0', null, null, null, null, null, '15CG0124', '21ACAG-008-W115', '3');
+INSERT INTO `tb_materialpurchaseorder` VALUES ('125', null, '2015-10-04 14:01:05', '2015-10-04 14:01:05', '7', '[{\"factoryId\":13,\"material\":6,\"memo\":\"\",\"quantity\":1550}]', null, '19', '0', '新建', '3', null, null, '基本款帽子/挂须围巾', null, null, '0', null, null, null, null, null, '15CG0125', 'G3222H/G3222', '91');
+INSERT INTO `tb_materialpurchaseorder` VALUES ('126', null, '2015-10-04 14:02:55', '2015-10-04 14:02:55', '7', '[{\"factoryId\":13,\"material\":8,\"memo\":\"\",\"quantity\":2000}]', null, '19', '0', '新建', '3', null, null, '绞花毛球帽子/围巾', null, null, '0', null, null, null, null, null, '15CG0126', 'H25237H/H25237', '91');
+INSERT INTO `tb_materialpurchaseorder` VALUES ('127', null, '2015-10-06 12:16:44', '2015-10-06 12:16:44', '7', '[{\"factoryId\":15,\"material\":9,\"memo\":\"\",\"quantity\":1000}]', null, '24', '0', '新建', '3', null, null, '马海毛抽条帽子', null, null, '0', null, null, null, null, null, '15CG0127', 'OSO', '4');
+INSERT INTO `tb_materialpurchaseorder` VALUES ('128', null, '2015-10-08 17:11:21', '2015-10-08 17:11:21', '7', '[{\"factoryId\":12,\"material\":6,\"memo\":\"\",\"quantity\":910}]', null, '19', '0', '新建', '3', null, null, '冰岛毛五件套', null, null, '0', null, null, null, null, null, '15CG0128', 'ZB', '4');
+INSERT INTO `tb_materialpurchaseorder` VALUES ('129', null, '2015-10-10 17:18:20', '2015-10-10 17:18:20', '7', '[{\"factoryId\":14,\"material\":1,\"memo\":\"\",\"quantity\":3}]', null, '17', '0', '新建', '3', null, null, '基本款罗纹翻边帽', null, null, '0', null, null, null, null, null, '15CG0129', 'FW1213-A', '91');
+INSERT INTO `tb_materialpurchaseorder` VALUES ('130', null, '2015-10-13 08:07:32', '2015-10-13 08:07:32', '7', '[{\"factoryId\":14,\"material\":6,\"memo\":\"\",\"quantity\":6}]', null, '19', '0', '新建', '1', null, null, '针织围脖', null, null, '0', null, null, null, null, null, '15CG0130', 'JDL2134', '91');
+INSERT INTO `tb_materialpurchaseorder` VALUES ('131', null, '2015-10-13 08:47:40', '2015-10-13 08:47:40', '7', '[{\"factoryId\":13,\"material\":48,\"memo\":\"\",\"quantity\":4930}]', null, '23', '0', '新建', '3', null, null, '羽毛纱帽子/围脖', null, null, '0', null, null, null, null, null, '15CG0131', 'HB001/SN006', '91');
+INSERT INTO `tb_materialpurchaseorder` VALUES ('132', null, '2015-10-13 10:27:39', '2015-10-13 11:11:40', '7', '[{\"factoryId\":13,\"material\":1,\"memo\":\"有夹花效果的白胚\",\"quantity\":300}]', null, '17', '0', '新建', '3', null, null, '小鱼鳞针帽子', null, null, '0', null, null, null, null, null, '15CG0132', '93W16YSB01', '91');
+INSERT INTO `tb_materialpurchaseorder` VALUES ('133', null, '2015-10-13 10:55:44', '2015-10-15 10:10:32', '7', '[{\"factoryId\":13,\"material\":58,\"memo\":\"\",\"quantity\":20}]', null, '17', '0', '新建', '3', null, null, '提花帽子', null, null, '0', null, null, null, null, null, '15CG0133', '93W16DB01', '91');
+INSERT INTO `tb_materialpurchaseorder` VALUES ('134', null, '2015-10-15 13:53:46', '2015-10-15 13:53:46', '7', '[{\"factoryId\":13,\"material\":59,\"memo\":\"\",\"quantity\":5}]', null, '23', '0', '新建', '3', null, null, '围脖／帽子', null, null, '0', null, null, null, null, null, '15CG0134', 'BH28820', '4');
+INSERT INTO `tb_materialpurchaseorder` VALUES ('135', null, '2015-10-15 15:10:25', '2015-10-15 15:10:25', '7', '[{\"factoryId\":13,\"material\":39,\"memo\":\"\",\"quantity\":9}]', null, '24', '0', '新建', '1', null, null, '帽子', null, null, '0', null, null, null, null, null, '15CG0135', 'NEXT0047', '3');
 INSERT INTO `tb_message` VALUES ('1', '7', '9', 'order/tablelist?orderId=21&tab=producingorder', '请求划价', '订单 FWA20021 的<strong> 生产单 <strong> <strong>请求划价<strong>，点击打开链接', '2015-04-06 14:27:09', '');
 INSERT INTO `tb_message` VALUES ('2', '7', '9', 'order/tablelist?orderId=21&tab=producingorder', '请求划价', '订单 FWA20021 的<strong> 生产单 <strong> <strong>请求划价<strong>，点击打开链接', '2015-04-07 11:23:16', '');
 INSERT INTO `tb_message` VALUES ('3', '9', '7', 'order/tablelist?orderId=21&tab=producingorder', '完成划价', '订单 FWA20021 的<strong> 生产单 <strong> <strong>已完成划价<strong>，点击打开链接', '2015-04-07 12:28:33', '');
@@ -5906,6 +7398,23 @@ INSERT INTO `tb_message` VALUES ('81', '9', '7', 'order/tablelist?orderId=257&ta
 INSERT INTO `tb_message` VALUES ('82', '9', '7', 'order/tablelist?orderId=254&tab=producingorder', '完成划价', '订单 FWA20254 的<strong> 生产单265<strong> <strong>已完成划价<strong>，点击打开链接', '2015-08-11 15:28:09', '');
 INSERT INTO `tb_message` VALUES ('83', '9', '7', 'order/tablelist?orderId=253&tab=producingorder', '完成划价', '订单 FWA20253 的<strong> 生产单264<strong> <strong>已完成划价<strong>，点击打开链接', '2015-08-11 15:28:24', '');
 INSERT INTO `tb_message` VALUES ('84', '9', '7', 'order/tablelist?orderId=258&tab=producingorder', '完成划价', '订单 FWA20258 的<strong> 生产单270<strong> <strong>已完成划价<strong>，点击打开链接', '2015-08-11 18:13:09', '');
+INSERT INTO `tb_message` VALUES ('85', '9', '7', 'order/tablelist?orderId=259&tab=producingorder', '完成划价', '订单 FWA20259 的<strong> 生产单275<strong> <strong>已完成划价<strong>，点击打开链接', '2015-08-14 23:10:53', '');
+INSERT INTO `tb_message` VALUES ('86', '9', '7', 'order/tablelist?orderId=260&tab=producingorder', '完成划价', '订单 FWA20260 的<strong> 生产单276<strong> <strong>已完成划价<strong>，点击打开链接', '2015-08-18 21:16:14', '');
+INSERT INTO `tb_message` VALUES ('87', '9', '7', 'order/tablelist?orderId=255&tab=producingorder', '完成划价', '订单 FWA20255 的<strong> 生产单266<strong> <strong>已完成划价<strong>，点击打开链接', '2015-08-21 12:50:17', '');
+INSERT INTO `tb_message` VALUES ('88', '9', '7', 'order/tablelist?orderId=255&tab=producingorder', '完成划价', '订单 FWA20255 的<strong> 生产单267<strong> <strong>已完成划价<strong>，点击打开链接', '2015-08-21 12:50:26', '');
+INSERT INTO `tb_message` VALUES ('89', '9', '7', 'order/tablelist?orderId=240&tab=producingorder', '完成划价', '订单 FWA20240 的<strong> 生产单251<strong> <strong>已完成划价<strong>，点击打开链接', '2015-08-26 22:37:31', '');
+INSERT INTO `tb_message` VALUES ('90', '9', '7', 'order/tablelist?orderId=266&tab=producingorder', '完成划价', '订单 FWA20266 的<strong> 生产单287<strong> <strong>已完成划价<strong>，点击打开链接', '2015-08-27 13:29:19', '');
+INSERT INTO `tb_message` VALUES ('91', '9', '7', 'order/tablelist?orderId=267&tab=producingorder', '完成划价', '订单 FWA20267 的<strong> 生产单288<strong> <strong>已完成划价<strong>，点击打开链接', '2015-08-27 13:29:38', '');
+INSERT INTO `tb_message` VALUES ('92', '9', '7', 'order/tablelist?orderId=264&tab=producingorder', '完成划价', '订单 FWA20264 的<strong> 生产单283<strong> <strong>已完成划价<strong>，点击打开链接', '2015-08-27 13:29:59', '');
+INSERT INTO `tb_message` VALUES ('93', '9', '7', 'order/tablelist?orderId=263&tab=producingorder', '完成划价', '订单 FWA20263 的<strong> 生产单280<strong> <strong>已完成划价<strong>，点击打开链接', '2015-08-27 13:30:24', '');
+INSERT INTO `tb_message` VALUES ('94', '9', '7', 'order/tablelist?orderId=263&tab=producingorder', '完成划价', '订单 FWA20263 的<strong> 生产单281<strong> <strong>已完成划价<strong>，点击打开链接', '2015-08-27 13:31:16', '');
+INSERT INTO `tb_message` VALUES ('95', '9', '7', 'order/tablelist?orderId=263&tab=producingorder', '完成划价', '订单 FWA20263 的<strong> 生产单282<strong> <strong>已完成划价<strong>，点击打开链接', '2015-08-27 13:31:27', '');
+INSERT INTO `tb_message` VALUES ('96', '9', '7', 'order/tablelist?orderId=265&tab=producingorder', '完成划价', '订单 FWA20265 的<strong> 生产单286<strong> <strong>已完成划价<strong>，点击打开链接', '2015-08-27 20:50:36', '');
+INSERT INTO `tb_message` VALUES ('97', '9', '7', 'order/tablelist?orderId=28&tab=producingorder', '完成划价', '订单 FWA20028 的<strong> 生产单25<strong> <strong>已完成划价<strong>，点击打开链接', '2015-08-27 21:07:38', '');
+INSERT INTO `tb_message` VALUES ('98', '9', '7', 'order/tablelist?orderId=270&tab=producingorder', '完成划价', '订单 FWA20270 的<strong> 生产单293<strong> <strong>已完成划价<strong>，点击打开链接', '2015-09-18 15:44:50', '');
+INSERT INTO `tb_message` VALUES ('99', '9', '7', 'order/tablelist?orderId=269&tab=producingorder', '完成划价', '订单 FWA20269 的<strong> 生产单292<strong> <strong>已完成划价<strong>，点击打开链接', '2015-09-18 15:45:03', '');
+INSERT INTO `tb_message` VALUES ('100', '6', '9', 'order/tablelist?orderId=10&tab=producingorder', '请求划价', '订单 FWA20010 的<strong> 生产单 <strong> <strong>请求划价<strong>，点击打开链接', '2015-10-21 11:51:03', '');
+INSERT INTO `tb_message` VALUES ('101', '9', '7', 'order/tablelist?orderId=10&tab=producingorder', '完成划价', '订单 FWA20010 的<strong> 生产单11<strong> <strong>已完成划价<strong>，点击打开链接', '2015-10-21 11:51:53', '');
 INSERT INTO `tb_order` VALUES ('1', '2015-03-31 21:48:39', '2015-03-31 21:48:39', '7', '1', '25830', '2', '已发货', '', '全晴格子披肩(471.0克)', '2015-03-09 00:00:00', '2015-04-20 00:00:00', '2015-05-15 21:19:19', 'FWA20001', '1', null, null, '33.441', '471*1.12*12*32÷ 1000=202.568+15=217.568\r\n8.229\r\n机织:66.000\r\n锁口:18.000\r\n套口:9.600\r\n挂须:20.400\r\n整烫:16.800\r\n费用+后道:18.000\r\n____________________________\r\n148.8+8.229\r\n=157.029*1.17\r\n=183.724+217.568\r\n=401.292÷12\r\n=33.441*1.17\r\n=39.126\r\n', 'resource.fuwei.com/images/sample/1427808371841QQ图片20150331211900.jpg', '1', '全晴格子披肩', 'FWA30001', '126*126 + 10*2', '471', '1', '0', null, 'resource.fuwei.com/images/sample/s/1427808371841QQ图片20150331211900.png', 'resource.fuwei.com/images/sample/ss/1427808371841QQ图片20150331211900.png', '615', '[{\"color\":\"黑白色组\",\"id\":1,\"price\":42,\"quantity\":615,\"size\":\"126*126+10*2\",\"weight\":471,\"produce_weight\":471,\"yarn\":1}]', '', '1', 'FWA30001', '2');
 INSERT INTO `tb_order` VALUES ('2', '2015-04-02 22:09:02', '2015-04-02 22:13:01', '7', '29', '47062.5', '1', '待发货', '', '冰岛毛正反针挂须围巾(285.0克)', '2015-02-27 00:00:00', '2015-07-30 00:00:00', null, 'FWA20002', '4', null, null, '0', '385*1.12*12*31÷ 1000=160.406+12=172.406\r\n6.727\r\n机织:36.000\r\n套口:6.000\r\n挂须:6.600\r\n机织:17.000\r\n____________________________\r\n65.6+6.727\r\n=72.327*1.17\r\n=84.623+172.406\r\n=257.029÷12\r\n=21.419*1.17\r\n=25.06\r\n', 'resource.fuwei.com/images/sample/1427955494579图片1.png', '4', '冰岛毛正反针挂须围巾', 'FWA30003', '190*40+2*20CM F', '285', '3', '0', null, 'resource.fuwei.com/images/sample/s/1427955494579图片1.png', 'resource.fuwei.com/images/sample/ss/1427955494579图片1.png', '3750', '[{\"color\":\"米色\",\"id\":1,\"price\":25.1,\"quantity\":1875,\"size\":\"190*40+2*20cm\",\"weight\":385,\"produce_weight\":385,\"yarn\":4},{\"color\":\"藏青\",\"id\":2,\"price\":25.1,\"quantity\":1875,\"size\":\"190*40+2*20cm\",\"weight\":385,\"produce_weight\":385,\"yarn\":4}]', '', '2', 'FWA30003', '3');
 INSERT INTO `tb_order` VALUES ('3', '2015-04-02 22:32:58', '2015-04-02 22:32:58', '7', '29', '36320', '1', '待发货', '', '冰岛毛正反针吊球帽(66.0克)', '2015-02-27 00:00:00', '2015-07-30 00:00:00', null, 'FWA20003', '4', null, null, '6.391', '66*1.12*12*31÷ 1000=27.498+9=36.498\r\n1.153\r\n机织:12.000\r\n套抽:6.000\r\n吊球:1.800\r\n整烫:3.000\r\n费用+后道:10.400\r\n____________________________\r\n33.2+1.153\r\n=34.353*1.17\r\n=40.193+36.498\r\n=76.691÷12\r\n=6.391*1.2\r\n=7.669\r\n', 'resource.fuwei.com/images/sample/1427955562784图片1.png', '4', '冰岛毛正反针吊球帽', 'FWA30004', '24CMH *20CM', '66', '4', '0', null, 'resource.fuwei.com/images/sample/s/1427955562784图片1.png', 'resource.fuwei.com/images/sample/ss/1427955562784图片1.png', '4540', '[{\"color\":\"米色\",\"id\":1,\"price\":8,\"quantity\":2270,\"size\":\"24H*20W\",\"weight\":66,\"produce_weight\":66,\"yarn\":4},{\"color\":\"藏青\",\"id\":2,\"price\":8,\"quantity\":2270,\"size\":\"24H*20W\",\"weight\":66,\"produce_weight\":66,\"yarn\":4}]', '', '2', 'FWA30004', '3');
@@ -5919,7 +7428,7 @@ INSERT INTO `tb_order` VALUES ('10', '2015-04-03 22:01:02', '2015-04-03 22:01:02
 INSERT INTO `tb_order` VALUES ('11', '2015-04-03 22:08:13', '2015-04-03 22:08:13', '7', '29', '133975', '1', '待发货', '', '绞花吊球围巾(338.0克)', '2015-03-10 00:00:00', '2015-07-30 00:00:00', null, 'FWA20011', '4', null, null, '22.444', '310*1.1*12*31÷ 1000=126.852+12=138.852\r\n5.32\r\n机织:38.400\r\n锁口:6.000\r\n球:40.800\r\n吊球:4.000\r\n整烫:5.000\r\n费用+后道:12.000\r\n____________________________\r\n106.2+5.32\r\n=111.52*1.17\r\n=130.478+138.852\r\n=269.33÷12\r\n=22.444*1.17\r\n=26.259\r\n', 'resource.fuwei.com/images/sample/1428067891295图片1.png', '6', '绞花吊球围巾', 'FWA30015', '180*20cm', '338', '15', '0', null, 'resource.fuwei.com/images/sample/s/1428067891295图片1.png', 'resource.fuwei.com/images/sample/ss/1428067891295图片1.png', '4660', '[{\"color\":\"米色\",\"id\":1,\"price\":28,\"quantity\":2330,\"size\":\"180*20cm\",\"weight\":338,\"produce_weight\":338,\"yarn\":6},{\"color\":\"深夹花灰\",\"id\":2,\"price\":29.5,\"quantity\":2330,\"size\":\"180*20cm\",\"weight\":338,\"produce_weight\":338,\"yarn\":7}]', '', '3', 'FWA30015', '3');
 INSERT INTO `tb_order` VALUES ('12', '2015-04-03 23:16:47', '2015-04-03 23:16:47', '7', '29', '23349.5', '1', '待发货', '', '抽条翻边帽(63.0克)', '2015-03-10 00:00:00', '2015-06-20 00:00:00', null, 'FWA20012', '4', null, null, '5.412', '65*1.2*12*31÷ 1000=29.016+9=38.016\r\n1.217\r\n机织:3.600\r\n拷边:4.800\r\n整烫:3.000\r\n费用+后道:10.400\r\n____________________________\r\n21.8+1.217\r\n=23.017*1.17\r\n=26.93+38.016\r\n=64.946÷12\r\n=5.412*1.2\r\n=6.494\r\n', 'resource.fuwei.com/images/sample/1428073896025图片1.png', '1', '抽条翻边帽', 'FWA30018', '21H*20W', '63', '18', '0', null, 'resource.fuwei.com/images/sample/s/1428073896025图片1.png', 'resource.fuwei.com/images/sample/ss/1428073896025图片1.png', '3100', '[{\"color\":\"黑色\",\"id\":1,\"price\":7.4,\"quantity\":1170,\"size\":\"21H*20W\",\"weight\":63,\"produce_weight\":63,\"yarn\":1},{\"color\":\"深夹花灰\",\"id\":2,\"price\":7.75,\"quantity\":1170,\"size\":\"21H*20W\",\"weight\":63,\"produce_weight\":63,\"yarn\":1},{\"color\":\"暗红色\",\"id\":3,\"price\":7.4,\"quantity\":760,\"size\":\"21H*20W\",\"weight\":63,\"produce_weight\":63,\"yarn\":1}]', '', '3', 'FWA30018', '3');
 INSERT INTO `tb_order` VALUES ('13', '2015-04-03 23:52:25', '2015-04-03 23:52:25', '7', '12', '20196', '2', '已发货', '', '冰岛毛羽毛纱围脖(198.0克)', '2015-03-06 00:00:00', '2015-04-20 00:00:00', '2015-06-24 23:20:35', 'FWA20013', '1', null, null, '16.235', '材料1：162*1.1*12*31÷ 1000=66.29\r\n材料2：38*1.15*12*65÷ 1000=34.08\r\n66.29+34.08=100.37+10.8=111.17\r\n2.78+1.31=4.09\r\n机织:30.0\r\n套口:21.6\r\n整烫:5.0\r\n费用+后道:10.8\r\n____________________________\r\n67.4+4.09\r\n=71.49*1.17\r\n=83.64+111.17\r\n=194.82÷12\r\n=16.23*1.2\r\n=19.48\r\n', 'resource.fuwei.com/images/sample/1427993082909Adoree loop SMS 8019 carbon solid.JPG', '8', '冰岛毛羽毛纱围脖', 'FWA30010', '33*2*27', '198', '10', '0', null, 'resource.fuwei.com/images/sample/s/1427993082909Adoree loop SMS 8019 carbon solid.png', 'resource.fuwei.com/images/sample/ss/1427993082909Adoree loop SMS 8019 carbon solid.png', '1020', '[{\"color\":\"灰色\",\"id\":1,\"price\":19.8,\"quantity\":1020,\"size\":\"32*2*27cm\",\"weight\":200,\"produce_weight\":200,\"yarn\":8}]', '', '5', 'FWA30010', '2');
-INSERT INTO `tb_order` VALUES ('14', '2015-04-04 00:25:22', '2015-04-04 00:25:22', '7', '30', '4428', '3', '交易已完成', '', '仿羊绒成品染色拉毛围脖(152.0克)', '2015-03-26 00:00:00', '2015-05-04 00:00:00', '2015-08-12 21:53:09', 'FWA20014', '7', null, null, '13.513', '152*1.15*12*36÷ 1000=75.514+12=87.514\r\n\r\n机织:14.400\r\n拉毛:27.600\r\n拷边:4.800\r\n整烫:5.000\r\n费用+后道:12.000\r\n____________________________\r\n63.8+0\r\n=63.8*1.17\r\n=74.646+87.514\r\n=162.16÷12\r\n=13.513*1.2\r\n=16.216\r\n', 'resource.fuwei.com/images/sample/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', '13', '仿羊绒成品染色拉毛围脖', 'FWA30021', '40H*75W', '152', '21', '0', null, 'resource.fuwei.com/images/sample/s/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', 'resource.fuwei.com/images/sample/ss/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', '270', '[{\"color\":\"褐色\",\"id\":1,\"price\":16.4,\"quantity\":60,\"size\":\"40H*75W*2\",\"weight\":163,\"produce_weight\":163,\"yarn\":13},{\"color\":\"红棕色\",\"id\":2,\"price\":16.4,\"quantity\":110,\"size\":\"40H*75W*2cm\",\"weight\":163,\"produce_weight\":163,\"yarn\":13},{\"color\":\"旧粉色\",\"id\":3,\"price\":16.4,\"quantity\":100,\"size\":\"40H*75W*2\",\"weight\":163,\"produce_weight\":163,\"yarn\":13}]', '', null, 'FWA30021', '3');
+INSERT INTO `tb_order` VALUES ('14', '2015-04-04 00:25:22', '2015-04-04 00:25:22', '7', '30', '4428', '1', '待发货', '', '仿羊绒成品染色拉毛围脖(152.0克)', '2015-03-26 00:00:00', '2015-05-04 00:00:00', null, 'FWA20014', '7', null, null, '13.513', '152*1.15*12*36÷ 1000=75.514+12=87.514\r\n\r\n机织:14.400\r\n拉毛:27.600\r\n拷边:4.800\r\n整烫:5.000\r\n费用+后道:12.000\r\n____________________________\r\n63.8+0\r\n=63.8*1.17\r\n=74.646+87.514\r\n=162.16÷12\r\n=13.513*1.2\r\n=16.216\r\n', 'resource.fuwei.com/images/sample/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', '13', '仿羊绒成品染色拉毛围脖', 'FWA30021', '40H*75W', '152', '21', '0', null, 'resource.fuwei.com/images/sample/s/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', 'resource.fuwei.com/images/sample/ss/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', '270', '[{\"color\":\"褐色\",\"id\":1,\"price\":16.4,\"quantity\":60,\"size\":\"40H*75W*2\",\"weight\":163,\"produce_weight\":163,\"yarn\":13},{\"color\":\"红棕色\",\"id\":2,\"price\":16.4,\"quantity\":110,\"size\":\"40H*75W*2cm\",\"weight\":163,\"produce_weight\":163,\"yarn\":13},{\"color\":\"旧粉色\",\"id\":3,\"price\":16.4,\"quantity\":100,\"size\":\"40H*75W*2\",\"weight\":163,\"produce_weight\":163,\"yarn\":13}]', '', null, 'FWA30021', '3');
 INSERT INTO `tb_order` VALUES ('15', '2015-04-04 01:47:47', '2015-04-04 01:47:47', '7', '30', '960', '1', '待发货', '', '马海毛点子纱围脖(203.0克)', '2015-03-28 00:00:00', '2015-05-04 00:00:00', null, 'FWA20015', '7', null, null, '13.471', '203*1.1*12*38÷ 1000=101.825+12=113.825\r\n3.483\r\n机织:14.400\r\n套口:6.000\r\n整烫:5.000\r\n费用+后道:12.000\r\n____________________________\r\n37.4+3.483\r\n=40.883*1.17\r\n=47.833+113.825\r\n=161.658÷12\r\n=13.471*1.2\r\n=16.165\r\n', 'resource.fuwei.com/images/sample/14280776443192FC6687A49233B5F718DA9A0DB6598AA.png', '17', '马海毛点子纱围脖', 'FWA30020', '43H*75W', '203', '20', '0', null, 'resource.fuwei.com/images/sample/s/14280776443192FC6687A49233B5F718DA9A0DB6598AA.png', 'resource.fuwei.com/images/sample/ss/14280776443192FC6687A49233B5F718DA9A0DB6598AA.png', '60', '[{\"color\":\"白色\",\"id\":1,\"price\":16,\"quantity\":60,\"size\":\"43*75*2cm\",\"weight\":203,\"produce_weight\":203,\"yarn\":17}]', '', null, 'FWA30020', '3');
 INSERT INTO `tb_order` VALUES ('16', '2015-04-04 01:52:57', '2015-04-04 01:52:57', '7', '30', '1700', '1', '待发货', '', '马海毛烫钻帽(69.0克)', '2015-03-26 00:00:00', '2015-05-04 00:00:00', null, 'FWA20016', '7', null, null, '0', '70*1.1*12*34÷ 1000=31.416+9=40.416\r\n1.201\r\n机织:12.000\r\n套抽:6.000\r\n烫钻:24.000\r\n整烫:4.000\r\n费用+后道:10.400\r\n____________________________\r\n56.4+1.201\r\n=57.601*1.17\r\n=67.393+40.416\r\n=107.809÷12\r\n=8.984*1.2\r\n=10.781\r\n', 'resource.fuwei.com/images/sample/1428077349767796265BFB290FEE2DC5FC6E38AE4B3B6.png', '9', '马海毛烫钻帽', 'FWA30019', '20W*27H', '69', '19', '0', null, 'resource.fuwei.com/images/sample/s/1428077349767796265BFB290FEE2DC5FC6E38AE4B3B6.png', 'resource.fuwei.com/images/sample/ss/1428077349767796265BFB290FEE2DC5FC6E38AE4B3B6.png', '170', '[{\"color\":\"黑色\",\"id\":1,\"price\":10,\"quantity\":110,\"size\":\"20w*27h\",\"weight\":70,\"produce_weight\":70,\"yarn\":9},{\"color\":\"米色\",\"id\":2,\"price\":10,\"quantity\":60,\"size\":\"20W*27H\",\"weight\":70,\"produce_weight\":70,\"yarn\":9}]', '', null, 'FWA30019', '3');
 INSERT INTO `tb_order` VALUES ('17', '2015-04-04 14:45:55', '2015-04-04 14:45:55', '7', '29', '32400', '1', '待发货', '', '马海毛抽条加亮丝围脖(115.0克)', '2015-03-16 00:00:00', '2015-05-30 00:00:00', null, 'FWA20017', '4', null, null, '8.906', '115*1.1*12*34÷ 1000=51.612+12=63.612\r\n1.973\r\n机织:12.000\r\n套口:6.000\r\n整烫:5.000\r\n费用+后道:12.000\r\n____________________________\r\n35+1.973\r\n=36.973*1.17\r\n=43.258+63.612\r\n=106.87÷12\r\n=8.906*1.2\r\n=10.687\r\n', 'resource.fuwei.com/images/sample/1428129724477图片1.png', '9', '马海毛抽条加亮丝围脖', 'FWA30023', '70*2*40cm', '115', '23', '0', null, 'resource.fuwei.com/images/sample/s/1428129724477图片1.png', 'resource.fuwei.com/images/sample/ss/1428129724477图片1.png', '3000', '[{\"color\":\"QY114-灰色\",\"id\":1,\"price\":10.8,\"quantity\":930,\"size\":\"70*2*40cm\",\"weight\":115,\"produce_weight\":115,\"yarn\":9},{\"color\":\"QY114-粉色\",\"id\":2,\"price\":10.8,\"quantity\":570,\"size\":\"70*2*40cm\",\"weight\":115,\"produce_weight\":115,\"yarn\":9},{\"color\":\"QY114-酒红\",\"id\":3,\"price\":10.8,\"quantity\":930,\"size\":\"70*2*40cm\",\"weight\":115,\"produce_weight\":115,\"yarn\":9},{\"color\":\"QY114-深驼\",\"id\":4,\"price\":10.8,\"quantity\":570,\"size\":\"70*2*40cm\",\"weight\":115,\"produce_weight\":115,\"yarn\":9}]', '', '3', 'FWA30023', '3');
@@ -5996,7 +7505,7 @@ INSERT INTO `tb_order` VALUES ('87', '2015-04-27 08:07:56', '2015-04-27 08:07:56
 INSERT INTO `tb_order` VALUES ('88', '2015-04-27 08:24:57', '2015-04-27 08:24:57', '7', '18', '4429.6', '1', '待发货', '', '马海毛亮丝帽子(70.0克)', '2015-04-16 00:00:00', '2015-06-10 00:00:00', null, 'FWA20088', '1', null, null, '0', null, 'resource.fuwei.com/images/sample/1428650207511图片2.jpg', '10', '马海毛亮丝帽子', 'FWA30036', '28*21.6cm', '70', '36', '0', null, 'resource.fuwei.com/images/sample/s/1428650207511图片2.png', 'resource.fuwei.com/images/sample/ss/1428650207511图片2.png', '6328', '[{\"color\":\"黑色\",\"id\":1,\"price\":0.7,\"produce_weight\":70,\"quantity\":2654,\"size\":\"28*21.5寛\",\"weight\":70,\"yarn\":10},{\"color\":\"棕色\",\"id\":2,\"price\":0.7,\"produce_weight\":70,\"quantity\":1318,\"size\":\"28*21.5寛\",\"weight\":70,\"yarn\":10},{\"color\":\"白色\",\"id\":3,\"price\":0.7,\"produce_weight\":70,\"quantity\":2066,\"size\":\"28*21.5寛\",\"weight\":70,\"yarn\":10},{\"color\":\"灰色\",\"id\":4,\"price\":0.7,\"produce_weight\":70,\"quantity\":290,\"size\":\"28*21.5寛\",\"weight\":70,\"yarn\":10}]', '', null, 'M21500', '2');
 INSERT INTO `tb_order` VALUES ('89', '2015-04-27 08:45:32', '2015-04-27 08:45:32', '7', '18', '0', '1', '待发货', '', '马海毛正反针围脖(155.0克)', '2015-04-16 00:00:00', '2015-06-15 00:00:00', null, 'FWA20089', '1', null, null, '0', null, 'resource.fuwei.com/images/sample/1428381118194图片1.jpg', '10', '马海毛正反针围脖', 'FWA30028', '35.5*127cm', '155', '28', '0', null, 'resource.fuwei.com/images/sample/s/1428381118194图片1.png', 'resource.fuwei.com/images/sample/ss/1428381118194图片1.png', '6508', '[{\"color\":\"黑色\",\"id\":1,\"price\":0,\"produce_weight\":155,\"quantity\":3093,\"size\":\"63.5x2*35.5\",\"weight\":155,\"yarn\":10},{\"color\":\"棕色\",\"id\":2,\"price\":0,\"produce_weight\":155,\"quantity\":1430,\"size\":\"63.5x2*35.5\",\"weight\":155,\"yarn\":10},{\"color\":\"白色\",\"id\":3,\"price\":0,\"produce_weight\":155,\"quantity\":1329,\"size\":\"63.5x2*35.5\",\"weight\":155,\"yarn\":10},{\"color\":\"褐色\",\"id\":4,\"price\":0,\"produce_weight\":155,\"quantity\":350,\"size\":\"63.5x2*35.5\",\"weight\":155,\"yarn\":10},{\"color\":\"灰色\",\"id\":5,\"price\":0,\"produce_weight\":155,\"quantity\":306,\"size\":\"63.5x2*35.5\",\"weight\":155,\"yarn\":10}]', '', null, 'M49500', '2');
 INSERT INTO `tb_order` VALUES ('90', '2015-04-30 13:32:44', '2015-04-30 13:39:41', '7', '36', '0', '1', '待发货', '', '马海毛五角星围脖(120.0克)', '2015-04-15 00:00:00', '2015-07-07 00:00:00', null, 'FWA20090', '3', null, null, '0', null, 'resource.fuwei.com/images/sample/1430271663000GIRLS ANNI TUBE SCARF.JPG', '10', '马海毛五角星围脖', 'FWA30091', '56*85*2cm', '120', '91', '0', null, 'resource.fuwei.com/images/sample/s/1430271663000GIRLS ANNI TUBE SCARF.png', 'resource.fuwei.com/images/sample/ss/1430271663000GIRLS ANNI TUBE SCARF.png', '1200', '[{\"color\":\"714\",\"id\":1,\"price\":0,\"produce_weight\":110,\"quantity\":1200,\"size\":\"85x2*56\",\"weight\":120,\"yarn\":10}]', '', null, 'GIRLS', '4');
-INSERT INTO `tb_order` VALUES ('91', '2015-05-02 16:28:24', '2015-06-25 22:32:27', '7', '3', '0', '2', '已发货', '装箱(胡盼,2015/06/25)', '马海毛珠片纱吊球帽(80.0克)', '2014-12-29 00:00:00', '2015-04-17 00:00:00', '2015-08-12 21:14:43', 'FWA20091', '1', null, null, '0', null, 'resource.fuwei.com/images/sample/1430554256869图片1.jpg', '9', '马海毛珠片纱吊球帽', 'FWA30109', '23*23cm', '80', '109', '0', null, 'resource.fuwei.com/images/sample/s/1430554256869图片1.png', 'resource.fuwei.com/images/sample/ss/1430554256869图片1.png', '2800', '[{\"color\":\"粉色\",\"id\":1,\"price\":0,\"produce_weight\":80,\"quantity\":500,\"size\":\"23*23\",\"weight\":89,\"yarn\":9},{\"color\":\"黑色\",\"id\":2,\"price\":0,\"produce_weight\":80,\"quantity\":1500,\"size\":\"23*23\",\"weight\":89,\"yarn\":9},{\"color\":\"本白\",\"id\":3,\"price\":0,\"produce_weight\":80,\"quantity\":800,\"size\":\"23*23\",\"weight\":89,\"yarn\":9}]', '', null, '72505', '1');
+INSERT INTO `tb_order` VALUES ('91', '2015-05-02 16:28:24', '2015-06-25 22:32:27', '7', '3', '0', '1', '待发货', '装箱(胡盼,2015/06/25)', '马海毛珠片纱吊球帽(80.0克)', '2014-12-29 00:00:00', '2015-04-17 00:00:00', null, 'FWA20091', '1', null, null, '0', null, 'resource.fuwei.com/images/sample/1430554256869图片1.jpg', '9', '马海毛珠片纱吊球帽', 'FWA30109', '23*23cm', '80', '109', '0', null, 'resource.fuwei.com/images/sample/s/1430554256869图片1.png', 'resource.fuwei.com/images/sample/ss/1430554256869图片1.png', '2800', '[{\"color\":\"粉色\",\"id\":1,\"price\":0,\"produce_weight\":80,\"quantity\":500,\"size\":\"23*23\",\"weight\":89,\"yarn\":9},{\"color\":\"黑色\",\"id\":2,\"price\":0,\"produce_weight\":80,\"quantity\":1500,\"size\":\"23*23\",\"weight\":89,\"yarn\":9},{\"color\":\"本白\",\"id\":3,\"price\":0,\"produce_weight\":80,\"quantity\":800,\"size\":\"23*23\",\"weight\":89,\"yarn\":9}]', '', null, '72505', '1');
 INSERT INTO `tb_order` VALUES ('92', '2015-05-03 17:24:02', '2015-06-25 21:55:13', '7', '9', '0', '1', '待发货', '灰色在吊球。藏青在套口(胡盼,2015/06/25)', '马海毛抽条吊球帽(64.0克)', '2015-04-24 00:00:00', '2015-06-30 00:00:00', null, 'FWA20092', '1', null, null, '0', null, 'resource.fuwei.com/images/sample/1430270381012IMG_8078.JPG', '10', '马海毛抽条吊球帽', 'FWA30085', '23*21cm', '64', '85', '0', null, 'resource.fuwei.com/images/sample/s/1430270381012IMG_8078.png', 'resource.fuwei.com/images/sample/ss/1430270381012IMG_8078.png', '3696', '[{\"color\":\"AU16蓝色\",\"id\":1,\"price\":0,\"produce_weight\":52,\"quantity\":1848,\"size\":\"23高*21寛\",\"weight\":64,\"yarn\":10},{\"color\":\"K974\",\"id\":2,\"price\":0,\"produce_weight\":52,\"quantity\":1848,\"size\":\"23高*21寛\",\"weight\":64,\"yarn\":10}]', '', null, '11ACAG-006-AU16', '2');
 INSERT INTO `tb_order` VALUES ('93', '2015-05-03 17:34:23', '2015-06-25 22:18:46', '7', '3', '0', '1', '待发货', '7.3查货(胡盼,2015/06/25)', '经编多色肩(340.0克)', '2015-03-30 00:00:00', '2015-06-10 00:00:00', null, 'FWA20093', '1', null, null, '0', null, 'resource.fuwei.com/images/sample/1430270687657图片1.jpg', '11', '经编多色肩', 'FWA30087', '对折后宽55cm，长116cm，领口宽30，须12', '340', '87', '0', null, 'resource.fuwei.com/images/sample/s/1430270687657图片1.png', 'resource.fuwei.com/images/sample/ss/1430270687657图片1.png', '3800', '[{\"color\":\"多色\",\"id\":1,\"price\":0,\"produce_weight\":340,\"quantity\":3800,\"size\":\"55x2*116+12须\",\"weight\":320,\"yarn\":11}]', '', null, 'NLSSY/PONCHO', '1');
 INSERT INTO `tb_order` VALUES ('94', '2015-05-03 17:51:49', '2015-05-03 17:51:49', '7', '48', '0', '2', '已发货', '', '男款提花围巾(188.0克)', '2015-04-03 00:00:00', '2015-05-20 00:00:00', '2015-06-24 23:31:09', 'FWA20094', '8', null, null, '0', null, 'resource.fuwei.com/images/sample/1430270804252图片1.jpg', '1', '男款提花围巾', 'FWA30088', '184*30cm', '188', '88', '0', null, 'resource.fuwei.com/images/sample/s/1430270804252图片1.png', 'resource.fuwei.com/images/sample/ss/1430270804252图片1.png', '3502', '[{\"color\":\"黑/灰\",\"id\":1,\"price\":0,\"produce_weight\":188,\"quantity\":3502,\"size\":\"184*30\",\"weight\":188,\"yarn\":1}]', '', null, 'H3661', '1');
@@ -6030,7 +7539,7 @@ INSERT INTO `tb_order` VALUES ('121', '2015-05-12 17:21:59', '2015-06-25 22:26:1
 INSERT INTO `tb_order` VALUES ('122', '2015-05-12 17:29:54', '2015-05-12 17:29:54', '7', '3', '0', '1', '待发货', '', '基本款抽条帽(67.0克)', '2015-04-15 00:00:00', '2015-06-15 00:00:00', null, 'FWA20122', '1', null, null, '0', null, 'resource.fuwei.com/images/sample/1431264295275CatchEDCB(05-10-21-22-18).jpg', '1', '基本款抽条帽', 'FWA30125', '22*18', '67', '125', '0', null, 'resource.fuwei.com/images/sample/s/1431264295275CatchEDCB(05-10-21-22-18).png', 'resource.fuwei.com/images/sample/ss/1431264295275CatchEDCB(05-10-21-22-18).png', '6500', '[{\"color\":\"H49黑色\",\"id\":1,\"price\":0,\"produce_weight\":80,\"quantity\":6500,\"size\":\"0\",\"weight\":70,\"yarn\":1}]', '', null, '54475', '1');
 INSERT INTO `tb_order` VALUES ('123', '2015-05-12 17:41:16', '2015-05-12 17:41:16', '7', '18', '0', '1', '待发货', '', '雪花提花手套(60.0克)', '2015-05-07 00:00:00', '2015-07-15 00:00:00', null, 'FWA20123', '1', null, null, '0', null, 'resource.fuwei.com/images/sample/1430754993102雪花手套.JPG', '1', '雪花提花手套', 'FWA30119', '按原因', '60', '119', '0', null, 'resource.fuwei.com/images/sample/s/1430754993102雪花手套.png', 'resource.fuwei.com/images/sample/ss/1430754993102雪花手套.png', '20723', '[{\"color\":\"718\",\"id\":1,\"price\":0,\"produce_weight\":48,\"quantity\":7253,\"size\":\"0\",\"weight\":80,\"yarn\":1},{\"color\":\"黑色\",\"id\":2,\"price\":0,\"produce_weight\":48,\"quantity\":6217,\"size\":\"0\",\"weight\":80,\"yarn\":1},{\"color\":\"酒红\",\"id\":3,\"price\":0,\"produce_weight\":48,\"quantity\":2072,\"size\":\"0\",\"weight\":80,\"yarn\":1},{\"color\":\"藏青\",\"id\":4,\"price\":0,\"produce_weight\":48,\"quantity\":5181,\"size\":\"0\",\"weight\":80,\"yarn\":1}]', '', null, 'K60265F236A', '2');
 INSERT INTO `tb_order` VALUES ('124', '2015-05-12 17:59:06', '2015-05-12 17:59:06', '7', '44', '0', '1', '待发货', '', '男士全晴基本款围脖(220.0克)', '2015-05-07 00:00:00', '2015-07-15 00:00:00', null, 'FWA20124', '3', null, null, '0', null, 'resource.fuwei.com/images/sample/1431263862705G0174.JPG', '1', '男士全晴基本款围脖', 'FWA30122', '45*（78*2）', '220', '122', '0', null, 'resource.fuwei.com/images/sample/s/1431263862705G0174.png', 'resource.fuwei.com/images/sample/ss/1431263862705G0174.png', '2400', '[{\"color\":\"深灰/中灰\",\"id\":1,\"price\":0,\"produce_weight\":220,\"quantity\":900,\"size\":\"78x2*48\",\"weight\":220,\"yarn\":1},{\"color\":\"黑色\",\"id\":2,\"price\":0,\"produce_weight\":220,\"quantity\":1000,\"size\":\"78x2*48\",\"weight\":220,\"yarn\":1},{\"color\":\"藏青\",\"id\":3,\"price\":0,\"produce_weight\":220,\"quantity\":500,\"size\":\"78x2*48\",\"weight\":220,\"yarn\":1}]', '', null, 'G0174', '4');
-INSERT INTO `tb_order` VALUES ('125', '2015-05-12 18:07:06', '2015-05-12 18:07:06', '7', '41', '0', '1', '待发货', '', '冰岛毛混色小绞花围脖(258.0克)', '2015-05-07 00:00:00', '2015-07-15 00:00:00', null, 'FWA20125', '3', null, null, '0', null, 'resource.fuwei.com/images/sample/1431263996270QQ截图20150510211802.jpg', '5', '冰岛毛混色小绞花围脖', 'FWA30123', '40*（63*2）', '258', '123', '0', null, 'resource.fuwei.com/images/sample/s/1431263996270QQ截图20150510211802.png', 'resource.fuwei.com/images/sample/ss/1431263996270QQ截图20150510211802.png', '1028', '[{\"color\":\"白色/褐色\",\"id\":1,\"price\":0,\"produce_weight\":259,\"quantity\":569,\"size\":\"63x2*40\",\"weight\":258,\"yarn\":5},{\"color\":\"粉色/白色\",\"id\":2,\"price\":0,\"produce_weight\":259,\"quantity\":459,\"size\":\"63x2*40\",\"weight\":258,\"yarn\":5}]', '', null, 'G6715T', '4');
+INSERT INTO `tb_order` VALUES ('125', '2015-05-12 18:07:06', '2015-08-27 08:46:32', '7', '41', '0', '1', '待发货', '', '冰岛毛混色小绞花围脖(258.0克)', '2015-05-07 00:00:00', '2015-07-15 00:00:00', null, 'FWA20125', '3', null, null, '0', null, 'resource.fuwei.com/images/sample/1431263996270QQ截图20150510211802.jpg', '5', '冰岛毛混色小绞花围脖', 'FWA30123', '40*（63*2）', '258', '123', '0', null, 'resource.fuwei.com/images/sample/s/1431263996270QQ截图20150510211802.png', 'resource.fuwei.com/images/sample/ss/1431263996270QQ截图20150510211802.png', '2850', '[{\"color\":\"白色/褐色\",\"id\":1,\"price\":0,\"produce_weight\":259,\"quantity\":1350,\"size\":\"63x2*40\",\"weight\":258,\"yarn\":5},{\"color\":\"粉色/白色\",\"id\":2,\"price\":0,\"produce_weight\":259,\"quantity\":1500,\"size\":\"63x2*40\",\"weight\":258,\"yarn\":5}]', '', null, 'G6715T', '4');
 INSERT INTO `tb_order` VALUES ('126', '2015-05-13 10:24:59', '2015-05-13 10:24:59', '7', '44', '0', '1', '待发货', '', '男士全晴抽绳围脖(160.0克)', '2015-05-07 00:00:00', '2015-07-15 00:00:00', null, 'FWA20126', '3', null, null, '0', null, 'resource.fuwei.com/images/sample/1431263789563G0173.JPG', '1', '男士全晴抽绳围脖', 'FWA30121', '40*（34*2）', '160', '121', '0', null, 'resource.fuwei.com/images/sample/s/1431263789563G0173.png', 'resource.fuwei.com/images/sample/ss/1431263789563G0173.png', '2100', '[{\"color\":\"藏青\",\"id\":1,\"price\":0,\"produce_weight\":140,\"quantity\":500,\"size\":\"34x2*40\",\"weight\":160,\"yarn\":1},{\"color\":\"714\",\"id\":2,\"price\":0,\"produce_weight\":140,\"quantity\":700,\"size\":\"34x2*40\",\"weight\":160,\"yarn\":1},{\"color\":\"黑色\",\"id\":3,\"price\":0,\"produce_weight\":140,\"quantity\":900,\"size\":\"34x2*40\",\"weight\":160,\"yarn\":1}]', '', null, 'G0173', '4');
 INSERT INTO `tb_order` VALUES ('127', '2015-05-13 13:49:07', '2015-05-13 13:49:07', '7', '36', '0', '1', '待发货', '', '冰岛毛带子纱帽子(124.0克)', '2015-04-15 00:00:00', '2015-07-01 00:00:00', null, 'FWA20127', '3', null, null, '0', null, 'resource.fuwei.com/images/sample/1430273920083QQ截图20150429101711.jpg', '6', '冰岛毛带子纱帽子', 'FWA30100', '23H*22W+6+9CM', '124', '100', '0', null, 'resource.fuwei.com/images/sample/s/1430273920083QQ截图20150429101711.png', 'resource.fuwei.com/images/sample/ss/1430273920083QQ截图20150429101711.png', '704', '[{\"color\":\"米色/桔色\",\"id\":1,\"price\":0,\"produce_weight\":110,\"quantity\":704,\"size\":\"23H*22W+6边+9球\",\"weight\":124,\"yarn\":6}]', '', null, 'F9106S', '4');
 INSERT INTO `tb_order` VALUES ('128', '2015-05-13 14:39:21', '2015-05-13 14:39:21', '7', '44', '0', '1', '待发货', '', '全晴翻盖半指手套(55.0克)', '2015-04-15 00:00:00', '2015-07-07 00:00:00', null, 'FWA20128', '3', null, null, '0', null, 'resource.fuwei.com/images/sample/1430273795268图片1.jpg', '1', '全晴翻盖半指手套', 'FWA30098', '20.5*9cm', '55', '98', '0', null, 'resource.fuwei.com/images/sample/s/1430273795268图片1.png', 'resource.fuwei.com/images/sample/ss/1430273795268图片1.png', '1200', '[{\"color\":\"浅灰夹花712\",\"id\":1,\"price\":0,\"produce_weight\":59,\"quantity\":600,\"size\":\"20.5*9\",\"weight\":55,\"yarn\":1},{\"color\":\"黑色\",\"id\":2,\"price\":0,\"produce_weight\":59,\"quantity\":600,\"size\":\"20.5*9\",\"weight\":55,\"yarn\":1}]', '', null, ' 09ah-782', '4');
@@ -6059,7 +7568,7 @@ INSERT INTO `tb_order` VALUES ('150', '2015-05-24 13:43:46', '2015-05-24 13:43:4
 INSERT INTO `tb_order` VALUES ('151', '2015-05-24 13:49:06', '2015-05-24 13:49:06', '7', '49', '0', '1', '待发货', '', '女士烫钻围脖(232.0克)', '2015-02-09 00:00:00', '2015-09-05 00:00:00', null, 'FWA20151', '9', null, null, '0', null, 'resource.fuwei.com/images/sample/1431956572800图片1.png', '35', '女士烫钻围脖', 'FWA30146', '37高*(30*2)', '232', '146', '0', null, 'resource.fuwei.com/images/sample/s/1431956572800图片1.png', 'resource.fuwei.com/images/sample/ss/1431956572800图片1.png', '3231', '[{\"color\":\"712A\",\"id\":1,\"price\":0,\"produce_weight\":232,\"quantity\":3231,\"size\":\"0\",\"weight\":232,\"yarn\":4}]', '', null, '731383J', '4');
 INSERT INTO `tb_order` VALUES ('152', '2015-05-24 13:59:49', '2015-05-24 13:59:49', '7', '18', '0', '1', '待发货', '', '半指加盖手套(53.0克)', '2015-05-07 00:00:00', '2015-07-15 00:00:00', null, 'FWA20152', '1', null, null, '0', null, 'resource.fuwei.com/images/sample/1431956696474图片1.jpg', '11', '半指加盖手套', 'FWA30147', '按原样', '53', '147', '0', null, 'resource.fuwei.com/images/sample/s/1431956696474图片1.png', 'resource.fuwei.com/images/sample/ss/1431956696474图片1.png', '15525', '[{\"color\":\"夹花灰\",\"id\":1,\"price\":0,\"produce_weight\":57,\"quantity\":5440,\"size\":\"0\",\"weight\":53,\"yarn\":11},{\"color\":\"黑色\",\"id\":2,\"price\":0,\"produce_weight\":57,\"quantity\":3865,\"size\":\"0\",\"weight\":53,\"yarn\":11},{\"color\":\"红色\",\"id\":3,\"price\":0,\"produce_weight\":57,\"quantity\":1570,\"size\":\"0\",\"weight\":53,\"yarn\":11},{\"color\":\"米色\",\"id\":4,\"price\":0,\"produce_weight\":57,\"quantity\":4650,\"size\":\"0\",\"weight\":53,\"yarn\":11}]', '', null, 'K60265F050B', '2');
 INSERT INTO `tb_order` VALUES ('153', '2015-05-24 14:49:53', '2015-05-24 14:49:53', '7', '36', '0', '1', '待发货', '', '马海毛亮丝头带(26.0克)', '2015-03-24 00:00:00', '2015-06-01 00:00:00', null, 'FWA20153', '3', null, null, '0', null, 'resource.fuwei.com/images/sample/1431956777616P3088.jpg', '10', '马海毛亮丝头带', 'FWA30148', '24*10cm', '26', '148', '0', null, 'resource.fuwei.com/images/sample/s/1431956777616P3088.png', 'resource.fuwei.com/images/sample/ss/1431956777616P3088.png', '2600', '[{\"color\":\"黑色\",\"id\":1,\"price\":0,\"produce_weight\":26,\"quantity\":1000,\"size\":\"24*10\",\"weight\":26,\"yarn\":10},{\"color\":\"本白\",\"id\":2,\"price\":0,\"produce_weight\":26,\"quantity\":800,\"size\":\"24*10\",\"weight\":26,\"yarn\":10},{\"color\":\"黄色\",\"id\":3,\"price\":0,\"produce_weight\":26,\"quantity\":800,\"size\":\"24*10\",\"weight\":26,\"yarn\":10}]', '', null, 'P3088', '4');
-INSERT INTO `tb_order` VALUES ('154', '2015-05-24 15:01:07', '2015-05-24 15:01:07', '7', '36', '0', '3', '交易已完成', '', '冰岛毛菱形花挂须围巾(280.0克)', '2015-03-24 00:00:00', '2015-06-01 00:00:00', '2015-06-24 23:36:55', 'FWA20154', '3', null, null, '0', null, 'resource.fuwei.com/images/sample/1431957183827QQ图片20150518215037.jpg', '3', '冰岛毛菱形花挂须围巾', 'FWA30149', '180*20+20cm须', '280', '149', '0', null, 'resource.fuwei.com/images/sample/s/1431957183827QQ图片20150518215037.png', 'resource.fuwei.com/images/sample/ss/1431957183827QQ图片20150518215037.png', '1100', '[{\"color\":\"黑色\",\"id\":1,\"price\":0,\"produce_weight\":257,\"quantity\":600,\"size\":\"20*180+20*2\",\"weight\":285,\"yarn\":3},{\"color\":\"白色\",\"id\":2,\"price\":0,\"produce_weight\":257,\"quantity\":500,\"size\":\"20*180+20*2\",\"weight\":285,\"yarn\":3}]', '', null, 'G6989S', '4');
+INSERT INTO `tb_order` VALUES ('154', '2015-05-24 15:01:07', '2015-05-24 15:01:07', '7', '36', '0', '2', '已发货', '', '冰岛毛菱形花挂须围巾(280.0克)', '2015-03-24 00:00:00', '2015-06-01 00:00:00', '2015-06-24 23:36:55', 'FWA20154', '3', null, null, '0', null, 'resource.fuwei.com/images/sample/1431957183827QQ图片20150518215037.jpg', '3', '冰岛毛菱形花挂须围巾', 'FWA30149', '180*20+20cm须', '280', '149', '0', null, 'resource.fuwei.com/images/sample/s/1431957183827QQ图片20150518215037.png', 'resource.fuwei.com/images/sample/ss/1431957183827QQ图片20150518215037.png', '1100', '[{\"color\":\"黑色\",\"id\":1,\"price\":0,\"produce_weight\":257,\"quantity\":600,\"size\":\"20*180+20*2\",\"weight\":285,\"yarn\":3},{\"color\":\"白色\",\"id\":2,\"price\":0,\"produce_weight\":257,\"quantity\":500,\"size\":\"20*180+20*2\",\"weight\":285,\"yarn\":3}]', '', null, 'G6989S', '4');
 INSERT INTO `tb_order` VALUES ('155', '2015-05-24 15:09:29', '2015-05-24 15:09:29', '7', '36', '0', '1', '待发货', '', '男士圆机帽(72.0克)', '2015-05-14 00:00:00', '2015-07-20 00:00:00', null, 'FWA20155', '3', null, null, '0', null, 'resource.fuwei.com/images/sample/1431955605954Catch(05-18-21-23-23).jpg', '1', '男士圆机帽', 'FWA30140', '20*24.5+7cm', '72', '140', '0', null, 'resource.fuwei.com/images/sample/s/1431955605954Catch(05-18-21-23-23).png', 'resource.fuwei.com/images/sample/ss/1431955605954Catch(05-18-21-23-23).png', '3500', '[{\"color\":\"浅灰夹花\",\"id\":1,\"price\":0,\"produce_weight\":80,\"quantity\":1000,\"size\":\"20*21.5+7\",\"weight\":72,\"yarn\":1},{\"color\":\"深灰夹花\",\"id\":2,\"price\":0,\"produce_weight\":80,\"quantity\":800,\"size\":\"20*21.5+7\",\"weight\":72,\"yarn\":1},{\"color\":\"藏青\",\"id\":3,\"price\":0,\"produce_weight\":80,\"quantity\":700,\"size\":\"20*21.5+7\",\"weight\":72,\"yarn\":1},{\"color\":\"黑色\",\"id\":4,\"price\":0,\"produce_weight\":80,\"quantity\":1000,\"size\":\"20*21.5+7\",\"weight\":72,\"yarn\":1}]', '', null, 'H23689', '4');
 INSERT INTO `tb_order` VALUES ('156', '2015-05-24 15:26:16', '2015-06-25 21:54:05', '7', '16', '0', '1', '待发货', '已下机。送船样。装箱单，纸箱，胶袋。(胡盼,2015/06/25)', '冰岛毛夹档围脖(0.0克)', '2015-04-13 00:00:00', '2015-06-27 00:00:00', null, 'FWA20156', '1', null, null, '0', null, 'resource.fuwei.com/images/sample/1429361458006图片1.jpg', '4', '冰岛毛夹档围脖', 'FWA30075', '0', '0', '75', '0', null, 'resource.fuwei.com/images/sample/s/1429361458006图片1.png', 'resource.fuwei.com/images/sample/ss/1429361458006图片1.png', '2000', '[{\"color\":\"黑色/玫红/灰色/象牙白\",\"id\":1,\"price\":0,\"produce_weight\":217,\"quantity\":2000,\"size\":\"0\",\"weight\":209,\"yarn\":3}]', '', null, '99BKJ514', '2');
 INSERT INTO `tb_order` VALUES ('157', '2015-05-24 15:41:37', '2015-06-25 21:50:48', '7', '9', '0', '1', '待发货', '在吊球。待送船样(胡盼,2015/06/25)', '冰岛毛夹档夹花帽(113.0克)', '2015-04-24 00:00:00', '2015-06-26 00:00:00', null, 'FWA20157', '1', null, null, '0', null, 'resource.fuwei.com/images/sample/1430270469029IMG_8075.JPG', '4', '冰岛毛夹档夹花帽', 'FWA30086', '21宽23高', '113', '86', '0', null, 'resource.fuwei.com/images/sample/s/1430270469029IMG_8075.png', 'resource.fuwei.com/images/sample/ss/1430270469029IMG_8075.png', '1326', '[{\"color\":\"藏青/米/红/夹灰\",\"id\":1,\"price\":0,\"produce_weight\":95,\"quantity\":1326,\"size\":\"21*23+7\",\"weight\":113,\"yarn\":4}]', '', null, '11ACAG-004-W115', '2');
@@ -6077,7 +7586,7 @@ INSERT INTO `tb_order` VALUES ('168', '2015-05-28 13:55:03', '2015-05-28 13:55:0
 INSERT INTO `tb_order` VALUES ('169', '2015-05-28 14:28:05', '2015-05-28 14:28:05', '7', '40', '0', '1', '待发货', '', '绣珠比尼帽(80.0克)', '2015-05-18 00:00:00', '2015-09-08 00:00:00', null, 'FWA20169', '3', null, null, '0', null, 'resource.fuwei.com/images/sample/1432650256602Catch(05-26-22-18-24).jpg', '1', '绣珠比尼帽', 'FWA30153', '21*22cm', '80', '153', '0', null, 'resource.fuwei.com/images/sample/s/1432650256602Catch(05-26-22-18-24).png', 'resource.fuwei.com/images/sample/ss/1432650256602Catch(05-26-22-18-24).png', '4158', '[{\"color\":\"黑色（三角形珠子）\",\"id\":1,\"price\":0,\"produce_weight\":63,\"quantity\":1908,\"size\":\"21*22\",\"weight\":80,\"yarn\":1},{\"color\":\"黑色（圆形珠子）\",\"id\":2,\"price\":0,\"produce_weight\":63,\"quantity\":2250,\"size\":\"21*22\",\"weight\":80,\"yarn\":1}]', '', null, '17069337', '3');
 INSERT INTO `tb_order` VALUES ('170', '2015-05-28 14:37:31', '2015-05-28 14:37:31', '7', '40', '0', '1', '待发货', '', '冰岛毛绞花夹档帽子(120.0克)', '2015-05-18 00:00:00', '2015-10-19 00:00:00', null, 'FWA20170', '3', null, null, '0', null, 'resource.fuwei.com/images/sample/1432650773329QQ截图20150526223052.jpg', '40', '冰岛毛绞花夹档帽子', 'FWA30154', '21*22cm', '120', '154', '0', null, 'resource.fuwei.com/images/sample/s/1432650773329QQ截图20150526223052.png', 'resource.fuwei.com/images/sample/ss/1432650773329QQ截图20150526223052.png', '762', '[{\"color\":\"米色/深蓝\",\"id\":1,\"price\":0,\"produce_weight\":86,\"quantity\":762,\"size\":\"21*22\",\"weight\":110,\"yarn\":40}]', '', null, '17069326', '3');
 INSERT INTO `tb_order` VALUES ('171', '2015-05-28 14:46:45', '2015-05-28 14:46:45', '7', '40', '0', '1', '待发货', '', '冰岛毛绞花夹档围巾(410.0克)', '2015-05-18 00:00:00', '2015-10-01 00:00:00', null, 'FWA20171', '3', null, null, '0', null, 'resource.fuwei.com/images/sample/1432649977550CatchEBFE(05-26-22-16-18).jpg', '40', '冰岛毛绞花夹档围巾', 'FWA30152', '25*210+20*2cm', '410', '152', '0', null, 'resource.fuwei.com/images/sample/s/1432649977550CatchEBFE(05-26-22-16-18).png', 'resource.fuwei.com/images/sample/ss/1432649977550CatchEBFE(05-26-22-16-18).png', '588', '[{\"color\":\"米色/蓝色\",\"id\":1,\"price\":0,\"produce_weight\":376,\"quantity\":588,\"size\":\"25*210+20x2\",\"weight\":410,\"yarn\":40}]', '', null, '17069333', '3');
-INSERT INTO `tb_order` VALUES ('172', '2015-05-28 15:02:25', '2015-07-28 23:02:46', '7', '30', '0', '1', '待发货', '', '冰岛毛攀花围脖(405.0克)', '2015-05-06 00:00:00', '2015-07-11 00:00:00', null, 'FWA20172', '7', null, null, '0', null, 'resource.fuwei.com/images/sample/1432719192391QQ截图20150527172818.jpg', '6', '冰岛毛攀花围脖', 'FWA30157', '40高*80宽', '405', '157', '0', null, 'resource.fuwei.com/images/sample/s/1432719192391QQ截图20150527172818.png', 'resource.fuwei.com/images/sample/ss/1432719192391QQ截图20150527172818.png', '528', '[{\"color\":\"米色\",\"id\":1,\"price\":0,\"produce_weight\":405,\"quantity\":176,\"size\":\"40*80x2\",\"weight\":405,\"yarn\":6},{\"color\":\"浅灰色\",\"id\":2,\"price\":0,\"produce_weight\":405,\"quantity\":176,\"size\":\"40*80x2\",\"weight\":405,\"yarn\":6},{\"color\":\"黑色\",\"id\":3,\"price\":0,\"produce_weight\":405,\"quantity\":176,\"size\":\"40*80x2\",\"weight\":405,\"yarn\":6}]', '', null, '76368', '3');
+INSERT INTO `tb_order` VALUES ('172', '2015-05-28 15:02:25', '2015-08-26 21:34:57', '7', '30', '0', '1', '待发货', '', '冰岛毛攀花围脖(405.0克)', '2015-05-06 00:00:00', '2015-07-11 00:00:00', null, 'FWA20172', '7', null, null, '0', null, 'resource.fuwei.com/images/sample/1432719192391QQ截图20150527172818.jpg', '6', '冰岛毛攀花围脖', 'FWA30157', '40高*80宽', '405', '157', '0', null, 'resource.fuwei.com/images/sample/s/1432719192391QQ截图20150527172818.png', 'resource.fuwei.com/images/sample/ss/1432719192391QQ截图20150527172818.png', '528', '[{\"color\":\"米色\",\"id\":1,\"price\":0,\"produce_weight\":405,\"quantity\":176,\"size\":\"40*80x2\",\"weight\":405,\"yarn\":6},{\"color\":\"浅灰色\",\"id\":2,\"price\":0,\"produce_weight\":405,\"quantity\":176,\"size\":\"40*80x2\",\"weight\":405,\"yarn\":6},{\"color\":\"黑色\",\"id\":3,\"price\":0,\"produce_weight\":405,\"quantity\":176,\"size\":\"40*80x2\",\"weight\":405,\"yarn\":6}]', '', null, '76368', '3');
 INSERT INTO `tb_order` VALUES ('173', '2015-05-28 15:26:08', '2015-05-28 15:26:08', '7', '30', '0', '1', '待发货', '', '冰岛毛攀花围脖(405.0克)', '2015-05-13 00:00:00', '2015-07-02 00:00:00', null, 'FWA20173', '7', null, null, '0', null, 'resource.fuwei.com/images/sample/1432719192391QQ截图20150527172818.jpg', '6', '冰岛毛攀花围脖', 'FWA30157', '40高*80宽', '405', '157', '0', null, 'resource.fuwei.com/images/sample/s/1432719192391QQ截图20150527172818.png', 'resource.fuwei.com/images/sample/ss/1432719192391QQ截图20150527172818.png', '736', '[{\"color\":\"藏青/本白\",\"id\":1,\"price\":0,\"produce_weight\":405,\"quantity\":368,\"size\":\"40*80x2\",\"weight\":405,\"yarn\":6},{\"color\":\"黑色/浅灰色\",\"id\":2,\"price\":0,\"produce_weight\":405,\"quantity\":368,\"size\":\"40*80x2\",\"weight\":405,\"yarn\":6}]', '', null, '76371', '3');
 INSERT INTO `tb_order` VALUES ('174', '2015-05-28 16:14:04', '2015-05-28 16:14:04', '7', '31', '0', '1', '待发货', '', '冰岛毛+豆豆纱烫金围脖(430.0克)', '2015-05-18 00:00:00', '2015-06-30 00:00:00', null, 'FWA20174', '2', null, null, '0', null, 'resource.fuwei.com/images/sample/1432649484026图片1.jpg', '3', '冰岛毛+豆豆纱烫金围脖', 'FWA30151', '28*76*2cm', '430', '151', '0', null, 'resource.fuwei.com/images/sample/s/1432649484026图片1.png', 'resource.fuwei.com/images/sample/ss/1432649484026图片1.png', '3762', '[{\"color\":\"灰色\",\"id\":1,\"price\":0,\"produce_weight\":430,\"quantity\":3235,\"size\":\"28*76x2\",\"weight\":430,\"yarn\":3},{\"color\":\"黑色\",\"id\":2,\"price\":0,\"produce_weight\":430,\"quantity\":300,\"size\":\"28*76x2\",\"weight\":430,\"yarn\":3},{\"color\":\"白色\",\"id\":3,\"price\":0,\"produce_weight\":430,\"quantity\":227,\"size\":\"28*76x2\",\"weight\":430,\"yarn\":3}]', '', null, 'ey15-148', '3');
 INSERT INTO `tb_order` VALUES ('175', '2015-05-28 17:04:57', '2015-06-25 22:02:49', '7', '27', '0', '1', '待发货', '补纱。(胡盼,2015/06/25)', '马海毛菱形提花围巾(130.0克)', '2015-01-28 00:00:00', '2015-07-13 00:00:00', null, 'FWA20175', '1', null, null, '0', null, 'resource.fuwei.com/images/sample/1431956215121图片1.jpg', '10', '马海毛菱形提花围巾', 'FWA30144', '28*170', '130', '144', '0', null, 'resource.fuwei.com/images/sample/s/1431956215121图片1.png', 'resource.fuwei.com/images/sample/ss/1431956215121图片1.png', '800', '[{\"color\":\"卡其\",\"id\":1,\"price\":0,\"produce_weight\":132,\"quantity\":400,\"size\":\"28*170\",\"weight\":133,\"yarn\":9},{\"color\":\"黑色\",\"id\":2,\"price\":0,\"produce_weight\":132,\"quantity\":400,\"size\":\"28*170\",\"weight\":133,\"yarn\":9}]', '', null, '686744', '2');
@@ -6130,7 +7639,7 @@ INSERT INTO `tb_order` VALUES ('221', '2015-07-05 14:39:24', '2015-07-05 14:39:2
 INSERT INTO `tb_order` VALUES ('222', '2015-07-05 14:50:16', '2015-07-05 14:50:16', '7', '27', '0', '1', '待发货', '', '冰岛毛绞花帽(141.0克)', '2015-06-09 00:00:00', '2015-08-05 00:00:00', null, 'FWA20222', '1', null, null, '0', null, 'resource.fuwei.com/images/sample/1431264773094QQ截图20150510213107.jpg', '6', '冰岛毛绞花帽', 'FWA30130', '22.5*20.5+7*10cm', '141', '130', '0', null, 'resource.fuwei.com/images/sample/s/1431264773094QQ截图20150510213107.png', 'resource.fuwei.com/images/sample/ss/1431264773094QQ截图20150510213107.png', '4400', '[{\"color\":\"姜黄\",\"id\":1,\"price\":0,\"produce_weight\":123,\"quantity\":800,\"size\":\"22.5*20.5+7+10\",\"weight\":144,\"yarn\":6},{\"color\":\"深绿/浅绿\",\"id\":2,\"price\":0,\"produce_weight\":123,\"quantity\":1800,\"size\":\"22.5*20.5+7+10\",\"weight\":144,\"yarn\":6},{\"color\":\"酒红/黑色\",\"id\":3,\"price\":0,\"produce_weight\":123,\"quantity\":1800,\"size\":\"22.5*20.5+7+10\",\"weight\":144,\"yarn\":6}]', '', null, 'G-19-147520', '2');
 INSERT INTO `tb_order` VALUES ('223', '2015-07-05 15:09:32', '2015-07-05 15:09:32', '7', '27', '0', '1', '待发货', '', '冰岛毛绞花长须围巾(410.0克)', '2015-06-09 00:00:00', '2015-08-05 00:00:00', null, 'FWA20223', '1', null, null, '0', null, 'resource.fuwei.com/images/sample/1431264693171QQ截图20150510212912.jpg', '6', '冰岛毛绞花长须围巾', 'FWA30129', '180*23+2*26cm', '410', '129', '0', null, 'resource.fuwei.com/images/sample/s/1431264693171QQ截图20150510212912.png', 'resource.fuwei.com/images/sample/ss/1431264693171QQ截图20150510212912.png', '4400', '[{\"color\":\"姜黄\",\"id\":1,\"price\":0,\"produce_weight\":377,\"quantity\":800,\"size\":\"23*180+26*2\",\"weight\":417,\"yarn\":6},{\"color\":\"深绿/浅绿\",\"id\":2,\"price\":0,\"produce_weight\":377,\"quantity\":1800,\"size\":\"23*180+26*2\",\"weight\":417,\"yarn\":6},{\"color\":\"酒红/黑色\",\"id\":3,\"price\":0,\"produce_weight\":377,\"quantity\":1800,\"size\":\"23*180+26*2\",\"weight\":417,\"yarn\":6}]', '', null, 'G-19-147519', '2');
 INSERT INTO `tb_order` VALUES ('224', '2015-07-08 22:11:35', '2015-07-08 22:11:35', '7', '4', '0', '1', '待发货', '', '女式晴纶围脖(224.0克)', '2015-05-27 00:00:00', '2015-08-01 00:00:00', null, 'FWA20224', '1', null, null, '0', null, 'resource.fuwei.com/images/sample/1433426550551图片1.jpg', '38', '女式晴纶围脖', 'FWA30177', '70*35cm', '224', '177', '0', null, 'resource.fuwei.com/images/sample/s/1433426550551图片1.png', 'resource.fuwei.com/images/sample/ss/1433426550551图片1.png', '1100', '[{\"color\":\"米色\",\"id\":1,\"price\":0,\"produce_weight\":240,\"quantity\":600,\"size\":\"62*35\",\"weight\":275,\"yarn\":38},{\"color\":\"灰色/米色\",\"id\":2,\"price\":0,\"produce_weight\":282,\"quantity\":500,\"size\":\"62*35\",\"weight\":275,\"yarn\":38}]', '', null, 'FW1118-010', '1');
-INSERT INTO `tb_order` VALUES ('225', '2015-07-11 13:10:46', '2015-07-11 13:10:46', '7', '3', '0', '3', '交易已完成', '', '马海毛珠片纱吊球帽(80.0克)', '2014-12-29 00:00:00', '2015-04-17 00:00:00', '2015-08-12 21:42:20', 'FWA20225', '1', null, null, '0', null, 'resource.fuwei.com/images/sample/1430554256869图片1.jpg', '9', '马海毛珠片纱吊球帽', 'FWA30109', '23*23cm', '80', '109', '0', null, 'resource.fuwei.com/images/sample/s/1430554256869图片1.png', 'resource.fuwei.com/images/sample/ss/1430554256869图片1.png', '1000', '[{\"color\":\"粉色\",\"id\":1,\"price\":0,\"produce_weight\":64,\"quantity\":1000,\"size\":\"23*23\",\"weight\":89,\"yarn\":9}]', '', null, '72505', '1');
+INSERT INTO `tb_order` VALUES ('225', '2015-07-11 13:10:46', '2015-07-11 13:10:46', '7', '3', '0', '1', '待发货', '', '马海毛珠片纱吊球帽(80.0克)', '2014-12-29 00:00:00', '2015-04-17 00:00:00', null, 'FWA20225', '1', null, null, '0', null, 'resource.fuwei.com/images/sample/1430554256869图片1.jpg', '9', '马海毛珠片纱吊球帽', 'FWA30109', '23*23cm', '80', '109', '0', null, 'resource.fuwei.com/images/sample/s/1430554256869图片1.png', 'resource.fuwei.com/images/sample/ss/1430554256869图片1.png', '1000', '[{\"color\":\"粉色\",\"id\":1,\"price\":0,\"produce_weight\":64,\"quantity\":1000,\"size\":\"23*23\",\"weight\":89,\"yarn\":9}]', '', null, '72505', '1');
 INSERT INTO `tb_order` VALUES ('226', '2015-07-12 16:23:21', '2015-07-12 16:39:15', '7', '35', '0', '1', '待发货', '', '提花五指手套(76.0克)', '2015-05-25 00:00:00', '2015-07-25 00:00:00', null, 'FWA20226', '3', null, null, '0', null, 'resource.fuwei.com/images/sample/1433425940961Catch(05-25-15-2(06-04-21-50-12).jpg', '1', '提花五指手套', 'FWA30170', '25*11cm', '76', '170', '0', null, 'resource.fuwei.com/images/sample/s/1433425940961Catch(05-25-15-2(06-04-21-50-12).png', 'resource.fuwei.com/images/sample/ss/1433425940961Catch(05-25-15-2(06-04-21-50-12).png', '1000', '[{\"color\":\"浅灰夹·花·组·\",\"id\":1,\"price\":0,\"produce_weight\":42,\"quantity\":500,\"size\":\"25*11\",\"weight\":76,\"yarn\":1},{\"color\":\"深灰夹·花·组·\",\"id\":2,\"price\":0,\"produce_weight\":42,\"quantity\":500,\"size\":\"25*11\",\"weight\":76,\"yarn\":1}]', '', null, 'H14837', '4');
 INSERT INTO `tb_order` VALUES ('227', '2015-07-12 17:03:51', '2015-07-12 17:03:51', '7', '9', '0', '1', '待发货', '', 'AB线混色四角帽(100.0克)', '2015-07-10 00:00:00', '2015-08-30 00:00:00', null, 'FWA20227', '1', null, null, '0', null, 'resource.fuwei.com/images/sample/1429269560246图片3.png', '11', 'AB线混色四角帽', 'FWA30061', '童款5个尺码', '100', '61', '0', null, 'resource.fuwei.com/images/sample/s/1429269560246图片3.png', 'resource.fuwei.com/images/sample/ss/1429269560246图片3.png', '2100', '[{\"color\":\"灰色组\",\"id\":1,\"price\":0,\"produce_weight\":119,\"quantity\":231,\"size\":\"3-4\",\"weight\":0,\"yarn\":11},{\"color\":\"灰色组\",\"id\":2,\"price\":0,\"produce_weight\":124,\"quantity\":400,\"size\":\"5-6\",\"weight\":0,\"yarn\":11},{\"color\":\"灰色组\",\"id\":3,\"price\":0,\"produce_weight\":138,\"quantity\":841,\"size\":\"7-10\",\"weight\":0,\"yarn\":11},{\"color\":\"灰色组\",\"id\":4,\"price\":0,\"produce_weight\":148,\"quantity\":442,\"size\":\"11-13\",\"weight\":0,\"yarn\":11},{\"color\":\"灰色组\",\"id\":5,\"price\":0,\"produce_weight\":160,\"quantity\":186,\"size\":\"14-16\",\"weight\":0,\"yarn\":11}]', '', null, 'UC8438807', '2');
 INSERT INTO `tb_order` VALUES ('228', '2015-07-15 20:20:47', '2015-07-15 20:20:47', '7', '36', '0', '1', '待发货', '', '女款缝钻翻边帽(94.0克)', '2015-07-08 00:00:00', '2015-07-25 00:00:00', null, 'FWA20228', '3', null, null, '0', null, 'resource.fuwei.com/images/sample/14369512173988DA6BBBEDEEDED3B5E213ECB3A65C781.png', '1', '女款缝钻翻边帽', 'FWA30208', '21.5宽*20高', '94', '208', '0', null, 'resource.fuwei.com/images/sample/s/14369512173988DA6BBBEDEEDED3B5E213ECB3A65C781.png', 'resource.fuwei.com/images/sample/ss/14369512173988DA6BBBEDEEDED3B5E213ECB3A65C781.png', '300', '[{\"color\":\"黑色\",\"id\":1,\"price\":0,\"produce_weight\":80,\"quantity\":300,\"size\":\"W21.5*H20\",\"weight\":94,\"yarn\":1}]', '', null, 'G7385-B', '3');
@@ -6164,6 +7673,33 @@ INSERT INTO `tb_order` VALUES ('255', '2015-08-09 22:05:28', '2015-08-09 22:05:2
 INSERT INTO `tb_order` VALUES ('256', '2015-08-09 22:19:56', '2015-08-09 22:19:56', '7', '35', '0', '1', '待发货', '', '马海毛吊球帽(76.0克)', '2015-07-30 00:00:00', '2015-09-05 00:00:00', null, 'FWA20256', '3', null, null, '0', null, 'resource.fuwei.com/images/sample/143875470273038.899.91.1467AH.JPG', '10', '马海毛吊球帽', 'FWA30223', '21*21+8cm', '76', '223', '0', null, 'resource.fuwei.com/images/sample/s/143875470273038.899.91.1467AH.png', 'resource.fuwei.com/images/sample/ss/143875470273038.899.91.1467AH.png', '5000', '[{\"color\":\"本白色\",\"id\":1,\"price\":0,\"produce_weight\":69,\"quantity\":5000,\"size\":\"21高*22寛+8毛球\",\"weight\":76,\"yarn\":10}]', '', null, '961008', '4');
 INSERT INTO `tb_order` VALUES ('257', '2015-08-09 22:33:40', '2015-08-09 22:33:40', '7', '50', '0', '1', '待发货', '', '冰岛毛点子纱包套(125.0克)', '2015-08-05 00:00:00', '2015-08-30 00:00:00', null, 'FWA20257', '1', null, null, '0', null, 'resource.fuwei.com/images/sample/1433425564610图片1.jpg', '6', '冰岛毛点子纱包套', 'FWA30165', '按原样', '125', '165', '0', null, 'resource.fuwei.com/images/sample/s/1433425564610图片1.png', 'resource.fuwei.com/images/sample/ss/1433425564610图片1.png', '2002', '[{\"color\":\"米色\",\"id\":1,\"price\":0,\"produce_weight\":90,\"quantity\":2002,\"size\":\"24*9.5\",\"weight\":0,\"yarn\":6}]', '', null, '58461', '1');
 INSERT INTO `tb_order` VALUES ('258', '2015-08-11 17:53:09', '2015-08-11 17:53:09', '7', '35', '0', '1', '待发货', '', '马海毛挂须围巾(222.0克)', '2015-07-30 00:00:00', '2015-09-05 00:00:00', null, 'FWA20258', '3', null, null, '0', null, 'resource.fuwei.com/images/sample/143875440710138.899.91.1467A.JPG', '10', '马海毛挂须围巾', 'FWA30222', '180*28+20*2cm', '222', '222', '0', null, 'resource.fuwei.com/images/sample/s/143875440710138.899.91.1467A.png', 'resource.fuwei.com/images/sample/ss/143875440710138.899.91.1467A.png', '5000', '[{\"color\":\"本白色\",\"id\":1,\"price\":0,\"produce_weight\":206,\"quantity\":5000,\"size\":\"180*28+20*2\",\"weight\":222,\"yarn\":10}]', '', null, '961008', '4');
+INSERT INTO `tb_order` VALUES ('259', '2015-08-13 09:11:37', '2015-08-13 09:11:37', '7', '36', '0', '1', '待发货', '', '冰岛毛正反针挂须围巾(470.0克)', '2015-08-06 00:00:00', '2015-09-15 00:00:00', null, 'FWA20259', '3', null, null, '0', null, 'resource.fuwei.com/images/sample/14393829551414B5C23721E2A6DBE5D1EE6B9D1855A48.jpg', '4', '冰岛毛正反针挂须围巾', 'FWA30228', '180*35+15*2cm', '470', '228', '0', null, 'resource.fuwei.com/images/sample/s/14393829551414B5C23721E2A6DBE5D1EE6B9D1855A48.png', 'resource.fuwei.com/images/sample/ss/14393829551414B5C23721E2A6DBE5D1EE6B9D1855A48.png', '2620', '[{\"color\":\"酒红色\",\"id\":1,\"price\":0,\"produce_weight\":446,\"quantity\":1350,\"size\":\"180*35+15*2\",\"weight\":470,\"yarn\":4},{\"color\":\"褐色/白色\",\"id\":2,\"price\":0,\"produce_weight\":446,\"quantity\":1270,\"size\":\"180*35+15*2\",\"weight\":470,\"yarn\":4}]', '', null, 'G-7411', '4');
+INSERT INTO `tb_order` VALUES ('260', '2015-08-13 09:23:32', '2015-08-13 09:23:32', '7', '3', '0', '1', '待发货', '', '全晴提花圣诞袜(102.0克)', '2015-06-19 00:00:00', '2015-09-05 00:00:00', null, 'FWA20260', '1', null, null, '0', null, 'resource.fuwei.com/images/sample/1439383074033图片1.png', '1', '全晴提花圣诞袜', 'FWA30229', '按原样', '102', '229', '0', null, 'resource.fuwei.com/images/sample/s/1439383074033图片1.png', 'resource.fuwei.com/images/sample/ss/1439383074033图片1.png', '2700', '[{\"color\":\"红色\",\"id\":1,\"price\":0,\"produce_weight\":100,\"quantity\":2700,\"size\":\"0\",\"weight\":0,\"yarn\":1}]', '', null, '76932', '1');
+INSERT INTO `tb_order` VALUES ('261', '2015-08-20 14:13:41', '2015-08-20 14:13:41', '7', '2', '0', '1', '待发货', '', '烫金披肩(350.0克)', '2015-07-16 00:00:00', '2015-08-31 00:00:00', null, 'FWA20261', '2', null, null, '0', null, 'resource.fuwei.com/images/sample/1429772818065图片1.jpg', '1', '烫金披肩', 'FWA30082', '披肩尺寸', '350', '82', '0', null, 'resource.fuwei.com/images/sample/s/1429772818065图片1.png', 'resource.fuwei.com/images/sample/ss/1429772818065图片1.png', '2804', '[{\"color\":\"黑色\",\"id\":1,\"price\":0,\"produce_weight\":370,\"quantity\":2804,\"size\":\"112*153\",\"weight\":370,\"yarn\":1}]', '', null, 'H38042229', '3');
+INSERT INTO `tb_order` VALUES ('262', '2015-08-24 15:08:35', '2015-08-24 15:08:35', '7', '41', '0', '1', '待发货', '', '仿羊绒成品染色围脖(250.0克)', '2015-08-05 00:00:00', '2015-09-05 00:00:00', null, 'FWA20262', '3', null, null, '0', null, 'resource.fuwei.com/images/sample/1438251014217W14.K.01.WE.JPG', '11', '仿羊绒成品染色围脖', 'FWA30221', '32*160', '250', '221', '0', null, 'resource.fuwei.com/images/sample/s/1438251014217W14.K.01.WE.png', 'resource.fuwei.com/images/sample/ss/1438251014217W14.K.01.WE.png', '5000', '[{\"color\":\"白色\",\"id\":1,\"price\":0,\"produce_weight\":260,\"quantity\":5000,\"size\":\"32*160\",\"weight\":250,\"yarn\":11}]', '', null, 'W14.K.01..WE', '4');
+INSERT INTO `tb_order` VALUES ('263', '2015-08-26 16:31:59', '2015-08-26 16:31:59', '7', '36', '0', '1', '待发货', '', '女款马海毛围脖(185.0克)', '2015-08-20 00:00:00', '2015-09-16 00:00:00', null, 'FWA20263', '3', null, null, '0', null, 'resource.fuwei.com/images/sample/14404856201321B78CED5BF6A40F0D15323455CA5ABC6.png', '10', '女款马海毛围脖', 'FWA30230', '80*2*65', '185', '230', '0', null, 'resource.fuwei.com/images/sample/s/14404856201321B78CED5BF6A40F0D15323455CA5ABC6.png', 'resource.fuwei.com/images/sample/ss/14404856201321B78CED5BF6A40F0D15323455CA5ABC6.png', '10560', '[{\"color\":\"粉色\",\"id\":1,\"price\":0,\"produce_weight\":180,\"quantity\":3300,\"size\":\"80x2*65 寛\",\"weight\":185,\"yarn\":10},{\"color\":\"712\",\"id\":2,\"price\":0,\"produce_weight\":180,\"quantity\":3660,\"size\":\"80x2*65 寛\",\"weight\":185,\"yarn\":10},{\"color\":\"沙色\",\"id\":3,\"price\":0,\"produce_weight\":180,\"quantity\":3600,\"size\":\"80x2*65 寛\",\"weight\":185,\"yarn\":10}]', '', null, 'MP 869', '4');
+INSERT INTO `tb_order` VALUES ('264', '2015-08-26 16:49:07', '2015-08-26 16:49:07', '7', '36', '0', '1', '待发货', '', '女款马海毛双层帽(46.0克)', '2015-08-20 00:00:00', '2015-09-16 00:00:00', null, 'FWA20264', '3', null, null, '0', null, 'resource.fuwei.com/images/sample/1440485678383QQ截图20150825145021.jpg', '10', '女款马海毛双层帽', 'FWA30231', '26高*22宽', '46', '231', '0', null, 'resource.fuwei.com/images/sample/s/1440485678383QQ截图20150825145021.png', 'resource.fuwei.com/images/sample/ss/1440485678383QQ截图20150825145021.png', '8814', '[{\"color\":\"粉色\",\"id\":1,\"price\":0,\"produce_weight\":46,\"quantity\":2754,\"size\":\"26高*22寛\",\"weight\":46,\"yarn\":10},{\"color\":\"沙色\",\"id\":2,\"price\":0,\"produce_weight\":46,\"quantity\":3030,\"size\":\"26高*22寛\",\"weight\":46,\"yarn\":10},{\"color\":\"712\",\"id\":3,\"price\":0,\"produce_weight\":46,\"quantity\":3030,\"size\":\"26高*22寛\",\"weight\":46,\"yarn\":10}]', '', null, 'MQ073', '4');
+INSERT INTO `tb_order` VALUES ('265', '2015-08-27 08:27:34', '2015-08-27 08:27:34', '7', '33', '0', '1', '待发货', '', '冰岛毛段染马海毛衬里头带(63.0克)', '2015-08-21 00:00:00', '2015-09-10 00:00:00', null, 'FWA20265', '6', null, null, '0', null, 'resource.fuwei.com/images/sample/1440485865481CatchAA97(07-27-(08-25-14-52-39).jpg', '2', '冰岛毛段染马海毛衬里头带', 'FWA30233', '26*9', '63', '233', '0', null, 'resource.fuwei.com/images/sample/s/1440485865481CatchAA97(07-27-(08-25-14-52-39).png', 'resource.fuwei.com/images/sample/ss/1440485865481CatchAA97(07-27-(08-25-14-52-39).png', '2222', '[{\"color\":\"米色\",\"id\":1,\"price\":0,\"produce_weight\":35,\"quantity\":2222,\"size\":\"26*9\",\"weight\":60,\"yarn\":2}]', '', null, 'W1500287-00', '1');
+INSERT INTO `tb_order` VALUES ('266', '2015-08-27 08:37:24', '2015-08-27 08:37:24', '7', '40', '0', '1', '待发货', '', '混纺马海毛围巾(261.0克)', '2015-08-21 00:00:00', '2015-09-30 00:00:00', null, 'FWA20266', '3', null, null, '0', null, 'resource.fuwei.com/images/sample/1440485748135图片1.jpg', '10', '混纺马海毛围巾', 'FWA30232', '40*210', '261', '232', '0', null, 'resource.fuwei.com/images/sample/s/1440485748135图片1.png', 'resource.fuwei.com/images/sample/ss/1440485748135图片1.png', '1842', '[{\"color\":\"米白/深灰\",\"id\":1,\"price\":0,\"produce_weight\":261,\"quantity\":1842,\"size\":\"40*210\",\"weight\":261,\"yarn\":10}]', '', null, '17072333', '3');
+INSERT INTO `tb_order` VALUES ('267', '2015-08-27 08:55:10', '2015-08-27 08:55:10', '7', '31', '0', '1', '待发货', '', '羽毛纱马海毛围脖(188.0克)', '2015-05-18 00:00:00', '2015-07-10 00:00:00', null, 'FWA20267', '2', null, null, '0', null, 'resource.fuwei.com/images/sample/1438755027032QQ截图20150805140255.jpg', '9', '羽毛纱马海毛围脖', 'FWA30224', '28*76*2cm', '188', '224', '0', null, 'resource.fuwei.com/images/sample/s/1438755027032QQ截图20150805140255.png', 'resource.fuwei.com/images/sample/ss/1438755027032QQ截图20150805140255.png', '600', '[{\"color\":\"紫色\",\"id\":1,\"price\":0,\"produce_weight\":183,\"quantity\":300,\"size\":\"28*76\",\"weight\":183,\"yarn\":9},{\"color\":\"绿色\",\"id\":2,\"price\":0,\"produce_weight\":183,\"quantity\":300,\"size\":\"28*76\",\"weight\":183,\"yarn\":9}]', '', null, 'OB954524', '3');
+INSERT INTO `tb_order` VALUES ('268', '2015-09-04 15:35:08', '2015-09-04 15:35:08', '7', '50', '0', '1', '待发货', '', '冰岛毛点子纱绞花吊球帽(125.0克)', '2015-08-30 00:00:00', '2015-10-05 00:00:00', null, 'FWA20268', '1', null, null, '0', null, 'resource.fuwei.com/images/sample/1431264154414QQ截图20150510212038.jpg', '6', '冰岛毛点子纱绞花吊球帽', 'FWA30124', '21*23', '125', '124', '0', null, 'resource.fuwei.com/images/sample/s/1431264154414QQ截图20150510212038.png', 'resource.fuwei.com/images/sample/ss/1431264154414QQ截图20150510212038.png', '5000', '[{\"color\":\"本白\",\"id\":1,\"price\":0,\"produce_weight\":114,\"quantity\":5000,\"size\":\"22*22+6.5\",\"weight\":112,\"yarn\":6}]', '', null, '58984', '1');
+INSERT INTO `tb_order` VALUES ('269', '2015-09-17 12:39:23', '2015-09-17 12:39:23', '7', '31', '0', '1', '待发货', '', '点子纱冰岛毛羽毛纱围脖(263.0克)', '2015-08-25 00:00:00', '2015-10-10 00:00:00', null, 'FWA20269', '2', null, null, '0', null, 'resource.fuwei.com/images/sample/144161517013820150730132116.png', '3', '点子纱冰岛毛羽毛纱围脖', 'FWA30236', '30*2*38cm', '263', '236', '0', null, 'resource.fuwei.com/images/sample/s/144161517013820150730132116.png', 'resource.fuwei.com/images/sample/ss/144161517013820150730132116.png', '1224', '[{\"color\":\"浅粉色组\",\"id\":1,\"price\":0,\"produce_weight\":258,\"quantity\":612,\"size\":\"30x2*40\",\"weight\":258,\"yarn\":3},{\"color\":\"蓝色组\",\"id\":2,\"price\":0,\"produce_weight\":258,\"quantity\":612,\"size\":\"30x2*40\",\"weight\":258,\"yarn\":3}]', '', null, '21AKAG -002-W 115', '3');
+INSERT INTO `tb_order` VALUES ('270', '2015-09-17 12:55:22', '2015-09-17 13:00:27', '7', '51', '0', '1', '待发货', '', '点子纱冰岛毛羽毛纱帽子(153.0克)', '2015-08-25 00:00:00', '2015-10-10 00:00:00', null, 'FWA20270', '2', null, null, '0', null, 'resource.fuwei.com/images/sample/144161513871520150730132116.png', '3', '点子纱冰岛毛羽毛纱帽子', 'FWA30235', '20*20+7cm', '153', '235', '0', null, 'resource.fuwei.com/images/sample/s/144161513871520150730132116.png', 'resource.fuwei.com/images/sample/ss/144161513871520150730132116.png', '1224', '[{\"color\":\"灰色组\",\"id\":1,\"price\":0,\"produce_weight\":129,\"quantity\":612,\"size\":\"21*25+8球\",\"weight\":143,\"yarn\":3},{\"color\":\"蓝色组\",\"id\":2,\"price\":0,\"produce_weight\":129,\"quantity\":612,\"size\":\"21*25+8球\",\"weight\":143,\"yarn\":3}]', '', null, '21ACAG-008-W115', '3');
+INSERT INTO `tb_order` VALUES ('271', '2015-09-21 08:30:40', '2015-09-28 08:59:01', '7', '30', '0', '1', '待发货', '', '仿羊绒成品染色拉毛围脖(152.0克)', '2015-09-18 00:00:00', '2015-10-25 00:00:00', null, 'FWA20271', '7', null, null, '0', '152*1.15*12*36÷ 1000=75.514+12=87.514\r\n\r\n机织:14.400\r\n拉毛:27.600\r\n拷边:4.800\r\n整烫:5.000\r\n费用+后道:12.000\r\n____________________________\r\n63.8+0\r\n=63.8*1.17\r\n=74.646+87.514\r\n=162.16÷12\r\n=13.513*1.2\r\n=16.216\r\n', 'resource.fuwei.com/images/sample/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', '13', '仿羊绒成品染色拉毛围脖', 'FWA30021', '40H*75W', '152', '21', '0', null, 'resource.fuwei.com/images/sample/s/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', 'resource.fuwei.com/images/sample/ss/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', '300', '[{\"color\":\"旧粉\",\"id\":1,\"price\":0,\"produce_weight\":165,\"quantity\":300,\"size\":\"40*75x2\",\"weight\":163,\"yarn\":13}]', '', null, '76392', '3');
+INSERT INTO `tb_order` VALUES ('272', '2015-09-23 12:27:17', '2015-09-23 12:27:17', '7', '31', '0', '1', '待发货', '', '空心带子纱围脖(250.0克)', '2015-09-05 00:00:00', '2015-09-30 00:00:00', null, 'FWA20272', '2', null, null, '0', null, 'resource.fuwei.com/images/sample/1442902552485CXA26059.JPG', '56', '空心带子纱围脖', 'FWA30240', '28*2*30.5，须：23', '250', '240', '0', null, 'resource.fuwei.com/images/sample/s/1442902552485CXA26059.png', 'resource.fuwei.com/images/sample/ss/1442902552485CXA26059.png', '44', '[{\"color\":\"白色\",\"id\":1,\"price\":0,\"produce_weight\":0,\"quantity\":11,\"size\":\"28*30.5+23须\",\"weight\":0,\"yarn\":54},{\"color\":\"绿色\",\"id\":2,\"price\":0,\"produce_weight\":0,\"quantity\":11,\"size\":\"28*30.5+23须\",\"weight\":0,\"yarn\":54},{\"color\":\"酒红\",\"id\":3,\"price\":0,\"produce_weight\":0,\"quantity\":11,\"size\":\"28*30.5+23须\",\"weight\":0,\"yarn\":54},{\"color\":\"浅蓝\",\"id\":4,\"price\":0,\"produce_weight\":0,\"quantity\":11,\"size\":\"28*30.5+23须\",\"weight\":0,\"yarn\":54}]', '', null, 'CXA26059', '3');
+INSERT INTO `tb_order` VALUES ('273', '2015-09-25 15:31:06', '2015-09-25 15:31:06', '7', '3', '0', '1', '待发货', '', '全晴镂空披肩(290.0克)', '2015-08-21 00:00:00', '2015-10-10 00:00:00', null, 'FWA20273', '1', null, null, '0', null, 'resource.fuwei.com/images/sample/1441614483015NETTY PONCHO55x95cm+12cmx2  233G.jpg', '42', '全晴镂空披肩', 'FWA30234', '90*55高  领口33  须12cm', '290', '234', '0', null, 'resource.fuwei.com/images/sample/s/1441614483015NETTY PONCHO55x95cm+12cmx2  233G.png', 'resource.fuwei.com/images/sample/ss/1441614483015NETTY PONCHO55x95cm+12cmx2  233G.png', '4000', '[{\"color\":\"本白色\",\"id\":1,\"price\":0,\"produce_weight\":190,\"quantity\":4000,\"size\":\"90寛*55高+12须长，领口寛32\",\"weight\":240,\"yarn\":42}]', '', null, '78189', '1');
+INSERT INTO `tb_order` VALUES ('274', '2015-09-28 09:05:47', '2015-10-10 08:45:52', '7', '30', '0', '1', '待发货', '', '仿羊绒成品染色拉毛围脖(152.0克)', '2015-09-18 00:00:00', '2015-10-25 00:00:00', null, 'FWA20274', '7', null, null, '0', '152*1.15*12*36÷ 1000=75.514+12=87.514\r\n\r\n机织:14.400\r\n拉毛:27.600\r\n拷边:4.800\r\n整烫:5.000\r\n费用+后道:12.000\r\n____________________________\r\n63.8+0\r\n=63.8*1.17\r\n=74.646+87.514\r\n=162.16÷12\r\n=13.513*1.2\r\n=16.216\r\n', 'resource.fuwei.com/images/sample/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', '13', '仿羊绒成品染色拉毛围脖', 'FWA30021', '40H*75W', '152', '21', '0', null, 'resource.fuwei.com/images/sample/s/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', 'resource.fuwei.com/images/sample/ss/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', '200', '[{\"color\":\"褐色\",\"id\":1,\"price\":0,\"produce_weight\":165,\"quantity\":200,\"size\":\"40高*75寛\",\"weight\":163,\"yarn\":13}]', '', null, '76392', '3');
+INSERT INTO `tb_order` VALUES ('275', '2015-09-28 09:38:07', '2015-09-28 09:38:07', '7', '47', '0', '1', '待发货', '', '马海毛针织围脖(204.0克)', '2015-09-14 00:00:00', '2015-09-27 00:00:00', null, 'FWA20275', '5', null, null, '0', null, 'resource.fuwei.com/images/sample/1437104517997WW15.jpg', '9', '马海毛针织围脖', 'FWA30213', '62*2*41', '204', '213', '0', null, 'resource.fuwei.com/images/sample/s/1437104517997WW15.png', 'resource.fuwei.com/images/sample/ss/1437104517997WW15.png', '48', '[{\"color\":\"黑/白\",\"id\":1,\"price\":0,\"produce_weight\":0,\"quantity\":16,\"size\":\"40.5寛*68.5长（对折）\",\"weight\":0,\"yarn\":9},{\"color\":\"藏青/浅蓝\",\"id\":2,\"price\":0,\"produce_weight\":0,\"quantity\":16,\"size\":\"40.5寛*68.5长（对折）\",\"weight\":0,\"yarn\":9},{\"color\":\"深绿/浅卡其\",\"id\":3,\"price\":0,\"produce_weight\":0,\"quantity\":16,\"size\":\"40.5寛*68.5长（对折）\",\"weight\":0,\"yarn\":9}]', '', null, 'GN954659', '3');
+INSERT INTO `tb_order` VALUES ('276', '2015-10-04 10:24:40', '2015-10-04 10:24:40', '7', '31', '0', '1', '待发货', '', '多色提花围脖(228.0克)', '2015-09-15 00:00:00', '2015-09-30 00:00:00', null, 'FWA20276', '2', null, null, '0', null, 'resource.fuwei.com/images/sample/1442900375945CXA26082.JPG', '1', '多色提花围脖', 'FWA30239', '76*2*40', '228', '239', '0', null, 'resource.fuwei.com/images/sample/s/1442900375945CXA26082.png', 'resource.fuwei.com/images/sample/ss/1442900375945CXA26082.png', '42', '[{\"color\":\"驼色组\",\"id\":1,\"price\":0,\"produce_weight\":0,\"quantity\":14,\"size\":\"35.5高*76寛对折\",\"weight\":0,\"yarn\":1},{\"color\":\"蓝色组\",\"id\":2,\"price\":0,\"produce_weight\":0,\"quantity\":14,\"size\":\"35.5高*76寛对折\",\"weight\":0,\"yarn\":1},{\"color\":\"红色组\",\"id\":3,\"price\":0,\"produce_weight\":0,\"quantity\":14,\"size\":\"35.5高*76寛对折\",\"weight\":0,\"yarn\":1}]', '', null, 'CXA 26129', '3');
+INSERT INTO `tb_order` VALUES ('277', '2015-10-09 14:16:38', '2015-10-09 14:16:38', '7', '41', '0', '1', '待发货', '', '冰岛毛摇粒绒包套(114.0克)', '2015-10-08 00:00:00', '2015-11-03 00:00:00', null, 'FWA20277', '3', null, null, '0', null, 'resource.fuwei.com/images/sample/1430275598920176F622AEEB6C9EB1E396A84FFDE7375.png', '6', '冰岛毛摇粒绒包套', 'FWA30105', '9.5*24', '114', '105', '0', null, 'resource.fuwei.com/images/sample/s/1430275598920176F622AEEB6C9EB1E396A84FFDE7375.png', 'resource.fuwei.com/images/sample/ss/1430275598920176F622AEEB6C9EB1E396A84FFDE7375.png', '400', '[{\"color\":\"粉色\",\"id\":1,\"price\":0,\"produce_weight\":90,\"quantity\":400,\"size\":\"9.5*24\",\"weight\":114,\"yarn\":6}]', '', null, 'G3222G-1', '4');
+INSERT INTO `tb_order` VALUES ('278', '2015-10-09 14:36:54', '2015-10-09 14:36:54', '7', '41', '0', '1', '待发货', '', '冰岛毛菱形花头带(43.0克)', '2015-10-08 00:00:00', '2015-11-03 00:00:00', null, 'FWA20278', '3', null, null, '0', null, 'resource.fuwei.com/images/sample/14302753662448400F76D2D65BC44E26D47CB2A0779A3.png', '3', '冰岛毛菱形花头带', 'FWA30104', '9.5*24cm', '43', '104', '0', null, 'resource.fuwei.com/images/sample/s/14302753662448400F76D2D65BC44E26D47CB2A0779A3.png', 'resource.fuwei.com/images/sample/ss/14302753662448400F76D2D65BC44E26D47CB2A0779A3.png', '1000', '[{\"color\":\"黑色\",\"id\":1,\"price\":0,\"produce_weight\":36,\"quantity\":600,\"size\":\"9.5*24\",\"weight\":43,\"yarn\":3},{\"color\":\"粉色\",\"id\":2,\"price\":0,\"produce_weight\":36,\"quantity\":400,\"size\":\"9.5*24\",\"weight\":43,\"yarn\":3}]', '', null, 'Ｇ６９８９ＨＢ－１', '4');
+INSERT INTO `tb_order` VALUES ('279', '2015-10-09 14:58:38', '2015-10-09 14:58:38', '7', '41', '0', '1', '待发货', '', '冰岛毛基本款帽子(96.0克)', '2015-10-08 00:00:00', '2015-11-03 00:00:00', null, 'FWA20279', '3', null, null, '0', null, 'resource.fuwei.com/images/sample/1430274426841图片1.png', '6', '冰岛毛基本款帽子', 'FWA30103', '20宽22高+9', '96', '103', '0', null, 'resource.fuwei.com/images/sample/s/1430274426841图片1.png', 'resource.fuwei.com/images/sample/ss/1430274426841图片1.png', '1000', '[{\"color\":\"本白\",\"id\":1,\"price\":0,\"produce_weight\":83,\"quantity\":400,\"size\":\"22W*23H+9\",\"weight\":100,\"yarn\":6},{\"color\":\"粉色\",\"id\":2,\"price\":0,\"produce_weight\":83,\"quantity\":600,\"size\":\"22W*23H+9\",\"weight\":100,\"yarn\":6}]', '', null, 'G3222H ', '4');
+INSERT INTO `tb_order` VALUES ('280', '2015-10-09 15:05:02', '2015-10-09 15:05:02', '7', '41', '0', '1', '待发货', '', '冰岛毛鱼鳞针挂须围巾(262.0克)', '2015-10-08 00:00:00', '2015-11-03 00:00:00', null, 'FWA20280', '3', null, null, '0', null, 'resource.fuwei.com/images/sample/1430274036475QQ截图20150429101908.jpg', '6', '冰岛毛鱼鳞针挂须围巾', 'FWA30101', '20*180+20*2cm', '262', '101', '0', null, 'resource.fuwei.com/images/sample/s/1430274036475QQ截图20150429101908.png', 'resource.fuwei.com/images/sample/ss/1430274036475QQ截图20150429101908.png', '1000', '[{\"color\":\"本白\",\"id\":1,\"price\":0,\"produce_weight\":240,\"quantity\":400,\"size\":\"20*180+20*2\",\"weight\":262,\"yarn\":6},{\"color\":\"粉色\",\"id\":2,\"price\":0,\"produce_weight\":240,\"quantity\":600,\"size\":\"20*180+20*2\",\"weight\":262,\"yarn\":6}]', '', null, 'Ｇ３２２２Ｓ', '4');
+INSERT INTO `tb_order` VALUES ('281', '2015-10-09 15:09:30', '2015-10-09 15:09:30', '7', '41', '0', '1', '待发货', '', '冰岛毛鱼鳞针围脖(171.0克)', '2015-10-08 00:00:00', '2015-11-03 00:00:00', null, 'FWA20281', '3', null, null, '0', null, 'resource.fuwei.com/images/sample/1430274225667DSCN8187.JPG', '4', '冰岛毛鱼鳞针围脖', 'FWA30102', '34*2*40', '171', '102', '0', null, 'resource.fuwei.com/images/sample/s/1430274225667DSCN8187.png', 'resource.fuwei.com/images/sample/ss/1430274225667DSCN8187.png', '400', '[{\"color\":\"粉色\",\"id\":1,\"price\":0,\"produce_weight\":171,\"quantity\":400,\"size\":\"34*2*40\",\"weight\":173,\"yarn\":4}]', '', null, 'G7165', '4');
+INSERT INTO `tb_order` VALUES ('282', '2015-10-10 08:50:23', '2015-10-10 08:50:23', '7', '30', '0', '1', '待发货', '', '仿羊绒成品染色拉毛围脖(152.0克)', '2015-10-08 00:00:00', '2015-10-25 00:00:00', null, 'FWA20282', '7', null, null, '13.513', '152*1.15*12*36÷ 1000=75.514+12=87.514\r\n\r\n机织:14.400\r\n拉毛:27.600\r\n拷边:4.800\r\n整烫:5.000\r\n费用+后道:12.000\r\n____________________________\r\n63.8+0\r\n=63.8*1.17\r\n=74.646+87.514\r\n=162.16÷12\r\n=13.513*1.2\r\n=16.216\r\n', 'resource.fuwei.com/images/sample/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', '13', '仿羊绒成品染色拉毛围脖', 'FWA30021', '40H*75W', '152', '21', '0', null, 'resource.fuwei.com/images/sample/s/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', 'resource.fuwei.com/images/sample/ss/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', '100', '[{\"color\":\"红棕色\",\"id\":1,\"price\":0,\"produce_weight\":180,\"quantity\":100,\"size\":\"40*75*2\",\"weight\":163,\"yarn\":13}]', '', null, '76392', '3');
+INSERT INTO `tb_order` VALUES ('283', '2015-10-13 13:17:10', '2015-10-13 13:17:10', '7', '31', '0', '1', '待发货', '', '毛皮+针织围脖(224.0克)', '2015-09-18 00:00:00', '2015-10-15 00:00:00', null, 'FWA20283', '2', null, null, '0', null, 'resource.fuwei.com/images/sample/1442900302600176C830B1F76198293E05870096A9F2B.png', '1', '毛皮+针织围脖', 'FWA30238', '毛皮：25cm*16  针  总：27*21', '224', '238', '0', null, 'resource.fuwei.com/images/sample/s/1442900302600176C830B1F76198293E05870096A9F2B.png', 'resource.fuwei.com/images/sample/ss/1442900302600176C830B1F76198293E05870096A9F2B.png', '45', '[{\"color\":\"灰色\",\"id\":1,\"price\":0,\"produce_weight\":0,\"quantity\":15,\"size\":\"0\",\"weight\":0,\"yarn\":1},{\"color\":\"驼色\",\"id\":2,\"price\":0,\"produce_weight\":0,\"quantity\":15,\"size\":\"0\",\"weight\":0,\"yarn\":1},{\"color\":\"黑色\",\"id\":3,\"price\":0,\"produce_weight\":0,\"quantity\":15,\"size\":\"0\",\"weight\":0,\"yarn\":1}]', '', null, 'FWA30238', '3');
+INSERT INTO `tb_order` VALUES ('284', '2015-10-15 09:22:03', '2015-10-15 09:22:03', '7', '41', '0', '1', '待发货', '', '马海毛抽条吊球帽(102.0克)', '2015-10-07 00:00:00', '2015-10-30 00:00:00', null, 'FWA20284', '3', null, null, '0', null, 'resource.fuwei.com/images/sample/1435547931935DH22297 (1).JPG', '9', '马海毛抽条吊球帽', 'FWA30201', '22H*21+10', '102', '201', '0', null, 'resource.fuwei.com/images/sample/s/1435547931935DH22297 (1).png', 'resource.fuwei.com/images/sample/ss/1435547931935DH22297 (1).png', '7000', '[{\"color\":\"灰色组\",\"id\":1,\"price\":0,\"produce_weight\":93,\"quantity\":3000,\"size\":\"22H*21+10\",\"weight\":93,\"yarn\":9},{\"color\":\"粉色组\",\"id\":2,\"price\":0,\"produce_weight\":93,\"quantity\":4000,\"size\":\"22H*21+10\",\"weight\":93,\"yarn\":9}]', '', null, '956004', '1');
+INSERT INTO `tb_order` VALUES ('285', '2015-10-29 21:07:54', '2015-10-29 21:07:54', '6', '33', '10000', '1', '待发货', '测试原材料生产进度', '测试(12.0克)', '2015-10-07 00:00:00', '2015-11-18 00:00:00', null, 'FWA20285', '6', null, null, '0', null, 'resource.fuwei.com/images/sample/1445083676763ETOFH.jpg', '1', '测试', 'FWA30242', '发放', '12', '242', '0', null, 'resource.fuwei.com/images/sample/s/1445083676763ETOFH.png', 'resource.fuwei.com/images/sample/ss/1445083676763ETOFH.png', '1000', '[{\"color\":\"红色\",\"id\":1,\"price\":10,\"produce_weight\":90,\"quantity\":1000,\"size\":\"未知\",\"weight\":110,\"yarn\":5}]', '', null, 'FWA30242', '1');
 INSERT INTO `tb_order_handle` VALUES ('1', '1', '创建订单', '1', '待发货', null, '7', '2015-03-31 21:48:39');
 INSERT INTO `tb_order_handle` VALUES ('2', '2', '创建订单', '1', '待发货', null, '7', '2015-04-02 22:09:02');
 INSERT INTO `tb_order_handle` VALUES ('3', '2', '修改订单', '0', null, null, '7', '2015-04-02 22:13:01');
@@ -6501,12 +8037,38 @@ INSERT INTO `tb_order_handle` VALUES ('334', '255', '创建订单', '1', '待发
 INSERT INTO `tb_order_handle` VALUES ('335', '256', '创建订单', '1', '待发货', null, '7', '2015-08-09 22:19:56');
 INSERT INTO `tb_order_handle` VALUES ('336', '257', '创建订单', '1', '待发货', null, '7', '2015-08-09 22:33:40');
 INSERT INTO `tb_order_handle` VALUES ('337', '258', '创建订单', '1', '待发货', null, '7', '2015-08-11 17:53:09');
-INSERT INTO `tb_order_handle` VALUES ('338', '91', '执行订单步骤', '2', '已发货', null, '6', '2015-08-12 21:14:40');
-INSERT INTO `tb_order_handle` VALUES ('339', '225', '执行订单步骤', '2', '已发货', null, '6', '2015-08-12 21:42:14');
-INSERT INTO `tb_order_handle` VALUES ('340', '225', '执行订单步骤', '3', '交易已完成', null, '6', '2015-08-12 21:52:38');
-INSERT INTO `tb_order_handle` VALUES ('341', '14', '执行订单步骤', '2', '已发货', null, '6', '2015-08-12 21:53:09');
-INSERT INTO `tb_order_handle` VALUES ('342', '14', '执行订单步骤', '3', '交易已完成', null, '6', '2015-08-12 21:53:25');
-INSERT INTO `tb_order_handle` VALUES ('343', '154', '执行订单步骤', '3', '交易已完成', null, '6', '2015-08-12 22:09:25');
+INSERT INTO `tb_order_handle` VALUES ('338', '259', '创建订单', '1', '待发货', null, '7', '2015-08-13 09:11:37');
+INSERT INTO `tb_order_handle` VALUES ('339', '260', '创建订单', '1', '待发货', null, '7', '2015-08-13 09:23:32');
+INSERT INTO `tb_order_handle` VALUES ('340', '261', '创建订单', '1', '待发货', null, '7', '2015-08-20 14:13:41');
+INSERT INTO `tb_order_handle` VALUES ('341', '262', '创建订单', '1', '待发货', null, '7', '2015-08-24 15:08:35');
+INSERT INTO `tb_order_handle` VALUES ('342', '263', '创建订单', '1', '待发货', null, '7', '2015-08-26 16:31:59');
+INSERT INTO `tb_order_handle` VALUES ('343', '264', '创建订单', '1', '待发货', null, '7', '2015-08-26 16:49:07');
+INSERT INTO `tb_order_handle` VALUES ('344', '172', '修改订单', '0', null, null, '7', '2015-08-26 21:34:57');
+INSERT INTO `tb_order_handle` VALUES ('345', '265', '创建订单', '1', '待发货', null, '7', '2015-08-27 08:27:34');
+INSERT INTO `tb_order_handle` VALUES ('346', '266', '创建订单', '1', '待发货', null, '7', '2015-08-27 08:37:24');
+INSERT INTO `tb_order_handle` VALUES ('347', '125', '修改订单', '0', null, null, '7', '2015-08-27 08:46:32');
+INSERT INTO `tb_order_handle` VALUES ('348', '267', '创建订单', '1', '待发货', null, '7', '2015-08-27 08:55:10');
+INSERT INTO `tb_order_handle` VALUES ('349', '268', '创建订单', '1', '待发货', null, '7', '2015-09-04 15:35:08');
+INSERT INTO `tb_order_handle` VALUES ('350', '269', '创建订单', '1', '待发货', null, '7', '2015-09-17 12:39:23');
+INSERT INTO `tb_order_handle` VALUES ('351', '270', '创建订单', '1', '待发货', null, '7', '2015-09-17 12:55:22');
+INSERT INTO `tb_order_handle` VALUES ('352', '270', '修改订单', '0', null, null, '7', '2015-09-17 13:00:27');
+INSERT INTO `tb_order_handle` VALUES ('353', '271', '创建订单', '1', '待发货', null, '7', '2015-09-21 08:30:40');
+INSERT INTO `tb_order_handle` VALUES ('354', '272', '创建订单', '1', '待发货', null, '7', '2015-09-23 12:27:17');
+INSERT INTO `tb_order_handle` VALUES ('355', '273', '创建订单', '1', '待发货', null, '7', '2015-09-25 15:31:06');
+INSERT INTO `tb_order_handle` VALUES ('356', '271', '修改订单', '0', null, null, '7', '2015-09-28 08:59:01');
+INSERT INTO `tb_order_handle` VALUES ('357', '274', '创建订单', '1', '待发货', null, '7', '2015-09-28 09:05:47');
+INSERT INTO `tb_order_handle` VALUES ('358', '275', '创建订单', '1', '待发货', null, '7', '2015-09-28 09:38:07');
+INSERT INTO `tb_order_handle` VALUES ('359', '276', '创建订单', '1', '待发货', null, '7', '2015-10-04 10:24:40');
+INSERT INTO `tb_order_handle` VALUES ('360', '277', '创建订单', '1', '待发货', null, '7', '2015-10-09 14:16:38');
+INSERT INTO `tb_order_handle` VALUES ('361', '278', '创建订单', '1', '待发货', null, '7', '2015-10-09 14:36:54');
+INSERT INTO `tb_order_handle` VALUES ('362', '279', '创建订单', '1', '待发货', null, '7', '2015-10-09 14:58:38');
+INSERT INTO `tb_order_handle` VALUES ('363', '280', '创建订单', '1', '待发货', null, '7', '2015-10-09 15:05:02');
+INSERT INTO `tb_order_handle` VALUES ('364', '281', '创建订单', '1', '待发货', null, '7', '2015-10-09 15:09:30');
+INSERT INTO `tb_order_handle` VALUES ('365', '274', '修改订单', '0', null, null, '7', '2015-10-10 08:45:52');
+INSERT INTO `tb_order_handle` VALUES ('366', '282', '创建订单', '1', '待发货', null, '7', '2015-10-10 08:50:23');
+INSERT INTO `tb_order_handle` VALUES ('367', '283', '创建订单', '1', '待发货', null, '7', '2015-10-13 13:17:10');
+INSERT INTO `tb_order_handle` VALUES ('368', '284', '创建订单', '1', '待发货', null, '7', '2015-10-15 09:22:03');
+INSERT INTO `tb_order_handle` VALUES ('369', '285', '创建订单', '1', '待发货', null, '6', '2015-10-29 21:07:54');
 INSERT INTO `tb_packingorder` VALUES ('1', '2015-06-30 11:40:20', '2015-06-30 11:40:20', '9', '144', '0', '新建', 'resource.fuwei.com/excel/packing/orderId=144_2015-06-30_1435635620050.xls', 'resource.fuwei.com/pdf/packing/orderId=144_2015-06-30_1435635620050.pdf', '');
 INSERT INTO `tb_packingorder` VALUES ('2', '2015-06-30 11:41:27', '2015-06-30 11:41:27', '9', '89', '0', '新建', 'resource.fuwei.com/excel/packing/orderId=89_2015-06-30_1435635687583.xls', 'resource.fuwei.com/pdf/packing/orderId=89_2015-06-30_1435635687583.pdf', '');
 INSERT INTO `tb_pantongcolor` VALUES ('11-0103', '1', '1', '1');
@@ -8443,11 +10005,11 @@ INSERT INTO `tb_planorder` VALUES ('6', '6', '2015-04-03 09:52:51', '2015-04-03 
 INSERT INTO `tb_planorder` VALUES ('7', '7', '2015-04-03 15:04:20', '2015-04-03 15:04:20', '7', '[{\"color\":\"深夹花灰\",\"id\":1,\"price\":11.6,\"quantity\":8530,\"size\":\"22H*22W\",\"weight\":85,\"yarn\":9},{\"color\":\"黑色\",\"id\":2,\"price\":11.6,\"quantity\":80,\"size\":\"22H*22W\",\"weight\":85,\"yarn\":9}]', '0', '新建');
 INSERT INTO `tb_planorder` VALUES ('8', '8', '2015-04-03 15:22:38', '2015-04-03 15:22:38', '7', '[{\"color\":\"黑色\",\"id\":1,\"price\":13.2,\"quantity\":1650,\"size\":\"S/M\",\"weight\":80,\"yarn\":9},{\"color\":\"深夹花灰\",\"id\":2,\"price\":13.2,\"quantity\":1550,\"size\":\"S/M\",\"weight\":80,\"yarn\":9}]', '0', '新建');
 INSERT INTO `tb_planorder` VALUES ('9', '9', '2015-04-03 21:39:34', '2015-04-03 21:39:34', '7', '[{\"color\":\"深夹花灰\",\"id\":1,\"price\":13.2,\"quantity\":4595,\"size\":\"21H*20W\",\"weight\":123,\"yarn\":7},{\"color\":\"白色\",\"id\":2,\"price\":12.6,\"quantity\":4595,\"size\":\"21H*20W\",\"weight\":123,\"yarn\":6}]', '0', '新建');
-INSERT INTO `tb_planorder` VALUES ('10', '10', '2015-04-03 22:01:02', '2015-04-03 22:01:02', '7', '[{\"color\":\"QY米色\",\"id\":1,\"price\":13.3,\"quantity\":1670,\"size\":\"S/M 25*9cm\",\"weight\":114,\"yarn\":6},{\"color\":\"深夹花灰\",\"id\":2,\"price\":14,\"quantity\":1670,\"size\":\"25*9cm S/M\",\"weight\":114,\"yarn\":7}]', '0', '新建');
+INSERT INTO `tb_planorder` VALUES ('10', '10', '2015-04-03 22:01:02', '2015-10-21 11:54:39', '7', '[{\"color\":\"QY米色\",\"id\":1,\"price\":13.3,\"produce_weight\":102,\"quantity\":1670,\"size\":\"S/M 25*9cm\",\"weight\":114,\"yarn\":6},{\"color\":\"深夹花灰\",\"id\":2,\"price\":14,\"produce_weight\":100,\"quantity\":1670,\"size\":\"25*9cm S/M\",\"weight\":114,\"yarn\":7}]', '0', '新建');
 INSERT INTO `tb_planorder` VALUES ('11', '11', '2015-04-03 22:08:13', '2015-04-03 22:08:13', '7', '[{\"color\":\"米色\",\"id\":1,\"price\":28,\"quantity\":2330,\"size\":\"180*20cm\",\"weight\":338,\"yarn\":6},{\"color\":\"深夹花灰\",\"id\":2,\"price\":29.5,\"quantity\":2330,\"size\":\"180*20cm\",\"weight\":338,\"yarn\":7}]', '0', '新建');
 INSERT INTO `tb_planorder` VALUES ('12', '12', '2015-04-03 23:16:47', '2015-04-03 23:16:47', '7', '[{\"color\":\"黑色\",\"id\":1,\"price\":7.4,\"quantity\":1170,\"size\":\"21H*20W\",\"weight\":63,\"yarn\":1},{\"color\":\"深夹花灰\",\"id\":2,\"price\":7.75,\"quantity\":1170,\"size\":\"21H*20W\",\"weight\":63,\"yarn\":1},{\"color\":\"暗红色\",\"id\":3,\"price\":7.4,\"quantity\":760,\"size\":\"21H*20W\",\"weight\":63,\"yarn\":1}]', '0', '新建');
 INSERT INTO `tb_planorder` VALUES ('13', '13', '2015-04-03 23:52:25', '2015-04-03 23:52:25', '7', '[{\"color\":\"灰色\",\"id\":1,\"price\":19.8,\"quantity\":1020,\"size\":\"32*2*27cm\",\"weight\":200,\"yarn\":8}]', '6', '执行完成');
-INSERT INTO `tb_planorder` VALUES ('14', '14', '2015-04-04 00:25:22', '2015-04-04 00:25:22', '7', '[{\"color\":\"褐色\",\"id\":1,\"price\":16.4,\"quantity\":60,\"size\":\"40H*75W*2\",\"weight\":163,\"yarn\":13},{\"color\":\"红棕色\",\"id\":2,\"price\":16.4,\"quantity\":110,\"size\":\"40H*75W*2cm\",\"weight\":163,\"yarn\":13},{\"color\":\"旧粉色\",\"id\":3,\"price\":16.4,\"quantity\":100,\"size\":\"40H*75W*2\",\"weight\":163,\"yarn\":13}]', '6', '执行完成');
+INSERT INTO `tb_planorder` VALUES ('14', '14', '2015-04-04 00:25:22', '2015-04-04 00:25:22', '7', '[{\"color\":\"褐色\",\"id\":1,\"price\":16.4,\"quantity\":60,\"size\":\"40H*75W*2\",\"weight\":163,\"yarn\":13},{\"color\":\"红棕色\",\"id\":2,\"price\":16.4,\"quantity\":110,\"size\":\"40H*75W*2cm\",\"weight\":163,\"yarn\":13},{\"color\":\"旧粉色\",\"id\":3,\"price\":16.4,\"quantity\":100,\"size\":\"40H*75W*2\",\"weight\":163,\"yarn\":13}]', '0', '新建');
 INSERT INTO `tb_planorder` VALUES ('15', '15', '2015-04-04 01:47:47', '2015-04-04 01:47:47', '7', '[{\"color\":\"白色\",\"id\":1,\"price\":16,\"quantity\":60,\"size\":\"43*75*2cm\",\"weight\":203,\"yarn\":17}]', '0', '新建');
 INSERT INTO `tb_planorder` VALUES ('16', '16', '2015-04-04 01:52:57', '2015-04-04 01:52:57', '7', '[{\"color\":\"黑色\",\"id\":1,\"price\":10,\"quantity\":110,\"size\":\"20w*27h\",\"weight\":70,\"yarn\":9},{\"color\":\"米色\",\"id\":2,\"price\":10,\"quantity\":60,\"size\":\"20W*27H\",\"weight\":70,\"yarn\":9}]', '0', '新建');
 INSERT INTO `tb_planorder` VALUES ('17', '17', '2015-04-04 14:45:56', '2015-04-04 14:45:56', '7', '[{\"color\":\"QY114-灰色\",\"id\":1,\"price\":10.8,\"quantity\":930,\"size\":\"70*2*40cm\",\"weight\":115,\"yarn\":9},{\"color\":\"QY114-粉色\",\"id\":2,\"price\":10.8,\"quantity\":570,\"size\":\"70*2*40cm\",\"weight\":115,\"yarn\":9},{\"color\":\"QY114-酒红\",\"id\":3,\"price\":10.8,\"quantity\":930,\"size\":\"70*2*40cm\",\"weight\":115,\"yarn\":9},{\"color\":\"QY114-深驼\",\"id\":4,\"price\":10.8,\"quantity\":570,\"size\":\"70*2*40cm\",\"weight\":115,\"yarn\":9}]', '0', '新建');
@@ -8524,7 +10086,7 @@ INSERT INTO `tb_planorder` VALUES ('87', '87', '2015-04-27 08:07:56', '2015-04-2
 INSERT INTO `tb_planorder` VALUES ('88', '88', '2015-04-27 08:24:57', '2015-04-27 08:24:57', '7', '[{\"color\":\"黑色\",\"id\":1,\"price\":0.7,\"produce_weight\":70,\"quantity\":2654,\"size\":\"28*21.5寛\",\"weight\":70,\"yarn\":10},{\"color\":\"棕色\",\"id\":2,\"price\":0.7,\"produce_weight\":70,\"quantity\":1318,\"size\":\"28*21.5寛\",\"weight\":70,\"yarn\":10},{\"color\":\"白色\",\"id\":3,\"price\":0.7,\"produce_weight\":70,\"quantity\":2066,\"size\":\"28*21.5寛\",\"weight\":70,\"yarn\":10},{\"color\":\"灰色\",\"id\":4,\"price\":0.7,\"produce_weight\":70,\"quantity\":290,\"size\":\"28*21.5寛\",\"weight\":70,\"yarn\":10}]', '0', '新建');
 INSERT INTO `tb_planorder` VALUES ('89', '89', '2015-04-27 08:45:32', '2015-04-27 08:45:32', '7', '[{\"color\":\"黑色\",\"id\":1,\"price\":0,\"produce_weight\":155,\"quantity\":3093,\"size\":\"63.5x2*35.5\",\"weight\":155,\"yarn\":10},{\"color\":\"棕色\",\"id\":2,\"price\":0,\"produce_weight\":155,\"quantity\":1430,\"size\":\"63.5x2*35.5\",\"weight\":155,\"yarn\":10},{\"color\":\"白色\",\"id\":3,\"price\":0,\"produce_weight\":155,\"quantity\":1329,\"size\":\"63.5x2*35.5\",\"weight\":155,\"yarn\":10},{\"color\":\"褐色\",\"id\":4,\"price\":0,\"produce_weight\":155,\"quantity\":350,\"size\":\"63.5x2*35.5\",\"weight\":155,\"yarn\":10},{\"color\":\"灰色\",\"id\":5,\"price\":0,\"produce_weight\":155,\"quantity\":306,\"size\":\"63.5x2*35.5\",\"weight\":155,\"yarn\":10}]', '0', '新建');
 INSERT INTO `tb_planorder` VALUES ('90', '90', '2015-04-30 13:32:44', '2015-04-30 13:32:44', '7', '[{\"color\":\"714\",\"id\":1,\"price\":0,\"produce_weight\":110,\"quantity\":1200,\"size\":\"85x2*56\",\"weight\":120,\"yarn\":10}]', '0', '新建');
-INSERT INTO `tb_planorder` VALUES ('91', '91', '2015-05-02 16:28:24', '2015-05-02 16:28:24', '7', '[{\"color\":\"粉色\",\"id\":1,\"price\":0,\"produce_weight\":80,\"quantity\":500,\"size\":\"23*23\",\"weight\":89,\"yarn\":9},{\"color\":\"黑色\",\"id\":2,\"price\":0,\"produce_weight\":80,\"quantity\":1500,\"size\":\"23*23\",\"weight\":89,\"yarn\":9},{\"color\":\"本白\",\"id\":3,\"price\":0,\"produce_weight\":80,\"quantity\":800,\"size\":\"23*23\",\"weight\":89,\"yarn\":9}]', '6', '执行完成');
+INSERT INTO `tb_planorder` VALUES ('91', '91', '2015-05-02 16:28:24', '2015-05-02 16:28:24', '7', '[{\"color\":\"粉色\",\"id\":1,\"price\":0,\"produce_weight\":80,\"quantity\":500,\"size\":\"23*23\",\"weight\":89,\"yarn\":9},{\"color\":\"黑色\",\"id\":2,\"price\":0,\"produce_weight\":80,\"quantity\":1500,\"size\":\"23*23\",\"weight\":89,\"yarn\":9},{\"color\":\"本白\",\"id\":3,\"price\":0,\"produce_weight\":80,\"quantity\":800,\"size\":\"23*23\",\"weight\":89,\"yarn\":9}]', '0', '新建');
 INSERT INTO `tb_planorder` VALUES ('92', '92', '2015-05-03 17:24:03', '2015-05-03 17:24:03', '7', '[{\"color\":\"AU16蓝色\",\"id\":1,\"price\":0,\"produce_weight\":52,\"quantity\":1848,\"size\":\"23高*21寛\",\"weight\":64,\"yarn\":10},{\"color\":\"K974\",\"id\":2,\"price\":0,\"produce_weight\":52,\"quantity\":1848,\"size\":\"23高*21寛\",\"weight\":64,\"yarn\":10}]', '0', '新建');
 INSERT INTO `tb_planorder` VALUES ('93', '93', '2015-05-03 17:34:23', '2015-05-03 17:34:23', '7', '[{\"color\":\"多色\",\"id\":1,\"price\":0,\"produce_weight\":340,\"quantity\":3800,\"size\":\"55x2*116+12须\",\"weight\":320,\"yarn\":11}]', '0', '新建');
 INSERT INTO `tb_planorder` VALUES ('94', '94', '2015-05-03 17:51:49', '2015-05-03 17:51:49', '7', '[{\"color\":\"黑/灰\",\"id\":1,\"price\":0,\"produce_weight\":188,\"quantity\":3502,\"size\":\"184*30\",\"weight\":188,\"yarn\":1}]', '6', '执行完成');
@@ -8658,7 +10220,7 @@ INSERT INTO `tb_planorder` VALUES ('221', '221', '2015-07-05 14:39:24', '2015-07
 INSERT INTO `tb_planorder` VALUES ('222', '222', '2015-07-05 14:50:16', '2015-07-05 14:50:16', '7', '[{\"color\":\"姜黄\",\"id\":1,\"price\":0,\"produce_weight\":123,\"quantity\":800,\"size\":\"22.5*20.5+7+10\",\"weight\":144,\"yarn\":6},{\"color\":\"深绿/浅绿\",\"id\":2,\"price\":0,\"produce_weight\":123,\"quantity\":1800,\"size\":\"22.5*20.5+7+10\",\"weight\":144,\"yarn\":6},{\"color\":\"酒红/黑色\",\"id\":3,\"price\":0,\"produce_weight\":123,\"quantity\":1800,\"size\":\"22.5*20.5+7+10\",\"weight\":144,\"yarn\":6}]', '0', '新建');
 INSERT INTO `tb_planorder` VALUES ('223', '223', '2015-07-05 15:09:32', '2015-07-05 15:09:32', '7', '[{\"color\":\"姜黄\",\"id\":1,\"price\":0,\"produce_weight\":377,\"quantity\":800,\"size\":\"23*180+26*2\",\"weight\":417,\"yarn\":6},{\"color\":\"深绿/浅绿\",\"id\":2,\"price\":0,\"produce_weight\":377,\"quantity\":1800,\"size\":\"23*180+26*2\",\"weight\":417,\"yarn\":6},{\"color\":\"酒红/黑色\",\"id\":3,\"price\":0,\"produce_weight\":377,\"quantity\":1800,\"size\":\"23*180+26*2\",\"weight\":417,\"yarn\":6}]', '0', '新建');
 INSERT INTO `tb_planorder` VALUES ('224', '224', '2015-07-08 22:11:35', '2015-07-08 22:11:35', '7', '[{\"color\":\"米色\",\"id\":1,\"price\":0,\"produce_weight\":240,\"quantity\":600,\"size\":\"62*35\",\"weight\":275,\"yarn\":38},{\"color\":\"灰色/米色\",\"id\":2,\"price\":0,\"produce_weight\":282,\"quantity\":500,\"size\":\"62*35\",\"weight\":275,\"yarn\":38}]', '0', '新建');
-INSERT INTO `tb_planorder` VALUES ('225', '225', '2015-07-11 13:10:46', '2015-07-11 13:10:46', '7', '[{\"color\":\"粉色\",\"id\":1,\"price\":0,\"produce_weight\":64,\"quantity\":1000,\"size\":\"23*23\",\"weight\":89,\"yarn\":9}]', '6', '执行完成');
+INSERT INTO `tb_planorder` VALUES ('225', '225', '2015-07-11 13:10:46', '2015-07-11 13:10:46', '7', '[{\"color\":\"粉色\",\"id\":1,\"price\":0,\"produce_weight\":64,\"quantity\":1000,\"size\":\"23*23\",\"weight\":89,\"yarn\":9}]', '0', '新建');
 INSERT INTO `tb_planorder` VALUES ('226', '226', '2015-07-12 16:23:22', '2015-07-12 16:23:22', '7', '[{\"color\":\"浅灰夹·花·组·\",\"id\":1,\"price\":0,\"produce_weight\":42,\"quantity\":500,\"size\":\"25*11\",\"weight\":76,\"yarn\":1},{\"color\":\"深灰夹·花·组·\",\"id\":2,\"price\":0,\"produce_weight\":42,\"quantity\":500,\"size\":\"25*11\",\"weight\":76,\"yarn\":1}]', '0', '新建');
 INSERT INTO `tb_planorder` VALUES ('227', '227', '2015-07-12 17:03:51', '2015-07-12 17:03:51', '7', '[{\"color\":\"灰色组\",\"id\":1,\"price\":0,\"produce_weight\":119,\"quantity\":231,\"size\":\"3-4\",\"weight\":0,\"yarn\":11},{\"color\":\"灰色组\",\"id\":2,\"price\":0,\"produce_weight\":124,\"quantity\":400,\"size\":\"5-6\",\"weight\":0,\"yarn\":11},{\"color\":\"灰色组\",\"id\":3,\"price\":0,\"produce_weight\":138,\"quantity\":841,\"size\":\"7-10\",\"weight\":0,\"yarn\":11},{\"color\":\"灰色组\",\"id\":4,\"price\":0,\"produce_weight\":148,\"quantity\":442,\"size\":\"11-13\",\"weight\":0,\"yarn\":11},{\"color\":\"灰色组\",\"id\":5,\"price\":0,\"produce_weight\":160,\"quantity\":186,\"size\":\"14-16\",\"weight\":0,\"yarn\":11}]', '0', '新建');
 INSERT INTO `tb_planorder` VALUES ('228', '228', '2015-07-15 20:20:47', '2015-07-15 20:20:47', '7', '[{\"color\":\"黑色\",\"id\":1,\"price\":0,\"produce_weight\":80,\"quantity\":300,\"size\":\"W21.5*H20\",\"weight\":94,\"yarn\":1}]', '0', '新建');
@@ -8692,6 +10254,33 @@ INSERT INTO `tb_planorder` VALUES ('255', '255', '2015-08-09 22:05:28', '2015-08
 INSERT INTO `tb_planorder` VALUES ('256', '256', '2015-08-09 22:19:56', '2015-08-09 22:19:56', '7', '[{\"color\":\"本白色\",\"id\":1,\"price\":0,\"produce_weight\":69,\"quantity\":5000,\"size\":\"21高*22寛+8毛球\",\"weight\":76,\"yarn\":10}]', '0', '新建');
 INSERT INTO `tb_planorder` VALUES ('257', '257', '2015-08-09 22:33:40', '2015-08-09 22:33:40', '7', '[{\"color\":\"米色\",\"id\":1,\"price\":0,\"produce_weight\":90,\"quantity\":2002,\"size\":\"24*9.5\",\"weight\":0,\"yarn\":6}]', '0', '新建');
 INSERT INTO `tb_planorder` VALUES ('258', '258', '2015-08-11 17:53:09', '2015-08-11 17:53:09', '7', '[{\"color\":\"本白色\",\"id\":1,\"price\":0,\"produce_weight\":206,\"quantity\":5000,\"size\":\"180*28+20*2\",\"weight\":222,\"yarn\":10}]', '0', '新建');
+INSERT INTO `tb_planorder` VALUES ('259', '259', '2015-08-13 09:11:37', '2015-08-13 09:11:37', '7', '[{\"color\":\"酒红色\",\"id\":1,\"price\":0,\"produce_weight\":446,\"quantity\":1350,\"size\":\"180*35+15*2\",\"weight\":470,\"yarn\":4},{\"color\":\"褐色/白色\",\"id\":2,\"price\":0,\"produce_weight\":446,\"quantity\":1270,\"size\":\"180*35+15*2\",\"weight\":470,\"yarn\":4}]', '0', '新建');
+INSERT INTO `tb_planorder` VALUES ('260', '260', '2015-08-13 09:23:32', '2015-08-13 09:23:32', '7', '[{\"color\":\"红色\",\"id\":1,\"price\":0,\"produce_weight\":100,\"quantity\":2700,\"size\":\"0\",\"weight\":0,\"yarn\":1}]', '0', '新建');
+INSERT INTO `tb_planorder` VALUES ('261', '261', '2015-08-20 14:13:42', '2015-08-20 14:13:42', '7', '[{\"color\":\"黑色\",\"id\":1,\"price\":0,\"produce_weight\":370,\"quantity\":2804,\"size\":\"112*153\",\"weight\":370,\"yarn\":1}]', '0', '新建');
+INSERT INTO `tb_planorder` VALUES ('262', '262', '2015-08-24 15:08:35', '2015-08-24 15:08:35', '7', '[{\"color\":\"白色\",\"id\":1,\"price\":0,\"produce_weight\":260,\"quantity\":5000,\"size\":\"32*160\",\"weight\":250,\"yarn\":11}]', '0', '新建');
+INSERT INTO `tb_planorder` VALUES ('263', '263', '2015-08-26 16:31:59', '2015-08-26 16:31:59', '7', '[{\"color\":\"粉色\",\"id\":1,\"price\":0,\"produce_weight\":180,\"quantity\":3300,\"size\":\"80x2*65 寛\",\"weight\":185,\"yarn\":10},{\"color\":\"712\",\"id\":2,\"price\":0,\"produce_weight\":180,\"quantity\":3660,\"size\":\"80x2*65 寛\",\"weight\":185,\"yarn\":10},{\"color\":\"沙色\",\"id\":3,\"price\":0,\"produce_weight\":180,\"quantity\":3600,\"size\":\"80x2*65 寛\",\"weight\":185,\"yarn\":10}]', '0', '新建');
+INSERT INTO `tb_planorder` VALUES ('264', '264', '2015-08-26 16:49:07', '2015-08-26 16:49:07', '7', '[{\"color\":\"粉色\",\"id\":1,\"price\":0,\"produce_weight\":46,\"quantity\":2754,\"size\":\"26高*22寛\",\"weight\":46,\"yarn\":10},{\"color\":\"沙色\",\"id\":2,\"price\":0,\"produce_weight\":46,\"quantity\":3030,\"size\":\"26高*22寛\",\"weight\":46,\"yarn\":10},{\"color\":\"712\",\"id\":3,\"price\":0,\"produce_weight\":46,\"quantity\":3030,\"size\":\"26高*22寛\",\"weight\":46,\"yarn\":10}]', '0', '新建');
+INSERT INTO `tb_planorder` VALUES ('265', '265', '2015-08-27 08:27:35', '2015-08-27 08:27:35', '7', '[{\"color\":\"米色\",\"id\":1,\"price\":0,\"produce_weight\":35,\"quantity\":2222,\"size\":\"26*9\",\"weight\":60,\"yarn\":2}]', '0', '新建');
+INSERT INTO `tb_planorder` VALUES ('266', '266', '2015-08-27 08:37:24', '2015-08-27 08:37:24', '7', '[{\"color\":\"米白/深灰\",\"id\":1,\"price\":0,\"produce_weight\":261,\"quantity\":1842,\"size\":\"40*210\",\"weight\":261,\"yarn\":10}]', '0', '新建');
+INSERT INTO `tb_planorder` VALUES ('267', '267', '2015-08-27 08:55:10', '2015-08-27 08:55:10', '7', '[{\"color\":\"紫色\",\"id\":1,\"price\":0,\"produce_weight\":183,\"quantity\":300,\"size\":\"28*76\",\"weight\":183,\"yarn\":9},{\"color\":\"绿色\",\"id\":2,\"price\":0,\"produce_weight\":183,\"quantity\":300,\"size\":\"28*76\",\"weight\":183,\"yarn\":9}]', '0', '新建');
+INSERT INTO `tb_planorder` VALUES ('268', '268', '2015-09-04 15:35:09', '2015-09-04 15:35:09', '7', '[{\"color\":\"本白\",\"id\":1,\"price\":0,\"produce_weight\":114,\"quantity\":5000,\"size\":\"22*22+6.5\",\"weight\":112,\"yarn\":6}]', '0', '新建');
+INSERT INTO `tb_planorder` VALUES ('269', '269', '2015-09-17 12:39:23', '2015-09-17 12:39:23', '7', '[{\"color\":\"浅粉色组\",\"id\":1,\"price\":0,\"produce_weight\":258,\"quantity\":612,\"size\":\"30x2*40\",\"weight\":258,\"yarn\":3},{\"color\":\"蓝色组\",\"id\":2,\"price\":0,\"produce_weight\":258,\"quantity\":612,\"size\":\"30x2*40\",\"weight\":258,\"yarn\":3}]', '0', '新建');
+INSERT INTO `tb_planorder` VALUES ('270', '270', '2015-09-17 12:55:22', '2015-09-17 12:55:22', '7', '[{\"color\":\"灰色组\",\"id\":1,\"price\":0,\"produce_weight\":129,\"quantity\":612,\"size\":\"21*25+8球\",\"weight\":143,\"yarn\":3},{\"color\":\"蓝色组\",\"id\":2,\"price\":0,\"produce_weight\":129,\"quantity\":612,\"size\":\"21*25+8球\",\"weight\":143,\"yarn\":3}]', '0', '新建');
+INSERT INTO `tb_planorder` VALUES ('271', '271', '2015-09-21 08:30:40', '2015-09-21 08:30:40', '7', '[{\"color\":\"旧粉\",\"id\":1,\"price\":0,\"produce_weight\":165,\"quantity\":300,\"size\":\"40*75x2\",\"weight\":163,\"yarn\":13}]', '0', '新建');
+INSERT INTO `tb_planorder` VALUES ('272', '272', '2015-09-23 12:27:17', '2015-09-23 12:27:17', '7', '[{\"color\":\"白色\",\"id\":1,\"price\":0,\"produce_weight\":0,\"quantity\":11,\"size\":\"28*30.5+23须\",\"weight\":0,\"yarn\":54},{\"color\":\"绿色\",\"id\":2,\"price\":0,\"produce_weight\":0,\"quantity\":11,\"size\":\"28*30.5+23须\",\"weight\":0,\"yarn\":54},{\"color\":\"酒红\",\"id\":3,\"price\":0,\"produce_weight\":0,\"quantity\":11,\"size\":\"28*30.5+23须\",\"weight\":0,\"yarn\":54},{\"color\":\"浅蓝\",\"id\":4,\"price\":0,\"produce_weight\":0,\"quantity\":11,\"size\":\"28*30.5+23须\",\"weight\":0,\"yarn\":54}]', '0', '新建');
+INSERT INTO `tb_planorder` VALUES ('273', '273', '2015-09-25 15:31:06', '2015-09-25 15:31:06', '7', '[{\"color\":\"本白色\",\"id\":1,\"price\":0,\"produce_weight\":190,\"quantity\":4000,\"size\":\"90寛*55高+12须长，领口寛32\",\"weight\":240,\"yarn\":42}]', '0', '新建');
+INSERT INTO `tb_planorder` VALUES ('274', '274', '2015-09-28 09:05:47', '2015-09-28 09:05:47', '7', '[{\"color\":\"褐色\",\"id\":1,\"price\":0,\"produce_weight\":165,\"quantity\":200,\"size\":\"40高*75寛\",\"weight\":163,\"yarn\":13}]', '0', '新建');
+INSERT INTO `tb_planorder` VALUES ('275', '275', '2015-09-28 09:38:07', '2015-09-28 09:38:07', '7', '[{\"color\":\"黑/白\",\"id\":1,\"price\":0,\"produce_weight\":0,\"quantity\":16,\"size\":\"40.5寛*68.5长（对折）\",\"weight\":0,\"yarn\":9},{\"color\":\"藏青/浅蓝\",\"id\":2,\"price\":0,\"produce_weight\":0,\"quantity\":16,\"size\":\"40.5寛*68.5长（对折）\",\"weight\":0,\"yarn\":9},{\"color\":\"深绿/浅卡其\",\"id\":3,\"price\":0,\"produce_weight\":0,\"quantity\":16,\"size\":\"40.5寛*68.5长（对折）\",\"weight\":0,\"yarn\":9}]', '0', '新建');
+INSERT INTO `tb_planorder` VALUES ('276', '276', '2015-10-04 10:24:40', '2015-10-04 10:24:40', '7', '[{\"color\":\"驼色组\",\"id\":1,\"price\":0,\"produce_weight\":0,\"quantity\":14,\"size\":\"35.5高*76寛对折\",\"weight\":0,\"yarn\":1},{\"color\":\"蓝色组\",\"id\":2,\"price\":0,\"produce_weight\":0,\"quantity\":14,\"size\":\"35.5高*76寛对折\",\"weight\":0,\"yarn\":1},{\"color\":\"红色组\",\"id\":3,\"price\":0,\"produce_weight\":0,\"quantity\":14,\"size\":\"35.5高*76寛对折\",\"weight\":0,\"yarn\":1}]', '0', '新建');
+INSERT INTO `tb_planorder` VALUES ('277', '277', '2015-10-09 14:16:39', '2015-10-09 14:16:39', '7', '[{\"color\":\"粉色\",\"id\":1,\"price\":0,\"produce_weight\":90,\"quantity\":400,\"size\":\"9.5*24\",\"weight\":114,\"yarn\":6}]', '0', '新建');
+INSERT INTO `tb_planorder` VALUES ('278', '278', '2015-10-09 14:36:54', '2015-10-09 14:36:54', '7', '[{\"color\":\"黑色\",\"id\":1,\"price\":0,\"produce_weight\":36,\"quantity\":600,\"size\":\"9.5*24\",\"weight\":43,\"yarn\":3},{\"color\":\"粉色\",\"id\":2,\"price\":0,\"produce_weight\":36,\"quantity\":400,\"size\":\"9.5*24\",\"weight\":43,\"yarn\":3}]', '0', '新建');
+INSERT INTO `tb_planorder` VALUES ('279', '279', '2015-10-09 14:58:38', '2015-10-09 14:58:38', '7', '[{\"color\":\"本白\",\"id\":1,\"price\":0,\"produce_weight\":83,\"quantity\":400,\"size\":\"22W*23H+9\",\"weight\":100,\"yarn\":6},{\"color\":\"粉色\",\"id\":2,\"price\":0,\"produce_weight\":83,\"quantity\":600,\"size\":\"22W*23H+9\",\"weight\":100,\"yarn\":6}]', '0', '新建');
+INSERT INTO `tb_planorder` VALUES ('280', '280', '2015-10-09 15:05:02', '2015-10-09 15:05:02', '7', '[{\"color\":\"本白\",\"id\":1,\"price\":0,\"produce_weight\":240,\"quantity\":400,\"size\":\"20*180+20*2\",\"weight\":262,\"yarn\":6},{\"color\":\"粉色\",\"id\":2,\"price\":0,\"produce_weight\":240,\"quantity\":600,\"size\":\"20*180+20*2\",\"weight\":262,\"yarn\":6}]', '0', '新建');
+INSERT INTO `tb_planorder` VALUES ('281', '281', '2015-10-09 15:09:30', '2015-10-09 15:09:30', '7', '[{\"color\":\"粉色\",\"id\":1,\"price\":0,\"produce_weight\":171,\"quantity\":400,\"size\":\"34*2*40\",\"weight\":173,\"yarn\":4}]', '0', '新建');
+INSERT INTO `tb_planorder` VALUES ('282', '282', '2015-10-10 08:50:23', '2015-10-10 08:50:23', '7', '[{\"color\":\"红棕色\",\"id\":1,\"price\":0,\"produce_weight\":180,\"quantity\":100,\"size\":\"40*75*2\",\"weight\":163,\"yarn\":13}]', '0', '新建');
+INSERT INTO `tb_planorder` VALUES ('283', '283', '2015-10-13 13:17:11', '2015-10-13 13:17:11', '7', '[{\"color\":\"灰色\",\"id\":1,\"price\":0,\"produce_weight\":0,\"quantity\":15,\"size\":\"0\",\"weight\":0,\"yarn\":1},{\"color\":\"驼色\",\"id\":2,\"price\":0,\"produce_weight\":0,\"quantity\":15,\"size\":\"0\",\"weight\":0,\"yarn\":1},{\"color\":\"黑色\",\"id\":3,\"price\":0,\"produce_weight\":0,\"quantity\":15,\"size\":\"0\",\"weight\":0,\"yarn\":1}]', '0', '新建');
+INSERT INTO `tb_planorder` VALUES ('284', '284', '2015-10-15 09:22:03', '2015-10-15 09:22:03', '7', '[{\"color\":\"灰色组\",\"id\":1,\"price\":0,\"produce_weight\":93,\"quantity\":3000,\"size\":\"22H*21+10\",\"weight\":93,\"yarn\":9},{\"color\":\"粉色组\",\"id\":2,\"price\":0,\"produce_weight\":93,\"quantity\":4000,\"size\":\"22H*21+10\",\"weight\":93,\"yarn\":9}]', '0', '新建');
+INSERT INTO `tb_planorder` VALUES ('285', '285', '2015-10-29 21:07:54', '2015-10-29 21:07:54', '6', '[{\"color\":\"红色\",\"id\":1,\"price\":10,\"produce_weight\":90,\"quantity\":1000,\"size\":\"未知\",\"weight\":110,\"yarn\":5}]', '0', '新建');
 INSERT INTO `tb_producingorder` VALUES ('1', '1', '2015-04-01 20:22:48', '2015-04-01 20:22:48', '7', '[{\"color\":\"黑白色组\",\"planOrderDetailId\":1,\"price\":5,\"quantity\":615,\"size\":\"126*126+10*2\",\"weight\":471,\"yarn\":1}]', '[{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":1,\"quantity\":162},{\"color\":\"白色\",\"colorsample\":\"\",\"material\":1,\"quantity\":145}]', '1', '6', '执行完成', '1', 'resource.fuwei.com/images/sample/1427808371841QQ图片20150331211900.jpg', '1', '全晴格子披肩', 'FWA30001', '126*126 + 10*2', '471', '1', 'FWA20001', 'resource.fuwei.com/images/sample/s/1427808371841QQ图片20150331211900.png', 'resource.fuwei.com/images/sample/ss/1427808371841QQ图片20150331211900.png', '1', '2', '15SC0001', 'FWA30001');
 INSERT INTO `tb_producingorder` VALUES ('2', '2', '2015-04-02 22:14:57', '2015-04-02 22:14:57', '7', '[{\"color\":\"米色\",\"planOrderDetailId\":1,\"price\":3,\"quantity\":1875,\"size\":\"190*40+2*20cm\",\"weight\":385,\"yarn\":4},{\"color\":\"藏青\",\"planOrderDetailId\":2,\"price\":3,\"quantity\":1875,\"size\":\"190*40+2*20cm\",\"weight\":385,\"yarn\":4}]', '[{\"color\":\"米色\",\"colorsample\":\"\",\"material\":4,\"quantity\":680},{\"color\":\"藏青\",\"colorsample\":\"\",\"material\":4,\"quantity\":680}]', '2', '0', '新建', '4', 'resource.fuwei.com/images/sample/1427955494579图片1.png', '4', '冰岛毛正反针挂须围巾', 'FWA30003', '190*40+2*20CM F', '285', '3', 'FWA20002', 'resource.fuwei.com/images/sample/s/1427955494579图片1.png', 'resource.fuwei.com/images/sample/ss/1427955494579图片1.png', '2', '3', '15SC0002', 'FWA30003');
 INSERT INTO `tb_producingorder` VALUES ('3', '3', '2015-04-02 22:35:43', '2015-04-02 22:35:43', '7', '[{\"color\":\"米色\",\"planOrderDetailId\":1,\"price\":0.7,\"quantity\":2270,\"size\":\"24H*20W\",\"weight\":66,\"yarn\":4},{\"color\":\"藏青\",\"planOrderDetailId\":2,\"price\":0.7,\"quantity\":2270,\"size\":\"24H*20W\",\"weight\":66,\"yarn\":4}]', '[{\"color\":\"米色\",\"colorsample\":\"\",\"material\":4,\"quantity\":166},{\"color\":\"藏青\",\"colorsample\":\"\",\"material\":4,\"quantity\":166}]', '2', '0', '新建', '4', 'resource.fuwei.com/images/sample/1427955562784图片1.png', '4', '冰岛毛正反针吊球帽', 'FWA30004', '24CMH *20CM', '66', '4', 'FWA20003', 'resource.fuwei.com/images/sample/s/1427955562784图片1.png', 'resource.fuwei.com/images/sample/ss/1427955562784图片1.png', '2', '3', '15SC0003', 'FWA30004');
@@ -8701,12 +10290,12 @@ INSERT INTO `tb_producingorder` VALUES ('7', '8', '2015-04-03 16:07:15', '2015-0
 INSERT INTO `tb_producingorder` VALUES ('8', '7', '2015-04-03 16:12:01', '2015-04-03 16:12:01', '7', '[{\"color\":\"深夹花灰\",\"planOrderDetailId\":1,\"price\":0.8,\"quantity\":8530,\"size\":\"22H*22W\",\"weight\":85,\"yarn\":9},{\"color\":\"黑色\",\"planOrderDetailId\":2,\"price\":0.8,\"quantity\":80,\"size\":\"22H*22W\",\"weight\":85,\"yarn\":9}]', '[{\"color\":\"深夹花灰\",\"colorsample\":\"\",\"material\":9,\"quantity\":617},{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":9,\"quantity\":6}]', '6', '0', '新建', '4', 'resource.fuwei.com/images/sample/1427992746746图片1.png', '9', '马海毛毛球帽', 'FWA30008', '22*22', '85', '8', 'FWA20007', 'resource.fuwei.com/images/sample/s/1427992746746图片1.png', 'resource.fuwei.com/images/sample/ss/1427992746746图片1.png', '3', '3', '15SC0008', 'FWA30008');
 INSERT INTO `tb_producingorder` VALUES ('9', '6', '2015-04-03 20:49:41', '2015-04-03 20:49:41', '9', '[{\"color\":\"多色\",\"planOrderDetailId\":1,\"price\":1.8,\"quantity\":375,\"size\":\"12*300cm\",\"weight\":160,\"yarn\":15}]', '[{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":15,\"quantity\":18},{\"color\":\"藏青\",\"colorsample\":\"\",\"material\":15,\"quantity\":17},{\"color\":\"桔色\",\"colorsample\":\"\",\"material\":15,\"quantity\":6},{\"color\":\"金丝\",\"colorsample\":\"\",\"material\":15,\"quantity\":3.5}]', '9', '6', '执行完成', '1', 'resource.fuwei.com/images/sample/1427992291553图片1.jpg', '15', '人造丝窄围巾', 'FWA30006', '12*300', '160', '6', 'FWA20006', 'resource.fuwei.com/images/sample/s/1427992291553图片1.png', 'resource.fuwei.com/images/sample/ss/1427992291553图片1.png', '4', '2', '15SC0009', 'FWA30006');
 INSERT INTO `tb_producingorder` VALUES ('10', '9', '2015-04-03 21:51:45', '2015-04-03 21:51:45', '7', '[{\"color\":\"深夹花灰\",\"planOrderDetailId\":1,\"price\":0.9,\"quantity\":4595,\"size\":\"21H*20W\",\"weight\":123,\"yarn\":7},{\"color\":\"白色\",\"planOrderDetailId\":2,\"price\":0.9,\"quantity\":4595,\"size\":\"21H*20W\",\"weight\":123,\"yarn\":6}]', '[{\"color\":\"QY102米白\",\"colorsample\":\"\",\"material\":6,\"quantity\":522},{\"color\":\"深夹花灰\",\"colorsample\":\"\",\"material\":7,\"quantity\":522}]', '2', '0', '新建', '4', 'resource.fuwei.com/images/sample/1428066399895图片1.png', '6', '冰岛毛绞花毛球帽', 'FWA30014', '21*20CM', '123', '14', 'FWA20009', 'resource.fuwei.com/images/sample/s/1428066399895图片1.png', 'resource.fuwei.com/images/sample/ss/1428066399895图片1.png', '3', '3', '15SC0010', 'FWA30014');
-INSERT INTO `tb_producingorder` VALUES ('11', '10', '2015-04-03 22:03:13', '2015-04-03 22:03:13', '7', '[{\"color\":\"QY米色\",\"planOrderDetailId\":1,\"price\":1,\"quantity\":1670,\"size\":\"S/M 25*9cm\",\"weight\":114,\"yarn\":6},{\"color\":\"深夹花灰\",\"planOrderDetailId\":2,\"price\":1,\"quantity\":1670,\"size\":\"25*9cm S/M\",\"weight\":114,\"yarn\":7}]', '[{\"color\":\"QY米色\",\"colorsample\":\"\",\"material\":6,\"quantity\":164},{\"color\":\"深夹花灰\",\"colorsample\":\"\",\"material\":7,\"quantity\":164}]', '2', '0', '新建', '4', 'resource.fuwei.com/images/sample/1428068026985图片1.png', '6', '绞花包套', 'FWA30016', '25*9cm S/M', '114', '16', 'FWA20010', 'resource.fuwei.com/images/sample/s/1428068026985图片1.png', 'resource.fuwei.com/images/sample/ss/1428068026985图片1.png', '3', '3', '15SC0011', 'FWA30016');
+INSERT INTO `tb_producingorder` VALUES ('11', '10', '2015-04-03 22:03:13', '2015-10-21 11:51:53', '7', '[{\"color\":\"QY米色\",\"planOrderDetailId\":1,\"price\":1,\"produce_weight\":0,\"quantity\":1670,\"size\":\"S/M 25*9cm\",\"weight\":114,\"yarn\":6},{\"color\":\"深夹花灰\",\"planOrderDetailId\":2,\"price\":1,\"produce_weight\":0,\"quantity\":1670,\"size\":\"25*9cm S/M\",\"weight\":114,\"yarn\":7}]', '[{\"color\":\"QY米色\",\"colorsample\":\"\",\"material\":6,\"quantity\":164},{\"color\":\"深夹花灰\",\"colorsample\":\"\",\"material\":7,\"quantity\":164}]', '2', '0', '新建', '4', 'resource.fuwei.com/images/sample/1428068026985图片1.png', '6', '绞花包套', 'FWA30016', '25*9cm S/M', '0', '16', 'FWA20010', 'resource.fuwei.com/images/sample/s/1428068026985图片1.png', 'resource.fuwei.com/images/sample/ss/1428068026985图片1.png', '3', '3', '15SC0011', 'FWA30016');
 INSERT INTO `tb_producingorder` VALUES ('12', '11', '2015-04-03 22:15:09', '2015-04-03 22:15:09', '7', '[{\"color\":\"米色\",\"planOrderDetailId\":1,\"price\":2.5,\"quantity\":2330,\"size\":\"180*20cm\",\"weight\":338,\"yarn\":6},{\"color\":\"深夹花灰\",\"planOrderDetailId\":2,\"price\":2.5,\"quantity\":2330,\"size\":\"180*20cm\",\"weight\":338,\"yarn\":7}]', '[{\"color\":\"QY米色\",\"colorsample\":\"\",\"material\":6,\"quantity\":763},{\"color\":\"深夹花灰\",\"colorsample\":\"\",\"material\":7,\"quantity\":763}]', '2', '0', '新建', '4', 'resource.fuwei.com/images/sample/1428067891295图片1.png', '6', '绞花吊球围巾', 'FWA30015', '180*20cm', '338', '15', 'FWA20011', 'resource.fuwei.com/images/sample/s/1428067891295图片1.png', 'resource.fuwei.com/images/sample/ss/1428067891295图片1.png', '3', '3', '15SC0012', 'FWA30015');
 INSERT INTO `tb_producingorder` VALUES ('13', '12', '2015-04-03 23:19:43', '2015-04-03 23:19:43', '7', '[{\"color\":\"黑色\",\"planOrderDetailId\":1,\"price\":0.25,\"quantity\":1170,\"size\":\"21H*20W\",\"weight\":63,\"yarn\":1},{\"color\":\"深夹花灰\",\"planOrderDetailId\":2,\"price\":0.25,\"quantity\":1170,\"size\":\"21H*20W\",\"weight\":63,\"yarn\":1},{\"color\":\"暗红色\",\"planOrderDetailId\":3,\"price\":0.25,\"quantity\":760,\"size\":\"21H*20W\",\"weight\":63,\"yarn\":1}]', '[{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":1,\"quantity\":94},{\"color\":\"深夹花灰\",\"colorsample\":\"\",\"material\":1,\"quantity\":94},{\"color\":\"暗红色\",\"colorsample\":\"\",\"material\":1,\"quantity\":60}]', '22', '0', '新建', '4', 'resource.fuwei.com/images/sample/1428073896025图片1.png', '1', '抽条翻边帽', 'FWA30018', '21H*20W', '63', '18', 'FWA20012', 'resource.fuwei.com/images/sample/s/1428073896025图片1.png', 'resource.fuwei.com/images/sample/ss/1428073896025图片1.png', '3', '3', '15SC0013', 'FWA30018');
 INSERT INTO `tb_producingorder` VALUES ('14', '13', '2015-04-03 23:57:02', '2015-04-03 23:57:02', '7', '[{\"color\":\"灰色\",\"planOrderDetailId\":1,\"price\":2,\"quantity\":1020,\"size\":\"32*2*27cm\",\"weight\":200,\"yarn\":8}]', '[{\"color\":\"ICHI-灰色\",\"colorsample\":\"\",\"material\":8,\"quantity\":175},{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":16,\"quantity\":45}]', '7', '6', '执行完成', '1', 'resource.fuwei.com/images/sample/1427993082909Adoree loop SMS 8019 carbon solid.JPG', '8', '冰岛毛羽毛纱围脖', 'FWA30010', '33*2*27', '198', '10', 'FWA20013', 'resource.fuwei.com/images/sample/s/1427993082909Adoree loop SMS 8019 carbon solid.png', 'resource.fuwei.com/images/sample/ss/1427993082909Adoree loop SMS 8019 carbon solid.png', '5', '2', '15SC0014', 'FWA30010');
-INSERT INTO `tb_producingorder` VALUES ('15', '14', '2015-04-04 00:26:59', '2015-04-04 00:26:59', '7', '[{\"color\":\"褐色\",\"planOrderDetailId\":1,\"price\":1.2,\"quantity\":60,\"size\":\"40H*75W*2\",\"weight\":163,\"yarn\":13},{\"color\":\"红棕色\",\"planOrderDetailId\":2,\"price\":1.2,\"quantity\":110,\"size\":\"40H*75W*2cm\",\"weight\":163,\"yarn\":13},{\"color\":\"旧粉色\",\"planOrderDetailId\":3,\"price\":1.2,\"quantity\":100,\"size\":\"40H*75W*2\",\"weight\":163,\"yarn\":13}]', '[{\"color\":\"白胚\",\"colorsample\":\"\",\"material\":13,\"quantity\":50}]', '10', '6', '执行完成', '7', 'resource.fuwei.com/images/sample/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', '13', '仿羊绒成品染色拉毛围脖', 'FWA30021', '40H*75W', '152', '21', 'FWA20014', 'resource.fuwei.com/images/sample/s/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', 'resource.fuwei.com/images/sample/ss/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', null, '3', '15SC0015', 'FWA30021');
-INSERT INTO `tb_producingorder` VALUES ('16', '15', '2015-04-04 01:50:02', '2015-04-04 01:50:02', '7', '[{\"color\":\"白色\",\"planOrderDetailId\":1,\"price\":1,\"quantity\":60,\"size\":\"43*75*2cm\",\"weight\":203,\"yarn\":17}]', '[{\"color\":\"本白\",\"colorsample\":\"\",\"material\":9,\"quantity\":10},{\"color\":\"白色组\",\"colorsample\":\"\",\"material\":17,\"quantity\":6}]', '30', '0', '新建', '7', 'resource.fuwei.com/images/sample/14280776443192FC6687A49233B5F718DA9A0DB6598AA.png', '17', '马海毛点子纱围脖', 'FWA30020', '43H*75W', '203', '20', 'FWA20015', 'resource.fuwei.com/images/sample/s/14280776443192FC6687A49233B5F718DA9A0DB6598AA.png', 'resource.fuwei.com/images/sample/ss/14280776443192FC6687A49233B5F718DA9A0DB6598AA.png', null, '3', '15SC0016', 'FWA30020');
+INSERT INTO `tb_producingorder` VALUES ('15', '14', '2015-04-04 00:26:59', '2015-04-04 00:26:59', '7', '[{\"color\":\"褐色\",\"planOrderDetailId\":1,\"price\":1.2,\"quantity\":60,\"size\":\"40H*75W*2\",\"weight\":163,\"yarn\":13},{\"color\":\"红棕色\",\"planOrderDetailId\":2,\"price\":1.2,\"quantity\":110,\"size\":\"40H*75W*2cm\",\"weight\":163,\"yarn\":13},{\"color\":\"旧粉色\",\"planOrderDetailId\":3,\"price\":1.2,\"quantity\":100,\"size\":\"40H*75W*2\",\"weight\":163,\"yarn\":13}]', '[{\"color\":\"白胚\",\"colorsample\":\"\",\"material\":13,\"quantity\":50}]', '10', '0', '新建', '7', 'resource.fuwei.com/images/sample/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', '13', '仿羊绒成品染色拉毛围脖', 'FWA30021', '40H*75W', '152', '21', 'FWA20014', 'resource.fuwei.com/images/sample/s/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', 'resource.fuwei.com/images/sample/ss/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', null, '3', '15SC0015', 'FWA30021');
+INSERT INTO `tb_producingorder` VALUES ('16', '15', '2015-04-04 01:50:02', '2015-10-29 17:26:14', '7', '[{\"color\":\"白色\",\"planOrderDetailId\":1,\"price\":1,\"produce_weight\":0,\"quantity\":40,\"size\":\"43*75*2cm\",\"weight\":203,\"yarn\":17}]', '[{\"color\":\"本白\",\"colorsample\":\"\",\"material\":9,\"quantity\":10},{\"color\":\"白色组\",\"colorsample\":\"\",\"material\":17,\"quantity\":6}]', '30', '0', '新建', '7', 'resource.fuwei.com/images/sample/14280776443192FC6687A49233B5F718DA9A0DB6598AA.png', '17', '马海毛点子纱围脖', 'FWA30020', '43H*75W', '0', '20', 'FWA20015', 'resource.fuwei.com/images/sample/s/14280776443192FC6687A49233B5F718DA9A0DB6598AA.png', 'resource.fuwei.com/images/sample/ss/14280776443192FC6687A49233B5F718DA9A0DB6598AA.png', null, '3', '15SC0016', 'FWA30020');
 INSERT INTO `tb_producingorder` VALUES ('17', '16', '2015-04-04 01:54:31', '2015-04-04 01:54:31', '7', '[{\"color\":\"黑色\",\"planOrderDetailId\":1,\"price\":0.8,\"quantity\":110,\"size\":\"20w*27h\",\"weight\":70,\"yarn\":9},{\"color\":\"米色\",\"planOrderDetailId\":2,\"price\":0.8,\"quantity\":60,\"size\":\"20W*27H\",\"weight\":70,\"yarn\":9}]', '[{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":9,\"quantity\":10},{\"color\":\"米色\",\"colorsample\":\"\",\"material\":9,\"quantity\":5}]', '2', '0', '新建', '7', 'resource.fuwei.com/images/sample/1428077349767796265BFB290FEE2DC5FC6E38AE4B3B6.png', '9', '马海毛烫钻帽', 'FWA30019', '20W*27H', '69', '19', 'FWA20016', 'resource.fuwei.com/images/sample/s/1428077349767796265BFB290FEE2DC5FC6E38AE4B3B6.png', 'resource.fuwei.com/images/sample/ss/1428077349767796265BFB290FEE2DC5FC6E38AE4B3B6.png', null, '3', '15SC0017', 'FWA30019');
 INSERT INTO `tb_producingorder` VALUES ('18', '17', '2015-04-04 15:35:34', '2015-04-04 15:35:34', '7', '[{\"color\":\"QY114-灰色\",\"planOrderDetailId\":1,\"price\":0.7,\"quantity\":930,\"size\":\"70*2*40cm\",\"weight\":115,\"yarn\":9},{\"color\":\"QY114-粉色\",\"planOrderDetailId\":2,\"price\":0.7,\"quantity\":570,\"size\":\"70*2*40cm\",\"weight\":115,\"yarn\":9},{\"color\":\"QY114-酒红\",\"planOrderDetailId\":3,\"price\":0.7,\"quantity\":930,\"size\":\"70*2*40cm\",\"weight\":115,\"yarn\":9},{\"color\":\"QY114-深驼\",\"planOrderDetailId\":4,\"price\":0.7,\"quantity\":570,\"size\":\"70*2*40cm\",\"weight\":115,\"yarn\":9}]', '[{\"color\":\"QY114-灰色\",\"colorsample\":\"\",\"material\":9,\"quantity\":110},{\"color\":\"QY114-粉色\",\"colorsample\":\"\",\"material\":9,\"quantity\":67},{\"color\":\"QY114-酒红\",\"colorsample\":\"\",\"material\":9,\"quantity\":110},{\"color\":\"QY114-深驼\",\"colorsample\":\"\",\"material\":9,\"quantity\":67}]', '27', '0', '新建', '4', 'resource.fuwei.com/images/sample/1428129724477图片1.png', '9', '马海毛抽条加亮丝围脖', 'FWA30023', '70*2*40cm', '115', '23', 'FWA20017', 'resource.fuwei.com/images/sample/s/1428129724477图片1.png', 'resource.fuwei.com/images/sample/ss/1428129724477图片1.png', '3', '3', '15SC0018', 'FWA30023');
 INSERT INTO `tb_producingorder` VALUES ('19', '20', '2015-04-06 12:39:25', '2015-04-06 12:39:25', '7', '[{\"color\":\"米色\",\"planOrderDetailId\":1,\"price\":0,\"quantity\":60,\"size\":\"20寛*27长\",\"weight\":70,\"yarn\":9},{\"color\":\"黑色\",\"planOrderDetailId\":2,\"price\":0,\"quantity\":110,\"size\":\"20寛*27长\",\"weight\":70,\"yarn\":9}]', '[{\"color\":\"hr32米色\",\"colorsample\":\"\",\"material\":9,\"quantity\":4.5},{\"color\":\"hr32黑色\",\"colorsample\":\"\",\"material\":9,\"quantity\":9.5}]', '2', '0', '新建', '7', 'resource.fuwei.com/images/sample/1428077349767796265BFB290FEE2DC5FC6E38AE4B3B6.png', '9', '马海毛烫钻帽', 'FWA30019', '20W*27H', '69', '19', 'FWA20020', 'resource.fuwei.com/images/sample/s/1428077349767796265BFB290FEE2DC5FC6E38AE4B3B6.png', 'resource.fuwei.com/images/sample/ss/1428077349767796265BFB290FEE2DC5FC6E38AE4B3B6.png', null, '3', '15SC0019', ' hr32');
@@ -8715,7 +10304,7 @@ INSERT INTO `tb_producingorder` VALUES ('21', '24', '2015-04-08 08:55:28', '2015
 INSERT INTO `tb_producingorder` VALUES ('22', '23', '2015-04-08 08:57:55', '2015-04-08 08:57:55', '7', '[{\"color\":\"714#\",\"planOrderDetailId\":1,\"price\":0,\"quantity\":1734,\"size\":\"22寛*26高+2.5罗文\",\"weight\":56,\"yarn\":1},{\"color\":\"718#\",\"planOrderDetailId\":2,\"price\":0,\"quantity\":1734,\"size\":\"22寛*26高+2.5罗文\",\"weight\":56,\"yarn\":1}]', '[{\"color\":\"714#\",\"colorsample\":\"\",\"material\":1,\"quantity\":105},{\"color\":\"718#\",\"colorsample\":\"\",\"material\":1,\"quantity\":105}]', '7', '6', '执行完成', '2', 'resource.fuwei.com/images/sample/14284501869294EF3FDA3E66B3F52981D6221B3A4DDB9.png', '1', '全晴帽子', 'FWA30032', '22*26+2.5cm', '56', '32', 'FWA20023', 'resource.fuwei.com/images/sample/s/14284501869294EF3FDA3E66B3F52981D6221B3A4DDB9.png', 'resource.fuwei.com/images/sample/ss/14284501869294EF3FDA3E66B3F52981D6221B3A4DDB9.png', '4', '3', '15SC0022', '12ACAG');
 INSERT INTO `tb_producingorder` VALUES ('23', '26', '2015-04-08 09:34:17', '2015-04-08 09:34:17', '7', '[{\"color\":\"粉色\",\"planOrderDetailId\":1,\"price\":0,\"quantity\":2082,\"size\":\"23寛*27高\",\"weight\":57,\"yarn\":1},{\"color\":\"718#\",\"planOrderDetailId\":2,\"price\":0,\"quantity\":2082,\"size\":\"23寛*27高\",\"weight\":57,\"yarn\":1},{\"color\":\"712#\",\"planOrderDetailId\":3,\"price\":0,\"quantity\":2082,\"size\":\"23寛*27高\",\"weight\":57,\"yarn\":1}]', '[{\"color\":\"粉色\",\"colorsample\":\"\",\"material\":1,\"quantity\":128},{\"color\":\"粉色\",\"colorsample\":\"\",\"material\":1,\"quantity\":128},{\"color\":\"718#\",\"colorsample\":\"\",\"material\":1,\"quantity\":128},{\"color\":\"712#\",\"colorsample\":\"\",\"material\":1,\"quantity\":128}]', '2', '6', '执行完成', '2', 'resource.fuwei.com/images/sample/14284499016891D02B4EE9A9C98349C5D78BF9C243A52.png', '1', '晴纶纱卷边帽子', 'FWA30030', '23*27', '57', '30', 'FWA20026', 'resource.fuwei.com/images/sample/s/14284499016891D02B4EE9A9C98349C5D78BF9C243A52.png', 'resource.fuwei.com/images/sample/ss/14284499016891D02B4EE9A9C98349C5D78BF9C243A52.png', '4', '3', '15SC0023', '11ACAC');
 INSERT INTO `tb_producingorder` VALUES ('24', '27', '2015-04-08 10:41:11', '2015-04-30 20:55:58', '7', '[{\"color\":\"粉色\",\"planOrderDetailId\":1,\"price\":1,\"produce_weight\":0,\"quantity\":2082,\"size\":\"45寛*90x2长\",\"weight\":135,\"yarn\":1},{\"color\":\"718#\",\"planOrderDetailId\":2,\"price\":1,\"produce_weight\":0,\"quantity\":2082,\"size\":\"45寛*90x2长\",\"weight\":135,\"yarn\":1},{\"color\":\"712#\",\"planOrderDetailId\":3,\"price\":1,\"produce_weight\":0,\"quantity\":2082,\"size\":\"45寛*90x2长\",\"weight\":135,\"yarn\":1}]', '[{\"color\":\"粉色\",\"colorsample\":\"\",\"material\":1,\"quantity\":302},{\"color\":\"718#\",\"colorsample\":\"\",\"material\":1,\"quantity\":302},{\"color\":\"712#\",\"colorsample\":\"\",\"material\":1,\"quantity\":302}]', '30', '6', '执行完成', '2', 'resource.fuwei.com/images/sample/14284497284672DFCC0FB9B3CD67CD5E328A84A7089F3.png', '1', '晴纶纱围脖', 'FWA30029', '45*90*2cm', '135', '29', 'FWA20027', 'resource.fuwei.com/images/sample/s/14284497284672DFCC0FB9B3CD67CD5E328A84A7089F3.png', 'resource.fuwei.com/images/sample/ss/14284497284672DFCC0FB9B3CD67CD5E328A84A7089F3.png', '4', '3', '15SC0024', '11AKAG');
-INSERT INTO `tb_producingorder` VALUES ('25', '28', '2015-04-08 15:14:31', '2015-04-08 15:14:31', '7', '[{\"color\":\"黄色组\",\"planOrderDetailId\":1,\"price\":0,\"quantity\":1379,\"size\":\"9寛*23长\",\"weight\":54,\"yarn\":9},{\"color\":\"白色组\",\"planOrderDetailId\":2,\"price\":0,\"quantity\":2482,\"size\":\"9寛*23长\",\"weight\":54,\"yarn\":9},{\"color\":\"黑色组\",\"planOrderDetailId\":3,\"price\":0,\"quantity\":2505,\"size\":\"9寛*23长\",\"weight\":54,\"yarn\":9},{\"color\":\"紫色组\",\"planOrderDetailId\":4,\"price\":0,\"quantity\":1314,\"size\":\"9寛*23长\",\"weight\":54,\"yarn\":9}]', '[{\"color\":\"EY062黄色\",\"colorsample\":\"\",\"material\":9,\"quantity\":73},{\"color\":\"EY062米白\",\"colorsample\":\"\",\"material\":9,\"quantity\":132},{\"color\":\"EY062黑色\",\"colorsample\":\"\",\"material\":9,\"quantity\":0},{\"color\":\"EY062紫色\",\"colorsample\":\"\",\"material\":9,\"quantity\":0},{\"color\":\"EY062黄色\",\"colorsample\":\"\",\"material\":20,\"quantity\":19},{\"color\":\"EY062米白\",\"colorsample\":\"\",\"material\":20,\"quantity\":33},{\"color\":\"EY062黑色\",\"colorsample\":\"\",\"material\":20,\"quantity\":0},{\"color\":\"EY062紫色\",\"colorsample\":\"\",\"material\":20,\"quantity\":0}]', '35', '0', '新建', '2', 'resource.fuwei.com/images/sample/1428463219417QQ截图20150408111200.jpg', '9', '马海毛带子纱手工头带', 'FWA30033', '9*23cm', '54', '33', 'FWA20028', 'resource.fuwei.com/images/sample/s/1428463219417QQ截图20150408111200.png', 'resource.fuwei.com/images/sample/ss/1428463219417QQ截图20150408111200.png', '2', '3', '15SC0025', 'OB154508');
+INSERT INTO `tb_producingorder` VALUES ('25', '28', '2015-04-08 15:14:31', '2015-08-27 21:07:38', '7', '[{\"color\":\"黄色组\",\"planOrderDetailId\":1,\"price\":3,\"produce_weight\":0,\"quantity\":1379,\"size\":\"9寛*23长\",\"weight\":54,\"yarn\":9},{\"color\":\"白色组\",\"planOrderDetailId\":2,\"price\":3,\"produce_weight\":0,\"quantity\":2482,\"size\":\"9寛*23长\",\"weight\":54,\"yarn\":9},{\"color\":\"黑色组\",\"planOrderDetailId\":3,\"price\":3,\"produce_weight\":0,\"quantity\":2505,\"size\":\"9寛*23长\",\"weight\":54,\"yarn\":9},{\"color\":\"紫色组\",\"planOrderDetailId\":4,\"price\":3,\"produce_weight\":0,\"quantity\":1314,\"size\":\"9寛*23长\",\"weight\":54,\"yarn\":9}]', '[{\"color\":\"EY062黄色\",\"colorsample\":\"\",\"material\":9,\"quantity\":73},{\"color\":\"EY062米白\",\"colorsample\":\"\",\"material\":9,\"quantity\":132},{\"color\":\"EY062黑色\",\"colorsample\":\"\",\"material\":9,\"quantity\":0},{\"color\":\"EY062紫色\",\"colorsample\":\"\",\"material\":9,\"quantity\":0},{\"color\":\"EY062黄色\",\"colorsample\":\"\",\"material\":20,\"quantity\":19},{\"color\":\"EY062米白\",\"colorsample\":\"\",\"material\":20,\"quantity\":33},{\"color\":\"EY062黑色\",\"colorsample\":\"\",\"material\":20,\"quantity\":0},{\"color\":\"EY062紫色\",\"colorsample\":\"\",\"material\":20,\"quantity\":0}]', '35', '0', '新建', '2', 'resource.fuwei.com/images/sample/1428463219417QQ截图20150408111200.jpg', '9', '马海毛带子纱手工头带', 'FWA30033', '9*23cm', '0', '33', 'FWA20028', 'resource.fuwei.com/images/sample/s/1428463219417QQ截图20150408111200.png', 'resource.fuwei.com/images/sample/ss/1428463219417QQ截图20150408111200.png', '2', '3', '15SC0025', 'OB154508');
 INSERT INTO `tb_producingorder` VALUES ('26', '29', '2015-04-08 15:57:23', '2015-04-08 15:57:23', '7', '[{\"color\":\"K974\",\"planOrderDetailId\":1,\"price\":0,\"quantity\":4640,\"size\":\"21高*20寛\",\"weight\":123,\"yarn\":7},{\"color\":\"QY102米色\",\"planOrderDetailId\":2,\"price\":0,\"quantity\":4640,\"size\":\"21高*20寛\",\"weight\":123,\"yarn\":6}]', '[{\"color\":\"K974\",\"colorsample\":\"\",\"material\":7,\"quantity\":523},{\"color\":\"QY102米色\",\"colorsample\":\"\",\"material\":6,\"quantity\":523}]', '2', '0', '新建', '4', 'resource.fuwei.com/images/sample/1428066399895图片1.png', '6', '冰岛毛绞花毛球帽', 'FWA30014', '21*20CM', '123', '14', 'FWA20029', 'resource.fuwei.com/images/sample/s/1428066399895图片1.png', 'resource.fuwei.com/images/sample/ss/1428066399895图片1.png', '3', '3', '15SC0026', '10131588');
 INSERT INTO `tb_producingorder` VALUES ('27', '31', '2015-04-10 17:11:15', '2015-04-13 19:10:13', '7', '[{\"color\":\"黑色\",\"planOrderDetailId\":1,\"price\":0.7,\"produce_weight\":0,\"quantity\":222,\"size\":\"58*58\",\"weight\":275,\"yarn\":20},{\"color\":\"海军蓝\",\"planOrderDetailId\":2,\"price\":0.7,\"produce_weight\":0,\"quantity\":193,\"size\":\"58*58\",\"weight\":275,\"yarn\":20},{\"color\":\"银色\",\"planOrderDetailId\":3,\"price\":0.7,\"produce_weight\":0,\"quantity\":193,\"size\":\"58*58\",\"weight\":275,\"yarn\":20}]', '[{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":20,\"quantity\":68},{\"color\":\"海军蓝\",\"colorsample\":\"\",\"material\":20,\"quantity\":59},{\"color\":\"银色\",\"colorsample\":\"\",\"material\":20,\"quantity\":59}]', '11', '0', '新建', '1', 'resource.fuwei.com/images/sample/1428380635592IMG_1656.JPG', '20', '带子纱空转围脖', 'FWA30025', '29*2*60cm', '260', '25', 'FWA20031', 'resource.fuwei.com/images/sample/s/1428380635592IMG_1656.png', 'resource.fuwei.com/images/sample/ss/1428380635592IMG_1656.png', '3', '2', '15SC0027', '15NY-FW01');
 INSERT INTO `tb_producingorder` VALUES ('28', '32', '2015-04-10 17:43:56', '2015-04-13 19:10:28', '7', '[{\"color\":\"黑色\",\"planOrderDetailId\":1,\"price\":0.7,\"produce_weight\":0,\"quantity\":370,\"size\":\"25高*23宽\",\"weight\":75,\"yarn\":20},{\"color\":\"海军蓝\",\"planOrderDetailId\":2,\"price\":0.7,\"produce_weight\":0,\"quantity\":295,\"size\":\"25高*23宽\",\"weight\":75,\"yarn\":20},{\"color\":\"银色\",\"planOrderDetailId\":3,\"price\":0.7,\"produce_weight\":0,\"quantity\":295,\"size\":\"25高*23宽\",\"weight\":75,\"yarn\":20}]', '[{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":20,\"quantity\":31},{\"color\":\"海军蓝\",\"colorsample\":\"\",\"material\":20,\"quantity\":25},{\"color\":\"银色\",\"colorsample\":\"\",\"material\":20,\"quantity\":25}]', '2', '0', '新建', '1', 'resource.fuwei.com/images/sample/1428380887144IMG_2018.JPG', '20', '带子纱帽子', 'FWA30027', '25.5*23cm', '75', '27', 'FWA20032', 'resource.fuwei.com/images/sample/s/1428380887144IMG_2018.png', 'resource.fuwei.com/images/sample/ss/1428380887144IMG_2018.png', '3', '2', '15SC0028', '15NY-FW03');
@@ -8732,7 +10321,6 @@ INSERT INTO `tb_producingorder` VALUES ('39', '43', '2015-04-17 15:40:55', '2015
 INSERT INTO `tb_producingorder` VALUES ('40', '45', '2015-04-17 16:28:32', '2015-04-17 17:54:50', '7', '[{\"color\":\"15N黑色\",\"planOrderDetailId\":1,\"price\":0.7,\"produce_weight\":70,\"quantity\":547,\"size\":\"28高**21.5宽\",\"weight\":70,\"yarn\":10},{\"color\":\"15NY褐色\",\"planOrderDetailId\":2,\"price\":0.7,\"produce_weight\":70,\"quantity\":443,\"size\":\"28*21.5\",\"weight\":70,\"yarn\":10},{\"color\":\"15NY白色\",\"planOrderDetailId\":3,\"price\":0.7,\"produce_weight\":70,\"quantity\":45,\"size\":\"28*21.5\",\"weight\":70,\"yarn\":10}]', '[{\"color\":\"15NY黑色\",\"colorsample\":\"\",\"material\":10,\"quantity\":33},{\"color\":\"15NY褐色\",\"colorsample\":\"\",\"material\":10,\"quantity\":27},{\"color\":\"15NY白色\",\"colorsample\":\"\",\"material\":10,\"quantity\":5},{\"color\":\"151\",\"colorsample\":\"\",\"material\":19,\"quantity\":5},{\"color\":\"72\",\"colorsample\":\"\",\"material\":19,\"quantity\":5},{\"color\":\"106\",\"colorsample\":\"\",\"material\":19,\"quantity\":4},{\"color\":\"粉色\",\"colorsample\":\"\",\"material\":19,\"quantity\":4},{\"color\":\"2\",\"colorsample\":\"\",\"material\":19,\"quantity\":1},{\"color\":\"7\",\"colorsample\":\"\",\"material\":19,\"quantity\":1}]', '33', '0', '新建', '1', 'resource.fuwei.com/images/sample/1428650207511图片2.jpg', '10', '马海毛亮丝帽子', 'FWA30036', '28*21.6cm', '70', '36', 'FWA20045', 'resource.fuwei.com/images/sample/s/1428650207511图片2.png', 'resource.fuwei.com/images/sample/ss/1428650207511图片2.png', '5', '2', '15SC0040', '15NY-FW08');
 INSERT INTO `tb_producingorder` VALUES ('41', '46', '2015-04-17 17:30:13', '2015-04-17 17:54:13', '7', '[{\"color\":\"15NY黑色\",\"planOrderDetailId\":1,\"price\":2,\"produce_weight\":154,\"quantity\":763,\"size\":\"63..5x2*35.5\",\"weight\":155,\"yarn\":10},{\"color\":\"15NY棕色\",\"planOrderDetailId\":2,\"price\":2,\"produce_weight\":154,\"quantity\":268,\"size\":\"63.5x2*35.5\",\"weight\":155,\"yarn\":10},{\"color\":\"15NY白色\",\"planOrderDetailId\":3,\"price\":2,\"produce_weight\":154,\"quantity\":332,\"size\":\"63.5x2*35.5\",\"weight\":155,\"yarn\":10},{\"color\":\"15NY褐色\",\"planOrderDetailId\":4,\"price\":2,\"produce_weight\":154,\"quantity\":316,\"size\":\"63.5x2*35.5\",\"weight\":155,\"yarn\":10},{\"color\":\"15NY灰色\",\"planOrderDetailId\":5,\"price\":2,\"produce_weight\":154,\"quantity\":4530,\"size\":\"63.5x2*35.5\",\"weight\":155,\"yarn\":10}]', '[{\"color\":\"15NY黑色\",\"colorsample\":\"\",\"material\":10,\"quantity\":80},{\"color\":\"15NY棕色\",\"colorsample\":\"\",\"material\":10,\"quantity\":29},{\"color\":\"15NY白色\",\"colorsample\":\"\",\"material\":10,\"quantity\":36},{\"color\":\"15NY褐色\",\"colorsample\":\"\",\"material\":10,\"quantity\":34},{\"color\":\"15NY灰色\",\"colorsample\":\"\",\"material\":10,\"quantity\":468},{\"color\":\"151\",\"colorsample\":\"\",\"material\":19,\"quantity\":25},{\"color\":\"72\",\"colorsample\":\"\",\"material\":19,\"quantity\":25},{\"color\":\"106\",\"colorsample\":\"\",\"material\":19,\"quantity\":20},{\"color\":\"58\",\"colorsample\":\"\",\"material\":19,\"quantity\":11},{\"color\":\"2\",\"colorsample\":\"\",\"material\":19,\"quantity\":157},{\"color\":\"7\",\"colorsample\":\"\",\"material\":19,\"quantity\":11},{\"color\":\"粉色\",\"colorsample\":\"\",\"material\":19,\"quantity\":157}]', '33', '0', '新建', '1', 'resource.fuwei.com/images/sample/1428381118194图片1.jpg', '10', '马海毛正反针围脖', 'FWA30028', '35.5*127cm', '155', '28', 'FWA20046', 'resource.fuwei.com/images/sample/s/1428381118194图片1.png', 'resource.fuwei.com/images/sample/ss/1428381118194图片1.png', '5', '2', '15SC0041', '15NY-FW06');
 INSERT INTO `tb_producingorder` VALUES ('42', '47', '2015-04-17 17:57:07', '2015-04-17 18:43:23', '7', '[{\"color\":\"QY114黑色\",\"planOrderDetailId\":1,\"price\":0.7,\"produce_weight\":142,\"quantity\":1185,\"size\":\"75x2*30\",\"weight\":142,\"yarn\":9},{\"color\":\"QY114桔色\",\"planOrderDetailId\":2,\"price\":0.7,\"produce_weight\":142,\"quantity\":1068,\"size\":\"75x2*30\",\"weight\":142,\"yarn\":9},{\"color\":\"QY114酒红色\",\"planOrderDetailId\":3,\"price\":0.7,\"produce_weight\":142,\"quantity\":849,\"size\":\"75x2*30\",\"weight\":142,\"yarn\":9},{\"color\":\"QY114绿色\",\"planOrderDetailId\":4,\"price\":0.7,\"produce_weight\":142,\"quantity\":1485,\"size\":\"75x2*30\",\"weight\":142,\"yarn\":9},{\"color\":\"QY114米色\",\"planOrderDetailId\":5,\"price\":0.7,\"produce_weight\":142,\"quantity\":117,\"size\":\"75x2*30\",\"weight\":142,\"yarn\":9}]', '[{\"color\":\"QY114黑色\",\"colorsample\":\"\",\"material\":9,\"quantity\":93},{\"color\":\"QY114桔红色\",\"colorsample\":\"\",\"material\":9,\"quantity\":84},{\"color\":\"QY114酒红色\",\"colorsample\":\"\",\"material\":9,\"quantity\":67},{\"color\":\"QY114绿色\",\"colorsample\":\"\",\"material\":9,\"quantity\":116},{\"color\":\"QY114米白色\",\"colorsample\":\"\",\"material\":9,\"quantity\":10},{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":29,\"quantity\":93},{\"color\":\"桔红色\",\"colorsample\":\"\",\"material\":29,\"quantity\":84},{\"color\":\"绿色\",\"colorsample\":\"\",\"material\":29,\"quantity\":116},{\"color\":\"酒红色\",\"colorsample\":\"\",\"material\":29,\"quantity\":67},{\"color\":\"米白色\",\"colorsample\":\"\",\"material\":29,\"quantity\":10}]', '30', '0', '新建', '4', 'resource.fuwei.com/images/sample/1428071364212图片1.png', '9', '马海毛亮丝抽条围脖', 'FWA30017', '75*2*30cm', '142', '17', 'FWA20047', 'resource.fuwei.com/images/sample/s/1428071364212图片1.png', 'resource.fuwei.com/images/sample/ss/1428071364212图片1.png', '3', '3', '15SC0042', 'QY15-114');
-INSERT INTO `tb_producingorder` VALUES ('43', '48', '2015-04-17 18:18:53', '2015-04-17 18:45:17', '7', '[{\"color\":\"QY15黑色\",\"planOrderDetailId\":1,\"price\":0.7,\"produce_weight\":240,\"quantity\":1044,\"size\":\"40x2*55\",\"weight\":240,\"yarn\":6},{\"color\":\"QY15-本白色\",\"planOrderDetailId\":2,\"price\":0.7,\"produce_weight\":240,\"quantity\":1244,\"size\":\"40x2*55\",\"weight\":240,\"yarn\":6}]', '[{\"color\":\"QY15黑色\",\"colorsample\":\"\",\"material\":6,\"quantity\":217},{\"color\":\"QY15本白色\",\"colorsample\":\"\",\"material\":6,\"quantity\":260},{\"color\":\"QY15白灰\",\"colorsample\":\"\",\"material\":20,\"quantity\":123}]', '27', '0', '新建', '4', 'resource.fuwei.com/images/sample/1429019375839图片4.png', '6', '冰岛毛+带子纱围脖', 'FWA30050', '40*2*55cm', '240', '50', 'FWA20048', 'resource.fuwei.com/images/sample/s/1429019375839图片4.png', 'resource.fuwei.com/images/sample/ss/1429019375839图片4.png', '3', '3', '15SC0043', 'QY15-157');
 INSERT INTO `tb_producingorder` VALUES ('44', '49', '2015-04-17 18:40:52', '2015-04-17 18:42:31', '7', '[{\"color\":\"15DP驼色\",\"planOrderDetailId\":1,\"price\":5,\"produce_weight\":333,\"quantity\":450,\"size\":\"75x2*42\",\"weight\":380,\"yarn\":6}]', '[{\"color\":\"15DP驼色\",\"colorsample\":\"\",\"material\":6,\"quantity\":145}]', '2', '0', '新建', '1', 'resource.fuwei.com/images/sample/1429019463185图片5.jpg', '6', '冰岛毛大绞花穿毛皮围脖', 'FWA30051', '42*150', '333', '51', 'FWA20049', 'resource.fuwei.com/images/sample/s/1429019463185图片5.png', 'resource.fuwei.com/images/sample/ss/1429019463185图片5.png', null, '2', '15SC0044', '15DPFW01');
 INSERT INTO `tb_producingorder` VALUES ('45', '50', '2015-04-18 15:15:48', '2015-04-18 15:15:48', '7', '[{\"color\":\"黑色\",\"planOrderDetailId\":1,\"price\":0,\"produce_weight\":70,\"quantity\":433,\"size\":\"M/L-30x2*8\",\"weight\":70,\"yarn\":30},{\"color\":\"黑色\",\"planOrderDetailId\":2,\"price\":0,\"produce_weight\":57,\"quantity\":433,\"size\":\"SM-28x2*6.5\",\"weight\":57,\"yarn\":30}]', '[{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":30,\"quantity\":886},{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":28,\"quantity\":886}]', '2', '0', '新建', '4', 'resource.fuwei.com/images/sample/1429269335915图片2.png', '30', '毛皮头带', 'FWA30059', '30*8CM', '70', '59', 'FWA20050', 'resource.fuwei.com/images/sample/s/1429269335915图片2.png', 'resource.fuwei.com/images/sample/ss/1429269335915图片2.png', '2', '3', '15SC0045', 'QY15-090');
 INSERT INTO `tb_producingorder` VALUES ('46', '51', '2015-04-18 15:25:37', '2015-04-18 18:32:15', '7', '[{\"color\":\"黑/白\",\"planOrderDetailId\":1,\"price\":5,\"produce_weight\":452,\"quantity\":1200,\"size\":\"130*130+须10\",\"weight\":475,\"yarn\":1}]', '[{\"color\":\"PG-黑色\",\"colorsample\":\"\",\"material\":1,\"quantity\":355},{\"color\":\"PG-白色\",\"colorsample\":\"\",\"material\":1,\"quantity\":270}]', '1', '6', '执行完成', '1', 'resource.fuwei.com/images/sample/1429019180883Sino0732.jpg', '1', '晴纶格子提花披肩', 'FWA30048', '0', '476', '48', 'FWA20051', 'resource.fuwei.com/images/sample/s/1429019180883Sino0732.png', 'resource.fuwei.com/images/sample/ss/1429019180883Sino0732.png', '6', '2', '15SC0046', '99MCJ476');
@@ -8750,7 +10338,7 @@ INSERT INTO `tb_producingorder` VALUES ('57', '62', '2015-04-19 13:31:00', '2015
 INSERT INTO `tb_producingorder` VALUES ('59', '64', '2015-04-19 14:17:27', '2015-04-20 09:24:57', '7', '[{\"color\":\"01X米色\",\"planOrderDetailId\":1,\"price\":0.5,\"produce_weight\":55,\"quantity\":7304,\"size\":\"27高*20寛\",\"weight\":56,\"yarn\":1},{\"color\":\"84X咖啡色\",\"planOrderDetailId\":2,\"price\":0.5,\"produce_weight\":55,\"quantity\":6130,\"size\":\"27高*20寛\",\"weight\":56,\"yarn\":1},{\"color\":\"09X712\",\"planOrderDetailId\":3,\"price\":0.5,\"produce_weight\":55,\"quantity\":7304,\"size\":\"27*20\",\"weight\":56,\"yarn\":1}]', '[{\"color\":\"01X米色\",\"colorsample\":\"\",\"material\":1,\"quantity\":506},{\"color\":\"84X咖啡色\",\"colorsample\":\"\",\"material\":1,\"quantity\":425},{\"color\":\"09X712\",\"colorsample\":\"\",\"material\":1,\"quantity\":506}]', '33', '0', '新建', '3', 'resource.fuwei.com/images/sample/1429277835310CatchAB38(04-03-(04-17-21-35-55).jpg', '1', '基本款帽子', 'FWA30066', '27H*20W', '65', '66', 'FWA20064', 'resource.fuwei.com/images/sample/s/1429277835310CatchAB38(04-03-(04-17-21-35-55).png', 'resource.fuwei.com/images/sample/ss/1429277835310CatchAB38(04-03-(04-17-21-35-55).png', null, '4', '15SC0059', 'LX221');
 INSERT INTO `tb_producingorder` VALUES ('60', '65', '2015-04-19 14:37:11', '2015-05-06 12:20:50', '7', '[{\"color\":\"01X   米色\",\"planOrderDetailId\":1,\"price\":0.5,\"produce_weight\":210,\"quantity\":10560,\"size\":\"33x2*50\",\"weight\":210,\"yarn\":1},{\"color\":\"84X咖啡色\",\"planOrderDetailId\":2,\"price\":0.5,\"produce_weight\":210,\"quantity\":9000,\"size\":\"33x2*50\",\"weight\":210,\"yarn\":1},{\"color\":\"28X土黄\",\"planOrderDetailId\":3,\"price\":0.5,\"produce_weight\":210,\"quantity\":6840,\"size\":\"33x2*50\",\"weight\":210,\"yarn\":1},{\"color\":\"09X712\",\"planOrderDetailId\":4,\"price\":0.5,\"produce_weight\":210,\"quantity\":10560,\"size\":\"33x2*50\",\"weight\":210,\"yarn\":1}]', '[{\"color\":\"09X712\",\"colorsample\":\"\",\"material\":1,\"quantity\":2380}]', '9', '0', '新建', '3', 'resource.fuwei.com/images/sample/1429277776981Catch2C4E(03-27-(04-17-21-34-43).jpg', '1', '基本款卷边围脖', 'FWA30065', '30W*2*45H', '125', '65', 'FWA20065', 'resource.fuwei.com/images/sample/s/1429277776981Catch2C4E(03-27-(04-17-21-34-43).png', 'resource.fuwei.com/images/sample/ss/1429277776981Catch2C4E(03-27-(04-17-21-34-43).png', null, '4', '15SC0060', 'LX194');
 INSERT INTO `tb_producingorder` VALUES ('61', '65', '2015-04-19 14:45:41', '2015-04-20 09:50:08', '7', '[{\"color\":\"01X   米色\",\"planOrderDetailId\":1,\"price\":0,\"produce_weight\":210,\"quantity\":10560,\"size\":\"33x2*50\",\"weight\":210,\"yarn\":1},{\"color\":\"84X咖啡色\",\"planOrderDetailId\":2,\"price\":0,\"produce_weight\":210,\"quantity\":9000,\"size\":\"33x2*50\",\"weight\":210,\"yarn\":1},{\"color\":\"28X土黄\",\"planOrderDetailId\":3,\"price\":0,\"produce_weight\":210,\"quantity\":6840,\"size\":\"33x2*50\",\"weight\":210,\"yarn\":1},{\"color\":\"09X712\",\"planOrderDetailId\":4,\"price\":0,\"produce_weight\":210,\"quantity\":10560,\"size\":\"33x2*50\",\"weight\":210,\"yarn\":1}]', '[{\"color\":\"84X咖啡色\",\"colorsample\":\"\",\"material\":1,\"quantity\":2027}]', '11', '0', '新建', '3', 'resource.fuwei.com/images/sample/1429277776981Catch2C4E(03-27-(04-17-21-34-43).jpg', '1', '基本款卷边围脖', 'FWA30065', '30W*2*45H', '125', '65', 'FWA20065', 'resource.fuwei.com/images/sample/s/1429277776981Catch2C4E(03-27-(04-17-21-34-43).png', 'resource.fuwei.com/images/sample/ss/1429277776981Catch2C4E(03-27-(04-17-21-34-43).png', null, '4', '15SC0061', 'LX194');
-INSERT INTO `tb_producingorder` VALUES ('62', '65', '2015-04-19 14:48:39', '2015-04-20 09:50:51', '7', '[{\"color\":\"01X   米色\",\"planOrderDetailId\":1,\"price\":0,\"produce_weight\":210,\"quantity\":10560,\"size\":\"33x2*50\",\"weight\":210,\"yarn\":1},{\"color\":\"84X咖啡色\",\"planOrderDetailId\":2,\"price\":0,\"produce_weight\":210,\"quantity\":9000,\"size\":\"33x2*50\",\"weight\":210,\"yarn\":1},{\"color\":\"28X土黄\",\"planOrderDetailId\":3,\"price\":0,\"produce_weight\":210,\"quantity\":6840,\"size\":\"33x2*50\",\"weight\":210,\"yarn\":1},{\"color\":\"09X712\",\"planOrderDetailId\":4,\"price\":0,\"produce_weight\":210,\"quantity\":10560,\"size\":\"33x2*50\",\"weight\":210,\"yarn\":1}]', '[{\"color\":\"28X  土黄\",\"colorsample\":\"\",\"material\":1,\"quantity\":1542}]', '27', '0', '新建', '3', 'resource.fuwei.com/images/sample/1429277776981Catch2C4E(03-27-(04-17-21-34-43).jpg', '1', '基本款卷边围脖', 'FWA30065', '30W*2*45H', '125', '65', 'FWA20065', 'resource.fuwei.com/images/sample/s/1429277776981Catch2C4E(03-27-(04-17-21-34-43).png', 'resource.fuwei.com/images/sample/ss/1429277776981Catch2C4E(03-27-(04-17-21-34-43).png', null, '4', '15SC0062', 'LX194');
+INSERT INTO `tb_producingorder` VALUES ('62', '65', '2015-04-19 14:48:39', '2015-08-27 14:32:21', '7', '[{\"color\":\"01X   米色\",\"planOrderDetailId\":1,\"price\":0,\"produce_weight\":210,\"quantity\":0,\"size\":\"33x2*50\",\"weight\":210,\"yarn\":1},{\"color\":\"84X咖啡色\",\"planOrderDetailId\":2,\"price\":0,\"produce_weight\":210,\"quantity\":0,\"size\":\"33x2*50\",\"weight\":210,\"yarn\":1},{\"color\":\"28X土黄\",\"planOrderDetailId\":3,\"price\":0,\"produce_weight\":210,\"quantity\":6840,\"size\":\"33x2*50\",\"weight\":210,\"yarn\":1},{\"color\":\"09X712\",\"planOrderDetailId\":4,\"price\":0,\"produce_weight\":210,\"quantity\":0,\"size\":\"33x2*50\",\"weight\":210,\"yarn\":1}]', '[{\"color\":\"28X  土黄\",\"colorsample\":\"\",\"material\":1,\"quantity\":1542}]', '27', '0', '新建', '3', 'resource.fuwei.com/images/sample/1429277776981Catch2C4E(03-27-(04-17-21-34-43).jpg', '1', '基本款卷边围脖', 'FWA30065', '30W*2*45H', '0', '65', 'FWA20065', 'resource.fuwei.com/images/sample/s/1429277776981Catch2C4E(03-27-(04-17-21-34-43).png', 'resource.fuwei.com/images/sample/ss/1429277776981Catch2C4E(03-27-(04-17-21-34-43).png', null, '4', '15SC0062', 'LX194');
 INSERT INTO `tb_producingorder` VALUES ('63', '65', '2015-04-19 14:49:35', '2015-04-20 09:51:28', '7', '[{\"color\":\"01X   米色\",\"planOrderDetailId\":1,\"price\":0,\"produce_weight\":210,\"quantity\":10560,\"size\":\"33x2*50\",\"weight\":210,\"yarn\":1},{\"color\":\"84X咖啡色\",\"planOrderDetailId\":2,\"price\":0,\"produce_weight\":210,\"quantity\":9000,\"size\":\"33x2*50\",\"weight\":210,\"yarn\":1},{\"color\":\"28X土黄\",\"planOrderDetailId\":3,\"price\":0,\"produce_weight\":210,\"quantity\":6840,\"size\":\"33x2*50\",\"weight\":210,\"yarn\":1},{\"color\":\"09X712\",\"planOrderDetailId\":4,\"price\":0,\"produce_weight\":210,\"quantity\":10560,\"size\":\"33x2*50\",\"weight\":210,\"yarn\":1}]', '[{\"color\":\"01X米色\",\"colorsample\":\"\",\"material\":1,\"quantity\":2380}]', '30', '0', '新建', '3', 'resource.fuwei.com/images/sample/1429277776981Catch2C4E(03-27-(04-17-21-34-43).jpg', '1', '基本款卷边围脖', 'FWA30065', '30W*2*45H', '125', '65', 'FWA20065', 'resource.fuwei.com/images/sample/s/1429277776981Catch2C4E(03-27-(04-17-21-34-43).png', 'resource.fuwei.com/images/sample/ss/1429277776981Catch2C4E(03-27-(04-17-21-34-43).png', null, '4', '15SC0063', 'LX194');
 INSERT INTO `tb_producingorder` VALUES ('64', '66', '2015-04-19 15:07:13', '2015-04-19 17:17:31', '7', '[{\"color\":\"LS-紫色\",\"planOrderDetailId\":1,\"price\":1.2,\"produce_weight\":64,\"quantity\":2200,\"size\":\"23高*22寛+边6\",\"weight\":91,\"yarn\":1},{\"color\":\"LS-黑色\",\"planOrderDetailId\":2,\"price\":1.2,\"produce_weight\":64,\"quantity\":2700,\"size\":\"23高*22寛+边6\",\"weight\":91,\"yarn\":1}]', '[{\"color\":\"LS-紫色\",\"colorsample\":\"\",\"material\":1,\"quantity\":152},{\"color\":\"LS-黑色\",\"colorsample\":\"\",\"material\":1,\"quantity\":186}]', '2', '0', '新建', '1', 'resource.fuwei.com/images/sample/1429271014381图片4.jpg', '1', '晴纶纱绞花线球帽', 'FWA30064', '23高*21宽中', '92', '64', 'FWA20066', 'resource.fuwei.com/images/sample/s/1429271014381图片4.png', 'resource.fuwei.com/images/sample/ss/1429271014381图片4.png', null, '2', '15SC0064', 'HI-TEC');
 INSERT INTO `tb_producingorder` VALUES ('65', '67', '2015-04-19 15:18:18', '2015-04-19 17:17:56', '7', '[{\"color\":\"EY深灰\",\"planOrderDetailId\":1,\"price\":0.8,\"produce_weight\":195,\"quantity\":1431,\"size\":\"34寛*37长\",\"weight\":195,\"yarn\":3}]', '[{\"color\":\"EY深灰\",\"colorsample\":\"\",\"material\":3,\"quantity\":310}]', '9', '0', '新建', '2', 'resource.fuwei.com/images/sample/1429269734358图片4.png', '3', '37毛晴印五角星围脖', 'FWA30063', '34宽*37长', '195', '63', 'FWA20067', 'resource.fuwei.com/images/sample/s/1429269734358图片4.png', 'resource.fuwei.com/images/sample/ss/1429269734358图片4.png', null, '3', '15SC0065', 'EY15-43');
@@ -8777,7 +10365,7 @@ INSERT INTO `tb_producingorder` VALUES ('85', '87', '2015-04-27 08:13:15', '2015
 INSERT INTO `tb_producingorder` VALUES ('86', '88', '2015-04-27 08:30:18', '2015-05-03 11:09:15', '7', '[{\"color\":\"黑色\",\"planOrderDetailId\":1,\"price\":0.7,\"produce_weight\":70,\"quantity\":2654,\"size\":\"28*21.5寛\",\"weight\":70,\"yarn\":10},{\"color\":\"棕色\",\"planOrderDetailId\":2,\"price\":0.7,\"produce_weight\":70,\"quantity\":1318,\"size\":\"28*21.5寛\",\"weight\":70,\"yarn\":10},{\"color\":\"白色\",\"planOrderDetailId\":3,\"price\":0.7,\"produce_weight\":70,\"quantity\":2066,\"size\":\"28*21.5寛\",\"weight\":70,\"yarn\":10},{\"color\":\"灰色\",\"planOrderDetailId\":4,\"price\":0.7,\"produce_weight\":70,\"quantity\":290,\"size\":\"28*21.5寛\",\"weight\":70,\"yarn\":10}]', '[{\"color\":\"15NY黑色\",\"colorsample\":\"\",\"material\":10,\"quantity\":155},{\"color\":\"15NY棕色\",\"colorsample\":\"\",\"material\":10,\"quantity\":77},{\"color\":\"15NY白色\",\"colorsample\":\"\",\"material\":10,\"quantity\":121},{\"color\":\"15NY灰色\",\"colorsample\":\"\",\"material\":9,\"quantity\":18},{\"color\":\"151\",\"colorsample\":\"\",\"material\":19,\"quantity\":12},{\"color\":\"72\",\"colorsample\":\"\",\"material\":19,\"quantity\":12},{\"color\":\"106\",\"colorsample\":\"\",\"material\":19,\"quantity\":6},{\"color\":\"58\",\"colorsample\":\"\",\"material\":19,\"quantity\":6},{\"color\":\"1\",\"colorsample\":\"\",\"material\":19,\"quantity\":12},{\"color\":\"7\",\"colorsample\":\"\",\"material\":19,\"quantity\":10},{\"color\":\"粉色\",\"colorsample\":\"\",\"material\":19,\"quantity\":2}]', '37', '0', '新建', '1', 'resource.fuwei.com/images/sample/1428650207511图片2.jpg', '10', '马海毛亮丝帽子', 'FWA30036', '28*21.6cm', '70', '36', 'FWA20088', 'resource.fuwei.com/images/sample/s/1428650207511图片2.png', 'resource.fuwei.com/images/sample/ss/1428650207511图片2.png', null, '2', '15SC0086', 'M21500');
 INSERT INTO `tb_producingorder` VALUES ('87', '89', '2015-04-27 08:50:47', '2015-05-03 11:07:44', '7', '[{\"color\":\"黑色\",\"planOrderDetailId\":1,\"price\":2,\"produce_weight\":155,\"quantity\":3093,\"size\":\"63.5x2*35.5\",\"weight\":155,\"yarn\":10},{\"color\":\"棕色\",\"planOrderDetailId\":2,\"price\":2,\"produce_weight\":155,\"quantity\":1430,\"size\":\"63.5x2*35.5\",\"weight\":155,\"yarn\":10},{\"color\":\"白色\",\"planOrderDetailId\":3,\"price\":2,\"produce_weight\":155,\"quantity\":1329,\"size\":\"63.5x2*35.5\",\"weight\":155,\"yarn\":10},{\"color\":\"褐色\",\"planOrderDetailId\":4,\"price\":2,\"produce_weight\":155,\"quantity\":350,\"size\":\"63.5x2*35.5\",\"weight\":155,\"yarn\":10},{\"color\":\"灰色\",\"planOrderDetailId\":5,\"price\":2,\"produce_weight\":155,\"quantity\":306,\"size\":\"63.5x2*35.5\",\"weight\":155,\"yarn\":10}]', '[{\"color\":\"15NY黑色\",\"colorsample\":\"\",\"material\":10,\"quantity\":320},{\"color\":\"15NY棕色\",\"colorsample\":\"\",\"material\":10,\"quantity\":149},{\"color\":\"15NY白色\",\"colorsample\":\"\",\"material\":10,\"quantity\":138},{\"color\":\"15NY褐色\",\"colorsample\":\"\",\"material\":10,\"quantity\":37},{\"color\":\"15NY灰色\",\"colorsample\":\"\",\"material\":10,\"quantity\":33},{\"color\":\"151\",\"colorsample\":\"\",\"material\":19,\"quantity\":99.5},{\"color\":\"72\",\"colorsample\":\"\",\"material\":19,\"quantity\":99.5},{\"color\":\"106\",\"colorsample\":\"\",\"material\":19,\"quantity\":58},{\"color\":\"58\",\"colorsample\":\"\",\"material\":19,\"quantity\":46},{\"color\":\"1\",\"colorsample\":\"\",\"material\":19,\"quantity\":53},{\"color\":\"7\",\"colorsample\":\"\",\"material\":19,\"quantity\":43},{\"color\":\"粉色\",\"colorsample\":\"\",\"material\":19,\"quantity\":22}]', '33', '0', '新建', '1', 'resource.fuwei.com/images/sample/1428381118194图片1.jpg', '10', '马海毛正反针围脖', 'FWA30028', '35.5*127cm', '155', '28', 'FWA20089', 'resource.fuwei.com/images/sample/s/1428381118194图片1.png', 'resource.fuwei.com/images/sample/ss/1428381118194图片1.png', null, '2', '15SC0087', 'M49500');
 INSERT INTO `tb_producingorder` VALUES ('88', '90', '2015-04-30 13:40:49', '2015-04-30 20:34:22', '7', '[{\"color\":\"714\",\"planOrderDetailId\":1,\"price\":1,\"produce_weight\":110,\"quantity\":1200,\"size\":\"85x2*56\",\"weight\":120,\"yarn\":10}]', '[{\"color\":\"714\",\"colorsample\":\"\",\"material\":10,\"quantity\":143}]', '41', '0', '新建', '3', 'resource.fuwei.com/images/sample/1430271663000GIRLS ANNI TUBE SCARF.JPG', '10', '马海毛五角星围脖', 'FWA30091', '56*85*2cm', '120', '91', 'FWA20090', 'resource.fuwei.com/images/sample/s/1430271663000GIRLS ANNI TUBE SCARF.png', 'resource.fuwei.com/images/sample/ss/1430271663000GIRLS ANNI TUBE SCARF.png', null, '4', '15SC0088', 'GIRLS');
-INSERT INTO `tb_producingorder` VALUES ('89', '91', '2015-05-02 16:32:38', '2015-05-03 11:06:48', '7', '[{\"color\":\"粉色\",\"planOrderDetailId\":1,\"price\":0.8,\"produce_weight\":80,\"quantity\":500,\"size\":\"23*23\",\"weight\":89,\"yarn\":9},{\"color\":\"黑色\",\"planOrderDetailId\":2,\"price\":0.8,\"produce_weight\":80,\"quantity\":1500,\"size\":\"23*23\",\"weight\":89,\"yarn\":9},{\"color\":\"本白\",\"planOrderDetailId\":3,\"price\":0.8,\"produce_weight\":80,\"quantity\":800,\"size\":\"23*23\",\"weight\":89,\"yarn\":9}]', '[{\"color\":\"粉色\",\"colorsample\":\"\",\"material\":9,\"quantity\":44},{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":9,\"quantity\":130},{\"color\":\"本白\",\"colorsample\":\"\",\"material\":9,\"quantity\":70},{\"color\":\"粉色\",\"colorsample\":\"\",\"material\":29,\"quantity\":10},{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":29,\"quantity\":28},{\"color\":\"白色\",\"colorsample\":\"\",\"material\":29,\"quantity\":15}]', '2', '6', '执行完成', '1', 'resource.fuwei.com/images/sample/1430554256869图片1.jpg', '9', '马海毛珠片纱吊球帽', 'FWA30109', '23*23cm', '80', '109', 'FWA20091', 'resource.fuwei.com/images/sample/s/1430554256869图片1.png', 'resource.fuwei.com/images/sample/ss/1430554256869图片1.png', null, '1', '15SC0089', '72505');
+INSERT INTO `tb_producingorder` VALUES ('89', '91', '2015-05-02 16:32:38', '2015-05-03 11:06:48', '7', '[{\"color\":\"粉色\",\"planOrderDetailId\":1,\"price\":0.8,\"produce_weight\":80,\"quantity\":500,\"size\":\"23*23\",\"weight\":89,\"yarn\":9},{\"color\":\"黑色\",\"planOrderDetailId\":2,\"price\":0.8,\"produce_weight\":80,\"quantity\":1500,\"size\":\"23*23\",\"weight\":89,\"yarn\":9},{\"color\":\"本白\",\"planOrderDetailId\":3,\"price\":0.8,\"produce_weight\":80,\"quantity\":800,\"size\":\"23*23\",\"weight\":89,\"yarn\":9}]', '[{\"color\":\"粉色\",\"colorsample\":\"\",\"material\":9,\"quantity\":44},{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":9,\"quantity\":130},{\"color\":\"本白\",\"colorsample\":\"\",\"material\":9,\"quantity\":70},{\"color\":\"粉色\",\"colorsample\":\"\",\"material\":29,\"quantity\":10},{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":29,\"quantity\":28},{\"color\":\"白色\",\"colorsample\":\"\",\"material\":29,\"quantity\":15}]', '2', '0', '新建', '1', 'resource.fuwei.com/images/sample/1430554256869图片1.jpg', '9', '马海毛珠片纱吊球帽', 'FWA30109', '23*23cm', '80', '109', 'FWA20091', 'resource.fuwei.com/images/sample/s/1430554256869图片1.png', 'resource.fuwei.com/images/sample/ss/1430554256869图片1.png', null, '1', '15SC0089', '72505');
 INSERT INTO `tb_producingorder` VALUES ('90', '92', '2015-05-03 17:25:34', '2015-05-04 23:58:10', '7', '[{\"color\":\"AU16蓝色\",\"planOrderDetailId\":1,\"price\":0.7,\"produce_weight\":52,\"quantity\":1848,\"size\":\"23高*21寛\",\"weight\":64,\"yarn\":10},{\"color\":\"K974\",\"planOrderDetailId\":2,\"price\":0.7,\"produce_weight\":52,\"quantity\":1848,\"size\":\"23高*21寛\",\"weight\":64,\"yarn\":10}]', '[{\"color\":\"AU16蓝色\",\"colorsample\":\"\",\"material\":10,\"quantity\":104},{\"color\":\"K974\",\"colorsample\":\"\",\"material\":10,\"quantity\":104}]', '2', '0', '新建', '1', 'resource.fuwei.com/images/sample/1430270381012IMG_8078.JPG', '10', '马海毛抽条吊球帽', 'FWA30085', '23*21cm', '64', '85', 'FWA20092', 'resource.fuwei.com/images/sample/s/1430270381012IMG_8078.png', 'resource.fuwei.com/images/sample/ss/1430270381012IMG_8078.png', null, '2', '15SC0090', '11ACAG-006-AU16');
 INSERT INTO `tb_producingorder` VALUES ('91', '93', '2015-05-03 17:41:40', '2015-05-06 12:22:03', '7', '[{\"color\":\"多色\",\"planOrderDetailId\":1,\"price\":3.5,\"produce_weight\":340,\"quantity\":3800,\"size\":\"55x2*116+12须\",\"weight\":320,\"yarn\":11}]', '[{\"color\":\"PON皮紫\",\"colorsample\":\"\",\"material\":11,\"quantity\":50},{\"color\":\"PON橡皮红\",\"colorsample\":\"\",\"material\":11,\"quantity\":50},{\"color\":\"PON黑色\",\"colorsample\":\"\",\"material\":11,\"quantity\":50},{\"color\":\"PON暗红\",\"colorsample\":\"\",\"material\":11,\"quantity\":50},{\"color\":\"PON棕色\",\"colorsample\":\"\",\"material\":11,\"quantity\":50},{\"color\":\"PON酒红\",\"colorsample\":\"\",\"material\":11,\"quantity\":50},{\"color\":\"PON驼色\",\"colorsample\":\"\",\"material\":11,\"quantity\":50},{\"color\":\"PON深紫\",\"colorsample\":\"\",\"material\":11,\"quantity\":50}]', '40', '0', '新建', '1', 'resource.fuwei.com/images/sample/1430270687657图片1.jpg', '11', '经编多色肩', 'FWA30087', '对折后宽55cm，长116cm，领口宽30，须12', '340', '87', 'FWA20093', 'resource.fuwei.com/images/sample/s/1430270687657图片1.png', 'resource.fuwei.com/images/sample/ss/1430270687657图片1.png', null, '1', '15SC0091', 'NLSSY/PONCHO');
 INSERT INTO `tb_producingorder` VALUES ('92', '94', '2015-05-03 17:53:39', '2015-05-06 12:08:44', '7', '[{\"color\":\"黑/灰\",\"planOrderDetailId\":1,\"price\":3.5,\"produce_weight\":188,\"quantity\":3502,\"size\":\"184*30\",\"weight\":188,\"yarn\":1}]', '[{\"color\":\"H36黑色\",\"colorsample\":\"\",\"material\":1,\"quantity\":355},{\"color\":\"K974\",\"colorsample\":\"\",\"material\":1,\"quantity\":355}]', '2', '6', '执行完成', '8', 'resource.fuwei.com/images/sample/1430270804252图片1.jpg', '1', '男款提花围巾', 'FWA30088', '184*30cm', '188', '88', 'FWA20094', 'resource.fuwei.com/images/sample/s/1430270804252图片1.png', 'resource.fuwei.com/images/sample/ss/1430270804252图片1.png', null, '1', '15SC0092', 'H3661');
@@ -8918,7 +10506,7 @@ INSERT INTO `tb_producingorder` VALUES ('230', '222', '2015-07-05 14:52:42', '20
 INSERT INTO `tb_producingorder` VALUES ('231', '223', '2015-07-05 15:13:19', '2015-07-05 21:59:29', '7', '[{\"color\":\"姜黄\",\"planOrderDetailId\":1,\"price\":3,\"produce_weight\":377,\"quantity\":800,\"size\":\"23*180+26*2\",\"weight\":417,\"yarn\":6},{\"color\":\"深绿/浅绿\",\"planOrderDetailId\":2,\"price\":3,\"produce_weight\":377,\"quantity\":1800,\"size\":\"23*180+26*2\",\"weight\":417,\"yarn\":6},{\"color\":\"酒红/黑色\",\"planOrderDetailId\":3,\"price\":3,\"produce_weight\":377,\"quantity\":1800,\"size\":\"23*180+26*2\",\"weight\":417,\"yarn\":6}]', '[{\"color\":\"19R姜黄\",\"colorsample\":\"\",\"material\":6,\"quantity\":331},{\"color\":\"19R浅绿\",\"colorsample\":\"\",\"material\":6,\"quantity\":246},{\"color\":\"19R深绿\",\"colorsample\":\"\",\"material\":6,\"quantity\":491},{\"color\":\"19R黑色\",\"colorsample\":\"\",\"material\":6,\"quantity\":246},{\"color\":\"19R酒红\",\"colorsample\":\"\",\"material\":6,\"quantity\":491}]', '2', '0', '新建', '1', 'resource.fuwei.com/images/sample/1431264693171QQ截图20150510212912.jpg', '6', '冰岛毛绞花长须围巾', 'FWA30129', '180*23+2*26cm', '0', '129', 'FWA20223', 'resource.fuwei.com/images/sample/s/1431264693171QQ截图20150510212912.png', 'resource.fuwei.com/images/sample/ss/1431264693171QQ截图20150510212912.png', null, '2', '15SC0231', 'G-19-147519');
 INSERT INTO `tb_producingorder` VALUES ('232', '215', '2015-07-06 16:35:44', '2015-07-06 16:35:44', '7', '[{\"color\":\"藏青\",\"planOrderDetailId\":1,\"price\":0,\"produce_weight\":122,\"quantity\":0,\"size\":\"30X2*61高\",\"weight\":124,\"yarn\":1},{\"color\":\"深灰夹花/浅灰夹花\",\"planOrderDetailId\":2,\"price\":0,\"produce_weight\":122,\"quantity\":7260,\"size\":\"30X2*61高\",\"weight\":124,\"yarn\":41},{\"color\":\"黑色\",\"planOrderDetailId\":3,\"price\":0,\"produce_weight\":122,\"quantity\":0,\"size\":\"30X2*61高\",\"weight\":124,\"yarn\":1},{\"color\":\"紫红/黑色\",\"planOrderDetailId\":4,\"price\":0,\"produce_weight\":122,\"quantity\":0,\"size\":\"30X2*61高\",\"weight\":124,\"yarn\":41},{\"color\":\"藏青/宝兰\",\"planOrderDetailId\":5,\"price\":0,\"produce_weight\":122,\"quantity\":0,\"size\":\"30X2*61高\",\"weight\":124,\"yarn\":41}]', '[{\"color\":\"深灰夹花/浅灰夹花\",\"colorsample\":\"\",\"material\":41,\"quantity\":1000}]', '61', '0', '新建', '3', 'resource.fuwei.com/images/sample/1433426854385QQ截图20150604220513.jpg', '41', '男款针织围脖', 'FWA30179', '30W*2*61h', '124', '179', 'FWA20215', 'resource.fuwei.com/images/sample/s/1433426854385QQ截图20150604220513.png', 'resource.fuwei.com/images/sample/ss/1433426854385QQ截图20150604220513.png', null, '4', '15SC0232', 'MB504');
 INSERT INTO `tb_producingorder` VALUES ('233', '224', '2015-07-08 22:12:43', '2015-07-17 11:43:53', '7', '[{\"color\":\"米色\",\"planOrderDetailId\":1,\"price\":2.2,\"produce_weight\":240,\"quantity\":600,\"size\":\"62*35\",\"weight\":275,\"yarn\":38},{\"color\":\"灰色/米色\",\"planOrderDetailId\":2,\"price\":2.2,\"produce_weight\":282,\"quantity\":0,\"size\":\"62*35\",\"weight\":275,\"yarn\":38}]', '[{\"color\":\"米色\",\"colorsample\":\"\",\"material\":38,\"quantity\":160}]', '2', '0', '新建', '1', 'resource.fuwei.com/images/sample/1433426550551图片1.jpg', '38', '女式晴纶围脖', 'FWA30177', '70*35cm', '0', '177', 'FWA20224', 'resource.fuwei.com/images/sample/s/1433426550551图片1.png', 'resource.fuwei.com/images/sample/ss/1433426550551图片1.png', null, '1', '15SC0233', 'FW1118-010');
-INSERT INTO `tb_producingorder` VALUES ('234', '225', '2015-07-11 13:11:43', '2015-07-11 13:11:43', '7', '[{\"color\":\"粉色\",\"planOrderDetailId\":1,\"price\":0,\"produce_weight\":64,\"quantity\":1000,\"size\":\"23*23\",\"weight\":89,\"yarn\":9}]', '[{\"color\":\"粉色\",\"colorsample\":\"\",\"material\":9,\"quantity\":70},{\"color\":\"粉色\",\"colorsample\":\"\",\"material\":29,\"quantity\":15}]', '2', '6', '执行完成', '1', 'resource.fuwei.com/images/sample/1430554256869图片1.jpg', '9', '马海毛珠片纱吊球帽', 'FWA30109', '23*23cm', '80', '109', 'FWA20225', 'resource.fuwei.com/images/sample/s/1430554256869图片1.png', 'resource.fuwei.com/images/sample/ss/1430554256869图片1.png', null, '1', '15SC0234', '72505');
+INSERT INTO `tb_producingorder` VALUES ('234', '225', '2015-07-11 13:11:43', '2015-07-11 13:11:43', '7', '[{\"color\":\"粉色\",\"planOrderDetailId\":1,\"price\":0,\"produce_weight\":64,\"quantity\":1000,\"size\":\"23*23\",\"weight\":89,\"yarn\":9}]', '[{\"color\":\"粉色\",\"colorsample\":\"\",\"material\":9,\"quantity\":70},{\"color\":\"粉色\",\"colorsample\":\"\",\"material\":29,\"quantity\":15}]', '2', '0', '新建', '1', 'resource.fuwei.com/images/sample/1430554256869图片1.jpg', '9', '马海毛珠片纱吊球帽', 'FWA30109', '23*23cm', '80', '109', 'FWA20225', 'resource.fuwei.com/images/sample/s/1430554256869图片1.png', 'resource.fuwei.com/images/sample/ss/1430554256869图片1.png', null, '1', '15SC0234', '72505');
 INSERT INTO `tb_producingorder` VALUES ('235', '226', '2015-07-12 16:37:28', '2015-07-17 11:44:41', '7', '[{\"color\":\"浅灰夹·花·组·\",\"planOrderDetailId\":1,\"price\":40,\"produce_weight\":42,\"quantity\":500,\"size\":\"25*11\",\"weight\":76,\"yarn\":1},{\"color\":\"深灰夹·花·组·\",\"planOrderDetailId\":2,\"price\":40,\"produce_weight\":42,\"quantity\":500,\"size\":\"25*11\",\"weight\":76,\"yarn\":1}]', '[{\"color\":\"712\",\"colorsample\":\"\",\"material\":1,\"quantity\":35},{\"color\":\"8183藏青\",\"colorsample\":\"\",\"material\":1,\"quantity\":10},{\"color\":\"K974\",\"colorsample\":\"\",\"material\":1,\"quantity\":35},{\"color\":\"8183暗红\",\"colorsample\":\"\",\"material\":1,\"quantity\":10}]', '62', '0', '新建', '3', 'resource.fuwei.com/images/sample/1433425940961Catch(05-25-15-2(06-04-21-50-12).jpg', '1', '提花五指手套', 'FWA30170', '25*11cm', '0', '170', 'FWA20226', 'resource.fuwei.com/images/sample/s/1433425940961Catch(05-25-15-2(06-04-21-50-12).png', 'resource.fuwei.com/images/sample/ss/1433425940961Catch(05-25-15-2(06-04-21-50-12).png', null, '4', '15SC0235', 'H14837');
 INSERT INTO `tb_producingorder` VALUES ('236', '227', '2015-07-12 17:05:54', '2015-07-12 17:05:54', '7', '[{\"color\":\"灰色组\",\"planOrderDetailId\":1,\"price\":0,\"produce_weight\":119,\"quantity\":231,\"size\":\"3-4\",\"weight\":0,\"yarn\":11},{\"color\":\"灰色组\",\"planOrderDetailId\":2,\"price\":0,\"produce_weight\":124,\"quantity\":400,\"size\":\"5-6\",\"weight\":0,\"yarn\":11},{\"color\":\"灰色组\",\"planOrderDetailId\":3,\"price\":0,\"produce_weight\":138,\"quantity\":841,\"size\":\"7-10\",\"weight\":0,\"yarn\":11},{\"color\":\"灰色组\",\"planOrderDetailId\":4,\"price\":0,\"produce_weight\":148,\"quantity\":442,\"size\":\"11-13\",\"weight\":0,\"yarn\":11},{\"color\":\"灰色组\",\"planOrderDetailId\":5,\"price\":0,\"produce_weight\":160,\"quantity\":186,\"size\":\"14-16\",\"weight\":0,\"yarn\":11}]', '[{\"color\":\"NEXT棕色\",\"colorsample\":\"\",\"material\":11,\"quantity\":110},{\"color\":\"712A\",\"colorsample\":\"\",\"material\":8,\"quantity\":220}]', '30', '0', '新建', '1', 'resource.fuwei.com/images/sample/1429269560246图片3.png', '11', 'AB线混色四角帽', 'FWA30061', '童款5个尺码', '100', '61', 'FWA20227', 'resource.fuwei.com/images/sample/s/1429269560246图片3.png', 'resource.fuwei.com/images/sample/ss/1429269560246图片3.png', null, '2', '15SC0236', 'UC8438807');
 INSERT INTO `tb_producingorder` VALUES ('237', '228', '2015-07-15 20:21:23', '2015-07-17 11:43:32', '7', '[{\"color\":\"黑色\",\"planOrderDetailId\":1,\"price\":0.3,\"produce_weight\":80,\"quantity\":300,\"size\":\"W21.5*H20\",\"weight\":94,\"yarn\":1}]', '[{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":1,\"quantity\":30}]', '30', '0', '新建', '3', 'resource.fuwei.com/images/sample/14369512173988DA6BBBEDEEDED3B5E213ECB3A65C781.png', '1', '女款缝钻翻边帽', 'FWA30208', '21.5宽*20高', '0', '208', 'FWA20228', 'resource.fuwei.com/images/sample/s/14369512173988DA6BBBEDEEDED3B5E213ECB3A65C781.png', 'resource.fuwei.com/images/sample/ss/14369512173988DA6BBBEDEEDED3B5E213ECB3A65C781.png', null, '3', '15SC0237', 'G7385-B');
@@ -8935,9 +10523,9 @@ INSERT INTO `tb_producingorder` VALUES ('247', '236', '2015-07-28 23:17:35', '20
 INSERT INTO `tb_producingorder` VALUES ('248', '237', '2015-07-28 23:25:06', '2015-07-29 13:32:00', '7', '[{\"color\":\"黑色\",\"planOrderDetailId\":1,\"price\":0.7,\"produce_weight\":55,\"quantity\":1728,\"size\":\"M\",\"weight\":45,\"yarn\":33},{\"color\":\"黑色\",\"planOrderDetailId\":2,\"price\":0.7,\"produce_weight\":59,\"quantity\":864,\"size\":\"L\",\"weight\":49,\"yarn\":33}]', '[{\"color\":\"白胚\",\"colorsample\":\"\",\"material\":33,\"quantity\":165},{\"color\":\"0\",\"colorsample\":\"\",\"material\":19,\"quantity\":10}]', '2', '0', '新建', '3', 'resource.fuwei.com/images/sample/1435988878167MH530 (2).jpg', '33', '童款仿羊绒吊染帽', 'FWA30202', '0', '0', '202', 'FWA20237', 'resource.fuwei.com/images/sample/s/1435988878167MH530 (2).png', 'resource.fuwei.com/images/sample/ss/1435988878167MH530 (2).png', null, '4', '15SC0248', 'MH530');
 INSERT INTO `tb_producingorder` VALUES ('249', '238', '2015-07-29 16:14:57', '2015-07-29 20:54:02', '7', '[{\"color\":\"深灰\",\"planOrderDetailId\":1,\"price\":0.7,\"produce_weight\":89,\"quantity\":5520,\"size\":\"21W*23H+7\",\"weight\":76,\"yarn\":49}]', '[{\"color\":\"深灰\",\"colorsample\":\"\",\"material\":49,\"quantity\":540}]', '2', '0', '新建', '3', 'resource.fuwei.com/images/sample/1433426651491图片2.png', '43', '男款针织帽', 'FWA30178', '21W*23H', '0', '178', 'FWA20238', 'resource.fuwei.com/images/sample/s/1433426651491图片2.png', 'resource.fuwei.com/images/sample/ss/1433426651491图片2.png', null, '4', '15SC0249', 'MB544');
 INSERT INTO `tb_producingorder` VALUES ('250', '239', '2015-07-29 16:42:20', '2015-07-29 20:53:34', '7', '[{\"color\":\"黑+白\",\"planOrderDetailId\":1,\"price\":3.5,\"produce_weight\":214,\"quantity\":600,\"size\":\"0\",\"weight\":215,\"yarn\":9}]', '[{\"color\":\"黑色\",\"colorsample\":\"用库存纱\",\"material\":9,\"quantity\":45},{\"color\":\"S9米色\",\"colorsample\":\"\",\"material\":9,\"quantity\":105}]', '7', '0', '新建', '1', 'resource.fuwei.com/images/sample/1437104517997WW15.jpg', '9', '马海毛针织围脖', 'FWA30213', '62*2*41', '0', '213', 'FWA20239', 'resource.fuwei.com/images/sample/s/1437104517997WW15.png', 'resource.fuwei.com/images/sample/ss/1437104517997WW15.png', null, '3', '15SC0250', 'S900E0');
-INSERT INTO `tb_producingorder` VALUES ('251', '240', '2015-07-29 16:54:15', '2015-07-29 20:54:26', '7', '[{\"color\":\"黑色\",\"planOrderDetailId\":1,\"price\":1,\"produce_weight\":375,\"quantity\":1284,\"size\":\"151*39+18\",\"weight\":375,\"yarn\":9}]', '[{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":9,\"quantity\":175},{\"color\":\"714\",\"colorsample\":\"\",\"material\":9,\"quantity\":175},{\"color\":\"R20本白色\",\"colorsample\":\"\",\"material\":9,\"quantity\":175}]', '54', '0', '新建', '3', 'resource.fuwei.com/images/sample/1437104424198R20-71325H (1).jpg', '9', '女款针织挂须围巾', 'FWA30212', '250*39+18须', '0', '212', 'FWA20240', 'resource.fuwei.com/images/sample/s/1437104424198R20-71325H (1).png', 'resource.fuwei.com/images/sample/ss/1437104424198R20-71325H (1).png', null, '3', '15SC0251', 'R20-7125H');
+INSERT INTO `tb_producingorder` VALUES ('251', '240', '2015-07-29 16:54:15', '2015-08-26 22:37:31', '7', '[{\"color\":\"黑色\",\"planOrderDetailId\":1,\"price\":1.5,\"produce_weight\":375,\"quantity\":1284,\"size\":\"151*39+18\",\"weight\":375,\"yarn\":9}]', '[{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":9,\"quantity\":175},{\"color\":\"714\",\"colorsample\":\"\",\"material\":9,\"quantity\":175},{\"color\":\"R20本白色\",\"colorsample\":\"\",\"material\":9,\"quantity\":175}]', '54', '0', '新建', '3', 'resource.fuwei.com/images/sample/1437104424198R20-71325H (1).jpg', '9', '女款针织挂须围巾', 'FWA30212', '250*39+18须', '0', '212', 'FWA20240', 'resource.fuwei.com/images/sample/s/1437104424198R20-71325H (1).png', 'resource.fuwei.com/images/sample/ss/1437104424198R20-71325H (1).png', null, '3', '15SC0251', 'R20-7125H');
 INSERT INTO `tb_producingorder` VALUES ('252', '241', '2015-07-29 19:38:36', '2015-07-31 17:02:10', '7', '[{\"color\":\"卡其\",\"planOrderDetailId\":1,\"price\":0.8,\"produce_weight\":84,\"quantity\":900,\"size\":\"21*20+球10\",\"weight\":102,\"yarn\":47},{\"color\":\"绿色\",\"planOrderDetailId\":2,\"price\":0.8,\"produce_weight\":84,\"quantity\":900,\"size\":\"21*20+球10\",\"weight\":102,\"yarn\":47},{\"color\":\"米色\",\"planOrderDetailId\":3,\"price\":0.8,\"produce_weight\":84,\"quantity\":1002,\"size\":\"21*20+球10\",\"weight\":102,\"yarn\":47}]', '[{\"color\":\"SN15-米色\",\"colorsample\":\"\",\"material\":47,\"quantity\":94},{\"color\":\"SN15-卡其\",\"colorsample\":\"\",\"material\":47,\"quantity\":85},{\"color\":\"SN15-绿色\",\"colorsample\":\"\",\"material\":47,\"quantity\":85}]', '2', '0', '新建', '1', 'resource.fuwei.com/images/sample/1437124110576图片2.png', '9', '马海毛比尼帽', 'FWA30216', '21*20cm', '0', '216', 'FWA20241', 'resource.fuwei.com/images/sample/s/1437124110576图片2.png', 'resource.fuwei.com/images/sample/ss/1437124110576图片2.png', null, '1', '15SC0252', '23729');
-INSERT INTO `tb_producingorder` VALUES ('253', '242', '2015-07-29 19:49:01', '2015-07-31 17:02:33', '7', '[{\"color\":\"米色\",\"planOrderDetailId\":1,\"price\":1,\"produce_weight\":470,\"quantity\":1002,\"size\":\"30*220+22x2\",\"weight\":510,\"yarn\":47},{\"color\":\"卡其\",\"planOrderDetailId\":2,\"price\":1,\"produce_weight\":470,\"quantity\":900,\"size\":\"30*220+22x2\",\"weight\":510,\"yarn\":47},{\"color\":\"绿色\",\"planOrderDetailId\":3,\"price\":1,\"produce_weight\":470,\"quantity\":900,\"size\":\"30*220+22x2\",\"weight\":510,\"yarn\":47}]', '[{\"color\":\"SN15-米色\",\"colorsample\":\"\",\"material\":47,\"quantity\":518},{\"color\":\"SN15-卡其\",\"colorsample\":\"\",\"material\":47,\"quantity\":468},{\"color\":\"SN15-绿色\",\"colorsample\":\"\",\"material\":47,\"quantity\":468}]', '9', '0', '新建', '1', 'resource.fuwei.com/images/sample/1437123977198图片1.png', '26', '大肚纱围巾', 'FWA30215', '30*220+22*2', '0', '215', 'FWA20242', 'resource.fuwei.com/images/sample/s/1437123977198图片1.png', 'resource.fuwei.com/images/sample/ss/1437123977198图片1.png', null, '1', '15SC0253', '23729');
+INSERT INTO `tb_producingorder` VALUES ('253', '242', '2015-07-29 19:49:01', '2015-09-29 08:41:08', '7', '[{\"color\":\"米色\",\"planOrderDetailId\":1,\"price\":1,\"produce_weight\":470,\"quantity\":1000,\"size\":\"30*220+22x2\",\"weight\":510,\"yarn\":47},{\"color\":\"卡其\",\"planOrderDetailId\":2,\"price\":1,\"produce_weight\":470,\"quantity\":900,\"size\":\"30*220+22x2\",\"weight\":510,\"yarn\":47},{\"color\":\"绿色\",\"planOrderDetailId\":3,\"price\":1,\"produce_weight\":470,\"quantity\":442,\"size\":\"30*220+22x2\",\"weight\":510,\"yarn\":47}]', '[{\"color\":\"SN15-绿色\",\"colorsample\":\"\",\"material\":47,\"quantity\":222},{\"color\":\"米色\",\"colorsample\":\"\",\"material\":47,\"quantity\":520},{\"color\":\"卡其\",\"colorsample\":\"\",\"material\":47,\"quantity\":460}]', '9', '0', '新建', '1', 'resource.fuwei.com/images/sample/1437123977198图片1.png', '26', '大肚纱围巾', 'FWA30215', '30*220+22*2', '0', '215', 'FWA20242', 'resource.fuwei.com/images/sample/s/1437123977198图片1.png', 'resource.fuwei.com/images/sample/ss/1437123977198图片1.png', null, '1', '15SC0253', '23729');
 INSERT INTO `tb_producingorder` VALUES ('254', '243', '2015-07-30 17:33:04', '2015-07-31 17:02:56', '7', '[{\"color\":\"浅灰/深灰\",\"planOrderDetailId\":1,\"price\":2,\"produce_weight\":250,\"quantity\":1000,\"size\":\"76*26\",\"weight\":250,\"yarn\":3},{\"color\":\"浅蓝/深蓝\",\"planOrderDetailId\":2,\"price\":2,\"produce_weight\":250,\"quantity\":700,\"size\":\"76*26\",\"weight\":250,\"yarn\":3},{\"color\":\"白色/黑色\",\"planOrderDetailId\":3,\"price\":2,\"produce_weight\":250,\"quantity\":1000,\"size\":\"76*26\",\"weight\":250,\"yarn\":3}]', '[{\"color\":\"KH浅蓝\",\"colorsample\":\"\",\"material\":3,\"quantity\":178},{\"color\":\"KH白色\",\"colorsample\":\"\",\"material\":3,\"quantity\":254},{\"color\":\"712\",\"colorsample\":\"\",\"material\":34,\"quantity\":254},{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":1,\"quantity\":23},{\"color\":\"K974\",\"colorsample\":\"\",\"material\":1,\"quantity\":23},{\"color\":\"KH深蓝\",\"colorsample\":\"\",\"material\":1,\"quantity\":16}]', '2', '0', '新建', '1', 'resource.fuwei.com/images/sample/1438175578922图片2.jpg', '3', '女款全晴扭围脖', 'FWA30219', '76*26', '0', '219', 'FWA20243', 'resource.fuwei.com/images/sample/s/1438175578922图片2.png', 'resource.fuwei.com/images/sample/ss/1438175578922图片2.png', null, '1', '15SC0254', 'KH022243');
 INSERT INTO `tb_producingorder` VALUES ('255', '244', '2015-07-30 21:06:39', '2015-07-31 17:03:51', '7', '[{\"color\":\"藏青组\",\"planOrderDetailId\":1,\"price\":2,\"produce_weight\":120,\"quantity\":1419,\"size\":\"13寛x14高x24长\",\"weight\":181,\"yarn\":4},{\"color\":\"米白组\",\"planOrderDetailId\":2,\"price\":2,\"produce_weight\":120,\"quantity\":5365,\"size\":\"13寛x14高x24长\",\"weight\":181,\"yarn\":4}]', '[{\"color\":\"15米色\",\"colorsample\":\"\",\"material\":4,\"quantity\":500},{\"color\":\"15藏青\",\"colorsample\":\"\",\"material\":4,\"quantity\":133},{\"color\":\"红色段染\",\"colorsample\":\"\",\"material\":9,\"quantity\":250}]', '42', '0', '新建', '6', 'resource.fuwei.com/images/sample/1438250792494302AC4F8E590CD16F593794F2AD41B66.png', '4', '冰岛毛段染马海毛袜子', 'FWA30220', '袜口13*腿宽13*袜口至脚跟14', '0', '220', 'FWA20244', 'resource.fuwei.com/images/sample/s/1438250792494302AC4F8E590CD16F593794F2AD41B66.png', 'resource.fuwei.com/images/sample/ss/1438250792494302AC4F8E590CD16F593794F2AD41B66.png', null, '1', '15SC0255', 'W1500289');
 INSERT INTO `tb_producingorder` VALUES ('256', '245', '2015-07-30 22:13:15', '2015-08-01 16:27:02', '7', '[{\"color\":\"灰色组\",\"planOrderDetailId\":1,\"price\":0.3,\"produce_weight\":119,\"quantity\":401,\"size\":\"3-4\",\"weight\":0,\"yarn\":11},{\"color\":\"灰色组\",\"planOrderDetailId\":2,\"price\":0.3,\"produce_weight\":124,\"quantity\":595,\"size\":\"5-6\",\"weight\":0,\"yarn\":11},{\"color\":\"灰色组\",\"planOrderDetailId\":3,\"price\":0.3,\"produce_weight\":138,\"quantity\":1183,\"size\":\"7-10\",\"weight\":0,\"yarn\":11},{\"color\":\"灰色组\",\"planOrderDetailId\":4,\"price\":0.3,\"produce_weight\":148,\"quantity\":544,\"size\":\"11-13\",\"weight\":0,\"yarn\":11},{\"color\":\"灰色组\",\"planOrderDetailId\":5,\"price\":0.3,\"produce_weight\":160,\"quantity\":111,\"size\":\"14-16\",\"weight\":0,\"yarn\":11},{\"color\":\"蓝色组\",\"planOrderDetailId\":6,\"price\":0.3,\"produce_weight\":119,\"quantity\":314,\"size\":\"3-4\",\"weight\":0,\"yarn\":11},{\"color\":\"蓝色组\",\"planOrderDetailId\":7,\"price\":0.3,\"produce_weight\":124,\"quantity\":468,\"size\":\"5-6\",\"weight\":0,\"yarn\":11},{\"color\":\"蓝色组\",\"planOrderDetailId\":8,\"price\":0.3,\"produce_weight\":138,\"quantity\":945,\"size\":\"7-10\",\"weight\":0,\"yarn\":11},{\"color\":\"蓝色组\",\"planOrderDetailId\":9,\"price\":0.3,\"produce_weight\":148,\"quantity\":373,\"size\":\"11-13\",\"weight\":0,\"yarn\":11}]', '[{\"color\":\"NEXT棕色\",\"colorsample\":\"\",\"material\":11,\"quantity\":140},{\"color\":\"NEXT蓝色\",\"colorsample\":\"\",\"material\":11,\"quantity\":210},{\"color\":\"NEXT黑色\",\"colorsample\":\"\",\"material\":11,\"quantity\":105},{\"color\":\"712A\",\"colorsample\":\"\",\"material\":12,\"quantity\":280}]', '30', '0', '新建', '1', 'resource.fuwei.com/images/sample/1429269560246图片3.png', '11', 'AB线混色四角帽', 'FWA30061', '童款5个尺码', '0', '61', 'FWA20245', 'resource.fuwei.com/images/sample/s/1429269560246图片3.png', 'resource.fuwei.com/images/sample/ss/1429269560246图片3.png', null, '2', '15SC0256', '15NEXT-FW07');
@@ -8948,12 +10536,44 @@ INSERT INTO `tb_producingorder` VALUES ('262', '251', '2015-08-06 15:16:45', '20
 INSERT INTO `tb_producingorder` VALUES ('263', '252', '2015-08-06 15:47:53', '2015-08-08 17:05:36', '7', '[{\"color\":\"黑色\",\"planOrderDetailId\":1,\"price\":1.3,\"produce_weight\":0,\"quantity\":300,\"size\":\"0\",\"weight\":0,\"yarn\":13}]', '[{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":13,\"quantity\":15},{\"color\":\"银丝\",\"colorsample\":\"\",\"material\":19,\"quantity\":5}]', '6', '0', '新建', '1', 'resource.fuwei.com/images/sample/1438175448766图片1.jpg', '13', '针织三角提花翻边帽', 'FWA30217', '22*22', '0', '217', 'FWA20252', 'resource.fuwei.com/images/sample/s/1438175448766图片1.png', 'resource.fuwei.com/images/sample/ss/1438175448766图片1.png', null, '3', '15SC0263', '745638');
 INSERT INTO `tb_producingorder` VALUES ('264', '253', '2015-08-08 17:39:11', '2015-08-11 15:28:24', '7', '[{\"color\":\"米色\",\"planOrderDetailId\":1,\"price\":0.7,\"produce_weight\":211,\"quantity\":2839,\"size\":\"64*27+10须\",\"weight\":245,\"yarn\":2},{\"color\":\"藏青\",\"planOrderDetailId\":2,\"price\":0.7,\"produce_weight\":211,\"quantity\":489,\"size\":\"64*27+10须\",\"weight\":245,\"yarn\":2}]', '[{\"color\":\"米色\",\"colorsample\":\"\",\"material\":2,\"quantity\":492},{\"color\":\"藏青\",\"colorsample\":\"\",\"material\":2,\"quantity\":87},{\"color\":\"红色段染\",\"colorsample\":\"\",\"material\":9,\"quantity\":185}]', '30', '0', '新建', '6', 'resource.fuwei.com/images/sample/1438852079096QQ截图20150806170349.jpg', '2', '冰岛毛+段染马海毛围脖', 'FWA30226', '64*27', '0', '226', 'FWA20253', 'resource.fuwei.com/images/sample/s/1438852079096QQ截图20150806170349.png', 'resource.fuwei.com/images/sample/ss/1438852079096QQ截图20150806170349.png', null, '1', '15SC0264', 'W1500288-00');
 INSERT INTO `tb_producingorder` VALUES ('265', '254', '2015-08-08 17:52:18', '2015-08-11 15:28:09', '7', '[{\"color\":\"米色\",\"planOrderDetailId\":1,\"price\":0.35,\"produce_weight\":107,\"quantity\":2956,\"size\":\"27*30+28辩子+10球\",\"weight\":175,\"yarn\":2},{\"color\":\"藏青\",\"planOrderDetailId\":2,\"price\":0.35,\"produce_weight\":107,\"quantity\":547,\"size\":\"27*30+28辩子+10球\",\"weight\":175,\"yarn\":2}]', '[{\"color\":\"米色\",\"colorsample\":\"\",\"material\":2,\"quantity\":240},{\"color\":\"藏青\",\"colorsample\":\"\",\"material\":2,\"quantity\":46},{\"color\":\"红色段染\",\"colorsample\":\"\",\"material\":9,\"quantity\":122}]', '30', '0', '新建', '6', 'resource.fuwei.com/images/sample/1438854647572QQ图片20150806174550.jpg', '2', '冰岛毛段染马海毛护耳帽', 'FWA30227', '27*30+21+7cm', '0', '227', 'FWA20254', 'resource.fuwei.com/images/sample/s/1438854647572QQ图片20150806174550.png', 'resource.fuwei.com/images/sample/ss/1438854647572QQ图片20150806174550.png', null, '1', '15SC0265', 'W1500225-00');
-INSERT INTO `tb_producingorder` VALUES ('266', '255', '2015-08-09 22:07:19', '2015-08-09 22:07:19', '7', '[{\"color\":\"K974\",\"planOrderDetailId\":1,\"price\":0,\"produce_weight\":260,\"quantity\":4000,\"size\":\"155*122+2x15\",\"weight\":275,\"yarn\":9}]', '[{\"color\":\"K974\",\"colorsample\":\"\",\"material\":9,\"quantity\":1055},{\"color\":\"310米色\",\"colorsample\":\"\",\"material\":9,\"quantity\":85}]', '7', '0', '新建', '1', 'resource.fuwei.com/images/sample/1437104316821QQ图片20150717113507.jpg', '9', '马海毛挂须三角巾', 'FWA30211', '155*90+2*15', '275', '211', 'FWA20255', 'resource.fuwei.com/images/sample/s/1437104316821QQ图片20150717113507.png', 'resource.fuwei.com/images/sample/ss/1437104316821QQ图片20150717113507.png', null, '3', '15SC0266', '9843/310');
-INSERT INTO `tb_producingorder` VALUES ('267', '255', '2015-08-09 22:08:50', '2015-08-09 22:08:50', '7', '[{\"color\":\"K974\",\"planOrderDetailId\":1,\"price\":0,\"produce_weight\":260,\"quantity\":4000,\"size\":\"155*122+2x15\",\"weight\":275,\"yarn\":9}]', '[{\"color\":\"K94\",\"colorsample\":\"\",\"material\":9,\"quantity\":1055},{\"color\":\"310米色\",\"colorsample\":\"\",\"material\":9,\"quantity\":85}]', '42', '0', '新建', '1', 'resource.fuwei.com/images/sample/1437104316821QQ图片20150717113507.jpg', '9', '马海毛挂须三角巾', 'FWA30211', '155*90+2*15', '275', '211', 'FWA20255', 'resource.fuwei.com/images/sample/s/1437104316821QQ图片20150717113507.png', 'resource.fuwei.com/images/sample/ss/1437104316821QQ图片20150717113507.png', null, '3', '15SC0267', '9843/310');
+INSERT INTO `tb_producingorder` VALUES ('266', '255', '2015-08-09 22:07:19', '2015-08-31 16:56:33', '7', '[{\"color\":\"K974\",\"planOrderDetailId\":1,\"price\":2.2,\"produce_weight\":260,\"quantity\":5000,\"size\":\"155*122+2x15\",\"weight\":275,\"yarn\":9}]', '[{\"color\":\"K974\",\"colorsample\":\"\",\"material\":9,\"quantity\":1215},{\"color\":\"310米色\",\"colorsample\":\"\",\"material\":9,\"quantity\":146}]', '7', '0', '新建', '1', 'resource.fuwei.com/images/sample/1437104316821QQ图片20150717113507.jpg', '9', '马海毛挂须三角巾', 'FWA30211', '155*90+2*15', '0', '211', 'FWA20255', 'resource.fuwei.com/images/sample/s/1437104316821QQ图片20150717113507.png', 'resource.fuwei.com/images/sample/ss/1437104316821QQ图片20150717113507.png', null, '3', '15SC0266', '9843/310');
+INSERT INTO `tb_producingorder` VALUES ('267', '255', '2015-08-09 22:08:50', '2015-08-31 16:59:21', '7', '[{\"color\":\"K974\",\"planOrderDetailId\":1,\"price\":2.2,\"produce_weight\":260,\"quantity\":3000,\"size\":\"155*122+2x15\",\"weight\":275,\"yarn\":9}]', '[{\"color\":\"K94\",\"colorsample\":\"\",\"material\":9,\"quantity\":815},{\"color\":\"310米色\",\"colorsample\":\"\",\"material\":9,\"quantity\":100}]', '42', '0', '新建', '1', 'resource.fuwei.com/images/sample/1437104316821QQ图片20150717113507.jpg', '9', '马海毛挂须三角巾', 'FWA30211', '155*90+2*15', '0', '211', 'FWA20255', 'resource.fuwei.com/images/sample/s/1437104316821QQ图片20150717113507.png', 'resource.fuwei.com/images/sample/ss/1437104316821QQ图片20150717113507.png', null, '3', '15SC0267', '9843/310');
 INSERT INTO `tb_producingorder` VALUES ('269', '257', '2015-08-09 22:34:40', '2015-08-11 12:48:17', '7', '[{\"color\":\"米色\",\"planOrderDetailId\":1,\"price\":1,\"produce_weight\":90,\"quantity\":2002,\"size\":\"24*9.5\",\"weight\":0,\"yarn\":6}]', '[{\"color\":\"55米色\",\"colorsample\":\"\",\"material\":6,\"quantity\":155},{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":17,\"quantity\":42}]', '2', '0', '新建', '1', 'resource.fuwei.com/images/sample/1433425564610图片1.jpg', '6', '冰岛毛点子纱包套', 'FWA30165', '按原样', '0', '165', 'FWA20257', 'resource.fuwei.com/images/sample/s/1433425564610图片1.png', 'resource.fuwei.com/images/sample/ss/1433425564610图片1.png', null, '1', '15SC0269', '58461');
 INSERT INTO `tb_producingorder` VALUES ('272', '258', '2015-08-11 18:30:10', '2015-08-12 20:07:18', '9', '[{\"color\":\"本白色\",\"planOrderDetailId\":1,\"price\":3,\"produce_weight\":206,\"quantity\":2500,\"size\":\"180*28+20*2\",\"weight\":222,\"yarn\":10}]', '[{\"color\":\"本白色\",\"colorsample\":\"\",\"material\":10,\"quantity\":557}]', '2', '0', '新建', '3', 'resource.fuwei.com/images/sample/143875440710138.899.91.1467A.JPG', '10', '马海毛挂须围巾', 'FWA30222', '180*28+20*2cm', '0', '222', 'FWA20258', 'resource.fuwei.com/images/sample/s/143875440710138.899.91.1467A.png', 'resource.fuwei.com/images/sample/ss/143875440710138.899.91.1467A.png', null, '4', '15SC0272', '961008');
 INSERT INTO `tb_producingorder` VALUES ('273', '256', '2015-08-11 19:33:08', '2015-08-11 19:33:08', '7', '[{\"color\":\"本白色\",\"planOrderDetailId\":1,\"price\":0,\"produce_weight\":69,\"quantity\":5000,\"size\":\"21高*22寛+8毛球\",\"weight\":76,\"yarn\":10}]', '[{\"color\":\"本白色\",\"colorsample\":\"\",\"material\":10,\"quantity\":373}]', '33', '0', '新建', '3', 'resource.fuwei.com/images/sample/143875470273038.899.91.1467AH.JPG', '10', '马海毛吊球帽', 'FWA30223', '21*21+8cm', '76', '223', 'FWA20256', 'resource.fuwei.com/images/sample/s/143875470273038.899.91.1467AH.png', 'resource.fuwei.com/images/sample/ss/143875470273038.899.91.1467AH.png', null, '4', '15SC0273', '961008');
 INSERT INTO `tb_producingorder` VALUES ('274', '258', '2015-08-12 20:07:59', '2015-08-12 20:07:59', '7', '[{\"color\":\"本白色\",\"planOrderDetailId\":1,\"price\":0,\"produce_weight\":206,\"quantity\":2500,\"size\":\"180*28+20*2\",\"weight\":222,\"yarn\":10}]', '[{\"color\":\"本白色\",\"colorsample\":\"\",\"material\":10,\"quantity\":577}]', '7', '0', '新建', '3', 'resource.fuwei.com/images/sample/143875440710138.899.91.1467A.JPG', '10', '马海毛挂须围巾', 'FWA30222', '180*28+20*2cm', '222', '222', 'FWA20258', 'resource.fuwei.com/images/sample/s/143875440710138.899.91.1467A.png', 'resource.fuwei.com/images/sample/ss/143875440710138.899.91.1467A.png', null, '4', '15SC0274', '961008');
+INSERT INTO `tb_producingorder` VALUES ('275', '259', '2015-08-13 09:12:57', '2015-08-14 23:10:53', '7', '[{\"color\":\"酒红色\",\"planOrderDetailId\":1,\"price\":2.8,\"produce_weight\":446,\"quantity\":1350,\"size\":\"180*35+15*2\",\"weight\":470,\"yarn\":4},{\"color\":\"褐色/白色\",\"planOrderDetailId\":2,\"price\":2.8,\"produce_weight\":446,\"quantity\":1270,\"size\":\"180*35+15*2\",\"weight\":470,\"yarn\":4}]', '[{\"color\":\"74酒红\",\"colorsample\":\"\",\"material\":4,\"quantity\":656},{\"color\":\"74褐色\",\"colorsample\":\"\",\"material\":4,\"quantity\":309},{\"color\":\"74白色\",\"colorsample\":\"\",\"material\":4,\"quantity\":309}]', '2', '0', '新建', '3', 'resource.fuwei.com/images/sample/14393829551414B5C23721E2A6DBE5D1EE6B9D1855A48.jpg', '4', '冰岛毛正反针挂须围巾', 'FWA30228', '180*35+15*2cm', '0', '228', 'FWA20259', 'resource.fuwei.com/images/sample/s/14393829551414B5C23721E2A6DBE5D1EE6B9D1855A48.png', 'resource.fuwei.com/images/sample/ss/14393829551414B5C23721E2A6DBE5D1EE6B9D1855A48.png', null, '4', '15SC0275', 'G-7411');
+INSERT INTO `tb_producingorder` VALUES ('276', '260', '2015-08-13 09:25:15', '2015-08-18 21:16:14', '7', '[{\"color\":\"红色\",\"planOrderDetailId\":1,\"price\":1.2,\"produce_weight\":100,\"quantity\":2700,\"size\":\"0\",\"weight\":0,\"yarn\":1}]', '[{\"color\":\"769绿色\",\"colorsample\":\"\",\"material\":1,\"quantity\":90},{\"color\":\"769大红\",\"colorsample\":\"\",\"material\":1,\"quantity\":110},{\"color\":\"本白色\",\"colorsample\":\"\",\"material\":1,\"quantity\":90}]', '2', '0', '新建', '1', 'resource.fuwei.com/images/sample/1439383074033图片1.png', '1', '全晴提花圣诞袜', 'FWA30229', '按原样', '0', '229', 'FWA20260', 'resource.fuwei.com/images/sample/s/1439383074033图片1.png', 'resource.fuwei.com/images/sample/ss/1439383074033图片1.png', null, '1', '15SC0276', '76932');
+INSERT INTO `tb_producingorder` VALUES ('277', '261', '2015-08-20 14:21:02', '2015-08-20 14:21:02', '7', '[{\"color\":\"黑色\",\"planOrderDetailId\":1,\"price\":0,\"produce_weight\":370,\"quantity\":1804,\"size\":\"112*153\",\"weight\":370,\"yarn\":1}]', '[{\"color\":\"H38黑色\",\"colorsample\":\"\",\"material\":1,\"quantity\":240},{\"color\":\"H38深灰\",\"colorsample\":\"\",\"material\":1,\"quantity\":480}]', '27', '0', '新建', '2', 'resource.fuwei.com/images/sample/1429772818065图片1.jpg', '1', '烫金披肩', 'FWA30082', '披肩尺寸', '350', '82', 'FWA20261', 'resource.fuwei.com/images/sample/s/1429772818065图片1.png', 'resource.fuwei.com/images/sample/ss/1429772818065图片1.png', null, '3', '15SC0277', 'H38042229');
+INSERT INTO `tb_producingorder` VALUES ('278', '261', '2015-08-20 14:23:42', '2015-08-20 14:23:42', '7', '[{\"color\":\"黑色\",\"planOrderDetailId\":1,\"price\":0,\"produce_weight\":370,\"quantity\":1000,\"size\":\"112*153\",\"weight\":370,\"yarn\":1}]', '[{\"color\":\"H38黑色\",\"colorsample\":\"\",\"material\":1,\"quantity\":134},{\"color\":\"H38深灰\",\"colorsample\":\"\",\"material\":1,\"quantity\":268}]', '9', '0', '新建', '2', 'resource.fuwei.com/images/sample/1429772818065图片1.jpg', '1', '烫金披肩', 'FWA30082', '披肩尺寸', '350', '82', 'FWA20261', 'resource.fuwei.com/images/sample/s/1429772818065图片1.png', 'resource.fuwei.com/images/sample/ss/1429772818065图片1.png', null, '3', '15SC0278', 'H38042229');
+INSERT INTO `tb_producingorder` VALUES ('279', '262', '2015-08-24 15:10:11', '2015-08-24 15:10:11', '7', '[{\"color\":\"白色\",\"planOrderDetailId\":1,\"price\":0,\"produce_weight\":260,\"quantity\":5000,\"size\":\"32*160\",\"weight\":250,\"yarn\":11}]', '[{\"color\":\"白色\",\"colorsample\":\"白胚染色\",\"material\":11,\"quantity\":1460}]', '10', '0', '新建', '3', 'resource.fuwei.com/images/sample/1438251014217W14.K.01.WE.JPG', '11', '仿羊绒成品染色围脖', 'FWA30221', '32*160', '250', '221', 'FWA20262', 'resource.fuwei.com/images/sample/s/1438251014217W14.K.01.WE.png', 'resource.fuwei.com/images/sample/ss/1438251014217W14.K.01.WE.png', null, '4', '15SC0279', 'W14.K.01..WE');
+INSERT INTO `tb_producingorder` VALUES ('280', '263', '2015-08-26 16:35:21', '2015-08-27 13:30:24', '7', '[{\"color\":\"粉色\",\"planOrderDetailId\":1,\"price\":2.1,\"produce_weight\":180,\"quantity\":0,\"size\":\"80x2*65 寛\",\"weight\":185,\"yarn\":10},{\"color\":\"712\",\"planOrderDetailId\":2,\"price\":2.1,\"produce_weight\":180,\"quantity\":3660,\"size\":\"80x2*65 寛\",\"weight\":185,\"yarn\":10},{\"color\":\"沙色\",\"planOrderDetailId\":3,\"price\":2.1,\"produce_weight\":180,\"quantity\":0,\"size\":\"80x2*65 寛\",\"weight\":185,\"yarn\":10}]', '[{\"color\":\"712\",\"colorsample\":\"\",\"material\":10,\"quantity\":713}]', '65', '0', '新建', '3', 'resource.fuwei.com/images/sample/14404856201321B78CED5BF6A40F0D15323455CA5ABC6.png', '10', '女款马海毛围脖', 'FWA30230', '80*2*65', '0', '230', 'FWA20263', 'resource.fuwei.com/images/sample/s/14404856201321B78CED5BF6A40F0D15323455CA5ABC6.png', 'resource.fuwei.com/images/sample/ss/14404856201321B78CED5BF6A40F0D15323455CA5ABC6.png', null, '4', '15SC0280', 'MP 869');
+INSERT INTO `tb_producingorder` VALUES ('281', '263', '2015-08-26 16:41:35', '2015-09-11 08:50:16', '7', '[{\"color\":\"粉色\",\"planOrderDetailId\":1,\"price\":2.1,\"produce_weight\":180,\"quantity\":800,\"size\":\"80x2*65 寛\",\"weight\":185,\"yarn\":10},{\"color\":\"712\",\"planOrderDetailId\":2,\"price\":2.1,\"produce_weight\":180,\"quantity\":0,\"size\":\"80x2*65 寛\",\"weight\":185,\"yarn\":10},{\"color\":\"沙色\",\"planOrderDetailId\":3,\"price\":2.1,\"produce_weight\":180,\"quantity\":3600,\"size\":\"80x2*65 寛\",\"weight\":185,\"yarn\":10}]', '[{\"color\":\"沙色\",\"colorsample\":\"\",\"material\":10,\"quantity\":703},{\"color\":\"银丝\",\"colorsample\":\"\",\"material\":19,\"quantity\":46},{\"color\":\"MH-178\",\"colorsample\":\"\",\"material\":19,\"quantity\":46},{\"color\":\"粉色\",\"colorsample\":\"\",\"material\":10,\"quantity\":156}]', '6', '0', '新建', '3', 'resource.fuwei.com/images/sample/14404856201321B78CED5BF6A40F0D15323455CA5ABC6.png', '10', '女款马海毛围脖', 'FWA30230', '80*2*65', '0', '230', 'FWA20263', 'resource.fuwei.com/images/sample/s/14404856201321B78CED5BF6A40F0D15323455CA5ABC6.png', 'resource.fuwei.com/images/sample/ss/14404856201321B78CED5BF6A40F0D15323455CA5ABC6.png', null, '4', '15SC0281', 'MP 869');
+INSERT INTO `tb_producingorder` VALUES ('282', '263', '2015-08-26 16:42:27', '2015-09-11 08:49:34', '7', '[{\"color\":\"粉色\",\"planOrderDetailId\":1,\"price\":2.1,\"produce_weight\":180,\"quantity\":2500,\"size\":\"80x2*65 寛\",\"weight\":185,\"yarn\":10},{\"color\":\"712\",\"planOrderDetailId\":2,\"price\":2.1,\"produce_weight\":180,\"quantity\":0,\"size\":\"80x2*65 寛\",\"weight\":185,\"yarn\":10},{\"color\":\"沙色\",\"planOrderDetailId\":3,\"price\":2.1,\"produce_weight\":180,\"quantity\":0,\"size\":\"80x2*65 寛\",\"weight\":185,\"yarn\":10}]', '[{\"color\":\"粉色\",\"colorsample\":\"\",\"material\":10,\"quantity\":485}]', '2', '0', '新建', '3', 'resource.fuwei.com/images/sample/14404856201321B78CED5BF6A40F0D15323455CA5ABC6.png', '10', '女款马海毛围脖', 'FWA30230', '80*2*65', '0', '230', 'FWA20263', 'resource.fuwei.com/images/sample/s/14404856201321B78CED5BF6A40F0D15323455CA5ABC6.png', 'resource.fuwei.com/images/sample/ss/14404856201321B78CED5BF6A40F0D15323455CA5ABC6.png', null, '4', '15SC0282', 'MP 869');
+INSERT INTO `tb_producingorder` VALUES ('283', '264', '2015-08-26 16:50:42', '2015-08-27 13:29:59', '7', '[{\"color\":\"粉色\",\"planOrderDetailId\":1,\"price\":0.7,\"produce_weight\":46,\"quantity\":0,\"size\":\"26高*22寛\",\"weight\":46,\"yarn\":10},{\"color\":\"沙色\",\"planOrderDetailId\":2,\"price\":0.7,\"produce_weight\":46,\"quantity\":0,\"size\":\"26高*22寛\",\"weight\":46,\"yarn\":10},{\"color\":\"712\",\"planOrderDetailId\":3,\"price\":0.7,\"produce_weight\":46,\"quantity\":3030,\"size\":\"26高*22寛\",\"weight\":46,\"yarn\":10}]', '[{\"color\":\"712\",\"colorsample\":\"\",\"material\":10,\"quantity\":155}]', '65', '0', '新建', '3', 'resource.fuwei.com/images/sample/1440485678383QQ截图20150825145021.jpg', '10', '女款马海毛双层帽', 'FWA30231', '26高*22宽', '0', '231', 'FWA20264', 'resource.fuwei.com/images/sample/s/1440485678383QQ截图20150825145021.png', 'resource.fuwei.com/images/sample/ss/1440485678383QQ截图20150825145021.png', null, '4', '15SC0283', 'MQ073');
+INSERT INTO `tb_producingorder` VALUES ('284', '264', '2015-08-26 16:51:31', '2015-08-26 16:51:31', '7', '[{\"color\":\"粉色\",\"planOrderDetailId\":1,\"price\":0,\"produce_weight\":46,\"quantity\":2754,\"size\":\"26高*22寛\",\"weight\":46,\"yarn\":10},{\"color\":\"沙色\",\"planOrderDetailId\":2,\"price\":0,\"produce_weight\":46,\"quantity\":0,\"size\":\"26高*22寛\",\"weight\":46,\"yarn\":10},{\"color\":\"712\",\"planOrderDetailId\":3,\"price\":0,\"produce_weight\":46,\"quantity\":0,\"size\":\"26高*22寛\",\"weight\":46,\"yarn\":10}]', '[{\"color\":\"粉色\",\"colorsample\":\"\",\"material\":10,\"quantity\":141}]', '2', '0', '新建', '3', 'resource.fuwei.com/images/sample/1440485678383QQ截图20150825145021.jpg', '10', '女款马海毛双层帽', 'FWA30231', '26高*22宽', '46', '231', 'FWA20264', 'resource.fuwei.com/images/sample/s/1440485678383QQ截图20150825145021.png', 'resource.fuwei.com/images/sample/ss/1440485678383QQ截图20150825145021.png', null, '4', '15SC0284', 'MQ073');
+INSERT INTO `tb_producingorder` VALUES ('285', '264', '2015-08-26 16:52:07', '2015-08-27 08:07:12', '7', '[{\"color\":\"粉色\",\"planOrderDetailId\":1,\"price\":0,\"produce_weight\":46,\"quantity\":0,\"size\":\"26高*22寛\",\"weight\":46,\"yarn\":10},{\"color\":\"沙色\",\"planOrderDetailId\":2,\"price\":0,\"produce_weight\":46,\"quantity\":3030,\"size\":\"26高*22寛\",\"weight\":46,\"yarn\":10},{\"color\":\"712\",\"planOrderDetailId\":3,\"price\":0,\"produce_weight\":46,\"quantity\":0,\"size\":\"26高*22寛\",\"weight\":46,\"yarn\":10}]', '[{\"color\":\"沙色\",\"colorsample\":\"\",\"material\":10,\"quantity\":155},{\"color\":\"银丝\",\"colorsample\":\"\",\"material\":19,\"quantity\":31},{\"color\":\"MH-178\",\"colorsample\":\"\",\"material\":19,\"quantity\":31}]', '6', '0', '新建', '3', 'resource.fuwei.com/images/sample/1440485678383QQ截图20150825145021.jpg', '10', '女款马海毛双层帽', 'FWA30231', '26高*22宽', '0', '231', 'FWA20264', 'resource.fuwei.com/images/sample/s/1440485678383QQ截图20150825145021.png', 'resource.fuwei.com/images/sample/ss/1440485678383QQ截图20150825145021.png', null, '4', '15SC0285', 'MQ073');
+INSERT INTO `tb_producingorder` VALUES ('286', '265', '2015-08-27 08:30:19', '2015-08-27 20:50:36', '7', '[{\"color\":\"米色\",\"planOrderDetailId\":1,\"price\":0.125,\"produce_weight\":35,\"quantity\":2222,\"size\":\"26*9\",\"weight\":60,\"yarn\":2}]', '[{\"color\":\"米色\",\"colorsample\":\"\",\"material\":2,\"quantity\":51},{\"color\":\"红色段染\",\"colorsample\":\"\",\"material\":9,\"quantity\":34}]', '30', '0', '新建', '6', 'resource.fuwei.com/images/sample/1440485865481CatchAA97(07-27-(08-25-14-52-39).jpg', '2', '冰岛毛段染马海毛衬里头带', 'FWA30233', '26*9', '0', '233', 'FWA20265', 'resource.fuwei.com/images/sample/s/1440485865481CatchAA97(07-27-(08-25-14-52-39).png', 'resource.fuwei.com/images/sample/ss/1440485865481CatchAA97(07-27-(08-25-14-52-39).png', null, '1', '15SC0286', 'W1500287-00');
+INSERT INTO `tb_producingorder` VALUES ('287', '266', '2015-08-27 08:41:19', '2015-08-27 13:29:19', '7', '[{\"color\":\"米白/深灰\",\"planOrderDetailId\":1,\"price\":2.5,\"produce_weight\":261,\"quantity\":1842,\"size\":\"40*210\",\"weight\":261,\"yarn\":10}]', '[{\"color\":\"米白色\",\"colorsample\":\"\",\"material\":10,\"quantity\":336},{\"color\":\"深灰色\",\"colorsample\":\"\",\"material\":53,\"quantity\":195}]', '7', '0', '新建', '3', 'resource.fuwei.com/images/sample/1440485748135图片1.jpg', '10', '混纺马海毛围巾', 'FWA30232', '40*210', '0', '232', 'FWA20266', 'resource.fuwei.com/images/sample/s/1440485748135图片1.png', 'resource.fuwei.com/images/sample/ss/1440485748135图片1.png', null, '3', '15SC0287', '17072333');
+INSERT INTO `tb_producingorder` VALUES ('288', '267', '2015-08-27 08:57:37', '2015-08-27 13:29:38', '7', '[{\"color\":\"紫色\",\"planOrderDetailId\":1,\"price\":0.7,\"produce_weight\":183,\"quantity\":300,\"size\":\"28*76\",\"weight\":183,\"yarn\":9},{\"color\":\"绿色\",\"planOrderDetailId\":2,\"price\":0.7,\"produce_weight\":183,\"quantity\":300,\"size\":\"28*76\",\"weight\":183,\"yarn\":9}]', '[{\"color\":\"紫色\",\"colorsample\":\"\",\"material\":9,\"quantity\":55},{\"color\":\"紫色\",\"colorsample\":\"\",\"material\":16,\"quantity\":12},{\"color\":\"绿色\",\"colorsample\":\"\",\"material\":9,\"quantity\":55},{\"color\":\"灰色\",\"colorsample\":\"\",\"material\":16,\"quantity\":12}]', '9', '0', '新建', '2', 'resource.fuwei.com/images/sample/1438755027032QQ截图20150805140255.jpg', '9', '羽毛纱马海毛围脖', 'FWA30224', '28*76*2cm', '0', '224', 'FWA20267', 'resource.fuwei.com/images/sample/s/1438755027032QQ截图20150805140255.png', 'resource.fuwei.com/images/sample/ss/1438755027032QQ截图20150805140255.png', null, '3', '15SC0288', 'OB954524');
+INSERT INTO `tb_producingorder` VALUES ('289', '48', '2015-08-27 14:23:53', '2015-08-27 14:23:53', '7', '[{\"color\":\"QY15黑色\",\"planOrderDetailId\":1,\"price\":0,\"produce_weight\":240,\"quantity\":1044,\"size\":\"40x2*55\",\"weight\":240,\"yarn\":6},{\"color\":\"QY15-本白色\",\"planOrderDetailId\":2,\"price\":0,\"produce_weight\":240,\"quantity\":1244,\"size\":\"40x2*55\",\"weight\":240,\"yarn\":6}]', '[{\"color\":\"QY15黑色\",\"colorsample\":\"\",\"material\":6,\"quantity\":217},{\"color\":\"QY15本白色\",\"colorsample\":\"\",\"material\":6,\"quantity\":260},{\"color\":\"白灰\",\"colorsample\":\"\",\"material\":20,\"quantity\":123}]', '54', '0', '新建', '4', 'resource.fuwei.com/images/sample/1429019375839图片4.png', '6', '冰岛毛+带子纱围脖', 'FWA30050', '40*2*55cm', '240', '50', 'FWA20048', 'resource.fuwei.com/images/sample/s/1429019375839图片4.png', 'resource.fuwei.com/images/sample/ss/1429019375839图片4.png', '3', '3', '15SC0289', 'QY15-157');
+INSERT INTO `tb_producingorder` VALUES ('290', '128', '2015-08-30 09:16:30', '2015-08-30 09:16:30', '7', '[{\"color\":\"浅灰夹花712\",\"planOrderDetailId\":1,\"price\":0,\"produce_weight\":59,\"quantity\":600,\"size\":\"20.5*9\",\"weight\":55,\"yarn\":1},{\"color\":\"黑色\",\"planOrderDetailId\":2,\"price\":0,\"produce_weight\":59,\"quantity\":600,\"size\":\"20.5*9\",\"weight\":55,\"yarn\":1}]', '[{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":1,\"quantity\":8},{\"color\":\"712\",\"colorsample\":\"\",\"material\":1,\"quantity\":8}]', '7', '0', '新建', '3', 'resource.fuwei.com/images/sample/1430273795268图片1.jpg', '1', '全晴翻盖半指手套', 'FWA30098', '20.5*9cm', '55', '98', 'FWA20128', 'resource.fuwei.com/images/sample/s/1430273795268图片1.png', 'resource.fuwei.com/images/sample/ss/1430273795268图片1.png', null, '4', null, ' 09ah-782');
+INSERT INTO `tb_producingorder` VALUES ('291', '268', '2015-09-04 15:41:44', '2015-09-04 15:41:44', '7', '[{\"color\":\"本白\",\"planOrderDetailId\":1,\"price\":0,\"produce_weight\":114,\"quantity\":5000,\"size\":\"22*22+6.5\",\"weight\":112,\"yarn\":6}]', '[{\"color\":\"米色\",\"colorsample\":\"\",\"material\":6,\"quantity\":508},{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":17,\"quantity\":108}]', '2', '0', '新建', '1', 'resource.fuwei.com/images/sample/1431264154414QQ截图20150510212038.jpg', '6', '冰岛毛点子纱绞花吊球帽', 'FWA30124', '21*23', '125', '124', 'FWA20268', 'resource.fuwei.com/images/sample/s/1431264154414QQ截图20150510212038.png', 'resource.fuwei.com/images/sample/ss/1431264154414QQ截图20150510212038.png', null, '1', null, '58984');
+INSERT INTO `tb_producingorder` VALUES ('292', '269', '2015-09-17 12:47:37', '2015-09-18 15:45:03', '7', '[{\"color\":\"浅粉色组\",\"planOrderDetailId\":1,\"price\":0.5,\"produce_weight\":258,\"quantity\":612,\"size\":\"30x2*40\",\"weight\":258,\"yarn\":3},{\"color\":\"蓝色组\",\"planOrderDetailId\":2,\"price\":0.5,\"produce_weight\":258,\"quantity\":612,\"size\":\"30x2*40\",\"weight\":258,\"yarn\":3}]', '[{\"color\":\"21灰色\",\"colorsample\":\"\",\"material\":3,\"quantity\":102},{\"color\":\"灰色\",\"colorsample\":\"\",\"material\":16,\"quantity\":22},{\"color\":\"粉色组\",\"colorsample\":\"\",\"material\":21,\"quantity\":57},{\"color\":\"21米色\",\"colorsample\":\"\",\"material\":3,\"quantity\":102},{\"color\":\"米白色\",\"colorsample\":\"\",\"material\":16,\"quantity\":22},{\"color\":\"蓝色组\",\"colorsample\":\"\",\"material\":21,\"quantity\":57}]', '9', '0', '新建', '2', 'resource.fuwei.com/images/sample/144161517013820150730132116.png', '3', '点子纱冰岛毛羽毛纱围脖', 'FWA30236', '30*2*38cm', '0', '236', 'FWA20269', 'resource.fuwei.com/images/sample/s/144161517013820150730132116.png', 'resource.fuwei.com/images/sample/ss/144161517013820150730132116.png', null, '3', '15SC0292', '21AKAG -002-W 115');
+INSERT INTO `tb_producingorder` VALUES ('293', '270', '2015-09-17 13:03:53', '2015-09-18 15:44:50', '7', '[{\"color\":\"灰色组\",\"planOrderDetailId\":1,\"price\":0.3,\"produce_weight\":129,\"quantity\":612,\"size\":\"21*25+8球\",\"weight\":143,\"yarn\":3},{\"color\":\"蓝色组\",\"planOrderDetailId\":2,\"price\":0.3,\"produce_weight\":129,\"quantity\":612,\"size\":\"21*25+8球\",\"weight\":143,\"yarn\":3}]', '[{\"color\":\"21灰色\",\"colorsample\":\"\",\"material\":3,\"quantity\":51},{\"color\":\"灰色\",\"colorsample\":\"\",\"material\":16,\"quantity\":11},{\"color\":\"粉色组\",\"colorsample\":\"\",\"material\":21,\"quantity\":28},{\"color\":\"21米色\",\"colorsample\":\"\",\"material\":3,\"quantity\":51},{\"color\":\"米白色\",\"colorsample\":\"\",\"material\":16,\"quantity\":11},{\"color\":\"蓝色组\",\"colorsample\":\"\",\"material\":21,\"quantity\":28}]', '9', '0', '新建', '2', 'resource.fuwei.com/images/sample/144161513871520150730132116.png', '3', '点子纱冰岛毛羽毛纱帽子', 'FWA30235', '20*20+7cm', '0', '235', 'FWA20270', 'resource.fuwei.com/images/sample/s/144161513871520150730132116.png', 'resource.fuwei.com/images/sample/ss/144161513871520150730132116.png', null, '3', '15SC0293', '21ACAG-008-W115');
+INSERT INTO `tb_producingorder` VALUES ('294', '271', '2015-09-21 08:31:27', '2015-09-21 08:31:27', '7', '[{\"color\":\"旧粉\",\"planOrderDetailId\":1,\"price\":0,\"produce_weight\":165,\"quantity\":300,\"size\":\"40*75x2\",\"weight\":163,\"yarn\":13}]', '[{\"color\":\"白胚\",\"colorsample\":\"\",\"material\":13,\"quantity\":57}]', '10', '0', '新建', '7', 'resource.fuwei.com/images/sample/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', '13', '仿羊绒成品染色拉毛围脖', 'FWA30021', '40H*75W', '152', '21', 'FWA20271', 'resource.fuwei.com/images/sample/s/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', 'resource.fuwei.com/images/sample/ss/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', null, '3', '15SC0294', '76392');
+INSERT INTO `tb_producingorder` VALUES ('295', '272', '2015-09-23 12:29:20', '2015-09-23 12:29:20', '7', '[{\"color\":\"白色\",\"planOrderDetailId\":1,\"price\":0,\"produce_weight\":0,\"quantity\":11,\"size\":\"28*30.5+23须\",\"weight\":0,\"yarn\":54},{\"color\":\"绿色\",\"planOrderDetailId\":2,\"price\":0,\"produce_weight\":0,\"quantity\":11,\"size\":\"28*30.5+23须\",\"weight\":0,\"yarn\":54},{\"color\":\"酒红\",\"planOrderDetailId\":3,\"price\":0,\"produce_weight\":0,\"quantity\":11,\"size\":\"28*30.5+23须\",\"weight\":0,\"yarn\":54},{\"color\":\"浅蓝\",\"planOrderDetailId\":4,\"price\":0,\"produce_weight\":0,\"quantity\":11,\"size\":\"28*30.5+23须\",\"weight\":0,\"yarn\":54}]', '[{\"color\":\"白色\",\"colorsample\":\"\",\"material\":54,\"quantity\":5},{\"color\":\"绿色\",\"colorsample\":\"\",\"material\":54,\"quantity\":5},{\"color\":\"酒红\",\"colorsample\":\"\",\"material\":54,\"quantity\":5},{\"color\":\"浅蓝\",\"colorsample\":\"\",\"material\":54,\"quantity\":5}]', '2', '0', '新建', '2', 'resource.fuwei.com/images/sample/1442902552485CXA26059.JPG', '56', '空心带子纱围脖', 'FWA30240', '28*2*30.5，须：23', '250', '240', 'FWA20272', 'resource.fuwei.com/images/sample/s/1442902552485CXA26059.png', 'resource.fuwei.com/images/sample/ss/1442902552485CXA26059.png', null, '3', '15SC0295', 'CXA26059');
+INSERT INTO `tb_producingorder` VALUES ('296', '273', '2015-09-25 15:32:34', '2015-09-25 15:32:34', '7', '[{\"color\":\"本白色\",\"planOrderDetailId\":1,\"price\":0,\"produce_weight\":190,\"quantity\":4000,\"size\":\"90寛*55高+12须长，领口寛32\",\"weight\":240,\"yarn\":42}]', '[{\"color\":\"本白色\",\"colorsample\":\"\",\"material\":42,\"quantity\":822}]', '2', '0', '新建', '1', 'resource.fuwei.com/images/sample/1441614483015NETTY PONCHO55x95cm+12cmx2  233G.jpg', '42', '全晴镂空披肩', 'FWA30234', '90*55高  领口33  须12cm', '290', '234', 'FWA20273', 'resource.fuwei.com/images/sample/s/1441614483015NETTY PONCHO55x95cm+12cmx2  233G.png', 'resource.fuwei.com/images/sample/ss/1441614483015NETTY PONCHO55x95cm+12cmx2  233G.png', null, '1', '15SC0296', '78189');
+INSERT INTO `tb_producingorder` VALUES ('297', '274', '2015-09-28 09:26:21', '2015-09-28 09:26:21', '7', '[{\"color\":\"褐色\",\"planOrderDetailId\":1,\"price\":0,\"produce_weight\":165,\"quantity\":200,\"size\":\"40高*75寛\",\"weight\":163,\"yarn\":13}]', '[{\"color\":\"白胚\",\"colorsample\":\"\",\"material\":13,\"quantity\":40}]', '10', '0', '新建', '7', 'resource.fuwei.com/images/sample/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', '13', '仿羊绒成品染色拉毛围脖', 'FWA30021', '40H*75W', '152', '21', 'FWA20274', 'resource.fuwei.com/images/sample/s/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', 'resource.fuwei.com/images/sample/ss/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', null, '3', '15SC0297', '76392');
+INSERT INTO `tb_producingorder` VALUES ('298', '275', '2015-09-28 09:40:22', '2015-09-28 09:40:22', '7', '[{\"color\":\"黑/白\",\"planOrderDetailId\":1,\"price\":0,\"produce_weight\":0,\"quantity\":16,\"size\":\"40.5寛*68.5长（对折）\",\"weight\":0,\"yarn\":9},{\"color\":\"藏青/浅蓝\",\"planOrderDetailId\":2,\"price\":0,\"produce_weight\":0,\"quantity\":16,\"size\":\"40.5寛*68.5长（对折）\",\"weight\":0,\"yarn\":9},{\"color\":\"深绿/浅卡其\",\"planOrderDetailId\":3,\"price\":0,\"produce_weight\":0,\"quantity\":16,\"size\":\"40.5寛*68.5长（对折）\",\"weight\":0,\"yarn\":9}]', '[{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":9,\"quantity\":5},{\"color\":\"米白色\",\"colorsample\":\"\",\"material\":9,\"quantity\":3},{\"color\":\"藏青\",\"colorsample\":\"\",\"material\":9,\"quantity\":5},{\"color\":\"浅蓝\",\"colorsample\":\"\",\"material\":9,\"quantity\":3},{\"color\":\"深绿\",\"colorsample\":\"\",\"material\":9,\"quantity\":5},{\"color\":\"浅卡其\",\"colorsample\":\"\",\"material\":9,\"quantity\":3}]', '7', '0', '新建', '5', 'resource.fuwei.com/images/sample/1437104517997WW15.jpg', '9', '马海毛针织围脖', 'FWA30213', '62*2*41', '204', '213', 'FWA20275', 'resource.fuwei.com/images/sample/s/1437104517997WW15.png', 'resource.fuwei.com/images/sample/ss/1437104517997WW15.png', null, '3', '15SC0298', 'GN954659');
+INSERT INTO `tb_producingorder` VALUES ('299', '276', '2015-10-04 10:40:26', '2015-10-04 10:40:26', '7', '[{\"color\":\"驼色组\",\"planOrderDetailId\":1,\"price\":0,\"produce_weight\":0,\"quantity\":14,\"size\":\"35.5高*76寛对折\",\"weight\":0,\"yarn\":1},{\"color\":\"蓝色组\",\"planOrderDetailId\":2,\"price\":0,\"produce_weight\":0,\"quantity\":14,\"size\":\"35.5高*76寛对折\",\"weight\":0,\"yarn\":1},{\"color\":\"红色组\",\"planOrderDetailId\":3,\"price\":0,\"produce_weight\":0,\"quantity\":14,\"size\":\"35.5高*76寛对折\",\"weight\":0,\"yarn\":1}]', '[{\"color\":\"米色\",\"colorsample\":\"\",\"material\":1,\"quantity\":3},{\"color\":\"驼色\",\"colorsample\":\"\",\"material\":1,\"quantity\":3},{\"color\":\"浅棕\",\"colorsample\":\"\",\"material\":1,\"quantity\":3},{\"color\":\"白色\",\"colorsample\":\"\",\"material\":55,\"quantity\":3},{\"color\":\"深灰\",\"colorsample\":\"\",\"material\":1,\"quantity\":3},{\"color\":\"咖啡色\",\"colorsample\":\"\",\"material\":1,\"quantity\":3},{\"color\":\"粉色\",\"colorsample\":\"\",\"material\":55,\"quantity\":3},{\"color\":\"亮蓝\",\"colorsample\":\"\",\"material\":1,\"quantity\":3},{\"color\":\"浅蓝\",\"colorsample\":\"\",\"material\":1,\"quantity\":1.5},{\"color\":\"深绿\",\"colorsample\":\"\",\"material\":55,\"quantity\":3},{\"color\":\"藏青\",\"colorsample\":\"\",\"material\":1,\"quantity\":3},{\"color\":\"酒红\",\"colorsample\":\"\",\"material\":1,\"quantity\":3},{\"color\":\"草绿\",\"colorsample\":\"\",\"material\":55,\"quantity\":3},{\"color\":\"暗紫\",\"colorsample\":\"\",\"material\":1,\"quantity\":1.5},{\"color\":\"黄绿\",\"colorsample\":\"\",\"material\":1,\"quantity\":3},{\"color\":\"紫色\",\"colorsample\":\"\",\"material\":55,\"quantity\":3},{\"color\":\"桔红\",\"colorsample\":\"\",\"material\":1,\"quantity\":1.7},{\"color\":\"玫红\",\"colorsample\":\"\",\"material\":1,\"quantity\":3},{\"color\":\"深粉\",\"colorsample\":\"\",\"material\":55,\"quantity\":3}]', '44', '0', '新建', '2', 'resource.fuwei.com/images/sample/1442900375945CXA26082.JPG', '1', '多色提花围脖', 'FWA30239', '76*2*40', '228', '239', 'FWA20276', 'resource.fuwei.com/images/sample/s/1442900375945CXA26082.png', 'resource.fuwei.com/images/sample/ss/1442900375945CXA26082.png', null, '3', '15SC0299', 'CXA 26129');
+INSERT INTO `tb_producingorder` VALUES ('300', '277', '2015-10-09 14:17:34', '2015-10-09 14:17:34', '7', '[{\"color\":\"粉色\",\"planOrderDetailId\":1,\"price\":0,\"produce_weight\":90,\"quantity\":400,\"size\":\"9.5*24\",\"weight\":114,\"yarn\":6}]', '[{\"color\":\"ZB粉色\",\"colorsample\":\"\",\"material\":6,\"quantity\":40}]', '42', '0', '新建', '3', 'resource.fuwei.com/images/sample/1430275598920176F622AEEB6C9EB1E396A84FFDE7375.png', '6', '冰岛毛摇粒绒包套', 'FWA30105', '9.5*24', '114', '105', 'FWA20277', 'resource.fuwei.com/images/sample/s/1430275598920176F622AEEB6C9EB1E396A84FFDE7375.png', 'resource.fuwei.com/images/sample/ss/1430275598920176F622AEEB6C9EB1E396A84FFDE7375.png', null, '4', '15SC0300', 'G3222G-1');
+INSERT INTO `tb_producingorder` VALUES ('301', '278', '2015-10-09 14:38:27', '2015-10-09 14:38:27', '7', '[{\"color\":\"黑色\",\"planOrderDetailId\":1,\"price\":0,\"produce_weight\":36,\"quantity\":600,\"size\":\"9.5*24\",\"weight\":43,\"yarn\":3},{\"color\":\"粉色\",\"planOrderDetailId\":2,\"price\":0,\"produce_weight\":36,\"quantity\":400,\"size\":\"9.5*24\",\"weight\":43,\"yarn\":3}]', '[{\"color\":\"ZB黑色\",\"colorsample\":\"\",\"material\":3,\"quantity\":24},{\"color\":\"ZB粉色\",\"colorsample\":\"\",\"material\":3,\"quantity\":16}]', '42', '0', '新建', '3', 'resource.fuwei.com/images/sample/14302753662448400F76D2D65BC44E26D47CB2A0779A3.png', '3', '冰岛毛菱形花头带', 'FWA30104', '9.5*24cm', '43', '104', 'FWA20278', 'resource.fuwei.com/images/sample/s/14302753662448400F76D2D65BC44E26D47CB2A0779A3.png', 'resource.fuwei.com/images/sample/ss/14302753662448400F76D2D65BC44E26D47CB2A0779A3.png', null, '4', '15SC0301', 'Ｇ６９８９ＨＢ－１');
+INSERT INTO `tb_producingorder` VALUES ('302', '279', '2015-10-09 15:00:06', '2015-10-09 15:00:06', '7', '[{\"color\":\"本白\",\"planOrderDetailId\":1,\"price\":0,\"produce_weight\":83,\"quantity\":400,\"size\":\"22W*23H+9\",\"weight\":100,\"yarn\":6},{\"color\":\"粉色\",\"planOrderDetailId\":2,\"price\":0,\"produce_weight\":83,\"quantity\":600,\"size\":\"22W*23H+9\",\"weight\":100,\"yarn\":6}]', '[{\"color\":\"ZB白色\",\"colorsample\":\"\",\"material\":6,\"quantity\":36},{\"color\":\"ZB粉色\",\"colorsample\":\"\",\"material\":6,\"quantity\":54}]', '9', '0', '新建', '3', 'resource.fuwei.com/images/sample/1430274426841图片1.png', '6', '冰岛毛基本款帽子', 'FWA30103', '20宽22高+9', '96', '103', 'FWA20279', 'resource.fuwei.com/images/sample/s/1430274426841图片1.png', 'resource.fuwei.com/images/sample/ss/1430274426841图片1.png', null, '4', '15SC0302', 'G3222H ');
+INSERT INTO `tb_producingorder` VALUES ('303', '280', '2015-10-09 15:05:46', '2015-10-09 15:05:46', '7', '[{\"color\":\"本白\",\"planOrderDetailId\":1,\"price\":0,\"produce_weight\":240,\"quantity\":400,\"size\":\"20*180+20*2\",\"weight\":262,\"yarn\":6},{\"color\":\"粉色\",\"planOrderDetailId\":2,\"price\":0,\"produce_weight\":240,\"quantity\":600,\"size\":\"20*180+20*2\",\"weight\":262,\"yarn\":6}]', '[{\"color\":\"ZB白色\",\"colorsample\":\"\",\"material\":6,\"quantity\":103},{\"color\":\"ZB粉色\",\"colorsample\":\"\",\"material\":6,\"quantity\":155}]', '9', '0', '新建', '3', 'resource.fuwei.com/images/sample/1430274036475QQ截图20150429101908.jpg', '6', '冰岛毛鱼鳞针挂须围巾', 'FWA30101', '20*180+20*2cm', '262', '101', 'FWA20280', 'resource.fuwei.com/images/sample/s/1430274036475QQ截图20150429101908.png', 'resource.fuwei.com/images/sample/ss/1430274036475QQ截图20150429101908.png', null, '4', '15SC0303', 'Ｇ３２２２Ｓ');
+INSERT INTO `tb_producingorder` VALUES ('304', '281', '2015-10-09 15:10:07', '2015-10-09 15:10:07', '7', '[{\"color\":\"粉色\",\"planOrderDetailId\":1,\"price\":0,\"produce_weight\":171,\"quantity\":400,\"size\":\"34*2*40\",\"weight\":173,\"yarn\":4}]', '[{\"color\":\"ZB粉色\",\"colorsample\":\"\",\"material\":4,\"quantity\":75}]', '27', '0', '新建', '3', 'resource.fuwei.com/images/sample/1430274225667DSCN8187.JPG', '4', '冰岛毛鱼鳞针围脖', 'FWA30102', '34*2*40', '171', '102', 'FWA20281', 'resource.fuwei.com/images/sample/s/1430274225667DSCN8187.png', 'resource.fuwei.com/images/sample/ss/1430274225667DSCN8187.png', null, '4', '15SC0304', 'G7165');
+INSERT INTO `tb_producingorder` VALUES ('306', '283', '2015-10-13 13:19:38', '2015-10-13 13:19:38', '7', '[{\"color\":\"灰色\",\"planOrderDetailId\":1,\"price\":0,\"produce_weight\":0,\"quantity\":15,\"size\":\"0\",\"weight\":0,\"yarn\":1},{\"color\":\"驼色\",\"planOrderDetailId\":2,\"price\":0,\"produce_weight\":0,\"quantity\":15,\"size\":\"0\",\"weight\":0,\"yarn\":1},{\"color\":\"黑色\",\"planOrderDetailId\":3,\"price\":0,\"produce_weight\":0,\"quantity\":15,\"size\":\"0\",\"weight\":0,\"yarn\":1}]', '[{\"color\":\"灰色\",\"colorsample\":\"\",\"material\":1,\"quantity\":3},{\"color\":\"驼色\",\"colorsample\":\"\",\"material\":1,\"quantity\":3},{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":1,\"quantity\":3}]', '66', '0', '新建', '2', 'resource.fuwei.com/images/sample/1442900302600176C830B1F76198293E05870096A9F2B.png', '1', '毛皮+针织围脖', 'FWA30238', '毛皮：25cm*16  针  总：27*21', '224', '238', 'FWA20283', 'resource.fuwei.com/images/sample/s/1442900302600176C830B1F76198293E05870096A9F2B.png', 'resource.fuwei.com/images/sample/ss/1442900302600176C830B1F76198293E05870096A9F2B.png', null, '3', '15SC0306', 'FWA30238');
+INSERT INTO `tb_producingorder` VALUES ('307', '284', '2015-10-15 09:23:26', '2015-10-15 09:23:26', '7', '[{\"color\":\"灰色组\",\"planOrderDetailId\":1,\"price\":0,\"produce_weight\":93,\"quantity\":3000,\"size\":\"22H*21+10\",\"weight\":93,\"yarn\":9},{\"color\":\"粉色组\",\"planOrderDetailId\":2,\"price\":0,\"produce_weight\":93,\"quantity\":4000,\"size\":\"22H*21+10\",\"weight\":93,\"yarn\":9}]', '[{\"color\":\"灰色\",\"colorsample\":\"\",\"material\":9,\"quantity\":149},{\"color\":\"粉色\",\"colorsample\":\"\",\"material\":9,\"quantity\":198},{\"color\":\"白色\",\"colorsample\":\"\",\"material\":9,\"quantity\":347}]', '2', '0', '新建', '3', 'resource.fuwei.com/images/sample/1435547931935DH22297 (1).JPG', '9', '马海毛抽条吊球帽', 'FWA30201', '22H*21+10', '102', '201', 'FWA20284', 'resource.fuwei.com/images/sample/s/1435547931935DH22297 (1).png', 'resource.fuwei.com/images/sample/ss/1435547931935DH22297 (1).png', null, '1', '15SC0307', '956004');
 INSERT INTO `tb_productionscheduleorder` VALUES ('1', '1', '2015-03-31 21:48:39', '2015-03-31 21:48:39', '7', '6', '执行完成');
 INSERT INTO `tb_productionscheduleorder` VALUES ('2', '2', '2015-04-02 22:09:02', '2015-04-02 22:09:02', '7', '0', '新建');
 INSERT INTO `tb_productionscheduleorder` VALUES ('3', '3', '2015-04-02 22:32:58', '2015-04-02 22:32:58', '7', '0', '新建');
@@ -8967,7 +10587,7 @@ INSERT INTO `tb_productionscheduleorder` VALUES ('10', '10', '2015-04-03 22:01:0
 INSERT INTO `tb_productionscheduleorder` VALUES ('11', '11', '2015-04-03 22:08:13', '2015-04-03 22:08:13', '7', '0', '新建');
 INSERT INTO `tb_productionscheduleorder` VALUES ('12', '12', '2015-04-03 23:16:47', '2015-04-03 23:16:47', '7', '0', '新建');
 INSERT INTO `tb_productionscheduleorder` VALUES ('13', '13', '2015-04-03 23:52:25', '2015-04-03 23:52:25', '7', '6', '执行完成');
-INSERT INTO `tb_productionscheduleorder` VALUES ('14', '14', '2015-04-04 00:25:22', '2015-04-04 00:25:22', '7', '6', '执行完成');
+INSERT INTO `tb_productionscheduleorder` VALUES ('14', '14', '2015-04-04 00:25:22', '2015-04-04 00:25:22', '7', '0', '新建');
 INSERT INTO `tb_productionscheduleorder` VALUES ('15', '15', '2015-04-04 01:47:47', '2015-04-04 01:47:47', '7', '0', '新建');
 INSERT INTO `tb_productionscheduleorder` VALUES ('16', '16', '2015-04-04 01:52:57', '2015-04-04 01:52:57', '7', '0', '新建');
 INSERT INTO `tb_productionscheduleorder` VALUES ('17', '17', '2015-04-04 14:45:56', '2015-04-04 14:45:56', '7', '0', '新建');
@@ -9044,7 +10664,7 @@ INSERT INTO `tb_productionscheduleorder` VALUES ('87', '87', '2015-04-27 08:07:5
 INSERT INTO `tb_productionscheduleorder` VALUES ('88', '88', '2015-04-27 08:24:57', '2015-04-27 08:24:57', '7', '0', '新建');
 INSERT INTO `tb_productionscheduleorder` VALUES ('89', '89', '2015-04-27 08:45:32', '2015-04-27 08:45:32', '7', '0', '新建');
 INSERT INTO `tb_productionscheduleorder` VALUES ('90', '90', '2015-04-30 13:32:44', '2015-04-30 13:32:44', '7', '0', '新建');
-INSERT INTO `tb_productionscheduleorder` VALUES ('91', '91', '2015-05-02 16:28:24', '2015-05-02 16:28:24', '7', '6', '执行完成');
+INSERT INTO `tb_productionscheduleorder` VALUES ('91', '91', '2015-05-02 16:28:24', '2015-05-02 16:28:24', '7', '0', '新建');
 INSERT INTO `tb_productionscheduleorder` VALUES ('92', '92', '2015-05-03 17:24:03', '2015-05-03 17:24:03', '7', '0', '新建');
 INSERT INTO `tb_productionscheduleorder` VALUES ('93', '93', '2015-05-03 17:34:23', '2015-05-03 17:34:23', '7', '0', '新建');
 INSERT INTO `tb_productionscheduleorder` VALUES ('94', '94', '2015-05-03 17:51:49', '2015-05-03 17:51:49', '7', '6', '执行完成');
@@ -9178,7 +10798,7 @@ INSERT INTO `tb_productionscheduleorder` VALUES ('221', '221', '2015-07-05 14:39
 INSERT INTO `tb_productionscheduleorder` VALUES ('222', '222', '2015-07-05 14:50:16', '2015-07-05 14:50:16', '7', '0', '新建');
 INSERT INTO `tb_productionscheduleorder` VALUES ('223', '223', '2015-07-05 15:09:32', '2015-07-05 15:09:32', '7', '0', '新建');
 INSERT INTO `tb_productionscheduleorder` VALUES ('224', '224', '2015-07-08 22:11:35', '2015-07-08 22:11:35', '7', '0', '新建');
-INSERT INTO `tb_productionscheduleorder` VALUES ('225', '225', '2015-07-11 13:10:46', '2015-07-11 13:10:46', '7', '6', '执行完成');
+INSERT INTO `tb_productionscheduleorder` VALUES ('225', '225', '2015-07-11 13:10:46', '2015-07-11 13:10:46', '7', '0', '新建');
 INSERT INTO `tb_productionscheduleorder` VALUES ('226', '226', '2015-07-12 16:23:22', '2015-07-12 16:23:22', '7', '0', '新建');
 INSERT INTO `tb_productionscheduleorder` VALUES ('227', '227', '2015-07-12 17:03:51', '2015-07-12 17:03:51', '7', '0', '新建');
 INSERT INTO `tb_productionscheduleorder` VALUES ('228', '228', '2015-07-15 20:20:47', '2015-07-15 20:20:47', '7', '0', '新建');
@@ -9212,6 +10832,32 @@ INSERT INTO `tb_productionscheduleorder` VALUES ('255', '255', '2015-08-09 22:05
 INSERT INTO `tb_productionscheduleorder` VALUES ('256', '256', '2015-08-09 22:19:56', '2015-08-09 22:19:56', '7', '0', '新建');
 INSERT INTO `tb_productionscheduleorder` VALUES ('257', '257', '2015-08-09 22:33:40', '2015-08-09 22:33:40', '7', '0', '新建');
 INSERT INTO `tb_productionscheduleorder` VALUES ('258', '258', '2015-08-11 17:53:09', '2015-08-11 17:53:09', '7', '0', '新建');
+INSERT INTO `tb_productionscheduleorder` VALUES ('259', '259', '2015-08-13 09:11:37', '2015-08-13 09:11:37', '7', '0', '新建');
+INSERT INTO `tb_productionscheduleorder` VALUES ('260', '260', '2015-08-13 09:23:32', '2015-08-13 09:23:32', '7', '0', '新建');
+INSERT INTO `tb_productionscheduleorder` VALUES ('261', '261', '2015-08-20 14:13:42', '2015-08-20 14:13:42', '7', '0', '新建');
+INSERT INTO `tb_productionscheduleorder` VALUES ('262', '262', '2015-08-24 15:08:35', '2015-08-24 15:08:35', '7', '0', '新建');
+INSERT INTO `tb_productionscheduleorder` VALUES ('263', '263', '2015-08-26 16:31:59', '2015-08-26 16:31:59', '7', '0', '新建');
+INSERT INTO `tb_productionscheduleorder` VALUES ('264', '264', '2015-08-26 16:49:07', '2015-08-26 16:49:07', '7', '0', '新建');
+INSERT INTO `tb_productionscheduleorder` VALUES ('265', '265', '2015-08-27 08:27:35', '2015-08-27 08:27:35', '7', '0', '新建');
+INSERT INTO `tb_productionscheduleorder` VALUES ('266', '266', '2015-08-27 08:37:24', '2015-08-27 08:37:24', '7', '0', '新建');
+INSERT INTO `tb_productionscheduleorder` VALUES ('267', '267', '2015-08-27 08:55:10', '2015-08-27 08:55:10', '7', '0', '新建');
+INSERT INTO `tb_productionscheduleorder` VALUES ('268', '268', '2015-09-04 15:35:09', '2015-09-04 15:35:09', '7', '0', '新建');
+INSERT INTO `tb_productionscheduleorder` VALUES ('269', '269', '2015-09-17 12:39:23', '2015-09-17 12:39:23', '7', '0', '新建');
+INSERT INTO `tb_productionscheduleorder` VALUES ('270', '270', '2015-09-17 12:55:22', '2015-09-17 12:55:22', '7', '0', '新建');
+INSERT INTO `tb_productionscheduleorder` VALUES ('271', '271', '2015-09-21 08:30:40', '2015-09-21 08:30:40', '7', '0', '新建');
+INSERT INTO `tb_productionscheduleorder` VALUES ('272', '272', '2015-09-23 12:27:17', '2015-09-23 12:27:17', '7', '0', '新建');
+INSERT INTO `tb_productionscheduleorder` VALUES ('273', '273', '2015-09-25 15:31:06', '2015-09-25 15:31:06', '7', '0', '新建');
+INSERT INTO `tb_productionscheduleorder` VALUES ('274', '274', '2015-09-28 09:05:47', '2015-09-28 09:05:47', '7', '0', '新建');
+INSERT INTO `tb_productionscheduleorder` VALUES ('275', '275', '2015-09-28 09:38:07', '2015-09-28 09:38:07', '7', '0', '新建');
+INSERT INTO `tb_productionscheduleorder` VALUES ('276', '276', '2015-10-04 10:24:40', '2015-10-04 10:24:40', '7', '0', '新建');
+INSERT INTO `tb_productionscheduleorder` VALUES ('277', '277', '2015-10-09 14:16:39', '2015-10-09 14:16:39', '7', '0', '新建');
+INSERT INTO `tb_productionscheduleorder` VALUES ('278', '278', '2015-10-09 14:36:54', '2015-10-09 14:36:54', '7', '0', '新建');
+INSERT INTO `tb_productionscheduleorder` VALUES ('279', '279', '2015-10-09 14:58:39', '2015-10-09 14:58:39', '7', '0', '新建');
+INSERT INTO `tb_productionscheduleorder` VALUES ('280', '280', '2015-10-09 15:05:02', '2015-10-09 15:05:02', '7', '0', '新建');
+INSERT INTO `tb_productionscheduleorder` VALUES ('281', '281', '2015-10-09 15:09:30', '2015-10-09 15:09:30', '7', '0', '新建');
+INSERT INTO `tb_productionscheduleorder` VALUES ('282', '282', '2015-10-10 08:50:23', '2015-10-10 08:50:23', '7', '0', '新建');
+INSERT INTO `tb_productionscheduleorder` VALUES ('283', '283', '2015-10-13 13:17:11', '2015-10-13 13:17:11', '7', '0', '新建');
+INSERT INTO `tb_productionscheduleorder` VALUES ('284', '284', '2015-10-15 09:22:03', '2015-10-15 09:22:03', '7', '0', '新建');
 INSERT INTO `tb_role` VALUES ('1', '2014-07-07 17:15:33', '系统管理员', 'admin', '2014-07-07 17:15:43', null, '');
 INSERT INTO `tb_role` VALUES ('2', '2015-03-31 20:54:39', '生产主管', '生产主管', '2015-03-31 20:54:39', '6', '');
 INSERT INTO `tb_role` VALUES ('3', '2015-03-31 21:19:40', '业务员', 'salesman', '2015-03-31 21:19:40', '6', '');
@@ -9244,496 +10890,532 @@ INSERT INTO `tb_role_authority` VALUES ('4331', '9', '7', '160');
 INSERT INTO `tb_role_authority` VALUES ('4332', '9', '7', '161');
 INSERT INTO `tb_role_authority` VALUES ('4333', '9', '7', '162');
 INSERT INTO `tb_role_authority` VALUES ('4334', '9', '7', '163');
-INSERT INTO `tb_role_authority` VALUES ('4800', '9', '1', '1');
-INSERT INTO `tb_role_authority` VALUES ('4801', '9', '1', '2');
-INSERT INTO `tb_role_authority` VALUES ('4802', '9', '1', '3');
-INSERT INTO `tb_role_authority` VALUES ('4803', '9', '1', '4');
-INSERT INTO `tb_role_authority` VALUES ('4804', '9', '1', '5');
-INSERT INTO `tb_role_authority` VALUES ('4805', '9', '1', '6');
-INSERT INTO `tb_role_authority` VALUES ('4806', '9', '1', '7');
-INSERT INTO `tb_role_authority` VALUES ('4807', '9', '1', '8');
-INSERT INTO `tb_role_authority` VALUES ('4808', '9', '1', '9');
-INSERT INTO `tb_role_authority` VALUES ('4809', '9', '1', '49');
-INSERT INTO `tb_role_authority` VALUES ('4810', '9', '1', '50');
-INSERT INTO `tb_role_authority` VALUES ('4811', '9', '1', '10');
-INSERT INTO `tb_role_authority` VALUES ('4812', '9', '1', '11');
-INSERT INTO `tb_role_authority` VALUES ('4813', '9', '1', '12');
-INSERT INTO `tb_role_authority` VALUES ('4814', '9', '1', '13');
-INSERT INTO `tb_role_authority` VALUES ('4815', '9', '1', '14');
-INSERT INTO `tb_role_authority` VALUES ('4816', '9', '1', '15');
-INSERT INTO `tb_role_authority` VALUES ('4817', '9', '1', '16');
-INSERT INTO `tb_role_authority` VALUES ('4818', '9', '1', '17');
-INSERT INTO `tb_role_authority` VALUES ('4819', '9', '1', '18');
-INSERT INTO `tb_role_authority` VALUES ('4820', '9', '1', '19');
-INSERT INTO `tb_role_authority` VALUES ('4821', '9', '1', '20');
-INSERT INTO `tb_role_authority` VALUES ('4822', '9', '1', '21');
-INSERT INTO `tb_role_authority` VALUES ('4823', '9', '1', '22');
-INSERT INTO `tb_role_authority` VALUES ('4824', '9', '1', '23');
-INSERT INTO `tb_role_authority` VALUES ('4825', '9', '1', '24');
-INSERT INTO `tb_role_authority` VALUES ('4826', '9', '1', '65');
-INSERT INTO `tb_role_authority` VALUES ('4827', '9', '1', '66');
-INSERT INTO `tb_role_authority` VALUES ('4828', '9', '1', '67');
-INSERT INTO `tb_role_authority` VALUES ('4829', '9', '1', '68');
-INSERT INTO `tb_role_authority` VALUES ('4830', '9', '1', '69');
-INSERT INTO `tb_role_authority` VALUES ('4831', '9', '1', '102');
-INSERT INTO `tb_role_authority` VALUES ('4832', '9', '1', '103');
-INSERT INTO `tb_role_authority` VALUES ('4833', '9', '1', '104');
-INSERT INTO `tb_role_authority` VALUES ('4834', '9', '1', '105');
-INSERT INTO `tb_role_authority` VALUES ('4835', '9', '1', '106');
-INSERT INTO `tb_role_authority` VALUES ('4836', '9', '1', '125');
-INSERT INTO `tb_role_authority` VALUES ('4837', '9', '1', '126');
-INSERT INTO `tb_role_authority` VALUES ('4838', '9', '1', '127');
-INSERT INTO `tb_role_authority` VALUES ('4839', '9', '1', '128');
-INSERT INTO `tb_role_authority` VALUES ('4840', '9', '1', '129');
-INSERT INTO `tb_role_authority` VALUES ('4841', '9', '1', '130');
-INSERT INTO `tb_role_authority` VALUES ('4842', '9', '1', '131');
-INSERT INTO `tb_role_authority` VALUES ('4843', '9', '1', '132');
-INSERT INTO `tb_role_authority` VALUES ('4844', '9', '1', '133');
-INSERT INTO `tb_role_authority` VALUES ('4845', '9', '1', '148');
-INSERT INTO `tb_role_authority` VALUES ('4846', '9', '1', '149');
-INSERT INTO `tb_role_authority` VALUES ('4847', '9', '1', '150');
-INSERT INTO `tb_role_authority` VALUES ('4848', '9', '1', '151');
-INSERT INTO `tb_role_authority` VALUES ('4849', '9', '1', '152');
-INSERT INTO `tb_role_authority` VALUES ('4850', '9', '1', '153');
-INSERT INTO `tb_role_authority` VALUES ('4851', '9', '1', '154');
-INSERT INTO `tb_role_authority` VALUES ('4852', '9', '1', '155');
-INSERT INTO `tb_role_authority` VALUES ('4853', '9', '1', '156');
-INSERT INTO `tb_role_authority` VALUES ('4854', '9', '1', '157');
-INSERT INTO `tb_role_authority` VALUES ('4855', '9', '1', '25');
-INSERT INTO `tb_role_authority` VALUES ('4856', '9', '1', '26');
-INSERT INTO `tb_role_authority` VALUES ('4857', '9', '1', '27');
-INSERT INTO `tb_role_authority` VALUES ('4858', '9', '1', '28');
-INSERT INTO `tb_role_authority` VALUES ('4859', '9', '1', '29');
-INSERT INTO `tb_role_authority` VALUES ('4860', '9', '1', '30');
-INSERT INTO `tb_role_authority` VALUES ('4861', '9', '1', '31');
-INSERT INTO `tb_role_authority` VALUES ('4862', '9', '1', '51');
-INSERT INTO `tb_role_authority` VALUES ('4863', '9', '1', '32');
-INSERT INTO `tb_role_authority` VALUES ('4864', '9', '1', '33');
-INSERT INTO `tb_role_authority` VALUES ('4865', '9', '1', '34');
-INSERT INTO `tb_role_authority` VALUES ('4866', '9', '1', '35');
-INSERT INTO `tb_role_authority` VALUES ('4867', '9', '1', '36');
-INSERT INTO `tb_role_authority` VALUES ('4868', '9', '1', '37');
-INSERT INTO `tb_role_authority` VALUES ('4869', '9', '1', '38');
-INSERT INTO `tb_role_authority` VALUES ('4870', '9', '1', '39');
-INSERT INTO `tb_role_authority` VALUES ('4871', '9', '1', '40');
-INSERT INTO `tb_role_authority` VALUES ('4872', '9', '1', '41');
-INSERT INTO `tb_role_authority` VALUES ('4873', '9', '1', '42');
-INSERT INTO `tb_role_authority` VALUES ('4874', '9', '1', '43');
-INSERT INTO `tb_role_authority` VALUES ('4875', '9', '1', '48');
-INSERT INTO `tb_role_authority` VALUES ('4876', '9', '1', '44');
-INSERT INTO `tb_role_authority` VALUES ('4877', '9', '1', '45');
-INSERT INTO `tb_role_authority` VALUES ('4878', '9', '1', '46');
-INSERT INTO `tb_role_authority` VALUES ('4879', '9', '1', '47');
-INSERT INTO `tb_role_authority` VALUES ('4880', '9', '1', '52');
-INSERT INTO `tb_role_authority` VALUES ('4881', '9', '1', '53');
-INSERT INTO `tb_role_authority` VALUES ('4882', '9', '1', '54');
-INSERT INTO `tb_role_authority` VALUES ('4883', '9', '1', '55');
-INSERT INTO `tb_role_authority` VALUES ('4884', '9', '1', '56');
-INSERT INTO `tb_role_authority` VALUES ('4885', '9', '1', '57');
-INSERT INTO `tb_role_authority` VALUES ('4886', '9', '1', '58');
-INSERT INTO `tb_role_authority` VALUES ('4887', '9', '1', '59');
-INSERT INTO `tb_role_authority` VALUES ('4888', '9', '1', '60');
-INSERT INTO `tb_role_authority` VALUES ('4889', '9', '1', '61');
-INSERT INTO `tb_role_authority` VALUES ('4890', '9', '1', '62');
-INSERT INTO `tb_role_authority` VALUES ('4891', '9', '1', '63');
-INSERT INTO `tb_role_authority` VALUES ('4892', '9', '1', '75');
-INSERT INTO `tb_role_authority` VALUES ('4893', '9', '1', '76');
-INSERT INTO `tb_role_authority` VALUES ('4894', '9', '1', '77');
-INSERT INTO `tb_role_authority` VALUES ('4895', '9', '1', '134');
-INSERT INTO `tb_role_authority` VALUES ('4896', '9', '1', '78');
-INSERT INTO `tb_role_authority` VALUES ('4897', '9', '1', '79');
-INSERT INTO `tb_role_authority` VALUES ('4898', '9', '1', '80');
-INSERT INTO `tb_role_authority` VALUES ('4899', '9', '1', '81');
-INSERT INTO `tb_role_authority` VALUES ('4900', '9', '1', '82');
-INSERT INTO `tb_role_authority` VALUES ('4901', '9', '1', '83');
-INSERT INTO `tb_role_authority` VALUES ('4902', '9', '1', '84');
-INSERT INTO `tb_role_authority` VALUES ('4903', '9', '1', '85');
-INSERT INTO `tb_role_authority` VALUES ('4904', '9', '1', '86');
-INSERT INTO `tb_role_authority` VALUES ('4905', '9', '1', '87');
-INSERT INTO `tb_role_authority` VALUES ('4906', '9', '1', '88');
-INSERT INTO `tb_role_authority` VALUES ('4907', '9', '1', '107');
-INSERT INTO `tb_role_authority` VALUES ('4908', '9', '1', '108');
-INSERT INTO `tb_role_authority` VALUES ('4909', '9', '1', '109');
-INSERT INTO `tb_role_authority` VALUES ('4910', '9', '1', '110');
-INSERT INTO `tb_role_authority` VALUES ('4911', '9', '1', '111');
-INSERT INTO `tb_role_authority` VALUES ('4912', '9', '1', '124');
-INSERT INTO `tb_role_authority` VALUES ('4913', '9', '1', '112');
-INSERT INTO `tb_role_authority` VALUES ('4914', '9', '1', '113');
-INSERT INTO `tb_role_authority` VALUES ('4915', '9', '1', '114');
-INSERT INTO `tb_role_authority` VALUES ('4916', '9', '1', '115');
-INSERT INTO `tb_role_authority` VALUES ('4917', '9', '1', '116');
-INSERT INTO `tb_role_authority` VALUES ('4918', '9', '1', '123');
-INSERT INTO `tb_role_authority` VALUES ('4919', '9', '1', '117');
-INSERT INTO `tb_role_authority` VALUES ('4920', '9', '1', '118');
-INSERT INTO `tb_role_authority` VALUES ('4921', '9', '1', '119');
-INSERT INTO `tb_role_authority` VALUES ('4922', '9', '1', '120');
-INSERT INTO `tb_role_authority` VALUES ('4923', '9', '1', '121');
-INSERT INTO `tb_role_authority` VALUES ('4924', '9', '1', '122');
-INSERT INTO `tb_role_authority` VALUES ('4925', '9', '1', '94');
-INSERT INTO `tb_role_authority` VALUES ('4926', '9', '1', '95');
-INSERT INTO `tb_role_authority` VALUES ('4927', '9', '1', '96');
-INSERT INTO `tb_role_authority` VALUES ('4928', '9', '1', '97');
-INSERT INTO `tb_role_authority` VALUES ('4929', '9', '1', '193');
-INSERT INTO `tb_role_authority` VALUES ('4930', '9', '1', '194');
-INSERT INTO `tb_role_authority` VALUES ('4931', '9', '1', '141');
-INSERT INTO `tb_role_authority` VALUES ('4932', '9', '1', '142');
-INSERT INTO `tb_role_authority` VALUES ('4933', '9', '1', '159');
-INSERT INTO `tb_role_authority` VALUES ('4934', '9', '1', '160');
-INSERT INTO `tb_role_authority` VALUES ('4935', '9', '1', '161');
-INSERT INTO `tb_role_authority` VALUES ('4936', '9', '1', '162');
-INSERT INTO `tb_role_authority` VALUES ('4937', '9', '1', '163');
-INSERT INTO `tb_role_authority` VALUES ('4938', '9', '1', '164');
-INSERT INTO `tb_role_authority` VALUES ('4939', '9', '1', '165');
-INSERT INTO `tb_role_authority` VALUES ('4940', '9', '1', '166');
-INSERT INTO `tb_role_authority` VALUES ('4941', '9', '1', '167');
-INSERT INTO `tb_role_authority` VALUES ('4942', '9', '1', '168');
-INSERT INTO `tb_role_authority` VALUES ('4943', '9', '1', '169');
-INSERT INTO `tb_role_authority` VALUES ('4944', '9', '1', '192');
-INSERT INTO `tb_role_authority` VALUES ('4945', '9', '1', '170');
-INSERT INTO `tb_role_authority` VALUES ('4946', '9', '1', '171');
-INSERT INTO `tb_role_authority` VALUES ('4947', '9', '1', '172');
-INSERT INTO `tb_role_authority` VALUES ('4948', '9', '1', '173');
-INSERT INTO `tb_role_authority` VALUES ('4949', '9', '1', '174');
-INSERT INTO `tb_role_authority` VALUES ('4950', '9', '1', '175');
-INSERT INTO `tb_role_authority` VALUES ('4951', '9', '1', '176');
-INSERT INTO `tb_role_authority` VALUES ('4952', '9', '1', '177');
-INSERT INTO `tb_role_authority` VALUES ('4953', '9', '1', '178');
-INSERT INTO `tb_role_authority` VALUES ('4954', '9', '1', '179');
-INSERT INTO `tb_role_authority` VALUES ('4955', '9', '1', '181');
-INSERT INTO `tb_role_authority` VALUES ('4956', '9', '1', '182');
-INSERT INTO `tb_role_authority` VALUES ('4957', '9', '1', '183');
-INSERT INTO `tb_role_authority` VALUES ('4958', '9', '1', '184');
-INSERT INTO `tb_role_authority` VALUES ('4959', '9', '1', '185');
-INSERT INTO `tb_role_authority` VALUES ('4960', '9', '1', '186');
-INSERT INTO `tb_role_authority` VALUES ('4961', '9', '1', '188');
-INSERT INTO `tb_role_authority` VALUES ('4962', '9', '1', '189');
-INSERT INTO `tb_role_authority` VALUES ('4963', '9', '1', '190');
-INSERT INTO `tb_role_authority` VALUES ('4964', '9', '1', '191');
-INSERT INTO `tb_role_authority` VALUES ('5720', '9', '3', '25');
-INSERT INTO `tb_role_authority` VALUES ('5721', '9', '3', '26');
-INSERT INTO `tb_role_authority` VALUES ('5722', '9', '3', '28');
-INSERT INTO `tb_role_authority` VALUES ('5723', '9', '3', '52');
-INSERT INTO `tb_role_authority` VALUES ('5724', '9', '3', '53');
-INSERT INTO `tb_role_authority` VALUES ('5725', '9', '3', '54');
-INSERT INTO `tb_role_authority` VALUES ('5726', '9', '3', '55');
-INSERT INTO `tb_role_authority` VALUES ('5727', '9', '3', '56');
-INSERT INTO `tb_role_authority` VALUES ('5728', '9', '3', '143');
-INSERT INTO `tb_role_authority` VALUES ('5729', '9', '3', '206');
-INSERT INTO `tb_role_authority` VALUES ('5730', '9', '3', '88');
-INSERT INTO `tb_role_authority` VALUES ('5731', '9', '3', '107');
-INSERT INTO `tb_role_authority` VALUES ('5732', '9', '3', '111');
-INSERT INTO `tb_role_authority` VALUES ('5733', '9', '3', '124');
-INSERT INTO `tb_role_authority` VALUES ('5734', '9', '3', '112');
-INSERT INTO `tb_role_authority` VALUES ('5735', '9', '3', '116');
-INSERT INTO `tb_role_authority` VALUES ('5736', '9', '3', '123');
-INSERT INTO `tb_role_authority` VALUES ('5737', '9', '3', '117');
-INSERT INTO `tb_role_authority` VALUES ('5738', '9', '3', '121');
-INSERT INTO `tb_role_authority` VALUES ('5739', '9', '3', '122');
-INSERT INTO `tb_role_authority` VALUES ('5740', '9', '3', '201');
-INSERT INTO `tb_role_authority` VALUES ('5741', '9', '3', '207');
-INSERT INTO `tb_role_authority` VALUES ('5742', '9', '3', '208');
-INSERT INTO `tb_role_authority` VALUES ('5743', '9', '3', '212');
-INSERT INTO `tb_role_authority` VALUES ('5790', '9', '4', '1');
-INSERT INTO `tb_role_authority` VALUES ('5791', '9', '4', '2');
-INSERT INTO `tb_role_authority` VALUES ('5792', '9', '4', '3');
-INSERT INTO `tb_role_authority` VALUES ('5793', '9', '4', '4');
-INSERT INTO `tb_role_authority` VALUES ('5794', '9', '4', '5');
-INSERT INTO `tb_role_authority` VALUES ('5795', '9', '4', '6');
-INSERT INTO `tb_role_authority` VALUES ('5796', '9', '4', '7');
-INSERT INTO `tb_role_authority` VALUES ('5797', '9', '4', '8');
-INSERT INTO `tb_role_authority` VALUES ('5798', '9', '4', '9');
-INSERT INTO `tb_role_authority` VALUES ('5799', '9', '4', '49');
-INSERT INTO `tb_role_authority` VALUES ('5800', '9', '4', '50');
-INSERT INTO `tb_role_authority` VALUES ('5801', '9', '4', '10');
-INSERT INTO `tb_role_authority` VALUES ('5802', '9', '4', '11');
-INSERT INTO `tb_role_authority` VALUES ('5803', '9', '4', '12');
-INSERT INTO `tb_role_authority` VALUES ('5804', '9', '4', '13');
-INSERT INTO `tb_role_authority` VALUES ('5805', '9', '4', '14');
-INSERT INTO `tb_role_authority` VALUES ('5806', '9', '4', '15');
-INSERT INTO `tb_role_authority` VALUES ('5807', '9', '4', '16');
-INSERT INTO `tb_role_authority` VALUES ('5808', '9', '4', '17');
-INSERT INTO `tb_role_authority` VALUES ('5809', '9', '4', '18');
-INSERT INTO `tb_role_authority` VALUES ('5810', '9', '4', '19');
-INSERT INTO `tb_role_authority` VALUES ('5811', '9', '4', '20');
-INSERT INTO `tb_role_authority` VALUES ('5812', '9', '4', '21');
-INSERT INTO `tb_role_authority` VALUES ('5813', '9', '4', '22');
-INSERT INTO `tb_role_authority` VALUES ('5814', '9', '4', '23');
-INSERT INTO `tb_role_authority` VALUES ('5815', '9', '4', '24');
-INSERT INTO `tb_role_authority` VALUES ('5816', '9', '4', '65');
-INSERT INTO `tb_role_authority` VALUES ('5817', '9', '4', '66');
-INSERT INTO `tb_role_authority` VALUES ('5818', '9', '4', '67');
-INSERT INTO `tb_role_authority` VALUES ('5819', '9', '4', '68');
-INSERT INTO `tb_role_authority` VALUES ('5820', '9', '4', '69');
-INSERT INTO `tb_role_authority` VALUES ('5821', '9', '4', '102');
-INSERT INTO `tb_role_authority` VALUES ('5822', '9', '4', '103');
-INSERT INTO `tb_role_authority` VALUES ('5823', '9', '4', '104');
-INSERT INTO `tb_role_authority` VALUES ('5824', '9', '4', '105');
-INSERT INTO `tb_role_authority` VALUES ('5825', '9', '4', '106');
-INSERT INTO `tb_role_authority` VALUES ('5826', '9', '4', '125');
-INSERT INTO `tb_role_authority` VALUES ('5827', '9', '4', '126');
-INSERT INTO `tb_role_authority` VALUES ('5828', '9', '4', '127');
-INSERT INTO `tb_role_authority` VALUES ('5829', '9', '4', '128');
-INSERT INTO `tb_role_authority` VALUES ('5830', '9', '4', '129');
-INSERT INTO `tb_role_authority` VALUES ('5831', '9', '4', '130');
-INSERT INTO `tb_role_authority` VALUES ('5832', '9', '4', '131');
-INSERT INTO `tb_role_authority` VALUES ('5833', '9', '4', '132');
-INSERT INTO `tb_role_authority` VALUES ('5834', '9', '4', '133');
-INSERT INTO `tb_role_authority` VALUES ('5835', '9', '4', '148');
-INSERT INTO `tb_role_authority` VALUES ('5836', '9', '4', '149');
-INSERT INTO `tb_role_authority` VALUES ('5837', '9', '4', '150');
-INSERT INTO `tb_role_authority` VALUES ('5838', '9', '4', '151');
-INSERT INTO `tb_role_authority` VALUES ('5839', '9', '4', '152');
-INSERT INTO `tb_role_authority` VALUES ('5840', '9', '4', '153');
-INSERT INTO `tb_role_authority` VALUES ('5841', '9', '4', '154');
-INSERT INTO `tb_role_authority` VALUES ('5842', '9', '4', '155');
-INSERT INTO `tb_role_authority` VALUES ('5843', '9', '4', '156');
-INSERT INTO `tb_role_authority` VALUES ('5844', '9', '4', '157');
-INSERT INTO `tb_role_authority` VALUES ('5845', '9', '4', '158');
-INSERT INTO `tb_role_authority` VALUES ('5846', '9', '4', '25');
-INSERT INTO `tb_role_authority` VALUES ('5847', '9', '4', '26');
-INSERT INTO `tb_role_authority` VALUES ('5848', '9', '4', '27');
-INSERT INTO `tb_role_authority` VALUES ('5849', '9', '4', '28');
-INSERT INTO `tb_role_authority` VALUES ('5850', '9', '4', '29');
-INSERT INTO `tb_role_authority` VALUES ('5851', '9', '4', '30');
-INSERT INTO `tb_role_authority` VALUES ('5852', '9', '4', '31');
-INSERT INTO `tb_role_authority` VALUES ('5853', '9', '4', '51');
-INSERT INTO `tb_role_authority` VALUES ('5854', '9', '4', '32');
-INSERT INTO `tb_role_authority` VALUES ('5855', '9', '4', '33');
-INSERT INTO `tb_role_authority` VALUES ('5856', '9', '4', '34');
-INSERT INTO `tb_role_authority` VALUES ('5857', '9', '4', '35');
-INSERT INTO `tb_role_authority` VALUES ('5858', '9', '4', '36');
-INSERT INTO `tb_role_authority` VALUES ('5859', '9', '4', '37');
-INSERT INTO `tb_role_authority` VALUES ('5860', '9', '4', '38');
-INSERT INTO `tb_role_authority` VALUES ('5861', '9', '4', '39');
-INSERT INTO `tb_role_authority` VALUES ('5862', '9', '4', '40');
-INSERT INTO `tb_role_authority` VALUES ('5863', '9', '4', '41');
-INSERT INTO `tb_role_authority` VALUES ('5864', '9', '4', '42');
-INSERT INTO `tb_role_authority` VALUES ('5865', '9', '4', '43');
-INSERT INTO `tb_role_authority` VALUES ('5866', '9', '4', '48');
-INSERT INTO `tb_role_authority` VALUES ('5867', '9', '4', '44');
-INSERT INTO `tb_role_authority` VALUES ('5868', '9', '4', '45');
-INSERT INTO `tb_role_authority` VALUES ('5869', '9', '4', '46');
-INSERT INTO `tb_role_authority` VALUES ('5870', '9', '4', '47');
-INSERT INTO `tb_role_authority` VALUES ('5871', '9', '4', '140');
-INSERT INTO `tb_role_authority` VALUES ('5872', '9', '4', '52');
-INSERT INTO `tb_role_authority` VALUES ('5873', '9', '4', '53');
-INSERT INTO `tb_role_authority` VALUES ('5874', '9', '4', '136');
-INSERT INTO `tb_role_authority` VALUES ('5875', '9', '4', '54');
-INSERT INTO `tb_role_authority` VALUES ('5876', '9', '4', '55');
-INSERT INTO `tb_role_authority` VALUES ('5877', '9', '4', '56');
-INSERT INTO `tb_role_authority` VALUES ('5878', '9', '4', '57');
-INSERT INTO `tb_role_authority` VALUES ('5879', '9', '4', '58');
-INSERT INTO `tb_role_authority` VALUES ('5880', '9', '4', '59');
-INSERT INTO `tb_role_authority` VALUES ('5881', '9', '4', '60');
-INSERT INTO `tb_role_authority` VALUES ('5882', '9', '4', '61');
-INSERT INTO `tb_role_authority` VALUES ('5883', '9', '4', '62');
-INSERT INTO `tb_role_authority` VALUES ('5884', '9', '4', '63');
-INSERT INTO `tb_role_authority` VALUES ('5885', '9', '4', '75');
-INSERT INTO `tb_role_authority` VALUES ('5886', '9', '4', '76');
-INSERT INTO `tb_role_authority` VALUES ('5887', '9', '4', '77');
-INSERT INTO `tb_role_authority` VALUES ('5888', '9', '4', '134');
-INSERT INTO `tb_role_authority` VALUES ('5889', '9', '4', '137');
-INSERT INTO `tb_role_authority` VALUES ('5890', '9', '4', '138');
-INSERT INTO `tb_role_authority` VALUES ('5891', '9', '4', '78');
-INSERT INTO `tb_role_authority` VALUES ('5892', '9', '4', '79');
-INSERT INTO `tb_role_authority` VALUES ('5893', '9', '4', '80');
-INSERT INTO `tb_role_authority` VALUES ('5894', '9', '4', '81');
-INSERT INTO `tb_role_authority` VALUES ('5895', '9', '4', '82');
-INSERT INTO `tb_role_authority` VALUES ('5896', '9', '4', '83');
-INSERT INTO `tb_role_authority` VALUES ('5897', '9', '4', '84');
-INSERT INTO `tb_role_authority` VALUES ('5898', '9', '4', '85');
-INSERT INTO `tb_role_authority` VALUES ('5899', '9', '4', '86');
-INSERT INTO `tb_role_authority` VALUES ('5900', '9', '4', '87');
-INSERT INTO `tb_role_authority` VALUES ('5901', '9', '4', '143');
-INSERT INTO `tb_role_authority` VALUES ('5902', '9', '4', '206');
-INSERT INTO `tb_role_authority` VALUES ('5903', '9', '4', '88');
-INSERT INTO `tb_role_authority` VALUES ('5904', '9', '4', '107');
-INSERT INTO `tb_role_authority` VALUES ('5905', '9', '4', '108');
-INSERT INTO `tb_role_authority` VALUES ('5906', '9', '4', '109');
-INSERT INTO `tb_role_authority` VALUES ('5907', '9', '4', '110');
-INSERT INTO `tb_role_authority` VALUES ('5908', '9', '4', '111');
-INSERT INTO `tb_role_authority` VALUES ('5909', '9', '4', '124');
-INSERT INTO `tb_role_authority` VALUES ('5910', '9', '4', '112');
-INSERT INTO `tb_role_authority` VALUES ('5911', '9', '4', '113');
-INSERT INTO `tb_role_authority` VALUES ('5912', '9', '4', '114');
-INSERT INTO `tb_role_authority` VALUES ('5913', '9', '4', '115');
-INSERT INTO `tb_role_authority` VALUES ('5914', '9', '4', '116');
-INSERT INTO `tb_role_authority` VALUES ('5915', '9', '4', '123');
-INSERT INTO `tb_role_authority` VALUES ('5916', '9', '4', '117');
-INSERT INTO `tb_role_authority` VALUES ('5917', '9', '4', '118');
-INSERT INTO `tb_role_authority` VALUES ('5918', '9', '4', '119');
-INSERT INTO `tb_role_authority` VALUES ('5919', '9', '4', '120');
-INSERT INTO `tb_role_authority` VALUES ('5920', '9', '4', '121');
-INSERT INTO `tb_role_authority` VALUES ('5921', '9', '4', '122');
-INSERT INTO `tb_role_authority` VALUES ('5922', '9', '4', '94');
-INSERT INTO `tb_role_authority` VALUES ('5923', '9', '4', '95');
-INSERT INTO `tb_role_authority` VALUES ('5924', '9', '4', '96');
-INSERT INTO `tb_role_authority` VALUES ('5925', '9', '4', '97');
-INSERT INTO `tb_role_authority` VALUES ('5926', '9', '4', '197');
-INSERT INTO `tb_role_authority` VALUES ('5927', '9', '4', '198');
-INSERT INTO `tb_role_authority` VALUES ('5928', '9', '4', '199');
-INSERT INTO `tb_role_authority` VALUES ('5929', '9', '4', '200');
-INSERT INTO `tb_role_authority` VALUES ('5930', '9', '4', '193');
-INSERT INTO `tb_role_authority` VALUES ('5931', '9', '4', '194');
-INSERT INTO `tb_role_authority` VALUES ('5932', '9', '4', '141');
-INSERT INTO `tb_role_authority` VALUES ('5933', '9', '4', '142');
-INSERT INTO `tb_role_authority` VALUES ('5934', '9', '4', '159');
-INSERT INTO `tb_role_authority` VALUES ('5935', '9', '4', '160');
-INSERT INTO `tb_role_authority` VALUES ('5936', '9', '4', '161');
-INSERT INTO `tb_role_authority` VALUES ('5937', '9', '4', '164');
-INSERT INTO `tb_role_authority` VALUES ('5938', '9', '4', '165');
-INSERT INTO `tb_role_authority` VALUES ('5939', '9', '4', '166');
-INSERT INTO `tb_role_authority` VALUES ('5940', '9', '4', '167');
-INSERT INTO `tb_role_authority` VALUES ('5941', '9', '4', '168');
-INSERT INTO `tb_role_authority` VALUES ('5942', '9', '4', '169');
-INSERT INTO `tb_role_authority` VALUES ('5943', '9', '4', '192');
-INSERT INTO `tb_role_authority` VALUES ('5944', '9', '4', '170');
-INSERT INTO `tb_role_authority` VALUES ('5945', '9', '4', '171');
-INSERT INTO `tb_role_authority` VALUES ('5946', '9', '4', '172');
-INSERT INTO `tb_role_authority` VALUES ('5947', '9', '4', '173');
-INSERT INTO `tb_role_authority` VALUES ('5948', '9', '4', '174');
-INSERT INTO `tb_role_authority` VALUES ('5949', '9', '4', '175');
-INSERT INTO `tb_role_authority` VALUES ('5950', '9', '4', '176');
-INSERT INTO `tb_role_authority` VALUES ('5951', '9', '4', '177');
-INSERT INTO `tb_role_authority` VALUES ('5952', '9', '4', '178');
-INSERT INTO `tb_role_authority` VALUES ('5953', '9', '4', '179');
-INSERT INTO `tb_role_authority` VALUES ('5954', '9', '4', '195');
-INSERT INTO `tb_role_authority` VALUES ('5955', '9', '4', '181');
-INSERT INTO `tb_role_authority` VALUES ('5956', '9', '4', '182');
-INSERT INTO `tb_role_authority` VALUES ('5957', '9', '4', '183');
-INSERT INTO `tb_role_authority` VALUES ('5958', '9', '4', '184');
-INSERT INTO `tb_role_authority` VALUES ('5959', '9', '4', '185');
-INSERT INTO `tb_role_authority` VALUES ('5960', '9', '4', '186');
-INSERT INTO `tb_role_authority` VALUES ('5961', '9', '4', '196');
-INSERT INTO `tb_role_authority` VALUES ('5962', '9', '4', '188');
-INSERT INTO `tb_role_authority` VALUES ('5963', '9', '4', '189');
-INSERT INTO `tb_role_authority` VALUES ('5964', '9', '4', '190');
-INSERT INTO `tb_role_authority` VALUES ('5965', '9', '4', '191');
-INSERT INTO `tb_role_authority` VALUES ('5966', '9', '4', '201');
-INSERT INTO `tb_role_authority` VALUES ('5967', '9', '4', '202');
-INSERT INTO `tb_role_authority` VALUES ('5968', '9', '4', '204');
-INSERT INTO `tb_role_authority` VALUES ('5969', '9', '4', '205');
-INSERT INTO `tb_role_authority` VALUES ('5970', '9', '4', '207');
-INSERT INTO `tb_role_authority` VALUES ('5971', '9', '4', '208');
-INSERT INTO `tb_role_authority` VALUES ('5972', '9', '4', '209');
-INSERT INTO `tb_role_authority` VALUES ('5973', '9', '4', '210');
-INSERT INTO `tb_role_authority` VALUES ('5974', '9', '4', '211');
-INSERT INTO `tb_role_authority` VALUES ('5975', '9', '4', '212');
-INSERT INTO `tb_role_authority` VALUES ('5976', '9', '4', '213');
-INSERT INTO `tb_role_authority` VALUES ('5977', '9', '4', '215');
-INSERT INTO `tb_role_authority` VALUES ('5978', '9', '4', '216');
-INSERT INTO `tb_role_authority` VALUES ('5979', '9', '4', '217');
-INSERT INTO `tb_role_authority` VALUES ('5980', '9', '4', '218');
-INSERT INTO `tb_role_authority` VALUES ('5981', '9', '4', '219');
-INSERT INTO `tb_role_authority` VALUES ('5982', '9', '4', '220');
-INSERT INTO `tb_role_authority` VALUES ('5983', '6', '2', '4');
-INSERT INTO `tb_role_authority` VALUES ('5984', '6', '2', '65');
-INSERT INTO `tb_role_authority` VALUES ('5985', '6', '2', '66');
-INSERT INTO `tb_role_authority` VALUES ('5986', '6', '2', '67');
-INSERT INTO `tb_role_authority` VALUES ('5987', '6', '2', '102');
-INSERT INTO `tb_role_authority` VALUES ('5988', '6', '2', '103');
-INSERT INTO `tb_role_authority` VALUES ('5989', '6', '2', '104');
-INSERT INTO `tb_role_authority` VALUES ('5990', '6', '2', '25');
-INSERT INTO `tb_role_authority` VALUES ('5991', '6', '2', '26');
-INSERT INTO `tb_role_authority` VALUES ('5992', '6', '2', '28');
-INSERT INTO `tb_role_authority` VALUES ('5993', '6', '2', '29');
-INSERT INTO `tb_role_authority` VALUES ('5994', '6', '2', '52');
-INSERT INTO `tb_role_authority` VALUES ('5995', '6', '2', '53');
-INSERT INTO `tb_role_authority` VALUES ('5996', '6', '2', '54');
-INSERT INTO `tb_role_authority` VALUES ('5997', '6', '2', '55');
-INSERT INTO `tb_role_authority` VALUES ('5998', '6', '2', '56');
-INSERT INTO `tb_role_authority` VALUES ('5999', '6', '2', '57');
-INSERT INTO `tb_role_authority` VALUES ('6000', '6', '2', '75');
-INSERT INTO `tb_role_authority` VALUES ('6001', '6', '2', '76');
-INSERT INTO `tb_role_authority` VALUES ('6002', '6', '2', '77');
-INSERT INTO `tb_role_authority` VALUES ('6003', '6', '2', '134');
-INSERT INTO `tb_role_authority` VALUES ('6004', '6', '2', '137');
-INSERT INTO `tb_role_authority` VALUES ('6005', '6', '2', '139');
-INSERT INTO `tb_role_authority` VALUES ('6006', '6', '2', '78');
-INSERT INTO `tb_role_authority` VALUES ('6007', '6', '2', '79');
-INSERT INTO `tb_role_authority` VALUES ('6008', '6', '2', '80');
-INSERT INTO `tb_role_authority` VALUES ('6009', '6', '2', '81');
-INSERT INTO `tb_role_authority` VALUES ('6010', '6', '2', '82');
-INSERT INTO `tb_role_authority` VALUES ('6011', '6', '2', '83');
-INSERT INTO `tb_role_authority` VALUES ('6012', '6', '2', '84');
-INSERT INTO `tb_role_authority` VALUES ('6013', '6', '2', '85');
-INSERT INTO `tb_role_authority` VALUES ('6014', '6', '2', '86');
-INSERT INTO `tb_role_authority` VALUES ('6015', '6', '2', '206');
-INSERT INTO `tb_role_authority` VALUES ('6016', '6', '2', '88');
-INSERT INTO `tb_role_authority` VALUES ('6017', '6', '2', '107');
-INSERT INTO `tb_role_authority` VALUES ('6018', '6', '2', '108');
-INSERT INTO `tb_role_authority` VALUES ('6019', '6', '2', '109');
-INSERT INTO `tb_role_authority` VALUES ('6020', '6', '2', '111');
-INSERT INTO `tb_role_authority` VALUES ('6021', '6', '2', '124');
-INSERT INTO `tb_role_authority` VALUES ('6022', '6', '2', '112');
-INSERT INTO `tb_role_authority` VALUES ('6023', '6', '2', '113');
-INSERT INTO `tb_role_authority` VALUES ('6024', '6', '2', '114');
-INSERT INTO `tb_role_authority` VALUES ('6025', '6', '2', '116');
-INSERT INTO `tb_role_authority` VALUES ('6026', '6', '2', '123');
-INSERT INTO `tb_role_authority` VALUES ('6027', '6', '2', '117');
-INSERT INTO `tb_role_authority` VALUES ('6028', '6', '2', '118');
-INSERT INTO `tb_role_authority` VALUES ('6029', '6', '2', '119');
-INSERT INTO `tb_role_authority` VALUES ('6030', '6', '2', '121');
-INSERT INTO `tb_role_authority` VALUES ('6031', '6', '2', '122');
-INSERT INTO `tb_role_authority` VALUES ('6032', '6', '2', '201');
-INSERT INTO `tb_role_authority` VALUES ('6033', '6', '2', '202');
-INSERT INTO `tb_role_authority` VALUES ('6034', '6', '2', '204');
-INSERT INTO `tb_role_authority` VALUES ('6035', '6', '2', '205');
-INSERT INTO `tb_role_authority` VALUES ('6036', '6', '5', '52');
-INSERT INTO `tb_role_authority` VALUES ('6037', '6', '5', '53');
-INSERT INTO `tb_role_authority` VALUES ('6038', '6', '5', '136');
-INSERT INTO `tb_role_authority` VALUES ('6039', '6', '5', '54');
-INSERT INTO `tb_role_authority` VALUES ('6040', '6', '5', '75');
-INSERT INTO `tb_role_authority` VALUES ('6041', '6', '5', '76');
-INSERT INTO `tb_role_authority` VALUES ('6042', '6', '5', '77');
-INSERT INTO `tb_role_authority` VALUES ('6043', '6', '5', '137');
-INSERT INTO `tb_role_authority` VALUES ('6044', '6', '5', '78');
-INSERT INTO `tb_role_authority` VALUES ('6045', '6', '5', '79');
-INSERT INTO `tb_role_authority` VALUES ('6046', '6', '5', '80');
-INSERT INTO `tb_role_authority` VALUES ('6047', '6', '5', '81');
-INSERT INTO `tb_role_authority` VALUES ('6048', '6', '5', '82');
-INSERT INTO `tb_role_authority` VALUES ('6049', '6', '5', '83');
-INSERT INTO `tb_role_authority` VALUES ('6050', '6', '5', '84');
-INSERT INTO `tb_role_authority` VALUES ('6051', '6', '5', '85');
-INSERT INTO `tb_role_authority` VALUES ('6052', '6', '5', '86');
-INSERT INTO `tb_role_authority` VALUES ('6053', '6', '5', '143');
-INSERT INTO `tb_role_authority` VALUES ('6054', '6', '5', '94');
-INSERT INTO `tb_role_authority` VALUES ('6055', '6', '5', '97');
-INSERT INTO `tb_role_authority` VALUES ('6056', '6', '5', '197');
-INSERT INTO `tb_role_authority` VALUES ('6057', '6', '5', '198');
-INSERT INTO `tb_role_authority` VALUES ('6058', '6', '5', '199');
-INSERT INTO `tb_role_authority` VALUES ('6059', '6', '5', '200');
-INSERT INTO `tb_role_authority` VALUES ('6060', '6', '5', '221');
-INSERT INTO `tb_role_authority` VALUES ('6061', '6', '5', '222');
-INSERT INTO `tb_role_authority` VALUES ('6062', '6', '5', '164');
-INSERT INTO `tb_role_authority` VALUES ('6063', '6', '5', '165');
-INSERT INTO `tb_role_authority` VALUES ('6064', '6', '5', '166');
-INSERT INTO `tb_role_authority` VALUES ('6065', '6', '5', '167');
-INSERT INTO `tb_role_authority` VALUES ('6066', '6', '5', '168');
-INSERT INTO `tb_role_authority` VALUES ('6067', '6', '5', '169');
-INSERT INTO `tb_role_authority` VALUES ('6068', '6', '5', '192');
-INSERT INTO `tb_role_authority` VALUES ('6069', '6', '5', '170');
-INSERT INTO `tb_role_authority` VALUES ('6070', '6', '5', '171');
-INSERT INTO `tb_role_authority` VALUES ('6071', '6', '5', '172');
-INSERT INTO `tb_role_authority` VALUES ('6072', '6', '5', '173');
-INSERT INTO `tb_role_authority` VALUES ('6073', '6', '5', '174');
-INSERT INTO `tb_role_authority` VALUES ('6074', '6', '5', '175');
-INSERT INTO `tb_role_authority` VALUES ('6075', '6', '5', '176');
-INSERT INTO `tb_role_authority` VALUES ('6076', '6', '5', '177');
-INSERT INTO `tb_role_authority` VALUES ('6077', '6', '5', '178');
-INSERT INTO `tb_role_authority` VALUES ('6078', '6', '5', '179');
-INSERT INTO `tb_role_authority` VALUES ('6079', '6', '5', '195');
-INSERT INTO `tb_role_authority` VALUES ('6080', '6', '5', '181');
-INSERT INTO `tb_role_authority` VALUES ('6081', '6', '5', '182');
-INSERT INTO `tb_role_authority` VALUES ('6082', '6', '5', '183');
-INSERT INTO `tb_role_authority` VALUES ('6083', '6', '5', '184');
-INSERT INTO `tb_role_authority` VALUES ('6084', '6', '5', '185');
-INSERT INTO `tb_role_authority` VALUES ('6085', '6', '5', '186');
-INSERT INTO `tb_role_authority` VALUES ('6086', '6', '5', '196');
-INSERT INTO `tb_role_authority` VALUES ('6087', '6', '5', '188');
-INSERT INTO `tb_role_authority` VALUES ('6088', '6', '5', '189');
-INSERT INTO `tb_role_authority` VALUES ('6089', '6', '5', '190');
-INSERT INTO `tb_role_authority` VALUES ('6090', '6', '5', '191');
+INSERT INTO `tb_role_authority` VALUES ('6091', '6', '1', '1');
+INSERT INTO `tb_role_authority` VALUES ('6092', '6', '1', '2');
+INSERT INTO `tb_role_authority` VALUES ('6093', '6', '1', '3');
+INSERT INTO `tb_role_authority` VALUES ('6094', '6', '1', '4');
+INSERT INTO `tb_role_authority` VALUES ('6095', '6', '1', '5');
+INSERT INTO `tb_role_authority` VALUES ('6096', '6', '1', '6');
+INSERT INTO `tb_role_authority` VALUES ('6097', '6', '1', '7');
+INSERT INTO `tb_role_authority` VALUES ('6098', '6', '1', '8');
+INSERT INTO `tb_role_authority` VALUES ('6099', '6', '1', '9');
+INSERT INTO `tb_role_authority` VALUES ('6100', '6', '1', '49');
+INSERT INTO `tb_role_authority` VALUES ('6101', '6', '1', '50');
+INSERT INTO `tb_role_authority` VALUES ('6102', '6', '1', '10');
+INSERT INTO `tb_role_authority` VALUES ('6103', '6', '1', '11');
+INSERT INTO `tb_role_authority` VALUES ('6104', '6', '1', '12');
+INSERT INTO `tb_role_authority` VALUES ('6105', '6', '1', '13');
+INSERT INTO `tb_role_authority` VALUES ('6106', '6', '1', '14');
+INSERT INTO `tb_role_authority` VALUES ('6107', '6', '1', '15');
+INSERT INTO `tb_role_authority` VALUES ('6108', '6', '1', '16');
+INSERT INTO `tb_role_authority` VALUES ('6109', '6', '1', '17');
+INSERT INTO `tb_role_authority` VALUES ('6110', '6', '1', '18');
+INSERT INTO `tb_role_authority` VALUES ('6111', '6', '1', '19');
+INSERT INTO `tb_role_authority` VALUES ('6112', '6', '1', '20');
+INSERT INTO `tb_role_authority` VALUES ('6113', '6', '1', '21');
+INSERT INTO `tb_role_authority` VALUES ('6114', '6', '1', '22');
+INSERT INTO `tb_role_authority` VALUES ('6115', '6', '1', '23');
+INSERT INTO `tb_role_authority` VALUES ('6116', '6', '1', '24');
+INSERT INTO `tb_role_authority` VALUES ('6117', '6', '1', '65');
+INSERT INTO `tb_role_authority` VALUES ('6118', '6', '1', '66');
+INSERT INTO `tb_role_authority` VALUES ('6119', '6', '1', '67');
+INSERT INTO `tb_role_authority` VALUES ('6120', '6', '1', '68');
+INSERT INTO `tb_role_authority` VALUES ('6121', '6', '1', '69');
+INSERT INTO `tb_role_authority` VALUES ('6122', '6', '1', '102');
+INSERT INTO `tb_role_authority` VALUES ('6123', '6', '1', '103');
+INSERT INTO `tb_role_authority` VALUES ('6124', '6', '1', '104');
+INSERT INTO `tb_role_authority` VALUES ('6125', '6', '1', '105');
+INSERT INTO `tb_role_authority` VALUES ('6126', '6', '1', '106');
+INSERT INTO `tb_role_authority` VALUES ('6127', '6', '1', '125');
+INSERT INTO `tb_role_authority` VALUES ('6128', '6', '1', '126');
+INSERT INTO `tb_role_authority` VALUES ('6129', '6', '1', '127');
+INSERT INTO `tb_role_authority` VALUES ('6130', '6', '1', '128');
+INSERT INTO `tb_role_authority` VALUES ('6131', '6', '1', '129');
+INSERT INTO `tb_role_authority` VALUES ('6132', '6', '1', '130');
+INSERT INTO `tb_role_authority` VALUES ('6133', '6', '1', '131');
+INSERT INTO `tb_role_authority` VALUES ('6134', '6', '1', '132');
+INSERT INTO `tb_role_authority` VALUES ('6135', '6', '1', '133');
+INSERT INTO `tb_role_authority` VALUES ('6136', '6', '1', '148');
+INSERT INTO `tb_role_authority` VALUES ('6137', '6', '1', '149');
+INSERT INTO `tb_role_authority` VALUES ('6138', '6', '1', '150');
+INSERT INTO `tb_role_authority` VALUES ('6139', '6', '1', '151');
+INSERT INTO `tb_role_authority` VALUES ('6140', '6', '1', '152');
+INSERT INTO `tb_role_authority` VALUES ('6141', '6', '1', '153');
+INSERT INTO `tb_role_authority` VALUES ('6142', '6', '1', '154');
+INSERT INTO `tb_role_authority` VALUES ('6143', '6', '1', '155');
+INSERT INTO `tb_role_authority` VALUES ('6144', '6', '1', '156');
+INSERT INTO `tb_role_authority` VALUES ('6145', '6', '1', '157');
+INSERT INTO `tb_role_authority` VALUES ('6146', '6', '1', '25');
+INSERT INTO `tb_role_authority` VALUES ('6147', '6', '1', '26');
+INSERT INTO `tb_role_authority` VALUES ('6148', '6', '1', '27');
+INSERT INTO `tb_role_authority` VALUES ('6149', '6', '1', '28');
+INSERT INTO `tb_role_authority` VALUES ('6150', '6', '1', '29');
+INSERT INTO `tb_role_authority` VALUES ('6151', '6', '1', '30');
+INSERT INTO `tb_role_authority` VALUES ('6152', '6', '1', '31');
+INSERT INTO `tb_role_authority` VALUES ('6153', '6', '1', '51');
+INSERT INTO `tb_role_authority` VALUES ('6154', '6', '1', '32');
+INSERT INTO `tb_role_authority` VALUES ('6155', '6', '1', '33');
+INSERT INTO `tb_role_authority` VALUES ('6156', '6', '1', '34');
+INSERT INTO `tb_role_authority` VALUES ('6157', '6', '1', '35');
+INSERT INTO `tb_role_authority` VALUES ('6158', '6', '1', '36');
+INSERT INTO `tb_role_authority` VALUES ('6159', '6', '1', '37');
+INSERT INTO `tb_role_authority` VALUES ('6160', '6', '1', '38');
+INSERT INTO `tb_role_authority` VALUES ('6161', '6', '1', '39');
+INSERT INTO `tb_role_authority` VALUES ('6162', '6', '1', '40');
+INSERT INTO `tb_role_authority` VALUES ('6163', '6', '1', '41');
+INSERT INTO `tb_role_authority` VALUES ('6164', '6', '1', '42');
+INSERT INTO `tb_role_authority` VALUES ('6165', '6', '1', '43');
+INSERT INTO `tb_role_authority` VALUES ('6166', '6', '1', '48');
+INSERT INTO `tb_role_authority` VALUES ('6167', '6', '1', '44');
+INSERT INTO `tb_role_authority` VALUES ('6168', '6', '1', '45');
+INSERT INTO `tb_role_authority` VALUES ('6169', '6', '1', '46');
+INSERT INTO `tb_role_authority` VALUES ('6170', '6', '1', '47');
+INSERT INTO `tb_role_authority` VALUES ('6171', '6', '1', '52');
+INSERT INTO `tb_role_authority` VALUES ('6172', '6', '1', '53');
+INSERT INTO `tb_role_authority` VALUES ('6173', '6', '1', '54');
+INSERT INTO `tb_role_authority` VALUES ('6174', '6', '1', '55');
+INSERT INTO `tb_role_authority` VALUES ('6175', '6', '1', '56');
+INSERT INTO `tb_role_authority` VALUES ('6176', '6', '1', '57');
+INSERT INTO `tb_role_authority` VALUES ('6177', '6', '1', '58');
+INSERT INTO `tb_role_authority` VALUES ('6178', '6', '1', '59');
+INSERT INTO `tb_role_authority` VALUES ('6179', '6', '1', '60');
+INSERT INTO `tb_role_authority` VALUES ('6180', '6', '1', '61');
+INSERT INTO `tb_role_authority` VALUES ('6181', '6', '1', '62');
+INSERT INTO `tb_role_authority` VALUES ('6182', '6', '1', '63');
+INSERT INTO `tb_role_authority` VALUES ('6183', '6', '1', '75');
+INSERT INTO `tb_role_authority` VALUES ('6184', '6', '1', '76');
+INSERT INTO `tb_role_authority` VALUES ('6185', '6', '1', '77');
+INSERT INTO `tb_role_authority` VALUES ('6186', '6', '1', '134');
+INSERT INTO `tb_role_authority` VALUES ('6187', '6', '1', '78');
+INSERT INTO `tb_role_authority` VALUES ('6188', '6', '1', '79');
+INSERT INTO `tb_role_authority` VALUES ('6189', '6', '1', '80');
+INSERT INTO `tb_role_authority` VALUES ('6190', '6', '1', '81');
+INSERT INTO `tb_role_authority` VALUES ('6191', '6', '1', '82');
+INSERT INTO `tb_role_authority` VALUES ('6192', '6', '1', '83');
+INSERT INTO `tb_role_authority` VALUES ('6193', '6', '1', '84');
+INSERT INTO `tb_role_authority` VALUES ('6194', '6', '1', '85');
+INSERT INTO `tb_role_authority` VALUES ('6195', '6', '1', '86');
+INSERT INTO `tb_role_authority` VALUES ('6196', '6', '1', '87');
+INSERT INTO `tb_role_authority` VALUES ('6197', '6', '1', '88');
+INSERT INTO `tb_role_authority` VALUES ('6198', '6', '1', '107');
+INSERT INTO `tb_role_authority` VALUES ('6199', '6', '1', '108');
+INSERT INTO `tb_role_authority` VALUES ('6200', '6', '1', '109');
+INSERT INTO `tb_role_authority` VALUES ('6201', '6', '1', '110');
+INSERT INTO `tb_role_authority` VALUES ('6202', '6', '1', '111');
+INSERT INTO `tb_role_authority` VALUES ('6203', '6', '1', '124');
+INSERT INTO `tb_role_authority` VALUES ('6204', '6', '1', '112');
+INSERT INTO `tb_role_authority` VALUES ('6205', '6', '1', '113');
+INSERT INTO `tb_role_authority` VALUES ('6206', '6', '1', '114');
+INSERT INTO `tb_role_authority` VALUES ('6207', '6', '1', '115');
+INSERT INTO `tb_role_authority` VALUES ('6208', '6', '1', '116');
+INSERT INTO `tb_role_authority` VALUES ('6209', '6', '1', '123');
+INSERT INTO `tb_role_authority` VALUES ('6210', '6', '1', '117');
+INSERT INTO `tb_role_authority` VALUES ('6211', '6', '1', '118');
+INSERT INTO `tb_role_authority` VALUES ('6212', '6', '1', '119');
+INSERT INTO `tb_role_authority` VALUES ('6213', '6', '1', '120');
+INSERT INTO `tb_role_authority` VALUES ('6214', '6', '1', '121');
+INSERT INTO `tb_role_authority` VALUES ('6215', '6', '1', '122');
+INSERT INTO `tb_role_authority` VALUES ('6216', '6', '1', '94');
+INSERT INTO `tb_role_authority` VALUES ('6217', '6', '1', '95');
+INSERT INTO `tb_role_authority` VALUES ('6218', '6', '1', '96');
+INSERT INTO `tb_role_authority` VALUES ('6219', '6', '1', '97');
+INSERT INTO `tb_role_authority` VALUES ('6220', '6', '1', '193');
+INSERT INTO `tb_role_authority` VALUES ('6221', '6', '1', '194');
+INSERT INTO `tb_role_authority` VALUES ('6222', '6', '1', '223');
+INSERT INTO `tb_role_authority` VALUES ('6223', '6', '1', '224');
+INSERT INTO `tb_role_authority` VALUES ('6224', '6', '1', '141');
+INSERT INTO `tb_role_authority` VALUES ('6225', '6', '1', '142');
+INSERT INTO `tb_role_authority` VALUES ('6226', '6', '1', '159');
+INSERT INTO `tb_role_authority` VALUES ('6227', '6', '1', '160');
+INSERT INTO `tb_role_authority` VALUES ('6228', '6', '1', '161');
+INSERT INTO `tb_role_authority` VALUES ('6229', '6', '1', '162');
+INSERT INTO `tb_role_authority` VALUES ('6230', '6', '1', '163');
+INSERT INTO `tb_role_authority` VALUES ('6231', '6', '1', '164');
+INSERT INTO `tb_role_authority` VALUES ('6232', '6', '1', '165');
+INSERT INTO `tb_role_authority` VALUES ('6233', '6', '1', '166');
+INSERT INTO `tb_role_authority` VALUES ('6234', '6', '1', '167');
+INSERT INTO `tb_role_authority` VALUES ('6235', '6', '1', '168');
+INSERT INTO `tb_role_authority` VALUES ('6236', '6', '1', '169');
+INSERT INTO `tb_role_authority` VALUES ('6237', '6', '1', '192');
+INSERT INTO `tb_role_authority` VALUES ('6238', '6', '1', '170');
+INSERT INTO `tb_role_authority` VALUES ('6239', '6', '1', '171');
+INSERT INTO `tb_role_authority` VALUES ('6240', '6', '1', '172');
+INSERT INTO `tb_role_authority` VALUES ('6241', '6', '1', '173');
+INSERT INTO `tb_role_authority` VALUES ('6242', '6', '1', '174');
+INSERT INTO `tb_role_authority` VALUES ('6243', '6', '1', '175');
+INSERT INTO `tb_role_authority` VALUES ('6244', '6', '1', '176');
+INSERT INTO `tb_role_authority` VALUES ('6245', '6', '1', '177');
+INSERT INTO `tb_role_authority` VALUES ('6246', '6', '1', '178');
+INSERT INTO `tb_role_authority` VALUES ('6247', '6', '1', '179');
+INSERT INTO `tb_role_authority` VALUES ('6248', '6', '1', '181');
+INSERT INTO `tb_role_authority` VALUES ('6249', '6', '1', '182');
+INSERT INTO `tb_role_authority` VALUES ('6250', '6', '1', '183');
+INSERT INTO `tb_role_authority` VALUES ('6251', '6', '1', '184');
+INSERT INTO `tb_role_authority` VALUES ('6252', '6', '1', '185');
+INSERT INTO `tb_role_authority` VALUES ('6253', '6', '1', '186');
+INSERT INTO `tb_role_authority` VALUES ('6254', '6', '1', '188');
+INSERT INTO `tb_role_authority` VALUES ('6255', '6', '1', '189');
+INSERT INTO `tb_role_authority` VALUES ('6256', '6', '1', '190');
+INSERT INTO `tb_role_authority` VALUES ('6257', '6', '1', '191');
+INSERT INTO `tb_role_authority` VALUES ('6318', '6', '5', '52');
+INSERT INTO `tb_role_authority` VALUES ('6319', '6', '5', '53');
+INSERT INTO `tb_role_authority` VALUES ('6320', '6', '5', '136');
+INSERT INTO `tb_role_authority` VALUES ('6321', '6', '5', '54');
+INSERT INTO `tb_role_authority` VALUES ('6322', '6', '5', '75');
+INSERT INTO `tb_role_authority` VALUES ('6323', '6', '5', '76');
+INSERT INTO `tb_role_authority` VALUES ('6324', '6', '5', '77');
+INSERT INTO `tb_role_authority` VALUES ('6325', '6', '5', '137');
+INSERT INTO `tb_role_authority` VALUES ('6326', '6', '5', '78');
+INSERT INTO `tb_role_authority` VALUES ('6327', '6', '5', '79');
+INSERT INTO `tb_role_authority` VALUES ('6328', '6', '5', '80');
+INSERT INTO `tb_role_authority` VALUES ('6329', '6', '5', '81');
+INSERT INTO `tb_role_authority` VALUES ('6330', '6', '5', '82');
+INSERT INTO `tb_role_authority` VALUES ('6331', '6', '5', '83');
+INSERT INTO `tb_role_authority` VALUES ('6332', '6', '5', '84');
+INSERT INTO `tb_role_authority` VALUES ('6333', '6', '5', '85');
+INSERT INTO `tb_role_authority` VALUES ('6334', '6', '5', '86');
+INSERT INTO `tb_role_authority` VALUES ('6335', '6', '5', '143');
+INSERT INTO `tb_role_authority` VALUES ('6336', '6', '5', '94');
+INSERT INTO `tb_role_authority` VALUES ('6337', '6', '5', '96');
+INSERT INTO `tb_role_authority` VALUES ('6338', '6', '5', '97');
+INSERT INTO `tb_role_authority` VALUES ('6339', '6', '5', '197');
+INSERT INTO `tb_role_authority` VALUES ('6340', '6', '5', '198');
+INSERT INTO `tb_role_authority` VALUES ('6341', '6', '5', '199');
+INSERT INTO `tb_role_authority` VALUES ('6342', '6', '5', '200');
+INSERT INTO `tb_role_authority` VALUES ('6343', '6', '5', '221');
+INSERT INTO `tb_role_authority` VALUES ('6344', '6', '5', '222');
+INSERT INTO `tb_role_authority` VALUES ('6345', '6', '5', '193');
+INSERT INTO `tb_role_authority` VALUES ('6346', '6', '5', '194');
+INSERT INTO `tb_role_authority` VALUES ('6347', '6', '5', '223');
+INSERT INTO `tb_role_authority` VALUES ('6348', '6', '5', '224');
+INSERT INTO `tb_role_authority` VALUES ('6349', '6', '5', '164');
+INSERT INTO `tb_role_authority` VALUES ('6350', '6', '5', '165');
+INSERT INTO `tb_role_authority` VALUES ('6351', '6', '5', '166');
+INSERT INTO `tb_role_authority` VALUES ('6352', '6', '5', '167');
+INSERT INTO `tb_role_authority` VALUES ('6353', '6', '5', '168');
+INSERT INTO `tb_role_authority` VALUES ('6354', '6', '5', '169');
+INSERT INTO `tb_role_authority` VALUES ('6355', '6', '5', '192');
+INSERT INTO `tb_role_authority` VALUES ('6356', '6', '5', '170');
+INSERT INTO `tb_role_authority` VALUES ('6357', '6', '5', '171');
+INSERT INTO `tb_role_authority` VALUES ('6358', '6', '5', '172');
+INSERT INTO `tb_role_authority` VALUES ('6359', '6', '5', '173');
+INSERT INTO `tb_role_authority` VALUES ('6360', '6', '5', '174');
+INSERT INTO `tb_role_authority` VALUES ('6361', '6', '5', '175');
+INSERT INTO `tb_role_authority` VALUES ('6362', '6', '5', '176');
+INSERT INTO `tb_role_authority` VALUES ('6363', '6', '5', '177');
+INSERT INTO `tb_role_authority` VALUES ('6364', '6', '5', '178');
+INSERT INTO `tb_role_authority` VALUES ('6365', '6', '5', '179');
+INSERT INTO `tb_role_authority` VALUES ('6366', '6', '5', '195');
+INSERT INTO `tb_role_authority` VALUES ('6367', '6', '5', '181');
+INSERT INTO `tb_role_authority` VALUES ('6368', '6', '5', '182');
+INSERT INTO `tb_role_authority` VALUES ('6369', '6', '5', '183');
+INSERT INTO `tb_role_authority` VALUES ('6370', '6', '5', '184');
+INSERT INTO `tb_role_authority` VALUES ('6371', '6', '5', '185');
+INSERT INTO `tb_role_authority` VALUES ('6372', '6', '5', '186');
+INSERT INTO `tb_role_authority` VALUES ('6373', '6', '5', '196');
+INSERT INTO `tb_role_authority` VALUES ('6374', '6', '5', '188');
+INSERT INTO `tb_role_authority` VALUES ('6375', '6', '5', '189');
+INSERT INTO `tb_role_authority` VALUES ('6376', '6', '5', '190');
+INSERT INTO `tb_role_authority` VALUES ('6377', '6', '5', '191');
+INSERT INTO `tb_role_authority` VALUES ('6378', '6', '5', '201');
+INSERT INTO `tb_role_authority` VALUES ('6379', '6', '5', '202');
+INSERT INTO `tb_role_authority` VALUES ('6380', '6', '5', '205');
+INSERT INTO `tb_role_authority` VALUES ('6381', '9', '3', '25');
+INSERT INTO `tb_role_authority` VALUES ('6382', '9', '3', '26');
+INSERT INTO `tb_role_authority` VALUES ('6383', '9', '3', '28');
+INSERT INTO `tb_role_authority` VALUES ('6384', '9', '3', '52');
+INSERT INTO `tb_role_authority` VALUES ('6385', '9', '3', '53');
+INSERT INTO `tb_role_authority` VALUES ('6386', '9', '3', '54');
+INSERT INTO `tb_role_authority` VALUES ('6387', '9', '3', '55');
+INSERT INTO `tb_role_authority` VALUES ('6388', '9', '3', '56');
+INSERT INTO `tb_role_authority` VALUES ('6389', '9', '3', '143');
+INSERT INTO `tb_role_authority` VALUES ('6390', '9', '3', '206');
+INSERT INTO `tb_role_authority` VALUES ('6391', '9', '3', '88');
+INSERT INTO `tb_role_authority` VALUES ('6392', '9', '3', '107');
+INSERT INTO `tb_role_authority` VALUES ('6393', '9', '3', '111');
+INSERT INTO `tb_role_authority` VALUES ('6394', '9', '3', '124');
+INSERT INTO `tb_role_authority` VALUES ('6395', '9', '3', '112');
+INSERT INTO `tb_role_authority` VALUES ('6396', '9', '3', '116');
+INSERT INTO `tb_role_authority` VALUES ('6397', '9', '3', '123');
+INSERT INTO `tb_role_authority` VALUES ('6398', '9', '3', '117');
+INSERT INTO `tb_role_authority` VALUES ('6399', '9', '3', '121');
+INSERT INTO `tb_role_authority` VALUES ('6400', '9', '3', '122');
+INSERT INTO `tb_role_authority` VALUES ('6401', '9', '3', '141');
+INSERT INTO `tb_role_authority` VALUES ('6402', '9', '3', '227');
+INSERT INTO `tb_role_authority` VALUES ('6403', '9', '3', '201');
+INSERT INTO `tb_role_authority` VALUES ('6404', '9', '3', '207');
+INSERT INTO `tb_role_authority` VALUES ('6405', '9', '3', '208');
+INSERT INTO `tb_role_authority` VALUES ('6406', '9', '3', '212');
+INSERT INTO `tb_role_authority` VALUES ('6407', '9', '2', '4');
+INSERT INTO `tb_role_authority` VALUES ('6408', '9', '2', '65');
+INSERT INTO `tb_role_authority` VALUES ('6409', '9', '2', '66');
+INSERT INTO `tb_role_authority` VALUES ('6410', '9', '2', '67');
+INSERT INTO `tb_role_authority` VALUES ('6411', '9', '2', '102');
+INSERT INTO `tb_role_authority` VALUES ('6412', '9', '2', '103');
+INSERT INTO `tb_role_authority` VALUES ('6413', '9', '2', '104');
+INSERT INTO `tb_role_authority` VALUES ('6414', '9', '2', '25');
+INSERT INTO `tb_role_authority` VALUES ('6415', '9', '2', '26');
+INSERT INTO `tb_role_authority` VALUES ('6416', '9', '2', '28');
+INSERT INTO `tb_role_authority` VALUES ('6417', '9', '2', '29');
+INSERT INTO `tb_role_authority` VALUES ('6418', '9', '2', '52');
+INSERT INTO `tb_role_authority` VALUES ('6419', '9', '2', '53');
+INSERT INTO `tb_role_authority` VALUES ('6420', '9', '2', '54');
+INSERT INTO `tb_role_authority` VALUES ('6421', '9', '2', '55');
+INSERT INTO `tb_role_authority` VALUES ('6422', '9', '2', '56');
+INSERT INTO `tb_role_authority` VALUES ('6423', '9', '2', '57');
+INSERT INTO `tb_role_authority` VALUES ('6424', '9', '2', '75');
+INSERT INTO `tb_role_authority` VALUES ('6425', '9', '2', '76');
+INSERT INTO `tb_role_authority` VALUES ('6426', '9', '2', '77');
+INSERT INTO `tb_role_authority` VALUES ('6427', '9', '2', '134');
+INSERT INTO `tb_role_authority` VALUES ('6428', '9', '2', '137');
+INSERT INTO `tb_role_authority` VALUES ('6429', '9', '2', '139');
+INSERT INTO `tb_role_authority` VALUES ('6430', '9', '2', '78');
+INSERT INTO `tb_role_authority` VALUES ('6431', '9', '2', '79');
+INSERT INTO `tb_role_authority` VALUES ('6432', '9', '2', '80');
+INSERT INTO `tb_role_authority` VALUES ('6433', '9', '2', '81');
+INSERT INTO `tb_role_authority` VALUES ('6434', '9', '2', '82');
+INSERT INTO `tb_role_authority` VALUES ('6435', '9', '2', '83');
+INSERT INTO `tb_role_authority` VALUES ('6436', '9', '2', '84');
+INSERT INTO `tb_role_authority` VALUES ('6437', '9', '2', '85');
+INSERT INTO `tb_role_authority` VALUES ('6438', '9', '2', '86');
+INSERT INTO `tb_role_authority` VALUES ('6439', '9', '2', '206');
+INSERT INTO `tb_role_authority` VALUES ('6440', '9', '2', '88');
+INSERT INTO `tb_role_authority` VALUES ('6441', '9', '2', '107');
+INSERT INTO `tb_role_authority` VALUES ('6442', '9', '2', '108');
+INSERT INTO `tb_role_authority` VALUES ('6443', '9', '2', '109');
+INSERT INTO `tb_role_authority` VALUES ('6444', '9', '2', '111');
+INSERT INTO `tb_role_authority` VALUES ('6445', '9', '2', '124');
+INSERT INTO `tb_role_authority` VALUES ('6446', '9', '2', '112');
+INSERT INTO `tb_role_authority` VALUES ('6447', '9', '2', '113');
+INSERT INTO `tb_role_authority` VALUES ('6448', '9', '2', '114');
+INSERT INTO `tb_role_authority` VALUES ('6449', '9', '2', '116');
+INSERT INTO `tb_role_authority` VALUES ('6450', '9', '2', '123');
+INSERT INTO `tb_role_authority` VALUES ('6451', '9', '2', '117');
+INSERT INTO `tb_role_authority` VALUES ('6452', '9', '2', '118');
+INSERT INTO `tb_role_authority` VALUES ('6453', '9', '2', '119');
+INSERT INTO `tb_role_authority` VALUES ('6454', '9', '2', '121');
+INSERT INTO `tb_role_authority` VALUES ('6455', '9', '2', '122');
+INSERT INTO `tb_role_authority` VALUES ('6456', '9', '2', '141');
+INSERT INTO `tb_role_authority` VALUES ('6457', '9', '2', '227');
+INSERT INTO `tb_role_authority` VALUES ('6458', '9', '2', '201');
+INSERT INTO `tb_role_authority` VALUES ('6459', '9', '2', '202');
+INSERT INTO `tb_role_authority` VALUES ('6460', '9', '2', '204');
+INSERT INTO `tb_role_authority` VALUES ('6461', '9', '2', '205');
+INSERT INTO `tb_role_authority` VALUES ('6462', '9', '2', '213');
+INSERT INTO `tb_role_authority` VALUES ('6463', '9', '2', '215');
+INSERT INTO `tb_role_authority` VALUES ('6464', '9', '2', '219');
+INSERT INTO `tb_role_authority` VALUES ('6465', '9', '2', '214');
+INSERT INTO `tb_role_authority` VALUES ('6466', '9', '2', '228');
+INSERT INTO `tb_role_authority` VALUES ('6467', '9', '2', '232');
+INSERT INTO `tb_role_authority` VALUES ('6676', '9', '4', '1');
+INSERT INTO `tb_role_authority` VALUES ('6677', '9', '4', '2');
+INSERT INTO `tb_role_authority` VALUES ('6678', '9', '4', '3');
+INSERT INTO `tb_role_authority` VALUES ('6679', '9', '4', '4');
+INSERT INTO `tb_role_authority` VALUES ('6680', '9', '4', '5');
+INSERT INTO `tb_role_authority` VALUES ('6681', '9', '4', '6');
+INSERT INTO `tb_role_authority` VALUES ('6682', '9', '4', '7');
+INSERT INTO `tb_role_authority` VALUES ('6683', '9', '4', '8');
+INSERT INTO `tb_role_authority` VALUES ('6684', '9', '4', '9');
+INSERT INTO `tb_role_authority` VALUES ('6685', '9', '4', '49');
+INSERT INTO `tb_role_authority` VALUES ('6686', '9', '4', '50');
+INSERT INTO `tb_role_authority` VALUES ('6687', '9', '4', '10');
+INSERT INTO `tb_role_authority` VALUES ('6688', '9', '4', '11');
+INSERT INTO `tb_role_authority` VALUES ('6689', '9', '4', '12');
+INSERT INTO `tb_role_authority` VALUES ('6690', '9', '4', '13');
+INSERT INTO `tb_role_authority` VALUES ('6691', '9', '4', '14');
+INSERT INTO `tb_role_authority` VALUES ('6692', '9', '4', '15');
+INSERT INTO `tb_role_authority` VALUES ('6693', '9', '4', '16');
+INSERT INTO `tb_role_authority` VALUES ('6694', '9', '4', '17');
+INSERT INTO `tb_role_authority` VALUES ('6695', '9', '4', '18');
+INSERT INTO `tb_role_authority` VALUES ('6696', '9', '4', '19');
+INSERT INTO `tb_role_authority` VALUES ('6697', '9', '4', '20');
+INSERT INTO `tb_role_authority` VALUES ('6698', '9', '4', '21');
+INSERT INTO `tb_role_authority` VALUES ('6699', '9', '4', '22');
+INSERT INTO `tb_role_authority` VALUES ('6700', '9', '4', '23');
+INSERT INTO `tb_role_authority` VALUES ('6701', '9', '4', '24');
+INSERT INTO `tb_role_authority` VALUES ('6702', '9', '4', '65');
+INSERT INTO `tb_role_authority` VALUES ('6703', '9', '4', '66');
+INSERT INTO `tb_role_authority` VALUES ('6704', '9', '4', '67');
+INSERT INTO `tb_role_authority` VALUES ('6705', '9', '4', '68');
+INSERT INTO `tb_role_authority` VALUES ('6706', '9', '4', '69');
+INSERT INTO `tb_role_authority` VALUES ('6707', '9', '4', '102');
+INSERT INTO `tb_role_authority` VALUES ('6708', '9', '4', '103');
+INSERT INTO `tb_role_authority` VALUES ('6709', '9', '4', '104');
+INSERT INTO `tb_role_authority` VALUES ('6710', '9', '4', '105');
+INSERT INTO `tb_role_authority` VALUES ('6711', '9', '4', '106');
+INSERT INTO `tb_role_authority` VALUES ('6712', '9', '4', '125');
+INSERT INTO `tb_role_authority` VALUES ('6713', '9', '4', '126');
+INSERT INTO `tb_role_authority` VALUES ('6714', '9', '4', '127');
+INSERT INTO `tb_role_authority` VALUES ('6715', '9', '4', '128');
+INSERT INTO `tb_role_authority` VALUES ('6716', '9', '4', '129');
+INSERT INTO `tb_role_authority` VALUES ('6717', '9', '4', '130');
+INSERT INTO `tb_role_authority` VALUES ('6718', '9', '4', '131');
+INSERT INTO `tb_role_authority` VALUES ('6719', '9', '4', '132');
+INSERT INTO `tb_role_authority` VALUES ('6720', '9', '4', '133');
+INSERT INTO `tb_role_authority` VALUES ('6721', '9', '4', '148');
+INSERT INTO `tb_role_authority` VALUES ('6722', '9', '4', '149');
+INSERT INTO `tb_role_authority` VALUES ('6723', '9', '4', '150');
+INSERT INTO `tb_role_authority` VALUES ('6724', '9', '4', '151');
+INSERT INTO `tb_role_authority` VALUES ('6725', '9', '4', '152');
+INSERT INTO `tb_role_authority` VALUES ('6726', '9', '4', '153');
+INSERT INTO `tb_role_authority` VALUES ('6727', '9', '4', '154');
+INSERT INTO `tb_role_authority` VALUES ('6728', '9', '4', '155');
+INSERT INTO `tb_role_authority` VALUES ('6729', '9', '4', '156');
+INSERT INTO `tb_role_authority` VALUES ('6730', '9', '4', '157');
+INSERT INTO `tb_role_authority` VALUES ('6731', '9', '4', '158');
+INSERT INTO `tb_role_authority` VALUES ('6732', '9', '4', '25');
+INSERT INTO `tb_role_authority` VALUES ('6733', '9', '4', '26');
+INSERT INTO `tb_role_authority` VALUES ('6734', '9', '4', '27');
+INSERT INTO `tb_role_authority` VALUES ('6735', '9', '4', '28');
+INSERT INTO `tb_role_authority` VALUES ('6736', '9', '4', '29');
+INSERT INTO `tb_role_authority` VALUES ('6737', '9', '4', '30');
+INSERT INTO `tb_role_authority` VALUES ('6738', '9', '4', '31');
+INSERT INTO `tb_role_authority` VALUES ('6739', '9', '4', '51');
+INSERT INTO `tb_role_authority` VALUES ('6740', '9', '4', '32');
+INSERT INTO `tb_role_authority` VALUES ('6741', '9', '4', '33');
+INSERT INTO `tb_role_authority` VALUES ('6742', '9', '4', '34');
+INSERT INTO `tb_role_authority` VALUES ('6743', '9', '4', '35');
+INSERT INTO `tb_role_authority` VALUES ('6744', '9', '4', '36');
+INSERT INTO `tb_role_authority` VALUES ('6745', '9', '4', '37');
+INSERT INTO `tb_role_authority` VALUES ('6746', '9', '4', '38');
+INSERT INTO `tb_role_authority` VALUES ('6747', '9', '4', '39');
+INSERT INTO `tb_role_authority` VALUES ('6748', '9', '4', '40');
+INSERT INTO `tb_role_authority` VALUES ('6749', '9', '4', '41');
+INSERT INTO `tb_role_authority` VALUES ('6750', '9', '4', '42');
+INSERT INTO `tb_role_authority` VALUES ('6751', '9', '4', '43');
+INSERT INTO `tb_role_authority` VALUES ('6752', '9', '4', '48');
+INSERT INTO `tb_role_authority` VALUES ('6753', '9', '4', '44');
+INSERT INTO `tb_role_authority` VALUES ('6754', '9', '4', '45');
+INSERT INTO `tb_role_authority` VALUES ('6755', '9', '4', '46');
+INSERT INTO `tb_role_authority` VALUES ('6756', '9', '4', '47');
+INSERT INTO `tb_role_authority` VALUES ('6757', '9', '4', '140');
+INSERT INTO `tb_role_authority` VALUES ('6758', '9', '4', '52');
+INSERT INTO `tb_role_authority` VALUES ('6759', '9', '4', '53');
+INSERT INTO `tb_role_authority` VALUES ('6760', '9', '4', '136');
+INSERT INTO `tb_role_authority` VALUES ('6761', '9', '4', '54');
+INSERT INTO `tb_role_authority` VALUES ('6762', '9', '4', '55');
+INSERT INTO `tb_role_authority` VALUES ('6763', '9', '4', '56');
+INSERT INTO `tb_role_authority` VALUES ('6764', '9', '4', '57');
+INSERT INTO `tb_role_authority` VALUES ('6765', '9', '4', '58');
+INSERT INTO `tb_role_authority` VALUES ('6766', '9', '4', '59');
+INSERT INTO `tb_role_authority` VALUES ('6767', '9', '4', '60');
+INSERT INTO `tb_role_authority` VALUES ('6768', '9', '4', '61');
+INSERT INTO `tb_role_authority` VALUES ('6769', '9', '4', '62');
+INSERT INTO `tb_role_authority` VALUES ('6770', '9', '4', '63');
+INSERT INTO `tb_role_authority` VALUES ('6771', '9', '4', '75');
+INSERT INTO `tb_role_authority` VALUES ('6772', '9', '4', '76');
+INSERT INTO `tb_role_authority` VALUES ('6773', '9', '4', '77');
+INSERT INTO `tb_role_authority` VALUES ('6774', '9', '4', '134');
+INSERT INTO `tb_role_authority` VALUES ('6775', '9', '4', '137');
+INSERT INTO `tb_role_authority` VALUES ('6776', '9', '4', '138');
+INSERT INTO `tb_role_authority` VALUES ('6777', '9', '4', '78');
+INSERT INTO `tb_role_authority` VALUES ('6778', '9', '4', '79');
+INSERT INTO `tb_role_authority` VALUES ('6779', '9', '4', '80');
+INSERT INTO `tb_role_authority` VALUES ('6780', '9', '4', '81');
+INSERT INTO `tb_role_authority` VALUES ('6781', '9', '4', '82');
+INSERT INTO `tb_role_authority` VALUES ('6782', '9', '4', '83');
+INSERT INTO `tb_role_authority` VALUES ('6783', '9', '4', '84');
+INSERT INTO `tb_role_authority` VALUES ('6784', '9', '4', '85');
+INSERT INTO `tb_role_authority` VALUES ('6785', '9', '4', '86');
+INSERT INTO `tb_role_authority` VALUES ('6786', '9', '4', '87');
+INSERT INTO `tb_role_authority` VALUES ('6787', '9', '4', '143');
+INSERT INTO `tb_role_authority` VALUES ('6788', '9', '4', '206');
+INSERT INTO `tb_role_authority` VALUES ('6789', '9', '4', '88');
+INSERT INTO `tb_role_authority` VALUES ('6790', '9', '4', '107');
+INSERT INTO `tb_role_authority` VALUES ('6791', '9', '4', '108');
+INSERT INTO `tb_role_authority` VALUES ('6792', '9', '4', '109');
+INSERT INTO `tb_role_authority` VALUES ('6793', '9', '4', '110');
+INSERT INTO `tb_role_authority` VALUES ('6794', '9', '4', '111');
+INSERT INTO `tb_role_authority` VALUES ('6795', '9', '4', '124');
+INSERT INTO `tb_role_authority` VALUES ('6796', '9', '4', '112');
+INSERT INTO `tb_role_authority` VALUES ('6797', '9', '4', '113');
+INSERT INTO `tb_role_authority` VALUES ('6798', '9', '4', '114');
+INSERT INTO `tb_role_authority` VALUES ('6799', '9', '4', '115');
+INSERT INTO `tb_role_authority` VALUES ('6800', '9', '4', '116');
+INSERT INTO `tb_role_authority` VALUES ('6801', '9', '4', '123');
+INSERT INTO `tb_role_authority` VALUES ('6802', '9', '4', '117');
+INSERT INTO `tb_role_authority` VALUES ('6803', '9', '4', '118');
+INSERT INTO `tb_role_authority` VALUES ('6804', '9', '4', '119');
+INSERT INTO `tb_role_authority` VALUES ('6805', '9', '4', '120');
+INSERT INTO `tb_role_authority` VALUES ('6806', '9', '4', '121');
+INSERT INTO `tb_role_authority` VALUES ('6807', '9', '4', '122');
+INSERT INTO `tb_role_authority` VALUES ('6808', '9', '4', '94');
+INSERT INTO `tb_role_authority` VALUES ('6809', '9', '4', '95');
+INSERT INTO `tb_role_authority` VALUES ('6810', '9', '4', '96');
+INSERT INTO `tb_role_authority` VALUES ('6811', '9', '4', '97');
+INSERT INTO `tb_role_authority` VALUES ('6812', '9', '4', '197');
+INSERT INTO `tb_role_authority` VALUES ('6813', '9', '4', '198');
+INSERT INTO `tb_role_authority` VALUES ('6814', '9', '4', '199');
+INSERT INTO `tb_role_authority` VALUES ('6815', '9', '4', '200');
+INSERT INTO `tb_role_authority` VALUES ('6816', '9', '4', '221');
+INSERT INTO `tb_role_authority` VALUES ('6817', '9', '4', '222');
+INSERT INTO `tb_role_authority` VALUES ('6818', '9', '4', '193');
+INSERT INTO `tb_role_authority` VALUES ('6819', '9', '4', '194');
+INSERT INTO `tb_role_authority` VALUES ('6820', '9', '4', '223');
+INSERT INTO `tb_role_authority` VALUES ('6821', '9', '4', '224');
+INSERT INTO `tb_role_authority` VALUES ('6822', '9', '4', '225');
+INSERT INTO `tb_role_authority` VALUES ('6823', '9', '4', '234');
+INSERT INTO `tb_role_authority` VALUES ('6824', '9', '4', '141');
+INSERT INTO `tb_role_authority` VALUES ('6825', '9', '4', '142');
+INSERT INTO `tb_role_authority` VALUES ('6826', '9', '4', '226');
+INSERT INTO `tb_role_authority` VALUES ('6827', '9', '4', '227');
+INSERT INTO `tb_role_authority` VALUES ('6828', '9', '4', '159');
+INSERT INTO `tb_role_authority` VALUES ('6829', '9', '4', '160');
+INSERT INTO `tb_role_authority` VALUES ('6830', '9', '4', '161');
+INSERT INTO `tb_role_authority` VALUES ('6831', '9', '4', '164');
+INSERT INTO `tb_role_authority` VALUES ('6832', '9', '4', '165');
+INSERT INTO `tb_role_authority` VALUES ('6833', '9', '4', '166');
+INSERT INTO `tb_role_authority` VALUES ('6834', '9', '4', '167');
+INSERT INTO `tb_role_authority` VALUES ('6835', '9', '4', '168');
+INSERT INTO `tb_role_authority` VALUES ('6836', '9', '4', '169');
+INSERT INTO `tb_role_authority` VALUES ('6837', '9', '4', '192');
+INSERT INTO `tb_role_authority` VALUES ('6838', '9', '4', '170');
+INSERT INTO `tb_role_authority` VALUES ('6839', '9', '4', '171');
+INSERT INTO `tb_role_authority` VALUES ('6840', '9', '4', '172');
+INSERT INTO `tb_role_authority` VALUES ('6841', '9', '4', '173');
+INSERT INTO `tb_role_authority` VALUES ('6842', '9', '4', '174');
+INSERT INTO `tb_role_authority` VALUES ('6843', '9', '4', '175');
+INSERT INTO `tb_role_authority` VALUES ('6844', '9', '4', '176');
+INSERT INTO `tb_role_authority` VALUES ('6845', '9', '4', '177');
+INSERT INTO `tb_role_authority` VALUES ('6846', '9', '4', '178');
+INSERT INTO `tb_role_authority` VALUES ('6847', '9', '4', '179');
+INSERT INTO `tb_role_authority` VALUES ('6848', '9', '4', '195');
+INSERT INTO `tb_role_authority` VALUES ('6849', '9', '4', '181');
+INSERT INTO `tb_role_authority` VALUES ('6850', '9', '4', '182');
+INSERT INTO `tb_role_authority` VALUES ('6851', '9', '4', '183');
+INSERT INTO `tb_role_authority` VALUES ('6852', '9', '4', '184');
+INSERT INTO `tb_role_authority` VALUES ('6853', '9', '4', '185');
+INSERT INTO `tb_role_authority` VALUES ('6854', '9', '4', '186');
+INSERT INTO `tb_role_authority` VALUES ('6855', '9', '4', '196');
+INSERT INTO `tb_role_authority` VALUES ('6856', '9', '4', '188');
+INSERT INTO `tb_role_authority` VALUES ('6857', '9', '4', '189');
+INSERT INTO `tb_role_authority` VALUES ('6858', '9', '4', '190');
+INSERT INTO `tb_role_authority` VALUES ('6859', '9', '4', '191');
+INSERT INTO `tb_role_authority` VALUES ('6860', '9', '4', '201');
+INSERT INTO `tb_role_authority` VALUES ('6861', '9', '4', '202');
+INSERT INTO `tb_role_authority` VALUES ('6862', '9', '4', '204');
+INSERT INTO `tb_role_authority` VALUES ('6863', '9', '4', '205');
+INSERT INTO `tb_role_authority` VALUES ('6864', '9', '4', '207');
+INSERT INTO `tb_role_authority` VALUES ('6865', '9', '4', '208');
+INSERT INTO `tb_role_authority` VALUES ('6866', '9', '4', '209');
+INSERT INTO `tb_role_authority` VALUES ('6867', '9', '4', '210');
+INSERT INTO `tb_role_authority` VALUES ('6868', '9', '4', '211');
+INSERT INTO `tb_role_authority` VALUES ('6869', '9', '4', '212');
+INSERT INTO `tb_role_authority` VALUES ('6870', '9', '4', '213');
+INSERT INTO `tb_role_authority` VALUES ('6871', '9', '4', '215');
+INSERT INTO `tb_role_authority` VALUES ('6872', '9', '4', '216');
+INSERT INTO `tb_role_authority` VALUES ('6873', '9', '4', '217');
+INSERT INTO `tb_role_authority` VALUES ('6874', '9', '4', '218');
+INSERT INTO `tb_role_authority` VALUES ('6875', '9', '4', '219');
+INSERT INTO `tb_role_authority` VALUES ('6876', '9', '4', '220');
+INSERT INTO `tb_role_authority` VALUES ('6877', '9', '4', '214');
+INSERT INTO `tb_role_authority` VALUES ('6878', '9', '4', '228');
+INSERT INTO `tb_role_authority` VALUES ('6879', '9', '4', '229');
+INSERT INTO `tb_role_authority` VALUES ('6880', '9', '4', '230');
+INSERT INTO `tb_role_authority` VALUES ('6881', '9', '4', '231');
+INSERT INTO `tb_role_authority` VALUES ('6882', '9', '4', '232');
+INSERT INTO `tb_role_authority` VALUES ('6883', '9', '4', '233');
+INSERT INTO `tb_role_authority` VALUES ('6884', '9', '4', '235');
 INSERT INTO `tb_salesman` VALUES ('1', '2015-03-31 21:46:59', 'stx', '孙童欣', '89919732', '2015-03-31 21:46:59', '1', '6');
 INSERT INTO `tb_salesman` VALUES ('2', '2015-04-01 13:22:32', '', 'helen', '18221855178', '2015-04-01 13:22:32', '2', '9');
 INSERT INTO `tb_salesman` VALUES ('3', '2015-04-01 22:45:54', 'wj', '王菁', '0571-89918552', '2015-04-01 22:45:54', '1', '9');
@@ -9787,6 +11469,8 @@ INSERT INTO `tb_salesman` VALUES ('50', '2015-06-20 11:13:50', 'lzj', '吕长静
 INSERT INTO `tb_salesman` VALUES ('51', '2015-06-25 13:41:27', '', 'lois', '未知', '2015-06-25 13:41:27', '2', '9');
 INSERT INTO `tb_salesman` VALUES ('52', '2015-06-25 13:41:44', '', 'Lisa', '未知', '2015-06-25 13:41:44', '2', '9');
 INSERT INTO `tb_salesman` VALUES ('53', '2015-08-03 20:18:39', 'zn', '珍妮', '不详', '2015-08-03 20:18:39', '10', '6');
+INSERT INTO `tb_salesman` VALUES ('54', '2015-09-05 19:14:55', 'zj', '翟佳', '未知', '2015-09-05 19:14:55', '1', '6');
+INSERT INTO `tb_salesman` VALUES ('55', '2015-10-15 15:35:34', 'zwl', '张文莉', '未知', '2015-10-15 15:35:34', '1', '6');
 INSERT INTO `tb_sample` VALUES ('1', '33.441', '2015-03-31 21:26:12', '471*1.12*12*32÷ 1000=202.568+15=217.568\r\n8.229\r\n机织:66.000\r\n锁口:18.000\r\n套口:9.600\r\n挂须:20.400\r\n整烫:16.800\r\n费用+后道:18.000\r\n____________________________\r\n148.8+8.229\r\n=157.029*1.17\r\n=183.724+217.568\r\n=401.292÷12\r\n=33.441*1.17\r\n=39.126\r\n', '', 'qqgzpj', 'resource.fuwei.com/images/sample/1427808371841QQ图片20150331211900.jpg', '1', '', '全晴格子披肩', 'FWA30001', '126*126 + 10*2', '2015-03-31 21:26:12', '471', '6', '7', 'resource.fuwei.com/images/sample/s/1427808371841QQ图片20150331211900.png', 'resource.fuwei.com/images/sample/ss/1427808371841QQ图片20150331211900.png', '1', '2');
 INSERT INTO `tb_sample` VALUES ('2', '6.013', '2015-04-02 11:18:06', '55*1.1*12*31÷ 1000=22.506+9=31.506\r\n0.944\r\n机织:14.400\r\n套抽:6.000\r\n整烫:3.000\r\n费用+后道:10.400\r\n____________________________\r\n33.8+0.944\r\n=34.744*1.17\r\n=40.65+31.506\r\n=72.156÷12\r\n=6.013*1.2\r\n=7.216\r\n', '', 'bdmjhbnm', 'resource.fuwei.com/images/sample/1427944682391625E01F8D68A189EAAAAEA2A9523E451.png', '3', '', '冰岛毛绞花比尼帽', 'FWA30002', '19*23cm', '2015-04-02 11:18:06', '55', '10', '9', 'resource.fuwei.com/images/sample/s/1427944682391625E01F8D68A189EAAAAEA2A9523E451.png', 'resource.fuwei.com/images/sample/ss/1427944682391625E01F8D68A189EAAAAEA2A9523E451.png', null, '1');
 INSERT INTO `tb_sample` VALUES ('3', '21.419', '2015-04-02 14:18:15', '385*1.12*12*31÷ 1000=160.406+12=172.406\r\n6.727\r\n机织:36.000\r\n套口:6.000\r\n挂须:6.600\r\n机织:17.000\r\n____________________________\r\n65.6+6.727\r\n=72.327*1.17\r\n=84.623+172.406\r\n=257.029÷12\r\n=21.419*1.17\r\n=25.06\r\n', '', 'bdmzfzgxwj', 'resource.fuwei.com/images/sample/1427955494579图片1.png', '4', '', '冰岛毛正反针挂须围巾', 'FWA30003', '190*40+2*20CM F', '2015-04-02 14:18:15', '285', '11', '9', 'resource.fuwei.com/images/sample/s/1427955494579图片1.png', 'resource.fuwei.com/images/sample/ss/1427955494579图片1.png', '2', '3');
@@ -10015,6 +11699,20 @@ INSERT INTO `tb_sample` VALUES ('226', '0', '2015-08-06 17:08:04', null, '', 'bd
 INSERT INTO `tb_sample` VALUES ('227', '0', '2015-08-06 17:50:50', null, '', 'bdmdrmhmhem', 'resource.fuwei.com/images/sample/1438854647572QQ图片20150806174550.jpg', '2', '', '冰岛毛段染马海毛护耳帽', 'FWA30227', '27*30+21+7cm', '2015-08-06 17:50:50', '175', null, '9', 'resource.fuwei.com/images/sample/s/1438854647572QQ图片20150806174550.png', 'resource.fuwei.com/images/sample/ss/1438854647572QQ图片20150806174550.png', '30', '1');
 INSERT INTO `tb_sample` VALUES ('228', '0', '2015-08-12 20:36:00', null, '', 'bdmzfzgxwj', 'resource.fuwei.com/images/sample/14393829551414B5C23721E2A6DBE5D1EE6B9D1855A48.jpg', '4', '', '冰岛毛正反针挂须围巾', 'FWA30228', '180*35+15*2cm', '2015-08-12 20:36:00', '470', null, '9', 'resource.fuwei.com/images/sample/s/14393829551414B5C23721E2A6DBE5D1EE6B9D1855A48.png', 'resource.fuwei.com/images/sample/ss/14393829551414B5C23721E2A6DBE5D1EE6B9D1855A48.png', null, '4');
 INSERT INTO `tb_sample` VALUES ('229', '0', '2015-08-12 20:37:54', null, '', 'qqthsdw', 'resource.fuwei.com/images/sample/1439383074033图片1.png', '1', '', '全晴提花圣诞袜', 'FWA30229', '按原样', '2015-08-12 20:37:54', '102', null, '9', 'resource.fuwei.com/images/sample/s/1439383074033图片1.png', 'resource.fuwei.com/images/sample/ss/1439383074033图片1.png', '2', '1');
+INSERT INTO `tb_sample` VALUES ('230', '0', '2015-08-25 14:53:47', null, '', 'nkmhmwb', 'resource.fuwei.com/images/sample/14404856201321B78CED5BF6A40F0D15323455CA5ABC6.png', '10', '', '女款马海毛围脖', 'FWA30230', '80*2*65', '2015-08-25 14:53:47', '185', null, '9', 'resource.fuwei.com/images/sample/s/14404856201321B78CED5BF6A40F0D15323455CA5ABC6.png', 'resource.fuwei.com/images/sample/ss/14404856201321B78CED5BF6A40F0D15323455CA5ABC6.png', '2', '4');
+INSERT INTO `tb_sample` VALUES ('231', '0', '2015-08-25 14:54:38', null, '', 'nkmhmscm', 'resource.fuwei.com/images/sample/1440485678383QQ截图20150825145021.jpg', '10', '', '女款马海毛双层帽', 'FWA30231', '26高*22宽', '2015-08-25 14:54:38', '46', null, '9', 'resource.fuwei.com/images/sample/s/1440485678383QQ截图20150825145021.png', 'resource.fuwei.com/images/sample/ss/1440485678383QQ截图20150825145021.png', '2', '4');
+INSERT INTO `tb_sample` VALUES ('232', '0', '2015-08-25 14:55:48', null, '', 'hfmhmwj', 'resource.fuwei.com/images/sample/1440485748135图片1.jpg', '10', '灰色：47%晴纶 30%尼龙 15%羊毛 8%马海毛', '混纺马海毛围巾', 'FWA30232', '40*210', '2015-08-25 14:55:48', '261', null, '9', 'resource.fuwei.com/images/sample/s/1440485748135图片1.png', 'resource.fuwei.com/images/sample/ss/1440485748135图片1.png', '7', '3');
+INSERT INTO `tb_sample` VALUES ('233', '0', '2015-08-25 14:57:47', null, '', 'bdmdrmhmcltd', 'resource.fuwei.com/images/sample/1440485865481CatchAA97(07-27-(08-25-14-52-39).jpg', '2', '', '冰岛毛段染马海毛衬里头带', 'FWA30233', '26*9', '2015-08-25 14:57:47', '63', null, '9', 'resource.fuwei.com/images/sample/s/1440485865481CatchAA97(07-27-(08-25-14-52-39).png', 'resource.fuwei.com/images/sample/ss/1440485865481CatchAA97(07-27-(08-25-14-52-39).png', '30', '1');
+INSERT INTO `tb_sample` VALUES ('234', '0', '2015-09-07 16:28:04', null, '', 'qqlkpj', 'resource.fuwei.com/images/sample/1441614483015NETTY PONCHO55x95cm+12cmx2  233G.jpg', '42', '', '全晴镂空披肩', 'FWA30234', '90*55高  领口33  须12cm', '2015-09-07 16:28:04', '290', null, '9', 'resource.fuwei.com/images/sample/s/1441614483015NETTY PONCHO55x95cm+12cmx2  233G.png', 'resource.fuwei.com/images/sample/ss/1441614483015NETTY PONCHO55x95cm+12cmx2  233G.png', '2', '1');
+INSERT INTO `tb_sample` VALUES ('235', '0', '2015-09-07 16:38:59', null, '', 'dzsbdmymsmz', 'resource.fuwei.com/images/sample/144161513871520150730132116.png', '3', '', '点子纱冰岛毛羽毛纱帽子', 'FWA30235', '20*20+7cm', '2015-09-07 16:38:59', '153', null, '9', 'resource.fuwei.com/images/sample/s/144161513871520150730132116.png', 'resource.fuwei.com/images/sample/ss/144161513871520150730132116.png', '9', '3');
+INSERT INTO `tb_sample` VALUES ('236', '0', '2015-09-07 16:39:30', null, '', 'dzsbdmymswb', 'resource.fuwei.com/images/sample/144161517013820150730132116.png', '3', '', '点子纱冰岛毛羽毛纱围脖', 'FWA30236', '30*2*38cm', '2015-09-07 16:39:30', '263', null, '9', 'resource.fuwei.com/images/sample/s/144161517013820150730132116.png', 'resource.fuwei.com/images/sample/ss/144161517013820150730132116.png', '9', '3');
+INSERT INTO `tb_sample` VALUES ('237', '0', '2015-09-22 13:36:54', null, '', 'mpedm', 'resource.fuwei.com/images/sample/144290021158206B515913FA69804F8AE6E96C04EB52F.jpg', '30', '', '毛皮耳朵帽', 'FWA30237', '29帽口*19.5帽高', '2015-09-22 13:36:54', '79', null, '9', 'resource.fuwei.com/images/sample/s/144290021158206B515913FA69804F8AE6E96C04EB52F.png', 'resource.fuwei.com/images/sample/ss/144290021158206B515913FA69804F8AE6E96C04EB52F.png', null, '3');
+INSERT INTO `tb_sample` VALUES ('238', '0', '2015-09-22 13:38:28', null, '', 'mpzzwb', 'resource.fuwei.com/images/sample/1442900302600176C830B1F76198293E05870096A9F2B.png', '1', '', '毛皮+针织围脖', 'FWA30238', '毛皮：25cm*16  针  总：27*21', '2015-09-22 13:38:28', '224', null, '9', 'resource.fuwei.com/images/sample/s/1442900302600176C830B1F76198293E05870096A9F2B.png', 'resource.fuwei.com/images/sample/ss/1442900302600176C830B1F76198293E05870096A9F2B.png', null, '3');
+INSERT INTO `tb_sample` VALUES ('239', '0', '2015-09-22 13:39:43', null, '', 'dsthwb', 'resource.fuwei.com/images/sample/1442900375945CXA26082.JPG', '1', '', '多色提花围脖', 'FWA30239', '76*2*40', '2015-09-22 13:39:43', '228', null, '9', 'resource.fuwei.com/images/sample/s/1442900375945CXA26082.png', 'resource.fuwei.com/images/sample/ss/1442900375945CXA26082.png', '7', '3');
+INSERT INTO `tb_sample` VALUES ('240', '0', '2015-09-22 14:15:59', null, '', 'kxdzswb', 'resource.fuwei.com/images/sample/1442902552485CXA26059.JPG', '56', '', '空心带子纱围脖', 'FWA30240', '28*2*30.5，须：23', '2015-09-22 14:15:59', '250', null, '9', 'resource.fuwei.com/images/sample/s/1442902552485CXA26059.png', 'resource.fuwei.com/images/sample/ss/1442902552485CXA26059.png', null, '3');
+INSERT INTO `tb_sample` VALUES ('241', '0', '2015-10-17 19:24:59', null, '', 'cs', 'resource.fuwei.com/images/sample/1445081097400断针记录表.JPG', '1', '', '测试', 'FWA30241', 'cm', '2015-10-17 19:24:59', '112', null, '6', 'resource.fuwei.com/images/sample/s/1445081097400断针记录表.png', 'resource.fuwei.com/images/sample/ss/1445081097400断针记录表.png', '27', '1');
+INSERT INTO `tb_sample` VALUES ('242', '0', '2015-10-17 20:07:58', null, '', 'cs', 'resource.fuwei.com/images/sample/1445083676763ETOFH.jpg', '1', '', '测试', 'FWA30242', '发放', '2015-10-17 20:07:58', '12', null, '6', 'resource.fuwei.com/images/sample/s/1445083676763ETOFH.png', 'resource.fuwei.com/images/sample/ss/1445083676763ETOFH.png', null, '1');
+INSERT INTO `tb_sample` VALUES ('243', '0', '2015-10-17 20:08:47', null, '', '', 'resource.fuwei.com/images/sample/1445083727551断针记录表.JPG', '1', '', 'ces', 'FWA30243', 'ee', '2015-10-17 20:08:47', '11', null, '6', 'resource.fuwei.com/images/sample/s/1445083727551断针记录表.png', 'resource.fuwei.com/images/sample/ss/1445083727551断针记录表.png', null, '1');
 INSERT INTO `tb_shoprecordorder` VALUES ('1', '1', '2015-03-31 21:48:39', '2015-03-31 21:48:39', '7', '6', '执行完成');
 INSERT INTO `tb_shoprecordorder` VALUES ('2', '2', '2015-04-02 22:09:03', '2015-04-02 22:09:03', '7', '0', '新建');
 INSERT INTO `tb_shoprecordorder` VALUES ('3', '3', '2015-04-02 22:32:58', '2015-04-02 22:32:58', '7', '0', '新建');
@@ -10028,7 +11726,7 @@ INSERT INTO `tb_shoprecordorder` VALUES ('10', '10', '2015-04-03 22:01:02', '201
 INSERT INTO `tb_shoprecordorder` VALUES ('11', '11', '2015-04-03 22:08:13', '2015-04-03 22:08:13', '7', '0', '新建');
 INSERT INTO `tb_shoprecordorder` VALUES ('12', '12', '2015-04-03 23:16:47', '2015-04-03 23:16:47', '7', '0', '新建');
 INSERT INTO `tb_shoprecordorder` VALUES ('13', '13', '2015-04-03 23:52:25', '2015-04-03 23:52:25', '7', '6', '执行完成');
-INSERT INTO `tb_shoprecordorder` VALUES ('14', '14', '2015-04-04 00:25:22', '2015-04-04 00:25:22', '7', '6', '执行完成');
+INSERT INTO `tb_shoprecordorder` VALUES ('14', '14', '2015-04-04 00:25:22', '2015-04-04 00:25:22', '7', '0', '新建');
 INSERT INTO `tb_shoprecordorder` VALUES ('15', '15', '2015-04-04 01:47:47', '2015-04-04 01:47:47', '7', '0', '新建');
 INSERT INTO `tb_shoprecordorder` VALUES ('16', '16', '2015-04-04 01:52:57', '2015-04-04 01:52:57', '7', '0', '新建');
 INSERT INTO `tb_shoprecordorder` VALUES ('17', '17', '2015-04-04 14:45:56', '2015-04-04 14:45:56', '7', '0', '新建');
@@ -10105,7 +11803,7 @@ INSERT INTO `tb_shoprecordorder` VALUES ('87', '87', '2015-04-27 08:07:57', '201
 INSERT INTO `tb_shoprecordorder` VALUES ('88', '88', '2015-04-27 08:24:57', '2015-04-27 08:24:57', '7', '0', '新建');
 INSERT INTO `tb_shoprecordorder` VALUES ('89', '89', '2015-04-27 08:45:32', '2015-04-27 08:45:32', '7', '0', '新建');
 INSERT INTO `tb_shoprecordorder` VALUES ('90', '90', '2015-04-30 13:32:44', '2015-04-30 13:32:44', '7', '0', '新建');
-INSERT INTO `tb_shoprecordorder` VALUES ('91', '91', '2015-05-02 16:28:24', '2015-05-02 16:28:24', '7', '6', '执行完成');
+INSERT INTO `tb_shoprecordorder` VALUES ('91', '91', '2015-05-02 16:28:24', '2015-05-02 16:28:24', '7', '0', '新建');
 INSERT INTO `tb_shoprecordorder` VALUES ('92', '92', '2015-05-03 17:24:03', '2015-05-03 17:24:03', '7', '0', '新建');
 INSERT INTO `tb_shoprecordorder` VALUES ('93', '93', '2015-05-03 17:34:23', '2015-05-03 17:34:23', '7', '0', '新建');
 INSERT INTO `tb_shoprecordorder` VALUES ('94', '94', '2015-05-03 17:51:49', '2015-05-03 17:51:49', '7', '6', '执行完成');
@@ -10239,7 +11937,7 @@ INSERT INTO `tb_shoprecordorder` VALUES ('221', '221', '2015-07-05 14:39:24', '2
 INSERT INTO `tb_shoprecordorder` VALUES ('222', '222', '2015-07-05 14:50:16', '2015-07-05 14:50:16', '7', '0', '新建');
 INSERT INTO `tb_shoprecordorder` VALUES ('223', '223', '2015-07-05 15:09:33', '2015-07-05 15:09:33', '7', '0', '新建');
 INSERT INTO `tb_shoprecordorder` VALUES ('224', '224', '2015-07-08 22:11:35', '2015-07-08 22:11:35', '7', '0', '新建');
-INSERT INTO `tb_shoprecordorder` VALUES ('225', '225', '2015-07-11 13:10:46', '2015-07-11 13:10:46', '7', '6', '执行完成');
+INSERT INTO `tb_shoprecordorder` VALUES ('225', '225', '2015-07-11 13:10:46', '2015-07-11 13:10:46', '7', '0', '新建');
 INSERT INTO `tb_shoprecordorder` VALUES ('226', '226', '2015-07-12 16:23:22', '2015-07-12 16:23:22', '7', '0', '新建');
 INSERT INTO `tb_shoprecordorder` VALUES ('227', '227', '2015-07-12 17:03:51', '2015-07-12 17:03:51', '7', '0', '新建');
 INSERT INTO `tb_shoprecordorder` VALUES ('228', '228', '2015-07-15 20:20:48', '2015-07-15 20:20:48', '7', '0', '新建');
@@ -10273,9 +11971,36 @@ INSERT INTO `tb_shoprecordorder` VALUES ('255', '255', '2015-08-09 22:05:28', '2
 INSERT INTO `tb_shoprecordorder` VALUES ('256', '256', '2015-08-09 22:19:56', '2015-08-09 22:19:56', '7', '0', '新建');
 INSERT INTO `tb_shoprecordorder` VALUES ('257', '257', '2015-08-09 22:33:40', '2015-08-09 22:33:40', '7', '0', '新建');
 INSERT INTO `tb_shoprecordorder` VALUES ('258', '258', '2015-08-11 17:53:10', '2015-08-11 17:53:10', '7', '0', '新建');
-INSERT INTO `tb_store_in_out` VALUES ('1', '209', '2015-10-10 13:46:29', '2015-10-10 14:35:30', '6', '[{\"color\":\"酒红\",\"id\":1,\"lot_no\":\"lew0001\",\"material\":6,\"packages\":5,\"quantity\":42},{\"color\":\"黑色\",\"id\":0,\"lot_no\":\"lew0002\",\"material\":6,\"packages\":3,\"quantity\":30},{\"color\":\"深绿\",\"id\":0,\"lot_no\":\"lew0003\",\"material\":6,\"packages\":4,\"quantity\":45}]', '0', '新建', 'FWA20223', '1', 'resource.fuwei.com/images/sample/1431264693171QQ截图20150510212912.jpg', '6', '冰岛毛绞花长须围巾', 'FWA30129', '180*23+2*26cm', '410', '129', 'resource.fuwei.com/images/sample/s/1431264693171QQ截图20150510212912.png', 'resource.fuwei.com/images/sample/ss/1431264693171QQ截图20150510212912.png', null, 'G-19-147519', '2', '', '2015-10-10 00:00:00', '3', null, '', '15SRK0001', '223', '', '');
-INSERT INTO `tb_store_in_out` VALUES ('2', '209', '2015-10-10 14:06:04', '2015-10-10 14:45:27', '6', '[{\"color\":\"酒红\",\"id\":1,\"lot_no\":\"lw11\",\"material\":6,\"packages\":1,\"quantity\":8},{\"color\":\"黑色\",\"id\":2,\"lot_no\":\"lw22\",\"material\":6,\"packages\":1,\"quantity\":1},{\"color\":\"深绿\",\"id\":3,\"lot_no\":\"lw33\",\"material\":6,\"packages\":1,\"quantity\":3},{\"color\":\"19R浅绿\",\"id\":4,\"lot_no\":\"lw44\",\"material\":6,\"packages\":1,\"quantity\":246},{\"color\":\"19R黑色\",\"id\":5,\"lot_no\":\"lw55\",\"material\":6,\"packages\":1,\"quantity\":247},{\"color\":\"浅绿\",\"id\":6,\"lot_no\":\"lw66\",\"material\":6,\"packages\":1,\"quantity\":31},{\"color\":\"19R深绿\",\"id\":7,\"lot_no\":\"lw77\",\"material\":6,\"packages\":1,\"quantity\":491},{\"color\":\"姜黄\",\"id\":8,\"lot_no\":\"lw88\",\"material\":6,\"packages\":1,\"quantity\":37},{\"color\":\"19R酒红\",\"id\":9,\"lot_no\":\"lw99\",\"material\":6,\"packages\":1,\"quantity\":491},{\"color\":\"19R姜黄\",\"id\":10,\"lot_no\":\"lw00\",\"material\":6,\"packages\":1,\"quantity\":331}]', '0', '新建', 'FWA20223', '1', 'resource.fuwei.com/images/sample/1431264693171QQ截图20150510212912.jpg', '6', '冰岛毛绞花长须围巾', 'FWA30129', '180*23+2*26cm', '410', '129', 'resource.fuwei.com/images/sample/s/1431264693171QQ截图20150510212912.png', 'resource.fuwei.com/images/sample/ss/1431264693171QQ截图20150510212912.png', null, 'G-19-147519', '2', '', '2015-10-10 00:00:00', '12', null, '', '15SRK0002', '223', '', '');
-INSERT INTO `tb_store_in_out` VALUES ('3', '209', '2015-10-10 14:50:32', '2015-10-10 14:50:32', '6', '[{\"color\":\"19R浅绿\",\"id\":0,\"lot_no\":\"lw44\",\"material\":6,\"packages\":1,\"quantity\":246},{\"color\":\"19R黑色\",\"id\":0,\"lot_no\":\"lw55\",\"material\":6,\"packages\":1,\"quantity\":246},{\"color\":\"19R深绿\",\"id\":0,\"lot_no\":\"lw77\",\"material\":6,\"packages\":1,\"quantity\":491},{\"color\":\"19R姜黄\",\"id\":0,\"lot_no\":\"lw00\",\"material\":6,\"packages\":1,\"quantity\":331},{\"color\":\"19R酒红\",\"id\":0,\"lot_no\":\"lw99\",\"material\":6,\"packages\":1,\"quantity\":491}]', '0', '新建', 'FWA20223', '1', 'resource.fuwei.com/images/sample/1431264693171QQ截图20150510212912.jpg', '6', '冰岛毛绞花长须围巾', 'FWA30129', '180*23+2*26cm', '410', '129', 'resource.fuwei.com/images/sample/s/1431264693171QQ截图20150510212912.png', 'resource.fuwei.com/images/sample/ss/1431264693171QQ截图20150510212912.png', null, 'G-19-147519', '2', '', '2015-10-10 00:00:00', '2', null, '', '15SCK0003', '223', '', '');
+INSERT INTO `tb_shoprecordorder` VALUES ('259', '259', '2015-08-13 09:11:37', '2015-08-13 09:11:37', '7', '0', '新建');
+INSERT INTO `tb_shoprecordorder` VALUES ('260', '260', '2015-08-13 09:23:32', '2015-08-13 09:23:32', '7', '0', '新建');
+INSERT INTO `tb_shoprecordorder` VALUES ('261', '261', '2015-08-20 14:13:42', '2015-08-20 14:13:42', '7', '0', '新建');
+INSERT INTO `tb_shoprecordorder` VALUES ('262', '262', '2015-08-24 15:08:35', '2015-08-24 15:08:35', '7', '0', '新建');
+INSERT INTO `tb_shoprecordorder` VALUES ('263', '263', '2015-08-26 16:31:59', '2015-08-26 16:31:59', '7', '0', '新建');
+INSERT INTO `tb_shoprecordorder` VALUES ('264', '264', '2015-08-26 16:49:07', '2015-08-26 16:49:07', '7', '0', '新建');
+INSERT INTO `tb_shoprecordorder` VALUES ('265', '265', '2015-08-27 08:27:35', '2015-08-27 08:27:35', '7', '0', '新建');
+INSERT INTO `tb_shoprecordorder` VALUES ('266', '266', '2015-08-27 08:37:24', '2015-08-27 08:37:24', '7', '0', '新建');
+INSERT INTO `tb_shoprecordorder` VALUES ('267', '267', '2015-08-27 08:55:10', '2015-08-27 08:55:10', '7', '0', '新建');
+INSERT INTO `tb_shoprecordorder` VALUES ('268', '268', '2015-09-04 15:35:09', '2015-09-04 15:35:09', '7', '0', '新建');
+INSERT INTO `tb_shoprecordorder` VALUES ('269', '269', '2015-09-17 12:39:23', '2015-09-17 12:39:23', '7', '0', '新建');
+INSERT INTO `tb_shoprecordorder` VALUES ('270', '270', '2015-09-17 12:55:22', '2015-09-17 12:55:22', '7', '0', '新建');
+INSERT INTO `tb_shoprecordorder` VALUES ('271', '271', '2015-09-21 08:30:41', '2015-09-21 08:30:41', '7', '0', '新建');
+INSERT INTO `tb_shoprecordorder` VALUES ('272', '272', '2015-09-23 12:27:17', '2015-09-23 12:27:17', '7', '0', '新建');
+INSERT INTO `tb_shoprecordorder` VALUES ('273', '273', '2015-09-25 15:31:07', '2015-09-25 15:31:07', '7', '0', '新建');
+INSERT INTO `tb_shoprecordorder` VALUES ('274', '274', '2015-09-28 09:05:47', '2015-09-28 09:05:47', '7', '0', '新建');
+INSERT INTO `tb_shoprecordorder` VALUES ('275', '275', '2015-09-28 09:38:07', '2015-09-28 09:38:07', '7', '0', '新建');
+INSERT INTO `tb_shoprecordorder` VALUES ('276', '276', '2015-10-04 10:24:40', '2015-10-04 10:24:40', '7', '0', '新建');
+INSERT INTO `tb_shoprecordorder` VALUES ('277', '277', '2015-10-09 14:16:39', '2015-10-09 14:16:39', '7', '0', '新建');
+INSERT INTO `tb_shoprecordorder` VALUES ('278', '278', '2015-10-09 14:36:54', '2015-10-09 14:36:54', '7', '0', '新建');
+INSERT INTO `tb_shoprecordorder` VALUES ('279', '279', '2015-10-09 14:58:39', '2015-10-09 14:58:39', '7', '0', '新建');
+INSERT INTO `tb_shoprecordorder` VALUES ('280', '280', '2015-10-09 15:05:02', '2015-10-09 15:05:02', '7', '0', '新建');
+INSERT INTO `tb_shoprecordorder` VALUES ('281', '281', '2015-10-09 15:09:30', '2015-10-09 15:09:30', '7', '0', '新建');
+INSERT INTO `tb_shoprecordorder` VALUES ('282', '282', '2015-10-10 08:50:24', '2015-10-10 08:50:24', '7', '0', '新建');
+INSERT INTO `tb_shoprecordorder` VALUES ('283', '283', '2015-10-13 13:17:11', '2015-10-13 13:17:11', '7', '0', '新建');
+INSERT INTO `tb_shoprecordorder` VALUES ('284', '284', '2015-10-15 09:22:03', '2015-10-15 09:22:03', '7', '0', '新建');
+INSERT INTO `tb_store_in_out` VALUES ('1', '9', '2015-10-18 20:50:47', '2015-10-28 18:56:03', '6', '[{\"color\":\"QY米色\",\"id\":1,\"lot_no\":\"loytgrd\",\"material\":6,\"packages\":3,\"quantity\":125},{\"color\":\"深夹花灰\",\"id\":2,\"lot_no\":\"loy332\",\"material\":7,\"packages\":5,\"quantity\":135}]', '0', '新建', 'FWA20010', '4', 'resource.fuwei.com/images/sample/1428068026985图片1.png', '6', '绞花包套', 'FWA30016', '25*9cm S/M', '114', '16', 'resource.fuwei.com/images/sample/s/1428068026985图片1.png', 'resource.fuwei.com/images/sample/ss/1428068026985图片1.png', '3', 'FWA30016', '3', '', '2015-10-18 00:00:00', '13', null, '', '15SRK0001', '10', '', '');
+INSERT INTO `tb_store_in_out` VALUES ('2', '9', '2015-10-18 20:51:39', '2015-10-18 20:51:39', '6', '[{\"color\":\"QY米色\",\"id\":0,\"lot_no\":\"loytgrd\",\"material\":6,\"packages\":1,\"quantity\":2},{\"color\":\"深夹花灰\",\"id\":0,\"lot_no\":\"loy332\",\"material\":7,\"packages\":1,\"quantity\":2}]', '0', '新建', 'FWA20010', '4', 'resource.fuwei.com/images/sample/1428068026985图片1.png', '6', '绞花包套', 'FWA30016', '25*9cm S/M', '114', '16', 'resource.fuwei.com/images/sample/s/1428068026985图片1.png', 'resource.fuwei.com/images/sample/ss/1428068026985图片1.png', '3', 'FWA30016', '3', '', '2015-10-18 00:00:00', '4', null, '', '15SCK0002', '10', '', '');
+INSERT INTO `tb_store_in_out` VALUES ('3', '9', '2015-10-28 18:57:00', '2015-10-28 18:57:00', '6', '[{\"color\":\"QY米色\",\"id\":1,\"lot_no\":\"lot111\",\"material\":6,\"packages\":1,\"quantity\":54},{\"color\":\"深夹花灰\",\"id\":2,\"lot_no\":\"lot222\",\"material\":7,\"packages\":1,\"quantity\":44}]', '0', '新建', 'FWA20010', '4', 'resource.fuwei.com/images/sample/1428068026985图片1.png', '6', '绞花包套', 'FWA30016', '25*9cm S/M', '114', '16', 'resource.fuwei.com/images/sample/s/1428068026985图片1.png', 'resource.fuwei.com/images/sample/ss/1428068026985图片1.png', '3', 'FWA30016', '3', '', '2015-10-28 00:00:00', '3', null, '纱线超出1kg', '15SRK0003', '10', '', '');
+INSERT INTO `tb_store_return` VALUES ('1', '2015-10-28 19:18:44', '2015-10-28 19:18:44', '6', '[{\"color\":\"QY米色\",\"id\":1,\"lot_no\":\"lot111\",\"material\":6,\"packages\":1,\"quantity\":4},{\"color\":\"深夹花灰\",\"id\":2,\"lot_no\":\"lot222\",\"material\":7,\"packages\":1,\"quantity\":4}]', '0', '新建', 'FWA20010', '4', 'resource.fuwei.com/images/sample/1428068026985图片1.png', '绞花包套', 'FWA30016', '16', 'resource.fuwei.com/images/sample/s/1428068026985图片1.png', 'resource.fuwei.com/images/sample/ss/1428068026985图片1.png', '3', 'FWA30016', '3', '2015-10-28 00:00:00', '3', null, '', '15HR0001', '10', '', '9');
 INSERT INTO `tb_storeorder` VALUES ('1', '1', '2015-04-01 20:52:06', '2015-04-01 20:52:06', '7', '[{\"color\":\"白色\",\"factoryId\":1,\"material\":1,\"quantity\":145,\"yarn\":\"\"},{\"color\":\"黑色\",\"factoryId\":1,\"material\":1,\"quantity\":162,\"yarn\":\"\"},{\"color\":\"黑色\",\"factoryId\":4,\"material\":1,\"quantity\":2,\"yarn\":\"\"},{\"color\":\"黑色\",\"factoryId\":5,\"material\":1,\"quantity\":15,\"yarn\":\"\"}]', null, '6', '执行完成', 'FWA20001', '1', 'resource.fuwei.com/images/sample/1427808371841QQ图片20150331211900.jpg', '1', '全晴格子披肩', 'FWA30001', '126*126 + 10*2', '471', '1', 'resource.fuwei.com/images/sample/s/1427808371841QQ图片20150331211900.png', 'resource.fuwei.com/images/sample/ss/1427808371841QQ图片20150331211900.png', '1', 'FWA30001', '2');
 INSERT INTO `tb_storeorder` VALUES ('2', '2', '2015-04-02 22:23:51', '2015-04-02 22:28:03', '7', '[{\"color\":\"米色\",\"factoryId\":2,\"material\":4,\"quantity\":680,\"yarn\":\"\"},{\"color\":\"米色\",\"factoryId\":5,\"material\":4,\"quantity\":93,\"yarn\":\"\"},{\"color\":\"米色\",\"factoryId\":4,\"material\":8,\"quantity\":2,\"yarn\":\"\"},{\"color\":\"藏青\",\"factoryId\":2,\"material\":4,\"quantity\":680,\"yarn\":\"\"},{\"color\":\"藏青\",\"factoryId\":5,\"material\":4,\"quantity\":93,\"yarn\":\"\"},{\"color\":\"藏青\",\"factoryId\":4,\"material\":8,\"quantity\":2,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20002', '4', 'resource.fuwei.com/images/sample/1427955494579图片1.png', '4', '冰岛毛正反针挂须围巾', 'FWA30003', '190*40+2*20CM F', '285', '3', 'resource.fuwei.com/images/sample/s/1427955494579图片1.png', 'resource.fuwei.com/images/sample/ss/1427955494579图片1.png', '2', 'FWA30003', '3');
 INSERT INTO `tb_storeorder` VALUES ('3', '3', '2015-04-02 22:38:27', '2015-04-02 22:39:01', '7', '[{\"color\":\"QY034-米色\",\"factoryId\":2,\"material\":4,\"quantity\":166,\"yarn\":\"\"},{\"color\":\"QY034-藏青\",\"factoryId\":2,\"material\":4,\"quantity\":166,\"yarn\":\"\"},{\"color\":\"QY034-米色\",\"factoryId\":20,\"material\":4,\"quantity\":24,\"yarn\":\"\"},{\"color\":\"QY034-藏青\",\"factoryId\":20,\"material\":4,\"quantity\":24,\"yarn\":\"\"},{\"color\":\"QY034-米色\",\"factoryId\":4,\"material\":8,\"quantity\":1,\"yarn\":\"\"},{\"color\":\"QY034-藏青\",\"factoryId\":4,\"material\":8,\"quantity\":1,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20003', '4', 'resource.fuwei.com/images/sample/1427955562784图片1.png', '4', '冰岛毛正反针吊球帽', 'FWA30004', '24CMH *20CM', '66', '4', 'resource.fuwei.com/images/sample/s/1427955562784图片1.png', 'resource.fuwei.com/images/sample/ss/1427955562784图片1.png', '2', 'FWA30004', '3');
@@ -10284,14 +12009,14 @@ INSERT INTO `tb_storeorder` VALUES ('5', '5', '2015-04-03 01:21:01', '2015-04-03
 INSERT INTO `tb_storeorder` VALUES ('6', '8', '2015-04-03 16:09:35', '2015-04-03 16:09:35', '7', '[{\"color\":\"黑色\",\"factoryId\":6,\"material\":9,\"quantity\":98,\"yarn\":\"\"},{\"color\":\"黑色\",\"factoryId\":21,\"material\":9,\"quantity\":9,\"yarn\":\"\"},{\"color\":\"黑色\",\"factoryId\":4,\"material\":9,\"quantity\":2,\"yarn\":\"\"},{\"color\":\"深夹花灰\",\"factoryId\":6,\"material\":9,\"quantity\":92,\"yarn\":\"\"},{\"color\":\"深夹花灰\",\"factoryId\":21,\"material\":9,\"quantity\":9,\"yarn\":\"\"},{\"color\":\"深夹花灰\",\"factoryId\":4,\"material\":9,\"quantity\":2,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20008', '4', 'resource.fuwei.com/images/sample/1427992902609图片1.png', '9', '马海毛包套', 'FWA30009', 'S/M', '80', '9', 'resource.fuwei.com/images/sample/s/1427992902609图片1.png', 'resource.fuwei.com/images/sample/ss/1427992902609图片1.png', '3', 'FWA30009', '3');
 INSERT INTO `tb_storeorder` VALUES ('7', '7', '2015-04-03 16:13:58', '2015-04-03 16:13:58', '7', '[{\"color\":\"黑色\",\"factoryId\":6,\"material\":9,\"quantity\":6,\"yarn\":\"\"},{\"color\":\"黑色\",\"factoryId\":6,\"material\":9,\"quantity\":1,\"yarn\":\"\"},{\"color\":\"深夹花灰\",\"factoryId\":6,\"material\":9,\"quantity\":617,\"yarn\":\"\"},{\"color\":\"深夹花灰\",\"factoryId\":6,\"material\":9,\"quantity\":5,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20007', '4', 'resource.fuwei.com/images/sample/1427992746746图片1.png', '9', '马海毛毛球帽', 'FWA30008', '22*22', '85', '8', 'resource.fuwei.com/images/sample/s/1427992746746图片1.png', 'resource.fuwei.com/images/sample/ss/1427992746746图片1.png', '3', 'FWA30008', '3');
 INSERT INTO `tb_storeorder` VALUES ('8', '9', '2015-04-03 21:53:09', '2015-04-03 21:53:09', '7', '[{\"color\":\"QY102米白\",\"factoryId\":2,\"material\":6,\"quantity\":522,\"yarn\":\"\"},{\"color\":\"QY102米白\",\"factoryId\":4,\"material\":6,\"quantity\":3,\"yarn\":\"\"},{\"color\":\"深夹花灰\",\"factoryId\":2,\"material\":7,\"quantity\":522,\"yarn\":\"\"},{\"color\":\"深夹花灰\",\"factoryId\":4,\"material\":7,\"quantity\":3,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20009', '4', 'resource.fuwei.com/images/sample/1428066399895图片1.png', '6', '冰岛毛绞花毛球帽', 'FWA30014', '21*20CM', '123', '14', 'resource.fuwei.com/images/sample/s/1428066399895图片1.png', 'resource.fuwei.com/images/sample/ss/1428066399895图片1.png', '3', 'FWA30014', '3');
-INSERT INTO `tb_storeorder` VALUES ('9', '10', '2015-04-03 22:04:25', '2015-04-03 22:04:25', '7', '[{\"color\":\"QY米色\",\"factoryId\":2,\"material\":6,\"quantity\":164,\"yarn\":\"\"},{\"color\":\"QY米色\",\"factoryId\":21,\"material\":6,\"quantity\":12,\"yarn\":\"\"},{\"color\":\"QY米色\",\"factoryId\":4,\"material\":6,\"quantity\":2,\"yarn\":\"\"},{\"color\":\"深夹花灰\",\"factoryId\":2,\"material\":7,\"quantity\":164,\"yarn\":\"\"},{\"color\":\"深夹花灰\",\"factoryId\":21,\"material\":7,\"quantity\":12,\"yarn\":\"\"},{\"color\":\"深夹花灰\",\"factoryId\":4,\"material\":7,\"quantity\":2,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20010', '4', 'resource.fuwei.com/images/sample/1428068026985图片1.png', '6', '绞花包套', 'FWA30016', '25*9cm S/M', '114', '16', 'resource.fuwei.com/images/sample/s/1428068026985图片1.png', 'resource.fuwei.com/images/sample/ss/1428068026985图片1.png', '3', 'FWA30016', '3');
+INSERT INTO `tb_storeorder` VALUES ('9', '10', '2015-04-03 22:04:25', '2015-10-21 11:53:59', '7', '[{\"color\":\"QY米色\",\"factoryId\":2,\"material\":6,\"quantity\":164,\"yarn\":\"\"},{\"color\":\"QY米色\",\"factoryId\":21,\"material\":6,\"quantity\":12,\"yarn\":\"\"},{\"color\":\"QY米色\",\"factoryId\":4,\"material\":6,\"quantity\":2,\"yarn\":\"\"},{\"color\":\"深夹花灰\",\"factoryId\":2,\"material\":7,\"quantity\":164,\"yarn\":\"\"},{\"color\":\"深夹花灰\",\"factoryId\":21,\"material\":7,\"quantity\":12,\"yarn\":\"\"},{\"color\":\"深夹花灰\",\"factoryId\":4,\"material\":7,\"quantity\":2,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20010', '4', 'resource.fuwei.com/images/sample/1428068026985图片1.png', '6', '绞花包套', 'FWA30016', '25*9cm S/M', '114', '16', 'resource.fuwei.com/images/sample/s/1428068026985图片1.png', 'resource.fuwei.com/images/sample/ss/1428068026985图片1.png', '3', 'FWA30016', '3');
 INSERT INTO `tb_storeorder` VALUES ('10', '11', '2015-04-03 22:15:39', '2015-04-03 22:15:39', '7', '[{\"color\":\"QY米色\",\"factoryId\":2,\"material\":6,\"quantity\":763,\"yarn\":\"\"},{\"color\":\"深夹花灰\",\"factoryId\":2,\"material\":7,\"quantity\":763,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20011', '4', 'resource.fuwei.com/images/sample/1428067891295图片1.png', '6', '绞花吊球围巾', 'FWA30015', '180*20cm', '338', '15', 'resource.fuwei.com/images/sample/s/1428067891295图片1.png', 'resource.fuwei.com/images/sample/ss/1428067891295图片1.png', '3', 'FWA30015', '3');
 INSERT INTO `tb_storeorder` VALUES ('11', '12', '2015-04-03 23:22:45', '2015-04-03 23:22:45', '7', '[{\"color\":\"QY088-黑色\",\"factoryId\":22,\"material\":1,\"quantity\":94,\"yarn\":\"\"},{\"color\":\"深夹花灰\",\"factoryId\":22,\"material\":1,\"quantity\":94,\"yarn\":\"\"},{\"color\":\"QY088-暗红色\",\"factoryId\":22,\"material\":1,\"quantity\":60,\"yarn\":\"\"},{\"color\":\"QY088-黑色\",\"factoryId\":18,\"material\":1,\"quantity\":2,\"yarn\":\"\"},{\"color\":\"深夹花灰\",\"factoryId\":18,\"material\":1,\"quantity\":2,\"yarn\":\"\"},{\"color\":\"QY088-暗红色\",\"factoryId\":18,\"material\":1,\"quantity\":2,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20012', '4', 'resource.fuwei.com/images/sample/1428073896025图片1.png', '1', '抽条翻边帽', 'FWA30018', '21H*20W', '63', '18', 'resource.fuwei.com/images/sample/s/1428073896025图片1.png', 'resource.fuwei.com/images/sample/ss/1428073896025图片1.png', '3', 'FWA30018', '3');
 INSERT INTO `tb_storeorder` VALUES ('12', '13', '2015-04-03 23:57:43', '2015-04-03 23:57:43', '7', '[{\"color\":\"ICHI灰色\",\"factoryId\":7,\"material\":8,\"quantity\":175,\"yarn\":\"\"},{\"color\":\"灰色\",\"factoryId\":4,\"material\":8,\"quantity\":2,\"yarn\":\"\"},{\"color\":\"黑色\",\"factoryId\":7,\"material\":16,\"quantity\":45,\"yarn\":\"\"}]', null, '6', '执行完成', 'FWA20013', '1', 'resource.fuwei.com/images/sample/1427993082909Adoree loop SMS 8019 carbon solid.JPG', '8', '冰岛毛羽毛纱围脖', 'FWA30010', '33*2*27', '198', '10', 'resource.fuwei.com/images/sample/s/1427993082909Adoree loop SMS 8019 carbon solid.png', 'resource.fuwei.com/images/sample/ss/1427993082909Adoree loop SMS 8019 carbon solid.png', '5', 'FWA30010', '2');
 INSERT INTO `tb_storeorder` VALUES ('13', '15', '2015-04-04 01:50:41', '2015-04-04 01:50:41', '7', '[{\"color\":\"白色\",\"factoryId\":30,\"material\":9,\"quantity\":10,\"yarn\":\"\"},{\"color\":\"白色组\",\"factoryId\":30,\"material\":17,\"quantity\":6,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20015', '7', 'resource.fuwei.com/images/sample/14280776443192FC6687A49233B5F718DA9A0DB6598AA.png', '17', '马海毛点子纱围脖', 'FWA30020', '43H*75W', '203', '20', 'resource.fuwei.com/images/sample/s/14280776443192FC6687A49233B5F718DA9A0DB6598AA.png', 'resource.fuwei.com/images/sample/ss/14280776443192FC6687A49233B5F718DA9A0DB6598AA.png', null, 'FWA30020', '3');
 INSERT INTO `tb_storeorder` VALUES ('14', '16', '2015-04-04 01:54:01', '2015-04-04 01:54:01', '7', '[{\"color\":\"米色\",\"factoryId\":2,\"material\":9,\"quantity\":5,\"yarn\":\"\"},{\"color\":\"黑色\",\"factoryId\":2,\"material\":9,\"quantity\":10,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20016', '7', 'resource.fuwei.com/images/sample/1428077349767796265BFB290FEE2DC5FC6E38AE4B3B6.png', '9', '马海毛烫钻帽', 'FWA30019', '20W*27H', '69', '19', 'resource.fuwei.com/images/sample/s/1428077349767796265BFB290FEE2DC5FC6E38AE4B3B6.png', 'resource.fuwei.com/images/sample/ss/1428077349767796265BFB290FEE2DC5FC6E38AE4B3B6.png', null, 'FWA30019', '3');
 INSERT INTO `tb_storeorder` VALUES ('15', '17', '2015-04-04 15:38:23', '2015-04-04 15:38:23', '7', '[{\"color\":\"QY114-灰色\",\"factoryId\":27,\"material\":9,\"quantity\":110,\"yarn\":\"\"},{\"color\":\"QY114-粉色\",\"factoryId\":27,\"material\":9,\"quantity\":67,\"yarn\":\"\"},{\"color\":\"QY114-酒红\",\"factoryId\":27,\"material\":9,\"quantity\":110,\"yarn\":\"\"},{\"color\":\"QY114-深驼\",\"factoryId\":27,\"material\":9,\"quantity\":67,\"yarn\":\"\"},{\"color\":\"灰色\",\"factoryId\":4,\"material\":9,\"quantity\":1,\"yarn\":\"\"},{\"color\":\"粉色\",\"factoryId\":4,\"material\":9,\"quantity\":1,\"yarn\":\"\"},{\"color\":\"酒红\",\"factoryId\":4,\"material\":9,\"quantity\":1,\"yarn\":\"\"},{\"color\":\"深驼色\",\"factoryId\":4,\"material\":9,\"quantity\":1,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20017', '4', 'resource.fuwei.com/images/sample/1428129724477图片1.png', '9', '马海毛抽条加亮丝围脖', 'FWA30023', '70*2*40cm', '115', '23', 'resource.fuwei.com/images/sample/s/1428129724477图片1.png', 'resource.fuwei.com/images/sample/ss/1428129724477图片1.png', '3', 'FWA30023', '3');
-INSERT INTO `tb_storeorder` VALUES ('16', '14', '2015-04-06 12:11:17', '2015-04-06 12:11:17', '7', '[{\"color\":\"白胚\",\"factoryId\":10,\"material\":13,\"quantity\":50,\"yarn\":\"\"}]', null, '6', '执行完成', 'FWA20014', '7', 'resource.fuwei.com/images/sample/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', '13', '仿羊绒成品染色拉毛围脖', 'FWA30021', '40H*75W', '152', '21', 'resource.fuwei.com/images/sample/s/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', 'resource.fuwei.com/images/sample/ss/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', null, 'FWA30021', '3');
+INSERT INTO `tb_storeorder` VALUES ('16', '14', '2015-04-06 12:11:17', '2015-04-06 12:11:17', '7', '[{\"color\":\"白胚\",\"factoryId\":10,\"material\":13,\"quantity\":50,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20014', '7', 'resource.fuwei.com/images/sample/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', '13', '仿羊绒成品染色拉毛围脖', 'FWA30021', '40H*75W', '152', '21', 'resource.fuwei.com/images/sample/s/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', 'resource.fuwei.com/images/sample/ss/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', null, 'FWA30021', '3');
 INSERT INTO `tb_storeorder` VALUES ('17', '20', '2015-04-06 12:41:45', '2015-04-06 12:41:45', '7', '[{\"color\":\"hr32-黑色\",\"factoryId\":2,\"material\":9,\"quantity\":9.5,\"yarn\":\"\"},{\"color\":\"hr32-黑色\",\"factoryId\":4,\"material\":9,\"quantity\":0.5,\"yarn\":\"\"},{\"color\":\"hr32-米色\",\"factoryId\":2,\"material\":9,\"quantity\":4.5,\"yarn\":\"\"},{\"color\":\"hr32-米色\",\"factoryId\":4,\"material\":9,\"quantity\":0.5,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20020', '7', 'resource.fuwei.com/images/sample/1428077349767796265BFB290FEE2DC5FC6E38AE4B3B6.png', '9', '马海毛烫钻帽', 'FWA30019', '20W*27H', '69', '19', 'resource.fuwei.com/images/sample/s/1428077349767796265BFB290FEE2DC5FC6E38AE4B3B6.png', 'resource.fuwei.com/images/sample/ss/1428077349767796265BFB290FEE2DC5FC6E38AE4B3B6.png', null, ' hr32', '3');
 INSERT INTO `tb_storeorder` VALUES ('18', '21', '2015-04-07 12:34:22', '2015-04-07 16:28:52', '7', '[{\"color\":\"HR140919本白\",\"factoryId\":9,\"material\":9,\"quantity\":9.5,\"yarn\":\"\"},{\"color\":\"彩色点子纱本白\",\"factoryId\":9,\"material\":9,\"quantity\":6,\"yarn\":\"\"},{\"color\":\"本白色\",\"factoryId\":4,\"material\":9,\"quantity\":0.5,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20021', '7', 'resource.fuwei.com/images/sample/14280776443192FC6687A49233B5F718DA9A0DB6598AA.png', '17', '马海毛点子纱围脖', 'FWA30020', '43H*75W', '203', '20', 'resource.fuwei.com/images/sample/s/14280776443192FC6687A49233B5F718DA9A0DB6598AA.png', 'resource.fuwei.com/images/sample/ss/14280776443192FC6687A49233B5F718DA9A0DB6598AA.png', null, 'hr140919l', '3');
 INSERT INTO `tb_storeorder` VALUES ('19', '24', '2015-04-08 08:50:28', '2015-04-08 08:50:28', '7', '[{\"color\":\"714#\",\"factoryId\":7,\"material\":1,\"quantity\":206,\"yarn\":\"\"},{\"color\":\"718#\",\"factoryId\":7,\"material\":1,\"quantity\":206,\"yarn\":\"\"},{\"color\":\"714#\",\"factoryId\":4,\"material\":1,\"quantity\":1.5,\"yarn\":\"\"},{\"color\":\"718#\",\"factoryId\":4,\"material\":1,\"quantity\":1.5,\"yarn\":\"\"}]', null, '6', '执行完成', 'FWA20024', '2', 'resource.fuwei.com/images/sample/14284500148474A245F5021573282698A5022354CF3C1.png', '1', '晴纶纱围巾', 'FWA30031', '45*180+3.5cm', '110', '31', 'resource.fuwei.com/images/sample/s/14284500148474A245F5021573282698A5022354CF3C1.png', 'resource.fuwei.com/images/sample/ss/14284500148474A245F5021573282698A5022354CF3C1.png', '4', '12ASAG', '3');
@@ -10355,7 +12080,7 @@ INSERT INTO `tb_storeorder` VALUES ('76', '87', '2015-04-27 08:19:59', '2015-04-
 INSERT INTO `tb_storeorder` VALUES ('77', '88', '2015-04-27 08:38:21', '2015-04-27 09:00:22', '7', '[{\"color\":\"15NY黑色\",\"factoryId\":37,\"material\":10,\"quantity\":155,\"yarn\":\"\"},{\"color\":\"15NY棕色\",\"factoryId\":37,\"material\":10,\"quantity\":77,\"yarn\":\"\"},{\"color\":\"15NY白色\",\"factoryId\":37,\"material\":10,\"quantity\":121,\"yarn\":\"\"},{\"color\":\"15NY灰色\",\"factoryId\":37,\"material\":10,\"quantity\":18,\"yarn\":\"\"},{\"color\":\"151\",\"factoryId\":37,\"material\":19,\"quantity\":12,\"yarn\":\"\"},{\"color\":\"72\",\"factoryId\":37,\"material\":19,\"quantity\":12,\"yarn\":\"\"},{\"color\":\"106\",\"factoryId\":37,\"material\":19,\"quantity\":6,\"yarn\":\"\"},{\"color\":\"58\",\"factoryId\":37,\"material\":19,\"quantity\":6,\"yarn\":\"\"},{\"color\":\"1\",\"factoryId\":37,\"material\":19,\"quantity\":12,\"yarn\":\"\"},{\"color\":\"7\",\"factoryId\":37,\"material\":19,\"quantity\":10,\"yarn\":\"\"},{\"color\":\"粉色\",\"factoryId\":37,\"material\":19,\"quantity\":2,\"yarn\":\"\"},{\"color\":\"黑色\",\"factoryId\":4,\"material\":10,\"quantity\":1.5,\"yarn\":\"\"},{\"color\":\"棕色\",\"factoryId\":4,\"material\":10,\"quantity\":0.5,\"yarn\":\"\"},{\"color\":\"白色\",\"factoryId\":4,\"material\":10,\"quantity\":1,\"yarn\":\"\"},{\"color\":\"灰色\",\"factoryId\":4,\"material\":10,\"quantity\":0.5,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20088', '1', 'resource.fuwei.com/images/sample/1428650207511图片2.jpg', '10', '马海毛亮丝帽子', 'FWA30036', '28*21.6cm', '70', '36', 'resource.fuwei.com/images/sample/s/1428650207511图片2.png', 'resource.fuwei.com/images/sample/ss/1428650207511图片2.png', null, 'M21500', '2');
 INSERT INTO `tb_storeorder` VALUES ('78', '89', '2015-04-27 08:56:31', '2015-04-27 08:56:31', '7', '[{\"color\":\"15NY黑色\",\"factoryId\":33,\"material\":10,\"quantity\":320,\"yarn\":\"\"},{\"color\":\"15NY棕色\",\"factoryId\":33,\"material\":10,\"quantity\":149,\"yarn\":\"\"},{\"color\":\"15NY白色\",\"factoryId\":33,\"material\":10,\"quantity\":138,\"yarn\":\"\"},{\"color\":\"15NY褐色\",\"factoryId\":33,\"material\":10,\"quantity\":37,\"yarn\":\"\"},{\"color\":\"15NY灰色\",\"factoryId\":33,\"material\":10,\"quantity\":33,\"yarn\":\"\"},{\"color\":\"151\",\"factoryId\":33,\"material\":19,\"quantity\":99.5,\"yarn\":\"\"},{\"color\":\"72\",\"factoryId\":33,\"material\":19,\"quantity\":99.5,\"yarn\":\"\"},{\"color\":\"106\",\"factoryId\":33,\"material\":19,\"quantity\":58,\"yarn\":\"\"},{\"color\":\"58\",\"factoryId\":33,\"material\":19,\"quantity\":46,\"yarn\":\"\"},{\"color\":\"1\",\"factoryId\":33,\"material\":19,\"quantity\":53,\"yarn\":\"\"},{\"color\":\"7\",\"factoryId\":33,\"material\":19,\"quantity\":43,\"yarn\":\"\"},{\"color\":\"粉色\",\"factoryId\":33,\"material\":19,\"quantity\":22,\"yarn\":\"\"},{\"color\":\"黑色\",\"factoryId\":4,\"material\":10,\"quantity\":2,\"yarn\":\"\"},{\"color\":\"棕色\",\"factoryId\":4,\"material\":10,\"quantity\":1,\"yarn\":\"\"},{\"color\":\"白色\",\"factoryId\":4,\"material\":10,\"quantity\":1,\"yarn\":\"\"},{\"color\":\"褐色\",\"factoryId\":4,\"material\":10,\"quantity\":0.5,\"yarn\":\"\"},{\"color\":\"灰色\",\"factoryId\":4,\"material\":10,\"quantity\":0.5,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20089', '1', 'resource.fuwei.com/images/sample/1428381118194图片1.jpg', '10', '马海毛正反针围脖', 'FWA30028', '35.5*127cm', '155', '28', 'resource.fuwei.com/images/sample/s/1428381118194图片1.png', 'resource.fuwei.com/images/sample/ss/1428381118194图片1.png', null, 'M49500', '2');
 INSERT INTO `tb_storeorder` VALUES ('79', '90', '2015-04-30 13:41:44', '2015-04-30 13:41:44', '7', '[{\"color\":\"714\",\"factoryId\":40,\"material\":10,\"quantity\":143,\"yarn\":\"\"},{\"color\":\"714\",\"factoryId\":4,\"material\":10,\"quantity\":1,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20090', '3', 'resource.fuwei.com/images/sample/1430271663000GIRLS ANNI TUBE SCARF.JPG', '10', '马海毛五角星围脖', 'FWA30091', '56*85*2cm', '120', '91', 'resource.fuwei.com/images/sample/s/1430271663000GIRLS ANNI TUBE SCARF.png', 'resource.fuwei.com/images/sample/ss/1430271663000GIRLS ANNI TUBE SCARF.png', null, 'GIRLS', '4');
-INSERT INTO `tb_storeorder` VALUES ('80', '91', '2015-05-02 16:34:57', '2015-05-02 16:34:57', '7', '[{\"color\":\"粉色\",\"factoryId\":2,\"material\":9,\"quantity\":44,\"yarn\":\"\"},{\"color\":\"黑色\",\"factoryId\":2,\"material\":9,\"quantity\":130,\"yarn\":\"\"},{\"color\":\"白色\",\"factoryId\":2,\"material\":9,\"quantity\":70,\"yarn\":\"\"},{\"color\":\"粉色\",\"factoryId\":2,\"material\":29,\"quantity\":10,\"yarn\":\"\"},{\"color\":\"黑色\",\"factoryId\":2,\"material\":29,\"quantity\":28,\"yarn\":\"\"},{\"color\":\"白色\",\"factoryId\":2,\"material\":29,\"quantity\":15,\"yarn\":\"\"}]', null, '6', '执行完成', 'FWA20091', '1', 'resource.fuwei.com/images/sample/1430554256869图片1.jpg', '9', '马海毛珠片纱吊球帽', 'FWA30109', '23*23cm', '80', '109', 'resource.fuwei.com/images/sample/s/1430554256869图片1.png', 'resource.fuwei.com/images/sample/ss/1430554256869图片1.png', null, '72505', '1');
+INSERT INTO `tb_storeorder` VALUES ('80', '91', '2015-05-02 16:34:57', '2015-05-02 16:34:57', '7', '[{\"color\":\"粉色\",\"factoryId\":2,\"material\":9,\"quantity\":44,\"yarn\":\"\"},{\"color\":\"黑色\",\"factoryId\":2,\"material\":9,\"quantity\":130,\"yarn\":\"\"},{\"color\":\"白色\",\"factoryId\":2,\"material\":9,\"quantity\":70,\"yarn\":\"\"},{\"color\":\"粉色\",\"factoryId\":2,\"material\":29,\"quantity\":10,\"yarn\":\"\"},{\"color\":\"黑色\",\"factoryId\":2,\"material\":29,\"quantity\":28,\"yarn\":\"\"},{\"color\":\"白色\",\"factoryId\":2,\"material\":29,\"quantity\":15,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20091', '1', 'resource.fuwei.com/images/sample/1430554256869图片1.jpg', '9', '马海毛珠片纱吊球帽', 'FWA30109', '23*23cm', '80', '109', 'resource.fuwei.com/images/sample/s/1430554256869图片1.png', 'resource.fuwei.com/images/sample/ss/1430554256869图片1.png', null, '72505', '1');
 INSERT INTO `tb_storeorder` VALUES ('81', '92', '2015-05-03 17:28:26', '2015-05-03 17:28:26', '7', '[{\"color\":\"AU16蓝色\",\"factoryId\":2,\"material\":10,\"quantity\":104,\"yarn\":\"\"},{\"color\":\"K974\",\"factoryId\":2,\"material\":10,\"quantity\":104,\"yarn\":\"\"},{\"color\":\"AU16蓝色\",\"factoryId\":39,\"material\":10,\"quantity\":25,\"yarn\":\"\"},{\"color\":\"K974\",\"factoryId\":39,\"material\":10,\"quantity\":25,\"yarn\":\"\"},{\"color\":\"AU16蓝色\",\"factoryId\":4,\"material\":10,\"quantity\":1,\"yarn\":\"\"},{\"color\":\"K974\",\"factoryId\":4,\"material\":10,\"quantity\":1,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20092', '1', 'resource.fuwei.com/images/sample/1430270381012IMG_8078.JPG', '10', '马海毛抽条吊球帽', 'FWA30085', '23*21cm', '64', '85', 'resource.fuwei.com/images/sample/s/1430270381012IMG_8078.png', 'resource.fuwei.com/images/sample/ss/1430270381012IMG_8078.png', null, '11ACAG-006-AU16', '2');
 INSERT INTO `tb_storeorder` VALUES ('82', '93', '2015-05-03 17:45:36', '2015-05-03 17:45:36', '7', '[{\"color\":\"PON皮紫\",\"factoryId\":40,\"material\":11,\"quantity\":50,\"yarn\":\"\"},{\"color\":\"PON橡皮红\",\"factoryId\":40,\"material\":11,\"quantity\":50,\"yarn\":\"\"},{\"color\":\"PON黑色\",\"factoryId\":40,\"material\":11,\"quantity\":50,\"yarn\":\"\"},{\"color\":\"PON暗红\",\"factoryId\":40,\"material\":11,\"quantity\":50,\"yarn\":\"\"},{\"color\":\"PON棕色\",\"factoryId\":40,\"material\":11,\"quantity\":50,\"yarn\":\"\"},{\"color\":\"PON酒红\",\"factoryId\":40,\"material\":11,\"quantity\":50,\"yarn\":\"\"},{\"color\":\"PON驼色\",\"factoryId\":40,\"material\":11,\"quantity\":50,\"yarn\":\"\"},{\"color\":\"PON深紫\",\"factoryId\":40,\"material\":11,\"quantity\":50,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20093', '1', 'resource.fuwei.com/images/sample/1430270687657图片1.jpg', '11', '经编多色肩', 'FWA30087', '对折后宽55cm，长116cm，领口宽30，须12', '340', '87', 'resource.fuwei.com/images/sample/s/1430270687657图片1.png', 'resource.fuwei.com/images/sample/ss/1430270687657图片1.png', null, 'NLSSY/PONCHO', '1');
 INSERT INTO `tb_storeorder` VALUES ('83', '94', '2015-05-03 17:54:38', '2015-05-03 17:55:25', '7', '[{\"color\":\"H36黑色\",\"factoryId\":2,\"material\":1,\"quantity\":355,\"yarn\":\"\"},{\"color\":\"K974\",\"factoryId\":2,\"material\":1,\"quantity\":355,\"yarn\":\"\"},{\"color\":\"黑色\",\"factoryId\":4,\"material\":1,\"quantity\":2,\"yarn\":\"\"}]', null, '6', '执行完成', 'FWA20094', '8', 'resource.fuwei.com/images/sample/1430270804252图片1.jpg', '1', '男款提花围巾', 'FWA30088', '184*30cm', '188', '88', 'resource.fuwei.com/images/sample/s/1430270804252图片1.png', 'resource.fuwei.com/images/sample/ss/1430270804252图片1.png', null, 'H3661', '1');
@@ -10517,6 +12242,31 @@ INSERT INTO `tb_storeorder` VALUES ('238', '255', '2015-08-09 22:13:16', '2015-0
 INSERT INTO `tb_storeorder` VALUES ('239', '256', '2015-08-09 22:26:22', '2015-08-09 22:26:22', '7', '[{\"color\":\"本白色\",\"factoryId\":33,\"material\":10,\"quantity\":373,\"yarn\":\"\"},{\"color\":\"本白色\",\"factoryId\":4,\"material\":10,\"quantity\":3,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20256', '3', 'resource.fuwei.com/images/sample/143875470273038.899.91.1467AH.JPG', '10', '马海毛吊球帽', 'FWA30223', '21*21+8cm', '76', '223', 'resource.fuwei.com/images/sample/s/143875470273038.899.91.1467AH.png', 'resource.fuwei.com/images/sample/ss/143875470273038.899.91.1467AH.png', null, '961008', '4');
 INSERT INTO `tb_storeorder` VALUES ('240', '257', '2015-08-09 22:37:03', '2015-08-09 22:37:03', '7', '[{\"color\":\"55米色\",\"factoryId\":2,\"material\":6,\"quantity\":155,\"yarn\":\"\"},{\"color\":\"黑色\",\"factoryId\":2,\"material\":17,\"quantity\":42,\"yarn\":\"\"},{\"color\":\"黑色\",\"factoryId\":21,\"material\":17,\"quantity\":6.5,\"yarn\":\"\"},{\"color\":\"55米色\",\"factoryId\":21,\"material\":6,\"quantity\":26,\"yarn\":\"\"},{\"color\":\"55米色\",\"factoryId\":4,\"material\":6,\"quantity\":3,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20257', '1', 'resource.fuwei.com/images/sample/1433425564610图片1.jpg', '6', '冰岛毛点子纱包套', 'FWA30165', '按原样', '125', '165', 'resource.fuwei.com/images/sample/s/1433425564610图片1.png', 'resource.fuwei.com/images/sample/ss/1433425564610图片1.png', null, '58461', '1');
 INSERT INTO `tb_storeorder` VALUES ('241', '258', '2015-08-11 17:55:49', '2015-08-12 20:08:44', '7', '[{\"color\":\"本白色\",\"factoryId\":2,\"material\":10,\"quantity\":577,\"yarn\":\"\"},{\"color\":\"本白色\",\"factoryId\":4,\"material\":10,\"quantity\":3,\"yarn\":\"\"},{\"color\":\"本白色\",\"factoryId\":39,\"material\":10,\"quantity\":108,\"yarn\":\"\"},{\"color\":\"本白色\",\"factoryId\":7,\"material\":10,\"quantity\":557,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20258', '3', 'resource.fuwei.com/images/sample/143875440710138.899.91.1467A.JPG', '10', '马海毛挂须围巾', 'FWA30222', '180*28+20*2cm', '222', '222', 'resource.fuwei.com/images/sample/s/143875440710138.899.91.1467A.png', 'resource.fuwei.com/images/sample/ss/143875440710138.899.91.1467A.png', null, '961008', '4');
+INSERT INTO `tb_storeorder` VALUES ('242', '259', '2015-08-13 09:17:03', '2015-08-13 09:17:03', '7', '[{\"color\":\"74酒红\",\"factoryId\":2,\"material\":4,\"quantity\":656,\"yarn\":\"\"},{\"color\":\"74褐色\",\"factoryId\":2,\"material\":4,\"quantity\":309,\"yarn\":\"\"},{\"color\":\"74白色\",\"factoryId\":2,\"material\":4,\"quantity\":309,\"yarn\":\"\"},{\"color\":\"74酒红\",\"factoryId\":39,\"material\":4,\"quantity\":44,\"yarn\":\"\"},{\"color\":\"74褐色\",\"factoryId\":39,\"material\":4,\"quantity\":21,\"yarn\":\"\"},{\"color\":\"74白色\",\"factoryId\":39,\"material\":4,\"quantity\":21,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20259', '3', 'resource.fuwei.com/images/sample/14393829551414B5C23721E2A6DBE5D1EE6B9D1855A48.jpg', '4', '冰岛毛正反针挂须围巾', 'FWA30228', '180*35+15*2cm', '470', '228', 'resource.fuwei.com/images/sample/s/14393829551414B5C23721E2A6DBE5D1EE6B9D1855A48.png', 'resource.fuwei.com/images/sample/ss/14393829551414B5C23721E2A6DBE5D1EE6B9D1855A48.png', null, 'G-7411', '4');
+INSERT INTO `tb_storeorder` VALUES ('243', '260', '2015-08-13 09:28:06', '2015-08-13 09:28:06', '7', '[{\"color\":\"769绿色\",\"factoryId\":2,\"material\":1,\"quantity\":90,\"yarn\":\"\"},{\"color\":\"769大红色\",\"factoryId\":2,\"material\":1,\"quantity\":110,\"yarn\":\"\"},{\"color\":\"本白色\",\"factoryId\":2,\"material\":1,\"quantity\":90,\"yarn\":\"\"},{\"color\":\"大红\",\"factoryId\":39,\"material\":1,\"quantity\":15,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20260', '1', 'resource.fuwei.com/images/sample/1439383074033图片1.png', '1', '全晴提花圣诞袜', 'FWA30229', '按原样', '102', '229', 'resource.fuwei.com/images/sample/s/1439383074033图片1.png', 'resource.fuwei.com/images/sample/ss/1439383074033图片1.png', null, '76932', '1');
+INSERT INTO `tb_storeorder` VALUES ('244', '261', '2015-08-20 14:38:27', '2015-08-20 14:38:27', '7', '[{\"color\":\"H38黑色\",\"factoryId\":27,\"material\":1,\"quantity\":240,\"yarn\":\"\"},{\"color\":\"H38深灰\",\"factoryId\":27,\"material\":1,\"quantity\":480,\"yarn\":\"\"},{\"color\":\"H38黑色\",\"factoryId\":9,\"material\":1,\"quantity\":134,\"yarn\":\"\"},{\"color\":\"H38深灰\",\"factoryId\":9,\"material\":1,\"quantity\":268,\"yarn\":\"\"},{\"color\":\"黑色\",\"factoryId\":4,\"material\":1,\"quantity\":2,\"yarn\":\"\"},{\"color\":\"深灰\",\"factoryId\":4,\"material\":1,\"quantity\":2,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20261', '2', 'resource.fuwei.com/images/sample/1429772818065图片1.jpg', '1', '烫金披肩', 'FWA30082', '披肩尺寸', '350', '82', 'resource.fuwei.com/images/sample/s/1429772818065图片1.png', 'resource.fuwei.com/images/sample/ss/1429772818065图片1.png', null, 'H38042229', '3');
+INSERT INTO `tb_storeorder` VALUES ('245', '262', '2015-08-24 15:11:05', '2015-08-24 15:11:05', '7', '[{\"color\":\"白胚\",\"factoryId\":10,\"material\":11,\"quantity\":1460,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20262', '3', 'resource.fuwei.com/images/sample/1438251014217W14.K.01.WE.JPG', '11', '仿羊绒成品染色围脖', 'FWA30221', '32*160', '250', '221', 'resource.fuwei.com/images/sample/s/1438251014217W14.K.01.WE.png', 'resource.fuwei.com/images/sample/ss/1438251014217W14.K.01.WE.png', null, 'W14.K.01..WE', '4');
+INSERT INTO `tb_storeorder` VALUES ('246', '263', '2015-08-26 16:36:26', '2015-08-27 08:18:56', '7', '[{\"color\":\"712\",\"factoryId\":65,\"material\":10,\"quantity\":713,\"yarn\":\"\"},{\"color\":\"712\",\"factoryId\":4,\"material\":10,\"quantity\":3,\"yarn\":\"\"},{\"color\":\"粉色\",\"factoryId\":2,\"material\":10,\"quantity\":646,\"yarn\":\"\"},{\"color\":\"粉色\",\"factoryId\":4,\"material\":10,\"quantity\":2,\"yarn\":\"\"},{\"color\":\"沙色\",\"factoryId\":6,\"material\":10,\"quantity\":703,\"yarn\":\"\"},{\"color\":\"沙色\",\"factoryId\":4,\"material\":10,\"quantity\":2.5,\"yarn\":\"\"},{\"color\":\"银丝\",\"factoryId\":6,\"material\":19,\"quantity\":46,\"yarn\":\"\"},{\"color\":\"MH-178\",\"factoryId\":6,\"material\":19,\"quantity\":46,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20263', '3', 'resource.fuwei.com/images/sample/14404856201321B78CED5BF6A40F0D15323455CA5ABC6.png', '10', '女款马海毛围脖', 'FWA30230', '80*2*65', '185', '230', 'resource.fuwei.com/images/sample/s/14404856201321B78CED5BF6A40F0D15323455CA5ABC6.png', 'resource.fuwei.com/images/sample/ss/14404856201321B78CED5BF6A40F0D15323455CA5ABC6.png', null, 'MP 869', '4');
+INSERT INTO `tb_storeorder` VALUES ('247', '264', '2015-08-26 16:54:27', '2015-08-27 08:07:50', '7', '[{\"color\":\"712\",\"factoryId\":65,\"material\":10,\"quantity\":155,\"yarn\":\"\"},{\"color\":\"粉色\",\"factoryId\":2,\"material\":10,\"quantity\":141,\"yarn\":\"\"},{\"color\":\"沙色\",\"factoryId\":6,\"material\":10,\"quantity\":155,\"yarn\":\"\"},{\"color\":\"银丝\",\"factoryId\":6,\"material\":19,\"quantity\":31,\"yarn\":\"\"},{\"color\":\"MH-178\",\"factoryId\":6,\"material\":19,\"quantity\":31,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20264', '3', 'resource.fuwei.com/images/sample/1440485678383QQ截图20150825145021.jpg', '10', '女款马海毛双层帽', 'FWA30231', '26高*22宽', '46', '231', 'resource.fuwei.com/images/sample/s/1440485678383QQ截图20150825145021.png', 'resource.fuwei.com/images/sample/ss/1440485678383QQ截图20150825145021.png', null, 'MQ073', '4');
+INSERT INTO `tb_storeorder` VALUES ('248', '265', '2015-08-27 08:34:17', '2015-08-27 08:34:17', '7', '[{\"color\":\"米色\",\"factoryId\":30,\"material\":2,\"quantity\":51,\"yarn\":\"\"},{\"color\":\"红色段染\",\"factoryId\":30,\"material\":9,\"quantity\":34,\"yarn\":\"\"},{\"color\":\"红色段染\",\"factoryId\":39,\"material\":9,\"quantity\":10,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20265', '6', 'resource.fuwei.com/images/sample/1440485865481CatchAA97(07-27-(08-25-14-52-39).jpg', '2', '冰岛毛段染马海毛衬里头带', 'FWA30233', '26*9', '63', '233', 'resource.fuwei.com/images/sample/s/1440485865481CatchAA97(07-27-(08-25-14-52-39).png', 'resource.fuwei.com/images/sample/ss/1440485865481CatchAA97(07-27-(08-25-14-52-39).png', null, 'W1500287-00', '1');
+INSERT INTO `tb_storeorder` VALUES ('249', '266', '2015-08-27 08:42:32', '2015-08-27 08:42:32', '7', '[{\"color\":\"米白色\",\"factoryId\":7,\"material\":10,\"quantity\":336,\"yarn\":\"\"},{\"color\":\"深灰色\",\"factoryId\":7,\"material\":53,\"quantity\":195,\"yarn\":\"\"},{\"color\":\"米白色\",\"factoryId\":4,\"material\":10,\"quantity\":1,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20266', '3', 'resource.fuwei.com/images/sample/1440485748135图片1.jpg', '10', '混纺马海毛围巾', 'FWA30232', '40*210', '261', '232', 'resource.fuwei.com/images/sample/s/1440485748135图片1.png', 'resource.fuwei.com/images/sample/ss/1440485748135图片1.png', null, '17072333', '3');
+INSERT INTO `tb_storeorder` VALUES ('250', '267', '2015-08-27 09:00:00', '2015-08-27 09:00:00', '7', '[{\"color\":\"紫色\",\"factoryId\":9,\"material\":9,\"quantity\":55,\"yarn\":\"\"},{\"color\":\"绿色\",\"factoryId\":9,\"material\":9,\"quantity\":55,\"yarn\":\"\"},{\"color\":\"紫色\",\"factoryId\":9,\"material\":16,\"quantity\":12,\"yarn\":\"\"},{\"color\":\"灰色\",\"factoryId\":9,\"material\":16,\"quantity\":12,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20267', '2', 'resource.fuwei.com/images/sample/1438755027032QQ截图20150805140255.jpg', '9', '羽毛纱马海毛围脖', 'FWA30224', '28*76*2cm', '188', '224', 'resource.fuwei.com/images/sample/s/1438755027032QQ截图20150805140255.png', 'resource.fuwei.com/images/sample/ss/1438755027032QQ截图20150805140255.png', null, 'OB954524', '3');
+INSERT INTO `tb_storeorder` VALUES ('251', '268', '2015-09-04 15:43:29', '2015-09-04 15:43:29', '7', '[{\"color\":\"米色\",\"factoryId\":2,\"material\":6,\"quantity\":508,\"yarn\":\"\"},{\"color\":\"黑色\",\"factoryId\":2,\"material\":17,\"quantity\":108,\"yarn\":\"\"},{\"color\":\"黑色\",\"factoryId\":39,\"material\":17,\"quantity\":16.5,\"yarn\":\"\"},{\"color\":\"米色\",\"factoryId\":39,\"material\":6,\"quantity\":81,\"yarn\":\"\"},{\"color\":\"米色\",\"factoryId\":4,\"material\":6,\"quantity\":5,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20268', '1', 'resource.fuwei.com/images/sample/1431264154414QQ截图20150510212038.jpg', '6', '冰岛毛点子纱绞花吊球帽', 'FWA30124', '21*23', '125', '124', 'resource.fuwei.com/images/sample/s/1431264154414QQ截图20150510212038.png', 'resource.fuwei.com/images/sample/ss/1431264154414QQ截图20150510212038.png', null, '58984', '1');
+INSERT INTO `tb_storeorder` VALUES ('252', '269', '2015-09-17 12:51:22', '2015-09-17 12:51:22', '7', '[{\"color\":\"21灰色\",\"factoryId\":9,\"material\":3,\"quantity\":102,\"yarn\":\"\"},{\"color\":\"灰色\",\"factoryId\":9,\"material\":16,\"quantity\":22,\"yarn\":\"\"},{\"color\":\"粉色组\",\"factoryId\":9,\"material\":21,\"quantity\":57,\"yarn\":\"\"},{\"color\":\"21米色\",\"factoryId\":9,\"material\":3,\"quantity\":102,\"yarn\":\"\"},{\"color\":\"米白色\",\"factoryId\":9,\"material\":16,\"quantity\":22,\"yarn\":\"\"},{\"color\":\"蓝色组\",\"factoryId\":9,\"material\":21,\"quantity\":57,\"yarn\":\"\"},{\"color\":\"21米色\",\"factoryId\":4,\"material\":6,\"quantity\":3,\"yarn\":\"\"},{\"color\":\"21灰色\",\"factoryId\":4,\"material\":6,\"quantity\":3,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20269', '2', 'resource.fuwei.com/images/sample/144161517013820150730132116.png', '3', '点子纱冰岛毛羽毛纱围脖', 'FWA30236', '30*2*38cm', '263', '236', 'resource.fuwei.com/images/sample/s/144161517013820150730132116.png', 'resource.fuwei.com/images/sample/ss/144161517013820150730132116.png', null, '21AKAG -002-W 115', '3');
+INSERT INTO `tb_storeorder` VALUES ('253', '270', '2015-09-17 13:08:00', '2015-09-17 13:08:00', '7', '[{\"color\":\"21灰色\",\"factoryId\":9,\"material\":3,\"quantity\":51,\"yarn\":\"\"},{\"color\":\"灰色\",\"factoryId\":9,\"material\":16,\"quantity\":11,\"yarn\":\"\"},{\"color\":\"粉色组\",\"factoryId\":9,\"material\":21,\"quantity\":28,\"yarn\":\"\"},{\"color\":\"21米色\",\"factoryId\":9,\"material\":3,\"quantity\":51,\"yarn\":\"\"},{\"color\":\"米白色\",\"factoryId\":9,\"material\":16,\"quantity\":11,\"yarn\":\"\"},{\"color\":\"蓝色组\",\"factoryId\":9,\"material\":21,\"quantity\":28,\"yarn\":\"\"},{\"color\":\"21灰色\",\"factoryId\":39,\"material\":3,\"quantity\":9,\"yarn\":\"\"},{\"color\":\"粉色组\",\"factoryId\":39,\"material\":21,\"quantity\":5,\"yarn\":\"\"},{\"color\":\"21米色\",\"factoryId\":39,\"material\":3,\"quantity\":9,\"yarn\":\"\"},{\"color\":\"蓝色组\",\"factoryId\":39,\"material\":21,\"quantity\":5,\"yarn\":\"\"},{\"color\":\"21灰色\",\"factoryId\":4,\"material\":6,\"quantity\":1,\"yarn\":\"\"},{\"color\":\"21米色\",\"factoryId\":4,\"material\":6,\"quantity\":1,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20270', '2', 'resource.fuwei.com/images/sample/144161513871520150730132116.png', '3', '点子纱冰岛毛羽毛纱帽子', 'FWA30235', '20*20+7cm', '153', '235', 'resource.fuwei.com/images/sample/s/144161513871520150730132116.png', 'resource.fuwei.com/images/sample/ss/144161513871520150730132116.png', null, '21ACAG-008-W115', '3');
+INSERT INTO `tb_storeorder` VALUES ('254', '271', '2015-09-21 08:32:10', '2015-09-21 08:32:10', '7', '[{\"color\":\"白胚\",\"factoryId\":10,\"material\":13,\"quantity\":57,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20271', '7', 'resource.fuwei.com/images/sample/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', '13', '仿羊绒成品染色拉毛围脖', 'FWA30021', '40H*75W', '152', '21', 'resource.fuwei.com/images/sample/s/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', 'resource.fuwei.com/images/sample/ss/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', null, '76392', '3');
+INSERT INTO `tb_storeorder` VALUES ('255', '272', '2015-09-23 12:32:46', '2015-09-23 12:32:46', '7', '[{\"color\":\"白色\",\"factoryId\":2,\"material\":54,\"quantity\":5,\"yarn\":\"\"},{\"color\":\"绿色\",\"factoryId\":2,\"material\":54,\"quantity\":5,\"yarn\":\"\"},{\"color\":\"酒红\",\"factoryId\":2,\"material\":54,\"quantity\":5,\"yarn\":\"\"},{\"color\":\"浅蓝\",\"factoryId\":2,\"material\":54,\"quantity\":5,\"yarn\":\"\"},{\"color\":\"米色\",\"factoryId\":5,\"material\":47,\"quantity\":3,\"yarn\":\"\"},{\"color\":\"绿色\",\"factoryId\":5,\"material\":47,\"quantity\":3,\"yarn\":\"\"},{\"color\":\"酒红\",\"factoryId\":5,\"material\":47,\"quantity\":3,\"yarn\":\"\"},{\"color\":\"蓝色\",\"factoryId\":5,\"material\":47,\"quantity\":3,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20272', '2', 'resource.fuwei.com/images/sample/1442902552485CXA26059.JPG', '56', '空心带子纱围脖', 'FWA30240', '28*2*30.5，须：23', '250', '240', 'resource.fuwei.com/images/sample/s/1442902552485CXA26059.png', 'resource.fuwei.com/images/sample/ss/1442902552485CXA26059.png', null, 'CXA26059', '3');
+INSERT INTO `tb_storeorder` VALUES ('256', '273', '2015-09-25 15:34:08', '2015-09-25 15:34:08', '7', '[{\"color\":\"本白色\",\"factoryId\":2,\"material\":42,\"quantity\":822,\"yarn\":\"\"},{\"color\":\"本白色\",\"factoryId\":5,\"material\":42,\"quantity\":195,\"yarn\":\"\"},{\"color\":\"本白色\",\"factoryId\":4,\"material\":42,\"quantity\":5,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20273', '1', 'resource.fuwei.com/images/sample/1441614483015NETTY PONCHO55x95cm+12cmx2  233G.jpg', '42', '全晴镂空披肩', 'FWA30234', '90*55高  领口33  须12cm', '290', '234', 'resource.fuwei.com/images/sample/s/1441614483015NETTY PONCHO55x95cm+12cmx2  233G.png', 'resource.fuwei.com/images/sample/ss/1441614483015NETTY PONCHO55x95cm+12cmx2  233G.png', null, '78189', '1');
+INSERT INTO `tb_storeorder` VALUES ('257', '274', '2015-09-28 09:26:46', '2015-09-28 09:26:46', '7', '[{\"color\":\"白胚\",\"factoryId\":10,\"material\":13,\"quantity\":40,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20274', '7', 'resource.fuwei.com/images/sample/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', '13', '仿羊绒成品染色拉毛围脖', 'FWA30021', '40H*75W', '152', '21', 'resource.fuwei.com/images/sample/s/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', 'resource.fuwei.com/images/sample/ss/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', null, '76392', '3');
+INSERT INTO `tb_storeorder` VALUES ('258', '275', '2015-09-28 09:42:20', '2015-09-28 09:42:20', '7', '[{\"color\":\"黑色\",\"factoryId\":7,\"material\":9,\"quantity\":5,\"yarn\":\"\"},{\"color\":\"米白色\",\"factoryId\":7,\"material\":9,\"quantity\":3,\"yarn\":\"\"},{\"color\":\"藏青\",\"factoryId\":7,\"material\":9,\"quantity\":5,\"yarn\":\"\"},{\"color\":\"浅蓝\",\"factoryId\":7,\"material\":9,\"quantity\":3,\"yarn\":\"\"},{\"color\":\"深绿\",\"factoryId\":7,\"material\":9,\"quantity\":5,\"yarn\":\"\"},{\"color\":\"浅卡其\",\"factoryId\":7,\"material\":9,\"quantity\":3,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20275', '5', 'resource.fuwei.com/images/sample/1437104517997WW15.jpg', '9', '马海毛针织围脖', 'FWA30213', '62*2*41', '204', '213', 'resource.fuwei.com/images/sample/s/1437104517997WW15.png', 'resource.fuwei.com/images/sample/ss/1437104517997WW15.png', null, 'GN954659', '3');
+INSERT INTO `tb_storeorder` VALUES ('259', '276', '2015-10-04 10:47:57', '2015-10-04 10:47:57', '7', '[{\"color\":\"米色\",\"factoryId\":44,\"material\":1,\"quantity\":3,\"yarn\":\"\"},{\"color\":\"驼色\",\"factoryId\":44,\"material\":1,\"quantity\":3,\"yarn\":\"\"},{\"color\":\"浅棕\",\"factoryId\":44,\"material\":1,\"quantity\":3,\"yarn\":\"\"},{\"color\":\"白色\",\"factoryId\":44,\"material\":55,\"quantity\":3,\"yarn\":\"\"},{\"color\":\"深灰\",\"factoryId\":44,\"material\":1,\"quantity\":3,\"yarn\":\"\"},{\"color\":\"咖啡\",\"factoryId\":44,\"material\":1,\"quantity\":3,\"yarn\":\"\"},{\"color\":\"粉色\",\"factoryId\":44,\"material\":55,\"quantity\":3,\"yarn\":\"\"},{\"color\":\"亮蓝\",\"factoryId\":44,\"material\":1,\"quantity\":3,\"yarn\":\"\"},{\"color\":\"浅蓝\",\"factoryId\":44,\"material\":1,\"quantity\":1.5,\"yarn\":\"\"},{\"color\":\"深绿\",\"factoryId\":44,\"material\":55,\"quantity\":3,\"yarn\":\"\"},{\"color\":\"藏青\",\"factoryId\":44,\"material\":1,\"quantity\":3,\"yarn\":\"\"},{\"color\":\"酒红\",\"factoryId\":44,\"material\":1,\"quantity\":3,\"yarn\":\"\"},{\"color\":\"草绿\",\"factoryId\":44,\"material\":55,\"quantity\":3,\"yarn\":\"\"},{\"color\":\"暗紫\",\"factoryId\":44,\"material\":1,\"quantity\":1.5,\"yarn\":\"\"},{\"color\":\"黄绿\",\"factoryId\":44,\"material\":1,\"quantity\":3,\"yarn\":\"\"},{\"color\":\"紫色\",\"factoryId\":44,\"material\":55,\"quantity\":3,\"yarn\":\"\"},{\"color\":\"桔红\",\"factoryId\":44,\"material\":1,\"quantity\":1.5,\"yarn\":\"\"},{\"color\":\"玫红\",\"factoryId\":44,\"material\":1,\"quantity\":3,\"yarn\":\"\"},{\"color\":\"深粉\",\"factoryId\":44,\"material\":55,\"quantity\":3,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20276', '2', 'resource.fuwei.com/images/sample/1442900375945CXA26082.JPG', '1', '多色提花围脖', 'FWA30239', '76*2*40', '228', '239', 'resource.fuwei.com/images/sample/s/1442900375945CXA26082.png', 'resource.fuwei.com/images/sample/ss/1442900375945CXA26082.png', null, 'CXA 26129', '3');
+INSERT INTO `tb_storeorder` VALUES ('260', '277', '2015-10-09 14:18:51', '2015-10-09 14:18:51', '7', '[{\"color\":\"ZB粉色\",\"factoryId\":42,\"material\":6,\"quantity\":40,\"yarn\":\"\"},{\"color\":\"ZB粉色\",\"factoryId\":21,\"material\":6,\"quantity\":4,\"yarn\":\"\"},{\"color\":\"粉色\",\"factoryId\":4,\"material\":6,\"quantity\":1,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20277', '3', 'resource.fuwei.com/images/sample/1430275598920176F622AEEB6C9EB1E396A84FFDE7375.png', '6', '冰岛毛摇粒绒包套', 'FWA30105', '9.5*24', '114', '105', 'resource.fuwei.com/images/sample/s/1430275598920176F622AEEB6C9EB1E396A84FFDE7375.png', 'resource.fuwei.com/images/sample/ss/1430275598920176F622AEEB6C9EB1E396A84FFDE7375.png', null, 'G3222G-1', '4');
+INSERT INTO `tb_storeorder` VALUES ('261', '278', '2015-10-09 14:40:40', '2015-10-09 14:40:40', '7', '[{\"color\":\"ZB黑色\",\"factoryId\":42,\"material\":3,\"quantity\":24,\"yarn\":\"\"},{\"color\":\"ＺＢ粉色\",\"factoryId\":42,\"material\":3,\"quantity\":16,\"yarn\":\"\"},{\"color\":\"黑色\",\"factoryId\":4,\"material\":6,\"quantity\":1,\"yarn\":\"\"},{\"color\":\"粉色\",\"factoryId\":4,\"material\":6,\"quantity\":1,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20278', '3', 'resource.fuwei.com/images/sample/14302753662448400F76D2D65BC44E26D47CB2A0779A3.png', '3', '冰岛毛菱形花头带', 'FWA30104', '9.5*24cm', '43', '104', 'resource.fuwei.com/images/sample/s/14302753662448400F76D2D65BC44E26D47CB2A0779A3.png', 'resource.fuwei.com/images/sample/ss/14302753662448400F76D2D65BC44E26D47CB2A0779A3.png', null, 'Ｇ６９８９ＨＢ－１', '4');
+INSERT INTO `tb_storeorder` VALUES ('262', '279', '2015-10-09 15:01:47', '2015-10-09 15:01:47', '7', '[{\"color\":\"ZB白色\",\"factoryId\":9,\"material\":6,\"quantity\":36,\"yarn\":\"\"},{\"color\":\"ZB粉色\",\"factoryId\":9,\"material\":6,\"quantity\":54,\"yarn\":\"\"},{\"color\":\"ZB白色\",\"factoryId\":20,\"material\":6,\"quantity\":7,\"yarn\":\"\"},{\"color\":\"ZB粉色\",\"factoryId\":20,\"material\":6,\"quantity\":10.5,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20279', '3', 'resource.fuwei.com/images/sample/1430274426841图片1.png', '6', '冰岛毛基本款帽子', 'FWA30103', '20宽22高+9', '96', '103', 'resource.fuwei.com/images/sample/s/1430274426841图片1.png', 'resource.fuwei.com/images/sample/ss/1430274426841图片1.png', null, 'G3222H ', '4');
+INSERT INTO `tb_storeorder` VALUES ('263', '280', '2015-10-09 15:07:20', '2015-10-09 15:07:20', '7', '[{\"color\":\"ZB白色\",\"factoryId\":9,\"material\":6,\"quantity\":103,\"yarn\":\"\"},{\"color\":\"ZB    粉色\",\"factoryId\":9,\"material\":6,\"quantity\":155,\"yarn\":\"\"},{\"color\":\"ZB白色\",\"factoryId\":5,\"material\":6,\"quantity\":13,\"yarn\":\"\"},{\"color\":\"ZB粉色\",\"factoryId\":5,\"material\":6,\"quantity\":20,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20280', '3', 'resource.fuwei.com/images/sample/1430274036475QQ截图20150429101908.jpg', '6', '冰岛毛鱼鳞针挂须围巾', 'FWA30101', '20*180+20*2cm', '262', '101', 'resource.fuwei.com/images/sample/s/1430274036475QQ截图20150429101908.png', 'resource.fuwei.com/images/sample/ss/1430274036475QQ截图20150429101908.png', null, 'Ｇ３２２２Ｓ', '4');
+INSERT INTO `tb_storeorder` VALUES ('264', '281', '2015-10-09 15:11:06', '2015-10-09 15:11:06', '7', '[{\"color\":\"ZB粉色\",\"factoryId\":27,\"material\":4,\"quantity\":75,\"yarn\":\"\"},{\"color\":\"ZB粉色\",\"factoryId\":4,\"material\":6,\"quantity\":2,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20281', '3', 'resource.fuwei.com/images/sample/1430274225667DSCN8187.JPG', '4', '冰岛毛鱼鳞针围脖', 'FWA30102', '34*2*40', '171', '102', 'resource.fuwei.com/images/sample/s/1430274225667DSCN8187.png', 'resource.fuwei.com/images/sample/ss/1430274225667DSCN8187.png', null, 'G7165', '4');
+INSERT INTO `tb_storeorder` VALUES ('265', '282', '2015-10-10 08:51:57', '2015-10-10 08:51:57', '7', '[{\"color\":\"白胚筒纱\",\"factoryId\":10,\"material\":13,\"quantity\":25,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20282', '7', 'resource.fuwei.com/images/sample/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', '13', '仿羊绒成品染色拉毛围脖', 'FWA30021', '40H*75W', '152', '21', 'resource.fuwei.com/images/sample/s/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', 'resource.fuwei.com/images/sample/ss/14280778246358CD60DF79323473B3DE0139776CD3BEA.png', null, '76392', '3');
+INSERT INTO `tb_storeorder` VALUES ('266', '284', '2015-10-15 09:24:37', '2015-10-15 09:24:37', '7', '[{\"color\":\"灰色\",\"factoryId\":2,\"material\":9,\"quantity\":149,\"yarn\":\"\"},{\"color\":\"粉色\",\"factoryId\":2,\"material\":9,\"quantity\":198,\"yarn\":\"\"},{\"color\":\"白色\",\"factoryId\":2,\"material\":9,\"quantity\":347,\"yarn\":\"\"},{\"color\":\"白色\",\"factoryId\":4,\"material\":9,\"quantity\":5,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20284', '3', 'resource.fuwei.com/images/sample/1435547931935DH22297 (1).JPG', '9', '马海毛抽条吊球帽', 'FWA30201', '22H*21+10', '102', '201', 'resource.fuwei.com/images/sample/s/1435547931935DH22297 (1).png', 'resource.fuwei.com/images/sample/ss/1435547931935DH22297 (1).png', null, '956004', '1');
 INSERT INTO `tb_subject` VALUES ('1', '2015-06-11 16:51:53', '辅料款', '2015-06-11 16:51:53', '6', '');
 INSERT INTO `tb_subject` VALUES ('2', '2015-06-11 16:52:06', '材料款', '2015-06-11 16:52:06', '6', '');
 INSERT INTO `tb_subject` VALUES ('3', '2015-06-11 16:54:02', '纸箱费', '2015-06-11 16:54:02', '6', '');
@@ -10543,12 +12293,20 @@ INSERT INTO `tb_subject` VALUES ('24', '2015-07-12 10:32:05', '汽车油费', '2
 INSERT INTO `tb_subject` VALUES ('25', '2015-07-16 16:01:33', '汽车修理费', '2015-07-16 16:01:33', '14', '');
 INSERT INTO `tb_subject` VALUES ('26', '2015-07-23 11:44:36', '红包', '2015-07-23 11:44:36', '14', '');
 INSERT INTO `tb_subject` VALUES ('28', '2015-08-05 15:11:54', '辅料款_代付', '2015-08-05 15:12:21', '14', '');
+INSERT INTO `tb_subject` VALUES ('29', '2015-08-13 22:46:35', '运输费', '2015-08-13 22:46:35', '14', '');
+INSERT INTO `tb_subject` VALUES ('30', '2015-08-30 18:21:55', '倒纱费', '2015-08-30 18:21:55', '14', '');
+INSERT INTO `tb_subject` VALUES ('31', '2015-08-30 18:27:38', '机织加工费', '2015-08-30 18:27:38', '14', '');
+INSERT INTO `tb_subject` VALUES ('32', '2015-08-30 18:45:03', '半检费用', '2015-08-30 18:45:03', '14', '');
+INSERT INTO `tb_subject` VALUES ('33', '2015-08-30 19:02:31', '烫工费', '2015-08-30 19:02:31', '14', '');
+INSERT INTO `tb_subject` VALUES ('34', '2015-08-30 20:18:15', '电工费', '2015-08-30 20:18:15', '14', '');
+INSERT INTO `tb_subject` VALUES ('35', '2015-09-02 11:30:37', '伙食费', '2015-09-02 11:30:37', '14', '');
+INSERT INTO `tb_subject` VALUES ('37', '2015-09-02 12:50:27', '退款_支出', '2015-09-02 12:50:27', '14', '');
 INSERT INTO `tb_user` VALUES ('6', null, null, null, '', '', '系统内建帐号', 'fuwei_hp', null, null, null, 'system', '1', '');
 INSERT INTO `tb_user` VALUES ('7', '2015-03-31 21:05:17', 'cfz@fuwei.net.cn', 'czf', '', '', '陈珍芳', '123456', '', '13326134466', '2015-04-01 22:33:14', 'czf', '2', '');
-INSERT INTO `tb_user` VALUES ('8', '2015-03-31 21:22:18', '', 'rx', '', '', '任晓', '123456', '', '', '2015-03-31 21:22:18', 'rx', '3', '');
+INSERT INTO `tb_user` VALUES ('8', '2015-03-31 21:22:18', '', 'rx', '', '', '任晓', '123456', '', '', '2015-03-31 21:22:18', 'rx', '3', '');
 INSERT INTO `tb_user` VALUES ('9', '2015-03-31 21:27:30', 'hp@fuwei.net.cn', 'hp', '', '', '胡盼', 'woaishuijiaohaha', '', '15068821361', '2015-05-02 12:46:48', 'hp', '4', '');
-INSERT INTO `tb_user` VALUES ('10', '2015-04-02 11:10:37', 'hzq@fuwei.net.cn', 'hzq', '', '', '胡祖群', '123456', '', '13666663553', '2015-04-02 11:10:37', 'hzq', '3', '');
-INSERT INTO `tb_user` VALUES ('11', '2015-04-02 14:09:39', 'wyp@fuwei.net.cn', 'wyp', '', '', '王宇平', '123456', '', '18857158975', '2015-04-02 14:09:39', 'wyp', '3', '');
+INSERT INTO `tb_user` VALUES ('10', '2015-04-02 11:10:37', 'hzq@fuwei.net.cn', 'hzq', '', '', '胡祖群', '123456', '', '13666663553', '2015-04-02 11:10:37', 'hzq', '3', '');
+INSERT INTO `tb_user` VALUES ('11', '2015-04-02 14:09:39', 'wyp@fuwei.net.cn', 'wyp', '', '', '王宇平', '123456', '', '18857158975', '2015-04-02 14:09:39', 'wyp', '3', '');
 INSERT INTO `tb_user` VALUES ('12', '2015-04-02 14:10:23', 'zmx@fuwei.net.cn', 'zmx', '', '', '张明霞', '123456', '', '15268805988', '2015-04-02 14:10:23', 'zmx', '3', '');
 INSERT INTO `tb_user` VALUES ('13', '2015-05-12 10:54:14', 'yf@fuwei.net.cn', 'yfyc', '', '', '余芬_验厂', '123456', '675520238', '15068821518', '2015-05-12 10:54:14', 'yf_yc', '7', '');
 INSERT INTO `tb_user` VALUES ('14', '2015-05-12 10:54:49', '675520238@qq.com', 'yfcw', '', '', '余芬_财务', '123456', '675520238', '15068821518', '2015-05-12 10:54:49', 'yf_cw', '5', '');
