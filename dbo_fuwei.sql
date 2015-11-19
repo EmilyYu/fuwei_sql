@@ -4,7 +4,7 @@ Source Host: localhost
 Source Database: dbo_fuwei
 Target Host: localhost
 Target Database: dbo_fuwei
-Date: 2015-10-29 21:39:32
+Date: 2015-11-19 10:49:55
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,7 +20,7 @@ CREATE TABLE `tb_authority` (
   PRIMARY KEY (`id`),
   KEY `FKPID323` (`pid`),
   CONSTRAINT `FKPID323` FOREIGN KEY (`pid`) REFERENCES `tb_authority` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=255 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=283 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_bank
@@ -234,6 +234,7 @@ CREATE TABLE `tb_employee` (
   `created_user` int(11) DEFAULT NULL,
   `birthday` varchar(255) DEFAULT NULL,
   `is_charge_employee` bit(1) DEFAULT NULL,
+  `ismanager` bit(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   KEY `departmentId` (`departmentId`),
@@ -314,7 +315,7 @@ CREATE TABLE `tb_factory` (
   PRIMARY KEY (`id`),
   KEY `created_user` (`created_user`),
   CONSTRAINT `tb_factory_ibfk_1` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_finalstoreorder
@@ -332,6 +333,285 @@ CREATE TABLE `tb_finalstoreorder` (
   KEY `orderId` (`orderId`),
   CONSTRAINT `tb_finalstoreorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=285 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for tb_fuliao
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_fuliao`;
+CREATE TABLE `tb_fuliao` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `created_at` datetime DEFAULT NULL,
+  `img` varchar(255) DEFAULT NULL,
+  `memo` varchar(255) DEFAULT NULL,
+  `size` varchar(255) DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `created_user` int(11) DEFAULT NULL,
+  `img_s` varchar(255) DEFAULT NULL,
+  `img_ss` varchar(255) DEFAULT NULL,
+  `country` varchar(32) DEFAULT NULL,
+  `batch` varchar(32) DEFAULT NULL,
+  `company_orderNumber` varchar(32) DEFAULT NULL,
+  `company_productNumber` varchar(32) DEFAULT NULL,
+  `orderId` int(11) DEFAULT NULL,
+  `orderNumber` varchar(32) DEFAULT NULL,
+  `fuliaoTypeId` int(11) DEFAULT NULL,
+  `location_size` int(11) DEFAULT NULL,
+  `color` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `created_user` (`created_user`),
+  KEY `orderId` (`orderId`),
+  KEY `fuliaoTypeId` (`fuliaoTypeId`),
+  KEY `locationId` (`location_size`),
+  CONSTRAINT `tb_fuliao_ibfk_1` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`),
+  CONSTRAINT `tb_fuliao_ibfk_2` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
+  CONSTRAINT `tb_fuliao_ibfk_3` FOREIGN KEY (`fuliaoTypeId`) REFERENCES `tb_fuliaotype` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for tb_fuliao_changelocation
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_fuliao_changelocation`;
+CREATE TABLE `tb_fuliao_changelocation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `memo` varchar(255) DEFAULT NULL,
+  `created_user` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `fuliaoId` int(11) DEFAULT NULL,
+  `locationId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `created_user` (`created_user`),
+  KEY `fuliaoId` (`fuliaoId`),
+  KEY `locationId` (`locationId`),
+  CONSTRAINT `tb_fuliao_changelocation_ibfk_1` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`),
+  CONSTRAINT `tb_fuliao_changelocation_ibfk_2` FOREIGN KEY (`fuliaoId`) REFERENCES `tb_fuliao` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `tb_fuliao_changelocation_ibfk_3` FOREIGN KEY (`locationId`) REFERENCES `tb_location` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for tb_fuliaoin
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_fuliaoin`;
+CREATE TABLE `tb_fuliaoin` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `created_at` datetime DEFAULT NULL,
+  `created_user` int(11) DEFAULT NULL,
+  `orderId` int(11) DEFAULT NULL,
+  `orderNumber` varchar(32) DEFAULT NULL,
+  `charge_employee` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `state` varchar(255) DEFAULT NULL,
+  `number` varchar(32) DEFAULT NULL,
+  `fuliaoin_noticeId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `orderId` (`orderId`),
+  KEY `created_user` (`created_user`),
+  KEY `charge_employee` (`charge_employee`),
+  KEY `fuliaoin_noticeId` (`fuliaoin_noticeId`),
+  CONSTRAINT `tb_fuliaoin_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
+  CONSTRAINT `tb_fuliaoin_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`),
+  CONSTRAINT `tb_fuliaoin_ibfk_3` FOREIGN KEY (`charge_employee`) REFERENCES `tb_employee` (`id`),
+  CONSTRAINT `tb_fuliaoin_ibfk_4` FOREIGN KEY (`fuliaoin_noticeId`) REFERENCES `tb_fuliaoin_notice` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for tb_fuliaoin_detail
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_fuliaoin_detail`;
+CREATE TABLE `tb_fuliaoin_detail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fuliaoInOutId` int(11) DEFAULT NULL,
+  `fuliaoId` int(11) DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
+  `locationId` int(11) DEFAULT NULL,
+  `fuliaoPurchaseFactoryId` int(11) DEFAULT NULL,
+  `img` varchar(255) DEFAULT NULL,
+  `size` varchar(255) DEFAULT NULL,
+  `img_s` varchar(255) DEFAULT NULL,
+  `img_ss` varchar(255) DEFAULT NULL,
+  `batch` varchar(32) DEFAULT NULL,
+  `company_orderNumber` varchar(32) DEFAULT NULL,
+  `company_productNumber` varchar(32) DEFAULT NULL,
+  `fuliaoTypeId` int(11) DEFAULT NULL,
+  `color` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fuliaoId` (`fuliaoId`),
+  KEY `locationId` (`locationId`),
+  KEY `fuliaoPurchaseFactoryId` (`fuliaoPurchaseFactoryId`),
+  KEY `fuliaoTypeId` (`fuliaoTypeId`),
+  KEY `fuliaoInOutId` (`fuliaoInOutId`),
+  CONSTRAINT `tb_fuliaoin_detail_ibfk_7` FOREIGN KEY (`fuliaoInOutId`) REFERENCES `tb_fuliaoin` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `tb_fuliaoin_detail_ibfk_1` FOREIGN KEY (`fuliaoId`) REFERENCES `tb_fuliao` (`id`),
+  CONSTRAINT `tb_fuliaoin_detail_ibfk_3` FOREIGN KEY (`locationId`) REFERENCES `tb_location` (`id`),
+  CONSTRAINT `tb_fuliaoin_detail_ibfk_4` FOREIGN KEY (`fuliaoPurchaseFactoryId`) REFERENCES `tb_factory` (`id`),
+  CONSTRAINT `tb_fuliaoin_detail_ibfk_6` FOREIGN KEY (`fuliaoTypeId`) REFERENCES `tb_fuliaotype` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for tb_fuliaoin_notice
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_fuliaoin_notice`;
+CREATE TABLE `tb_fuliaoin_notice` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `created_user` int(11) DEFAULT NULL,
+  `orderId` int(11) DEFAULT NULL,
+  `orderNumber` varchar(32) DEFAULT NULL,
+  `charge_employee` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `state` varchar(255) DEFAULT NULL,
+  `number` varchar(32) DEFAULT NULL,
+  `fail_memo` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `number` (`number`),
+  KEY `orderId` (`orderId`),
+  KEY `created_user` (`created_user`),
+  KEY `charge_employee` (`charge_employee`),
+  CONSTRAINT `tb_fuliaoin_notice_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
+  CONSTRAINT `tb_fuliaoin_notice_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`),
+  CONSTRAINT `tb_fuliaoin_notice_ibfk_3` FOREIGN KEY (`charge_employee`) REFERENCES `tb_employee` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for tb_fuliaoin_notice_detail
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_fuliaoin_notice_detail`;
+CREATE TABLE `tb_fuliaoin_notice_detail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fuliaoInOutNoticeId` int(11) DEFAULT NULL,
+  `fuliaoId` int(11) DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
+  `fuliaoPurchaseFactoryId` int(11) DEFAULT NULL,
+  `img` varchar(255) DEFAULT NULL,
+  `size` varchar(255) DEFAULT NULL,
+  `img_s` varchar(255) DEFAULT NULL,
+  `img_ss` varchar(255) DEFAULT NULL,
+  `batch` varchar(32) DEFAULT NULL,
+  `company_orderNumber` varchar(32) DEFAULT NULL,
+  `company_productNumber` varchar(32) DEFAULT NULL,
+  `fuliaoTypeId` int(11) DEFAULT NULL,
+  `color` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fuliaoId` (`fuliaoId`),
+  KEY `fuliaoPurchaseFactoryId` (`fuliaoPurchaseFactoryId`),
+  KEY `fuliaoTypeId` (`fuliaoTypeId`),
+  KEY `fuliaoInOutNoticeId` (`fuliaoInOutNoticeId`),
+  CONSTRAINT `tb_fuliaoin_notice_detail_ibfk_5` FOREIGN KEY (`fuliaoInOutNoticeId`) REFERENCES `tb_fuliaoin_notice` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `tb_fuliaoin_notice_detail_ibfk_2` FOREIGN KEY (`fuliaoId`) REFERENCES `tb_fuliao` (`id`),
+  CONSTRAINT `tb_fuliaoin_notice_detail_ibfk_3` FOREIGN KEY (`fuliaoPurchaseFactoryId`) REFERENCES `tb_factory` (`id`),
+  CONSTRAINT `tb_fuliaoin_notice_detail_ibfk_4` FOREIGN KEY (`fuliaoTypeId`) REFERENCES `tb_fuliaotype` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for tb_fuliaoout
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_fuliaoout`;
+CREATE TABLE `tb_fuliaoout` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `created_at` datetime DEFAULT NULL,
+  `created_user` int(11) DEFAULT NULL,
+  `orderId` int(11) DEFAULT NULL,
+  `orderNumber` varchar(32) DEFAULT NULL,
+  `charge_employee` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `state` varchar(255) DEFAULT NULL,
+  `number` varchar(32) DEFAULT NULL,
+  `fuliaoout_noticeId` int(11) DEFAULT NULL,
+  `receiver_employee` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `orderId` (`orderId`),
+  KEY `created_user` (`created_user`),
+  KEY `charge_employee` (`charge_employee`),
+  KEY `fuliaoout_noticeId` (`fuliaoout_noticeId`),
+  KEY `receiver_employee` (`receiver_employee`),
+  CONSTRAINT `tb_fuliaoout_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
+  CONSTRAINT `tb_fuliaoout_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`),
+  CONSTRAINT `tb_fuliaoout_ibfk_3` FOREIGN KEY (`charge_employee`) REFERENCES `tb_employee` (`id`),
+  CONSTRAINT `tb_fuliaoout_ibfk_4` FOREIGN KEY (`fuliaoout_noticeId`) REFERENCES `tb_fuliaoout_notice` (`id`),
+  CONSTRAINT `tb_fuliaoout_ibfk_5` FOREIGN KEY (`receiver_employee`) REFERENCES `tb_employee` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for tb_fuliaoout_detail
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_fuliaoout_detail`;
+CREATE TABLE `tb_fuliaoout_detail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fuliaoInOutId` int(11) DEFAULT NULL,
+  `fuliaoId` int(11) DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
+  `locationId` int(11) DEFAULT NULL,
+  `img` varchar(255) DEFAULT NULL,
+  `size` varchar(255) DEFAULT NULL,
+  `img_s` varchar(255) DEFAULT NULL,
+  `img_ss` varchar(255) DEFAULT NULL,
+  `batch` varchar(32) DEFAULT NULL,
+  `company_orderNumber` varchar(32) DEFAULT NULL,
+  `company_productNumber` varchar(32) DEFAULT NULL,
+  `fuliaoTypeId` int(11) DEFAULT NULL,
+  `color` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `locationId` (`locationId`),
+  KEY `fuliaoId` (`fuliaoId`),
+  KEY `fuliaoTypeId` (`fuliaoTypeId`),
+  KEY `fuliaoInOutId` (`fuliaoInOutId`),
+  CONSTRAINT `tb_fuliaoout_detail_ibfk_6` FOREIGN KEY (`fuliaoInOutId`) REFERENCES `tb_fuliaoout` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `tb_fuliaoout_detail_ibfk_1` FOREIGN KEY (`locationId`) REFERENCES `tb_location` (`id`),
+  CONSTRAINT `tb_fuliaoout_detail_ibfk_2` FOREIGN KEY (`fuliaoId`) REFERENCES `tb_fuliao` (`id`),
+  CONSTRAINT `tb_fuliaoout_detail_ibfk_5` FOREIGN KEY (`fuliaoTypeId`) REFERENCES `tb_fuliaotype` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for tb_fuliaoout_notice
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_fuliaoout_notice`;
+CREATE TABLE `tb_fuliaoout_notice` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `created_user` int(11) DEFAULT NULL,
+  `orderId` int(11) DEFAULT NULL,
+  `orderNumber` varchar(32) DEFAULT NULL,
+  `charge_employee` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `state` varchar(255) DEFAULT NULL,
+  `number` varchar(32) DEFAULT NULL,
+  `fail_memo` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `orderId` (`orderId`),
+  KEY `created_user` (`created_user`),
+  KEY `charge_employee` (`charge_employee`),
+  CONSTRAINT `tb_fuliaoout_notice_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
+  CONSTRAINT `tb_fuliaoout_notice_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`),
+  CONSTRAINT `tb_fuliaoout_notice_ibfk_3` FOREIGN KEY (`charge_employee`) REFERENCES `tb_employee` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for tb_fuliaoout_notice_detail
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_fuliaoout_notice_detail`;
+CREATE TABLE `tb_fuliaoout_notice_detail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fuliaoInOutNoticeId` int(11) DEFAULT NULL,
+  `fuliaoId` int(11) DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
+  `img` varchar(255) DEFAULT NULL,
+  `size` varchar(255) DEFAULT NULL,
+  `img_s` varchar(255) DEFAULT NULL,
+  `img_ss` varchar(255) DEFAULT NULL,
+  `batch` varchar(32) DEFAULT NULL,
+  `company_orderNumber` varchar(32) DEFAULT NULL,
+  `company_productNumber` varchar(32) DEFAULT NULL,
+  `fuliaoTypeId` int(11) DEFAULT NULL,
+  `color` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fuliaoId` (`fuliaoId`),
+  KEY `fuliaoTypeId` (`fuliaoTypeId`),
+  KEY `fuliaoInOutNoticeId` (`fuliaoInOutNoticeId`),
+  CONSTRAINT `tb_fuliaoout_notice_detail_ibfk_6` FOREIGN KEY (`fuliaoInOutNoticeId`) REFERENCES `tb_fuliaoout_notice` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `tb_fuliaoout_notice_detail_ibfk_2` FOREIGN KEY (`fuliaoId`) REFERENCES `tb_fuliao` (`id`),
+  CONSTRAINT `tb_fuliaoout_notice_detail_ibfk_4` FOREIGN KEY (`fuliaoTypeId`) REFERENCES `tb_fuliaotype` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_fuliaopurchaseorder
@@ -380,6 +660,21 @@ CREATE TABLE `tb_fuliaopurchaseorder` (
   CONSTRAINT `tb_fuliaopurchaseorder_ibfk_8` FOREIGN KEY (`materialId`) REFERENCES `tb_material` (`id`),
   CONSTRAINT `tb_fuliaopurchaseorder_ibfk_9` FOREIGN KEY (`charge_employee`) REFERENCES `tb_employee` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for tb_fuliaotype
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_fuliaotype`;
+CREATE TABLE `tb_fuliaotype` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `created_at` datetime DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `created_user` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `created_user` (`created_user`),
+  CONSTRAINT `tb_fuliaotype_ibfk_1` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_gongxu
@@ -446,7 +741,7 @@ CREATE TABLE `tb_gongxu_producingorder` (
   CONSTRAINT `tb_gongxu_producingorder_ibfk_6` FOREIGN KEY (`customerId`) REFERENCES `tb_customer` (`id`),
   CONSTRAINT `tb_gongxu_producingorder_ibfk_7` FOREIGN KEY (`charge_employee`) REFERENCES `tb_employee` (`id`),
   CONSTRAINT `tb_gongxu_producingorder_ibfk_8` FOREIGN KEY (`gongxuId`) REFERENCES `tb_gongxu` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_half_current_stock
@@ -460,7 +755,7 @@ CREATE TABLE `tb_half_current_stock` (
   PRIMARY KEY (`id`),
   KEY `orderId` (`orderId`),
   CONSTRAINT `tb_half_current_stock_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_half_store_in_out
@@ -516,7 +811,7 @@ CREATE TABLE `tb_half_store_in_out` (
   CONSTRAINT `tb_half_store_in_out_ibfk_7` FOREIGN KEY (`factoryId`) REFERENCES `tb_factory` (`id`),
   CONSTRAINT `tb_half_store_in_out_ibfk_8` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
   CONSTRAINT `tb_half_store_in_out_ibfk_9` FOREIGN KEY (`gongxuId`) REFERENCES `tb_gongxu` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_half_store_return
@@ -661,6 +956,23 @@ CREATE TABLE `tb_ironingrecordorder` (
 ) ENGINE=InnoDB AUTO_INCREMENT=285 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Table structure for tb_location
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_location`;
+CREATE TABLE `tb_location` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `number` varchar(16) DEFAULT NULL,
+  `size` int(11) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
+  `isempty` bit(1) DEFAULT NULL,
+  `fuliaoId` int(11) DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fuliaoId` (`fuliaoId`),
+  CONSTRAINT `tb_location_ibfk_1` FOREIGN KEY (`fuliaoId`) REFERENCES `tb_fuliao` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
 -- Table structure for tb_material
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_material`;
@@ -690,7 +1002,7 @@ CREATE TABLE `tb_material_current_stock` (
   KEY `store_order_id` (`store_order_id`),
   CONSTRAINT `tb_material_current_stock_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
   CONSTRAINT `tb_material_current_stock_ibfk_2` FOREIGN KEY (`store_order_id`) REFERENCES `tb_storeorder` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_materialpurchaseorder
@@ -929,7 +1241,7 @@ CREATE TABLE `tb_packingorder` (
   KEY `created_user` (`created_user`),
   CONSTRAINT `tb_packingorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
   CONSTRAINT `tb_packingorder_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_pantongcolor
@@ -1011,7 +1323,7 @@ CREATE TABLE `tb_producingorder` (
   CONSTRAINT `tb_producingorder_ibfk_7` FOREIGN KEY (`customerId`) REFERENCES `tb_customer` (`id`),
   CONSTRAINT `tb_producingorder_ibfk_8` FOREIGN KEY (`materialId`) REFERENCES `tb_material` (`id`),
   CONSTRAINT `tb_producingorder_ibfk_9` FOREIGN KEY (`charge_employee`) REFERENCES `tb_employee` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=309 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=313 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_production_notification
@@ -1329,7 +1641,7 @@ CREATE TABLE `tb_store_in_out` (
   CONSTRAINT `tb_store_in_out_ibfk_7` FOREIGN KEY (`factoryId`) REFERENCES `tb_factory` (`id`),
   CONSTRAINT `tb_store_in_out_ibfk_8` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
   CONSTRAINT `tb_store_in_out_ibfk_9` FOREIGN KEY (`store_order_id`) REFERENCES `tb_storeorder` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_store_return
@@ -1723,6 +2035,34 @@ INSERT INTO `tb_authority` VALUES ('251', '248', '删除', 'store_return/delete'
 INSERT INTO `tb_authority` VALUES ('252', '213', '原材料库存', 'material_current_stock/index');
 INSERT INTO `tb_authority` VALUES ('253', '213', '原材料出入库记录', 'material_current_stock/in_out');
 INSERT INTO `tb_authority` VALUES ('254', '214', '半成品出入库记录', 'half_current_stock/in_out');
+INSERT INTO `tb_authority` VALUES ('255', '4', '辅料类型管理', 'fuliaotype');
+INSERT INTO `tb_authority` VALUES ('256', '255', '添加', 'fuliaotype/add');
+INSERT INTO `tb_authority` VALUES ('257', '255', '编辑', 'fuliaotype/edit');
+INSERT INTO `tb_authority` VALUES ('258', '255', '列表', 'fuliaotype/index');
+INSERT INTO `tb_authority` VALUES ('259', null, '辅料系统', 'fuliaosystem');
+INSERT INTO `tb_authority` VALUES ('260', '259', '辅料管理', 'fuliao');
+INSERT INTO `tb_authority` VALUES ('261', '260', '添加', 'fuliao/add');
+INSERT INTO `tb_authority` VALUES ('262', '260', '编辑', 'fuliao/edit');
+INSERT INTO `tb_authority` VALUES ('263', '260', '删除', 'fuliao/delete');
+INSERT INTO `tb_authority` VALUES ('264', '260', '列表', 'fuliao/index');
+INSERT INTO `tb_authority` VALUES ('265', '260', '详情', 'fuliao/detail');
+INSERT INTO `tb_authority` VALUES ('266', '260', '更改库位', 'fuliao/changelocation');
+INSERT INTO `tb_authority` VALUES ('267', '259', '库位管理', 'location');
+INSERT INTO `tb_authority` VALUES ('268', '267', '添加', 'location/add');
+INSERT INTO `tb_authority` VALUES ('269', '267', '编辑', 'location/edit');
+INSERT INTO `tb_authority` VALUES ('270', '267', '删除', 'location/delete');
+INSERT INTO `tb_authority` VALUES ('271', '267', '列表', 'location/index');
+INSERT INTO `tb_authority` VALUES ('272', '259', '出入库通知单管理', 'fuliaoinout_notice');
+INSERT INTO `tb_authority` VALUES ('273', '272', '添加', 'fuliaoinout_notice/add');
+INSERT INTO `tb_authority` VALUES ('274', '272', '编辑', 'fuliaoinout_notice/edit');
+INSERT INTO `tb_authority` VALUES ('275', '272', '删除', 'fuliaoinout_notice/delete');
+INSERT INTO `tb_authority` VALUES ('276', '272', '列表', 'fuliaoinout_notice/index');
+INSERT INTO `tb_authority` VALUES ('277', '272', '打印', 'fuliaoinout_notice/print');
+INSERT INTO `tb_authority` VALUES ('278', '259', '出入库管理', 'fuliaoinout');
+INSERT INTO `tb_authority` VALUES ('279', '278', '添加', 'fuliaoinout/add');
+INSERT INTO `tb_authority` VALUES ('280', '278', '列表', 'fuliaoinout/index');
+INSERT INTO `tb_authority` VALUES ('281', '278', '打印', 'fuliaoinout/print');
+INSERT INTO `tb_authority` VALUES ('282', '259', '辅料工作台', 'fuliao_workspace/workspace');
 INSERT INTO `tb_bank` VALUES ('107', null, '2015-06-11 20:00:50', '2015-06-11 20:00:50', '6', '柴中柱', null, '', '行内', '101000351173237');
 INSERT INTO `tb_bank` VALUES ('108', null, '2015-06-11 20:00:50', '2015-06-11 20:00:50', '6', '何红梅', null, '', '行内', '6228580199068256196');
 INSERT INTO `tb_bank` VALUES ('109', null, '2015-06-11 20:00:50', '2015-06-11 20:00:50', '6', '胡盼', null, '', '行内', '6228580199060897070');
@@ -3578,100 +3918,100 @@ INSERT INTO `tb_department` VALUES ('7', '2015-05-09 14:49:42', '缝纫车间', 
 INSERT INTO `tb_department` VALUES ('8', '2015-05-09 14:49:59', '横机车间', '2015-05-09 16:54:20', '6');
 INSERT INTO `tb_department` VALUES ('9', '2015-05-09 16:28:55', '品管部', '2015-05-09 16:28:55', '6');
 INSERT INTO `tb_department` VALUES ('10', '2015-07-08 23:12:47', '检验车间', '2015-07-08 23:12:47', '9');
-INSERT INTO `tb_employee` VALUES ('1', '2015-05-02 19:32:16', '', 'hzq', '', '胡祖群', '', '13666663553', '2015-05-09 16:24:43', '女', 'FW1061', '2015-03-01 00:00:00', '330122198004243525', '1', '跟单', '浙江省桐庐县城南街道金东村石珠金东小区7弄19号', '浙江省桐庐县城南街道金东村石珠金东小区7弄19号', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '9', '汉', '', '', '', '101000942501030', '9', '1980-04-24 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('2', '2015-05-02 19:33:35', '', 'rx', '', '任晓', '', '18958138796', '2015-07-10 08:30:04', '女', 'FW1062', '2015-03-01 00:00:00', '513025197502052866', '1', '跟单', '浙江省桐庐县横村镇柳茂村柳茂6组', '浙江省桐庐县横村镇柳茂村柳茂6组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '9.5', '汉', '', '', '', '', '9', '1975-02-05 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('3', '2015-05-02 19:35:28', '', 'wyp', '', '王宇平', '', '18857158975', '2015-05-12 17:58:07', '男', 'FW1003', '2011-09-01 00:00:00', '330122198410300919', '1', '跟单', '浙江省桐庐县横村镇杜预村8组', '浙江省桐庐县横村镇杜预村8组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '9.5', '汉', '', '', '', '6230910199008522662', '9', '1984-10-30 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('4', '2015-05-02 19:36:44', '', 'zmx', '', '张明霞', '', '15268805988', '2015-05-12 18:01:55', '女', 'FW1034', '2014-01-02 00:00:00', '330122198507110927', '1', '跟单', '浙江省桐庐县横村镇孙家村一组', '浙江省桐庐县横村镇孙家村一组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '9.5', '汉', '', '', '', '6230910199006474718', '9', '1985-07-11 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('5', '2015-05-02 19:38:23', '', 'czf', '', '陈珍芳', '', '13326134466', '2015-05-09 16:22:14', '女', 'FW1059', '2015-03-01 00:00:00', '330122198004050029', '2', '生产主任', '浙江省桐庐县横村镇龙伏村一组', '浙江省桐庐县横村镇龙伏村一组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '12', '汉', '', '', '', '6228580199015845372', '9', '1980-04-05 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('6', '2015-05-09 15:02:31', '', 'fy', '', '冯阳', '', '15906616320', '2015-08-28 12:15:52', '男', 'FW1004', '2011-02-15 00:00:00', '330122199203080938', '3', '跟单', '浙江省桐庐县横村镇孙家村8号', '浙江省桐庐县横村镇孙家村8号', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '10', '汉', '', '', '行内', '6230910199008535094', '6', '1992-03-08 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('7', '2015-05-09 15:07:59', '', 'lyl', '', '陆幼良', '', '13175136920', '2015-09-05 15:13:14', '男', 'FW1005', '2011-02-15 00:00:00', '330122196609060917', '3', '司机', '浙江省桐庐县横村镇孙家村十四组', '浙江省桐庐县横村镇孙家村十四组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '11', '汉', '', '', '', '6230910199006474544', '6', '1966-09-06 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('8', '2015-05-09 15:11:04', '', 'yjs', '', '杨建设', '', '13205714481', '2015-05-12 17:58:40', '男', 'FW1006', '2010-02-26 00:00:00', '330122195305160914', '3', '原料仓管', '浙江省桐庐县横村镇孙家村五组', '浙江省桐庐县横村镇孙家村五组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '9', '汉', '', '', '', '6230910199006454405', '6', '1953-05-16 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('9', '2015-05-09 15:13:41', '', 'lzy', '', '卢正英', '', '13429693395', '2015-05-12 17:58:52', '女', 'FW1011', '2007-10-08 00:00:00', '330122196710130924', '4', '车间主任', '浙江省桐庐县横村镇孙家村6组', '浙江省桐庐县横村镇孙家村6组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '11', '汉', '', '', '', '6230910199008528826', '6', '1967-10-13 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('10', '2015-05-09 15:17:02', '', 'zce', '', '郑彩娥', '', '', '2015-05-12 18:00:21', '女', 'FW1012', '2011-02-15 00:00:00', '330122196411073827', '4', '包装员', '浙江省桐庐县分水镇', '浙江省桐庐县分水镇', '2013-01-01 00:00:00', '2016-01-01 00:00:00', '合同工', null, null, '8.1', '汉', '', '', '', '', '6', '1964-11-07 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('11', '2015-05-09 15:19:42', '', 'cwm', '', '程五明', '', '', '2015-09-05 14:00:21', '男', 'FW1019', '2012-05-22 00:00:00', '330122196412100911', '5', '整烫工', '浙江省桐庐县横村镇孙家村6组', '浙江省桐庐县横村镇孙家村6组', '2013-01-01 00:00:00', '2015-12-31 00:00:00', '合同工', null, null, '8.1', '汉', '', '', '', '', '6', '1964-12-10 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('12', '2015-05-09 15:23:08', '', 'wsx', '', '吴生秀', '', '15990127615', '2015-05-09 15:30:23', '女', 'FW1021', '2007-02-26 00:00:00', '522628197407153020', '7', '车间主任', '贵州省锦屏县偶里乡皆阳村三组', '桐庐县横村镇孙家村6号', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '10.5', '苗', '', '', '', '6230910199006474353', '6', '1974-07-15 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('13', '2015-05-09 15:25:57', '', 'lzx', '', '陆仲霞', '', '', '2015-05-12 18:01:01', '女', 'FW1024', '2013-05-18 00:00:00', '522631197610081243', '7', '车标', '贵州省黎平县中潮镇上黄村十组', '桐庐县横村镇', '2013-05-18 00:00:00', '2016-05-17 00:00:00', '合同工', null, null, '8.1', '侗', '', '', '', '', '6', '1976-10-08 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('14', '2015-05-09 15:30:01', '', 'xxy', '', '宣秀英', '', '', '2015-05-18 17:50:49', '女', 'FW1025', '2006-02-03 00:00:00', '330122196309103727', '8', '横机主任', '浙江省桐庐县分水镇百岁坊村建设2组', '浙江省桐庐县分水镇百岁坊村建设2组', '2013-01-01 00:00:00', '2016-01-01 00:00:00', '合同工', '2015-04-03 00:00:00', null, '9.5', '汉', '', '', '', '', '6', '1963-09-10 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('15', '2015-05-09 15:34:29', '', 'whf', '', '王和法', '', '13805763810', '2015-05-12 18:01:19', '男', 'FW1026', '2006-02-03 00:00:00', '33012219630509371X', '3', '管理', '浙江省桐庐县分水镇百岁坊村建设2组', '浙江省桐庐县分水镇百岁坊村建设2组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '10', '汉', '', '', '', '6230910199000001459', '6', '1963-05-09 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('16', '2015-05-09 15:38:26', '', 'wym', '', '吴咏梅', '', '', '2015-05-18 17:50:31', '女', 'FW1027', '2012-02-02 00:00:00', '341021198406225945', '8', '横机工', '江西省贵溪市周坊镇神前村甄家组18号', '桐庐县横村镇孙家村6号', '2013-01-01 00:00:00', '2016-01-01 00:00:00', '合同工', '2015-04-03 00:00:00', null, '8.1', '汉', '', '', '', '', '6', '1984-06-22 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('17', '2015-05-09 15:40:41', '', 'wzf', '', '王真法', '', '', '2015-05-12 18:01:38', '男', 'FW1028', '2006-02-06 00:00:00', '330122195605153716', '6', '倒纱主任', '浙江省桐庐县分水镇百岁坊村建设二组', '浙江省桐庐县分水镇百岁坊村建设二组', '2013-01-01 00:00:00', '2016-01-01 00:00:00', '合同工', null, null, '9.5', '汉', '', '', '', '', '6', '1956-05-15 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('18', '2015-05-09 15:43:18', '', 'yly', '', '袁来英', '', '', '2015-05-12 18:01:47', '女', 'FW1033', '2006-02-06 00:00:00', '33012219620806372X', '6', '倒纱工', '浙江省桐庐县分水镇百岁坊村建设2组', '浙江省桐庐县分水镇百岁坊村建设2组', '2013-01-01 00:00:00', '2016-01-01 00:00:00', '合同工', null, null, '8.1', '汉', '', '', '', '', '6', '1962-08-06 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('19', '2015-05-09 15:49:23', '', 'lgx', '', '赖国香', '', '15356677007', '2015-05-12 18:02:05', '女', 'FW1035', '2014-01-02 00:00:00', '330122196402140944', '3', '人事', '浙江省桐庐县横村镇孙家村八组', '浙江省桐庐县横村镇孙家村八组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '9', '汉', '', '', '', '6230910199006454413', '6', '1964-02-14 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('20', '2015-05-09 15:51:53', '', 'cgy', '', '蔡国英', '', '', '2015-05-13 21:42:07', '女', 'FW1036', '2014-03-21 00:00:00', '330122196310052728', '4', '包装员', '浙江省桐庐县瑶琳镇琴溪村王家岭一组', '浙江省桐庐县瑶琳镇琴溪村王家岭一组', '2014-03-21 00:00:00', '2017-03-19 00:00:00', '合同工', null, null, '8.1', '汉', '', '', '', '', '6', '1963-10-05 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('21', '2015-05-09 15:55:06', '', 'lcm', '', '刘春美', '', '15988185748', '2015-05-12 18:02:27', '女', 'FW1037', '2014-01-02 00:00:00', '330127197903121828', '4', '包装员', '浙江省桐庐县分水镇塘源村3组', '浙江省桐庐县分水镇塘源村3组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '9', '汉', '', '', '', '6230910199006474692', '6', '1979-03-12 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('22', '2015-05-09 15:57:30', '', 'xym', '', '许一美', '', '', '2015-05-12 18:02:43', '女', 'FW1039', '2014-04-08 00:00:00', '330122196207232720', '4', '包装员', '浙江省桐庐县瑶琳镇琴溪村桐岭四组', '浙江省桐庐县瑶琳镇琴溪村桐岭四组', '2014-04-08 00:00:00', '2017-04-06 00:00:00', '合同工', null, null, '8.1', '汉', '', '', '', '', '6', '1962-07-23 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('23', '2015-05-09 15:58:56', '', 'zdy', '', '朱冬英', '', '', '2015-05-12 18:02:51', '女', 'FW1040', '2014-04-08 00:00:00', '330122196410082721', '4', '包装员', '浙江省桐庐县瑶琳镇琴溪村桐岭五组', '浙江省桐庐县瑶琳镇琴溪村桐岭五组', '2014-04-08 00:00:00', '2017-04-06 00:00:00', '合同工', null, null, '8.1', '汉', '', '', '', '', '6', '1964-10-08 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('24', '2015-05-09 16:00:47', '', 'yxb', '', '杨秀兵', '', '', '2015-09-05 13:59:50', '男', 'FW1042', '2014-04-18 00:00:00', '522628197302265819', '5', '整烫工', '贵州省锦屏县铜鼓镇花桥村花桥农场', '桐庐县横村镇', '2014-04-18 00:00:00', '2017-04-16 00:00:00', '合同工', null, null, '8.1', '苗', '', '', '', '', '6', '1973-02-26 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('25', '2015-05-09 16:04:47', '', 'yjq', '', '袁加强', '', '15988818074', '2015-05-12 18:03:11', '男', 'FW1046', '2014-03-03 00:00:00', '330122198608042716', '8', '电机打样', '浙江省桐庐县瑶琳镇高翔村沙潭二组', '浙江省桐庐县瑶琳镇高翔村沙潭二组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '9', '汉', '', '', '', '6228580199020617188', '6', '1986-08-04 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('26', '2015-05-09 16:06:48', '', 'jsl', '', '姜少林', '', '15314626622', '2015-06-30 16:19:01', '男', 'FW1048', '2014-03-05 00:00:00', '522628198811075671', '8', '横机工', '贵州省锦屏县敦寨镇敦寨村六组087号', '桐庐县横村镇', '2014-03-05 00:00:00', '2016-12-31 00:00:00', '合同工', null, null, '8.1', '侗', '', '', '', '', '6', '1988-11-07 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('27', '2015-05-09 16:10:02', '', 'ycq', '', '俞彩琴', '', '13567165791', '2015-05-12 18:03:33', '女', 'FW1049', '2014-02-17 00:00:00', '330122196510180927', '8', '车间主任', '浙江省桐庐县横村镇孙家村十一组', '浙江省桐庐县横村镇孙家村十一组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '9', '汉', '', '', '', '6230910199000001426', '6', '1965-10-18 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('28', '2015-05-09 16:16:11', '', 'wxl', '', '王祥兰', '', '', '2015-05-18 17:55:30', '女', 'FW1057', '2014-03-05 00:00:00', '522627198508164026', '4', '包装员', '贵州省天柱县坌处镇坌处村第一组', '桐庐县横村镇', '2014-03-05 00:00:00', '2017-03-05 00:00:00', '合同工', '2015-04-03 00:00:00', null, '9', '侗', '', '', '', '', '6', '1985-08-16 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('29', '2015-05-09 16:19:24', '', 'lhj', '', '林海军', '', '', '2015-05-09 16:19:24', '男', 'FW1058', '2013-03-01 00:00:00', '330122195804162711', '3', '管理', '浙江省桐庐县瑶琳镇琴溪村桐岭四组', '浙江省桐庐县瑶琳镇琴溪村桐岭四组', '2013-03-01 00:00:00', '2016-03-01 00:00:00', '合同工', null, null, '8.1', '汉', '', '', '', '', '6', '1958-04-16 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('30', '2015-05-09 16:28:48', '', 'wxj', '', '汪仙君', '', '15355078718', '2015-06-28 22:53:59', '女', 'FW1060', '2015-03-01 00:00:00', '330122197709181120', '9', '质量主管', '浙江省桐庐县横村镇双湖村牌凤弄8组', '浙江省桐庐县横村镇双湖村牌凤弄8组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '11', '汉', '', '', '', '6230910199008528800', '6', '1977-09-18 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('31', '2015-05-09 16:32:10', '', 'yxd', '', '闫旭东', '', '15382367338', '2015-05-09 16:32:10', '男', 'FW1063', '2015-03-01 00:00:00', '410927198706016015', '8', '横机工', '河南省台前县马楼乡西尚岭村081号', '桐庐县横村镇', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '8', '汉', '', '', '', '6230910199008242881', '6', '1987-06-01 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('32', '2015-05-09 17:28:25', '', 'lxd', '', '龙夏冬', '', '', '2015-05-09 17:30:45', '女', 'FW1064', '2015-04-01 00:00:00', '522628199107043021', '7', '车标', '贵州省锦屏县偶里乡寨霞村二组', '桐庐县横村镇', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '6', '1991-07-04 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('33', '2015-05-09 17:29:19', '', 'lmh', '', '陆孟红', '', '', '2015-05-09 17:30:36', '女', 'FW1065', '2015-04-01 00:00:00', '522631199701201246', '7', '车标', '贵州省黎平县中潮镇上黄村四组', '桐庐县横村镇', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '6', '1997-01-20 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('34', '2015-05-09 17:30:26', '', 'lqm', '', '龙秋梅', '', '', '2015-05-09 17:30:26', '女', 'FW1066', '2015-04-01 00:00:00', '522628197408276225', '7', '车标', '贵州省锦屏县铜鼓镇火冲村六组', '桐庐县横村镇', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '6', '1974-08-27 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('35', '2015-05-09 17:31:35', '', 'tmj', '', '唐梦杰', '', '', '2015-05-09 17:31:35', '女', 'FW1067', '2015-04-01 00:00:00', '431229198911020821', '7', '车标', '湖南省靖州苗族侗族自治县大堡子镇堡子村十五组433号', '桐庐县横村镇', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '6', '1989-11-02 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('36', '2015-05-09 17:32:23', '', 'yty', '', '尹条艳', '', '', '2015-05-09 17:32:23', '女', 'FW1068', '2015-04-01 00:00:00', '522628197307233023', '7', '车标', '贵州省锦屏县偶里乡皆阳村二组', '桐庐县横村镇', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '6', '1973-07-23 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('37', '2015-05-09 17:33:08', '', 'lxh', '', '龙宪浩', '', '', '2015-05-09 17:33:08', '男', 'FW1069', '2015-04-01 00:00:00', '52262819820714401X', '8', '横机工', '贵州省锦屏县启蒙镇丁达村一组', '桐庐县横村镇', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '6', '1982-07-14 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('38', '2015-05-09 17:33:55', '', 'lsx', '', '罗水香', '', '17858613005', '2015-06-30 16:19:47', '女', 'FW1070', '2015-04-01 00:00:00', '522628199002213426', '8', '横机工', '贵州省锦屏县启蒙镇丁达村一组', '桐庐县横村镇', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '6', '1990-02-21 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('39', '2015-05-09 17:34:40', '', 'jwl', '', '金文莲', '', '', '2015-05-09 17:34:40', '女', 'FW1071', '2015-04-01 00:00:00', '522636197705063824', '6', '倒纱工', '贵州省丹寨县南皋乡清江村五组23号', '桐庐县横村镇', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '6', '1977-05-06 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('40', '2015-05-09 17:35:27', '', 'wyq', '', '韦玉琴', '', '', '2015-05-09 17:35:27', '女', 'FW1072', '2015-04-01 00:00:00', '522635197009074224', '6', '倒纱工', '贵州省麻江县龙山乡改江村第九组', '桐庐县横村镇', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '6', '1970-09-07 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('41', '2015-05-09 17:36:22', '', 'jhl', '', '金化龙', '', '', '2015-05-09 17:36:22', '男', 'FW1073', '2015-04-01 00:00:00', '522635199601104014', '6', '倒纱工', '贵州省麻江县龙山乡改江村第九组', '桐庐县横村镇', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '6', '1996-01-10 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('42', '2015-05-09 17:37:02', '', 'jhc', '', '金化朝', '', '', '2015-09-05 13:46:29', '男', 'FW1074', '2015-03-18 00:00:00', '522635199209144011', '6', '倒纱工', '贵州省麻江县龙山乡改江村第九组', '桐庐县横村镇', '2015-03-18 00:00:00', '2017-03-17 00:00:00', '合同工', '2015-08-04 00:00:00', null, '8.1', '', '', '', '', '', '6', '1992-09-14 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('43', '2015-05-09 17:37:46', '', 'jwg', '', '金文高', '', '', '2015-05-25 16:24:43', '男', 'FW1075', '2015-03-18 00:00:00', '522635196706194219', '6', '倒纱工', '贵州省麻江县龙山乡改江村第九组', '桐庐县横村镇', '2015-03-18 00:00:00', '2017-03-17 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '6', '1967-06-19 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('44', '2015-05-09 17:38:37', '', 'jqj', '', '姜秋娟', '', '', '2015-05-09 17:38:37', '女', 'FW1076', '2015-04-01 00:00:00', '330122197508081123', '4', '包装员', '浙江省桐庐县横村镇上唐村唐王岭一组', '浙江省桐庐县横村镇上唐村唐王岭一组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '6', '1975-08-08 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('45', '2015-05-09 17:39:26', '', 'wxy', '', '王孝玉', '', '', '2015-09-05 13:46:52', '女', 'FW1077', '2015-04-01 00:00:00', '330122196510101141', '4', '包装员', '浙江省桐庐县横村镇城东村双湖3组', '浙江省桐庐县横村镇城东村双湖3组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', '2015-08-13 00:00:00', null, '8.1', '', '', '', '', '', '6', '1965-10-10 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('46', '2015-05-09 17:40:15', '', 'lcn', '', '林彩娜', '', '', '2015-05-11 19:16:19', '女', 'FW1078', '2015-04-01 00:00:00', '330122196612041127', '4', '包装员', '浙江省桐庐县横村镇上唐村唐王岭一组', '浙江省桐庐县横村镇上唐村唐王岭一组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '6', '1966-12-04 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('47', '2015-05-09 17:41:10', '', 'lzx', '', '陆仲先', '', '', '2015-05-09 17:41:10', '女', 'FW1079', '2015-04-01 00:00:00', '522631196608211526', '4', '包装员', '重庆市荣昌县仁义镇石梯子村1组85号', '浙江省桐庐县横村镇', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '6', '1966-08-21 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('48', '2015-05-09 17:41:59', '', 'hzx', '', '黄增仙', '', '', '2015-05-09 17:41:59', '女', 'FW1080', '2015-04-01 00:00:00', '330122195001050927', '4', '包装员', '浙江省桐庐县横村镇孙家村一组', '浙江省桐庐县横村镇孙家村一组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '6', '1950-01-05 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('49', '2015-05-09 17:42:42', '', 'lss', '', '卢水生', '', '', '2015-08-04 13:19:22', '男', 'FW1081', '2015-04-01 00:00:00', '330122195509200914', '4', '包装员', '浙江省桐庐县横村镇孙家村7组', '浙江省桐庐县横村镇孙家村7组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', '2015-07-30 00:00:00', null, '8.1', '', '', '', '', '', '6', '1955-09-20 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('50', '2015-05-09 17:43:29', '', 'yhx', '', '袁海仙', '', '', '2015-05-09 17:43:29', '女', 'FW1082', '2015-04-01 00:00:00', '330122194910040924', '4', '包装员', '浙江省桐庐县横村镇孙家村一组', '浙江省桐庐县横村镇孙家村一组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '6', '1949-10-04 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('51', '2015-05-09 17:44:14', '', 'mcl', '', '麻成龙', '', '', '2015-09-05 13:45:59', '男', 'FW1083', '2015-04-01 00:00:00', '33012219841103101X', '5', '整烫工', '浙江省桐庐县横村镇城东村双湖七组', '浙江省桐庐县横村镇城东村双湖七组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '6', '1984-11-03 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('52', '2015-05-09 17:45:00', '', 'xg', '', '肖刚', '', '', '2015-09-05 13:45:48', '男', 'FW1084', '2015-04-01 00:00:00', '522527198601022510', '5', '整烫工', '贵州省普定县白岩镇打油村六组', '桐庐县横村镇', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', '2015-08-21 00:00:00', null, '8.1', '', '', '', '', '', '6', '1986-01-02 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('53', '2015-05-09 17:45:45', '', 'jlh', '', '蒋良海', '', '', '2015-05-09 17:45:45', '男', 'FW1085', '2015-04-01 00:00:00', '522729198408200956', '5', '整烫工', '贵州省长顺县摆所镇摆所村上组', '桐庐县横村镇', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '6', '1984-08-20 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('54', '2015-05-09 17:46:44', '', 'okj', '', '欧开军', '', '', '2015-09-05 13:45:33', '男', 'FW1086', '2015-04-01 00:00:00', '52262819811106121X', '5', '整烫工', '贵州省锦屏县大同乡兴合村一组', '桐庐县横村镇', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', '2015-08-14 00:00:00', null, '8.1', '', '', '', '', '', '6', '1981-11-06 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('55', '2015-05-09 17:47:36', '', 'zxg', '', '朱晓刚', '', '18858293082', '2015-05-09 17:47:36', '男', 'FW1087', '2015-04-01 00:00:00', '320324197802120316', '5', '整烫主任', '江苏省睢宁县睢城镇七井村90号', '方埠祥和家园2幢2单元403室', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '9', '', '', '', '', '', '6', '1978-02-12 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('57', '2015-05-09 17:49:15', '', 'zyy', '', '赵永言', '', '', '2015-05-09 17:49:15', '男', 'FW1089', '2015-04-01 00:00:00', '522631197904081214', '5', '整烫工', '贵州省黎平县中潮镇口团村十二组', '桐庐县横村镇', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '6', '1979-04-08 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('59', '2015-05-12 18:19:27', '', 'phy', '', '皮海元', '', '', '2015-05-12 18:19:48', '男', 'FW1007', '2011-11-28 00:00:00', '362223197105302015', '9', '质量主管', '江西省樟树市阁山镇韶塘村委会皮家村23号', '桐庐县横村镇孙家村6组', '2013-01-01 00:00:00', '2016-01-01 00:00:00', '合同工', '2015-02-28 00:00:00', null, '9.5', '', '', '', '', '', '13', '1971-05-30 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('60', '2015-05-12 18:21:53', '', 'zcl', '', '周朝利', '', '', '2015-05-12 18:22:09', '男', 'FW1001', '2007-02-26 00:00:00', '330127197410265014', '2', '主管', '浙江省淳安县界首乡松源村大坞底10号', '桐庐县横村镇孙家村7组', '2013-01-01 00:00:00', '2016-01-01 00:00:00', '合同工', '2015-02-28 00:00:00', null, '9', '', '', '', '', '', '13', '1974-10-26 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('61', '2015-05-12 18:26:05', '', 'yjy', '', '俞建英', '', '', '2015-05-12 18:29:27', '男', 'FW1002', '2010-07-01 00:00:00', '330122197008010927', '1', '跟单', '浙江省桐庐县横村镇柳岩村94号', '桐庐县横村镇', '2013-01-01 00:00:00', '2016-01-01 00:00:00', '合同工', '2015-02-28 00:00:00', null, '9', '', '', '', '', '', '13', '1970-08-01 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('62', '2015-05-12 18:28:27', '', 'stxy', '', '申屠香云', '', '', '2015-05-12 18:28:46', '女', 'FW1008', '2013-11-01 00:00:00', '330122196711091920', '9', '检验员', '浙江省桐庐县江南镇荻浦村八组', '浙江省桐庐县江南镇荻浦村八组', '2013-11-01 00:00:00', '2016-10-30 00:00:00', '合同工', '2013-12-05 00:00:00', null, '7.2', '', '', '', '', '', '13', '1967-11-09 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('63', '2015-05-12 18:31:33', '', 'lwj', '', '陆文杰', '', '', '2015-05-12 18:31:49', '男', 'FW1009', '2006-03-08 00:00:00', '330122198509020917', '3', '门卫', '浙江省桐庐县横村镇孙家村十组', '浙江省桐庐县横村镇孙家村十组', '2011-04-01 00:00:00', '2014-03-31 00:00:00', '合同工', '2013-12-06 00:00:00', null, '14.4', '', '', '', '', '', '13', '1985-09-02 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('64', '2015-05-12 20:06:18', '', 'hyp', '', '胡银平', '', '', '2015-05-12 20:07:34', '男', 'FW1010', '2013-04-02 00:00:00', '330122198606110914', '9', '管理', '浙江省桐庐县横村镇孙家村31号', '孙家村31号', '2013-04-02 00:00:00', '2016-04-01 00:00:00', '合同工', '2013-12-05 00:00:00', null, '14.4', '', '', '', '', '', '13', '1986-06-11 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('65', '2015-05-12 20:09:49', '', 'jxy', '', '金小燕', '', '', '2015-05-12 20:09:59', '女', 'FW1015', '2013-03-01 00:00:00', '362231197409222022', '4', '包装员', '江西省樟树市阁山镇韶塘村委会皮家村23号', '桐庐县横村镇', '2013-02-01 00:00:00', '2016-02-29 00:00:00', '合同工', '2013-12-10 00:00:00', null, '7.2', '', '', '', '', '', '13', '1974-09-22 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('66', '2015-05-12 20:11:31', '', 'wjh', '', '王加豪', '', '', '2015-05-12 20:11:44', '男', 'FW1016', '2013-05-30 00:00:00', '330122199403110919', '4', '包装员', '浙江省桐庐县横村镇孙家村十四组', '孙家村十四组', '2013-05-30 00:00:00', '2016-05-29 00:00:00', '合同工', '2013-12-06 00:00:00', null, '7.2', '', '', '', '', '', '13', '1994-03-11 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('67', '2015-05-12 20:13:20', '', 'wds', '', '王德松', '', '', '2015-05-12 20:13:31', '男', 'FW1020', '2013-03-15 00:00:00', '522628199201275814', '5', '整烫工', '贵州省锦屏县铜鼓镇花桥村太平冲组', '桐庐县横村镇', '2013-03-15 00:00:00', '2016-03-14 00:00:00', '合同工', '2013-12-17 00:00:00', null, '7.2', '', '', '', '', '', '13', '1992-01-27 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('69', '2015-05-12 20:17:12', '', 'wbg', '', '文邦国', '', '', '2015-05-12 20:17:23', '男', 'FW1030', '2012-10-05 00:00:00', '522635197407154430', '6', '倒纱工', '贵州省麻江县宣威镇罗伊村第一组', '桐庐县横村镇', '2012-10-05 00:00:00', '2015-10-05 00:00:00', '合同工', '2013-12-10 00:00:00', null, '7.2', '', '', '', '', '', '13', '1974-07-15 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('70', '2015-05-12 20:18:28', '', 'lxm', '', '刘兴梅', '', '', '2015-05-12 20:18:45', '女', 'FW1031', '2012-02-10 00:00:00', '52263519770615326X', '6', '倒纱工', '贵州省麻江县宣威镇罗伊村第一组', '桐庐县横村镇', '2012-02-10 00:00:00', '2015-02-09 00:00:00', '合同工', '2013-12-10 00:00:00', null, '7.2', '', '', '', '', '', '13', '1977-06-15 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('71', '2015-05-12 20:20:11', '', 'wbh', '', '文邦华', '', '', '2015-05-12 20:20:33', '男', 'FW1032', '2013-03-01 00:00:00', '522635196704154416', '6', '倒纱工', '贵州省麻江县宣威镇罗伊村第二组', '桐庐县横村镇', '2013-03-01 00:00:00', '2016-02-29 00:00:00', '合同工', '2013-12-06 00:00:00', null, '7.2', '', '', '', '', '', '13', '1967-04-15 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('73', '2015-05-12 20:36:18', '', 'sll', '', '沈连连', '', '', '2015-05-12 20:53:11', '女', 'FW1014', '2014-01-02 00:00:00', '330123197002281124', '4', '包装员', '浙江省桐庐县瑶琳镇琴溪村王家岭三组', '桐庐县横村镇', '2014-01-02 00:00:00', '2016-12-31 00:00:00', '合同工', '2015-02-28 00:00:00', null, '8.1', '', '', '', '', '', '13', '1970-02-28 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('74', '2015-05-12 20:37:02', '', 'lqc', '', '龙群才', '', '', '2015-05-12 20:53:17', '男', 'FW1017', '2013-04-02 00:00:00', '522628197206283013', '4', '包装员', '贵州省锦屏县偶里乡皆阳村三组', '桐庐县横村镇', '2013-04-02 00:00:00', '2016-03-31 00:00:00', '合同工', '2015-02-28 00:00:00', null, '8.1', '', '', '', '', '', '13', '1972-06-28 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('75', '2015-05-12 20:37:57', '', 'awy', '', '敖碗英', '', '', '2015-05-12 20:53:28', '女', 'FW1022', '2013-03-01 00:00:00', '362222197506201809', '7', '车标', '江西省高安市灰埠镇山背村山背自然村22号', '桐庐县横村镇', '2013-03-01 00:00:00', '2016-02-29 00:00:00', '合同工', '2015-02-28 00:00:00', null, '7.8', '', '', '', '', '', '13', '1975-06-20 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('76', '2015-05-12 20:40:36', '', 'wyy', '', '韦玉艳', '', '', '2015-05-12 20:53:38', '女', 'FW1029', '2013-03-01 00:00:00', '522635197808164426', '6', '倒纱工', '贵州省麻江县宣威镇罗伊村第一组', '桐庐县横村镇', '2013-03-01 00:00:00', '2016-02-28 00:00:00', '合同工', '2015-02-28 00:00:00', null, '8.1', '', '', '', '', '', '13', '1978-08-16 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('77', '2015-05-12 20:42:30', '', 'wmj', '', '王美君', '', '', '2015-07-10 08:53:51', '女', 'FW1038', '2015-06-01 00:00:00', '330122196912092727', '4', '包装员', '浙江省富阳市胥口镇高联村田家9号', '横村', '2015-06-01 00:00:00', '2017-05-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '13', '1969-12-09 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('78', '2015-05-12 20:43:27', '', 'srf', '', '沈荣发', '', '', '2015-05-12 20:54:04', '男', 'FW1041', '2014-03-18 00:00:00', '360621197703090531', '5', '整烫工', '江西省贵溪市上清镇渐浦村邮路组26号', '横村', '2014-03-18 00:00:00', '2017-03-16 00:00:00', '合同工', '2015-02-28 00:00:00', null, '8.1', '', '', '', '', '', '13', '1977-03-09 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('79', '2015-05-12 20:44:20', '', 'cmy', '', '陈末英', '', '', '2015-05-12 20:54:26', '女', 'FW1043', '2014-05-13 00:00:00', '362222197703262440', '7', '缝纫工', '江西省高安市灰埠镇教子路73号', '横村', '2014-05-03 00:00:00', '2017-05-01 00:00:00', '合同工', '2015-02-28 00:00:00', null, '8.1', '', '', '', '', '', '13', '1977-03-26 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('80', '2015-05-12 20:45:06', '', 'pyx', '', '彭银秀', '', '', '2015-05-12 20:54:39', '女', 'FW1044', '2014-05-03 00:00:00', '362222196907072441', '7', '缝纫工', '江西省高安市灰埠镇背村山背自然村2号', '横村', '2014-05-03 00:00:00', '2017-05-01 00:00:00', '合同工', '2015-02-28 00:00:00', null, '8.1', '', '', '', '', '', '13', '1969-07-07 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('81', '2015-05-12 20:45:52', '', 'lsx', '', '罗树香', '', '15382322949', '2015-06-30 16:19:25', '女', 'FW1045', '2014-03-05 00:00:00', '522628199211143428', '8', '横机工', '贵州省锦屏县敦寨镇敦寨村六组', '横村', '2014-03-05 00:00:00', '2016-12-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '13', '1992-11-14 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('82', '2015-05-12 20:46:38', '', 'jsx', '', '姜少学', '', '', '2015-05-12 20:56:55', '男', 'FW1047', '2014-03-05 00:00:00', '522628198709025619', '8', '横机工', '贵州省锦屏县敦寨镇敦寨村六组087号', '横村', '2014-03-05 00:00:00', '2016-12-31 00:00:00', '合同工', '2015-02-28 00:00:00', null, '8.1', '', '', '', '', '', '13', '1987-09-02 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('83', '2015-05-12 20:47:23', '', 'xfx', '', '熊方祥', '', '', '2015-05-12 20:57:09', '男', 'FW1050', '2014-03-18 00:00:00', '522635196810034418', '6', '倒纱工', '贵州省麻江县宣威镇罗伊村第二组', '横村', '2014-03-18 00:00:00', '2017-03-16 00:00:00', '合同工', '2015-02-28 00:00:00', null, '8.1', '', '', '', '', '', '13', '1968-10-03 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('84', '2015-05-12 20:48:12', '', 'way', '', '文阿英', '', '', '2015-05-12 20:57:18', '女', 'FW1051', '2014-03-12 00:00:00', '522635197604273228', '6', '倒纱工', '贵州省麻江县宣威镇罗伊村第四村', '横村', '2014-03-12 00:00:00', '2017-03-10 00:00:00', '合同工', '2015-02-28 00:00:00', null, '8.1', '', '', '', '', '', '13', '1976-04-27 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('85', '2015-05-12 20:48:53', '', 'wjg', '', '文家国', '', '', '2015-05-12 20:57:22', '男', 'FW1052', '2014-03-18 00:00:00', '522635196808174411', '6', '倒纱工', '贵州省麻江县宣威镇罗伊村第二组', '横村', '2014-03-18 00:00:00', '2017-03-16 00:00:00', '合同工', '2015-02-28 00:00:00', null, '8.1', '', '', '', '', '', '13', '1968-08-17 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('86', '2015-05-12 20:49:36', '', 'lqy', '', '刘启央', '', '', '2015-05-12 20:57:27', '女', 'FW1053', '2014-03-14 00:00:00', '52262619851223322X', '6', '倒纱工', '贵州省麻江县宣威镇罗伊村第三组', '横村', '2014-03-14 00:00:00', '2017-03-12 00:00:00', '合同工', '2015-02-28 00:00:00', null, '8.1', '', '', '', '', '', '13', '1985-12-23 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('87', '2015-05-12 20:50:28', '', 'czb', '', '曾正兵', '', '', '2015-05-12 20:57:35', '男', 'FW1054', '2014-03-18 00:00:00', '522635197904173210', '6', '倒纱工', '贵州省麻江县宣威镇罗伊村第三组', '横村', '2014-03-18 00:00:00', '2017-03-16 00:00:00', '合同工', '2015-02-28 00:00:00', null, '8.1', '', '', '', '', '', '13', '1979-04-17 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('88', '2015-05-12 20:51:16', '', 'jzy', '', '蒋佐云', '', '', '2015-05-12 20:57:43', '女', 'FW1055', '2013-09-02 00:00:00', '522631197207221226', '7', '车标', '贵州省黎平县中潮镇上黄村二组', '横村', '2013-09-02 00:00:00', '2016-08-31 00:00:00', '合同工', '2015-02-28 00:00:00', null, '8.1', '', '', '', '', '', '13', '1972-07-22 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('89', '2015-05-12 20:52:08', '', 'cgy', '', '蔡国银', '', '', '2015-05-12 20:57:53', '女', 'FW1056', '2013-09-02 00:00:00', '33012219751115272X', '4', '包装员', '浙江省桐庐县瑶琳镇琴溪村桐岭四组', '横村', '2014-09-02 00:00:00', '2016-08-31 00:00:00', '合同工', '2015-02-28 00:00:00', null, '8.1', '', '', '', '', '', '13', '1975-11-15 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('90', '2015-05-12 21:15:11', '', 'ywd', '', '叶伟东', '', '', '2015-05-12 21:15:25', '男', 'FW1018', '2006-03-29 00:00:00', '330122197609011116', '5', '整烫主任', '浙江省桐庐县桐君街道富春路131号', '桐庐县桐君街道富春路131号', '2013-01-01 00:00:00', '2016-01-01 00:00:00', '合同工', '2015-02-28 00:00:00', null, '9.5', '', '', '', '', '', '13', '1976-09-01 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('91', '2015-06-03 15:52:11', '', 'hp', '', '胡盼', '', '15068821361', '2015-06-03 15:52:11', '男', '未知', '2011-01-01 00:00:00', '333', '1', '56', '未知', '', null, null, '合同工', null, null, null, '', '', '', '', '', '6', '1991-02-02 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('92', '2015-07-08 23:16:33', '', 'lhz', '', '骆红珠', '', '', '2015-09-05 18:55:33', '女', 'FW1091', '2015-06-01 00:00:00', '330122196803011545', '10', '检验员', '浙江省桐庐县钟山乡陇西村破塘湾六组', '桐庐县横村镇', '2015-06-01 00:00:00', '2017-05-31 00:00:00', '合同工', '2015-08-04 00:00:00', null, '8.1', '', '', '', '', '', '9', '1968-03-01 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('93', '2015-07-08 23:17:40', '', 'wxh', '', '汪新花', '', '', '2015-07-11 11:13:55', '女', 'FW1092', '2015-06-01 00:00:00', '330122195805030921', '10', '检验员', '浙江省桐庐县横村镇孙家村二组', '桐庐县横村镇孙家村', '2015-06-01 00:00:00', '2017-05-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '9', '1958-05-03 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('96', '2015-07-10 08:25:27', '', 'xxd', '', '徐秀弟', '', '', '2015-07-10 08:30:23', '女', 'FW1094', '2015-06-01 00:00:00', '330122197010131146', '4', '包装员', '浙江省桐庐县横村镇孙家村四组', '桐庐县横村镇孙家村', '2015-06-01 00:00:00', '2017-05-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '9', '1970-10-13 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('97', '2015-07-11 11:13:02', '', 'cyp', '', '柴玉萍', '', '', '2015-07-11 11:13:02', '女', 'FW1095', '2015-06-01 00:00:00', '330122196305050920', '10', '检验员', '浙江省桐庐县横村镇孙家村二组', '桐庐县横村镇孙家村', '2015-06-01 00:00:00', '2017-05-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '13', '1963-05-05 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('98', '2015-07-11 14:17:06', '', 'mya', '', '毛月爱', '', '', '2015-07-11 14:17:29', '女', 'FW1096', '2015-06-01 00:00:00', '330122195612033827', '4', '包装员', '桐庐县合村乡高凉亭村872组', '横村', '2015-06-01 00:00:00', '2017-05-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '13', '1956-12-03 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('99', '2015-07-23 22:31:53', '', 'yxj', '', '喻孝娟', '', '', '2015-09-05 13:47:04', '女', 'FW1097', '2015-07-06 00:00:00', '330122196512032725', '4', '打样员', '浙江省桐庐县瑶琳镇后浦村大庙五组', '桐庐县瑶琳镇', '2015-07-06 00:00:00', '2017-07-05 00:00:00', '合同工', '2015-08-31 00:00:00', null, '9', '', '', '', '', '', '6', '1965-12-03 00:00:00', '');
-INSERT INTO `tb_employee` VALUES ('100', '2015-09-05 15:16:15', '', 'zgq', '', '邹国强', '', '', '2015-09-05 15:16:15', '男', 'FW1100', '2015-09-04 00:00:00', '36062119800124051X', '5', '整烫工', '江西省贵溪市上清镇城门村窑上组49号附1号', '横村', '2015-09-04 00:00:00', '2017-09-03 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '13', '1980-01-24 00:00:00', '');
+INSERT INTO `tb_employee` VALUES ('1', '2015-05-02 19:32:16', '', 'hzq', '', '胡祖群', '', '13666663553', '2015-05-09 16:24:43', '女', 'FW1061', '2015-03-01 00:00:00', '330122198004243525', '1', '跟单', '浙江省桐庐县城南街道金东村石珠金东小区7弄19号', '浙江省桐庐县城南街道金东村石珠金东小区7弄19号', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '9', '汉', '', '', '', '101000942501030', '9', '1980-04-24 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('2', '2015-05-02 19:33:35', '', 'rx', '', '任晓', '', '18958138796', '2015-07-10 08:30:04', '女', 'FW1062', '2015-03-01 00:00:00', '513025197502052866', '1', '跟单', '浙江省桐庐县横村镇柳茂村柳茂6组', '浙江省桐庐县横村镇柳茂村柳茂6组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '9.5', '汉', '', '', '', '', '9', '1975-02-05 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('3', '2015-05-02 19:35:28', '', 'wyp', '', '王宇平', '', '18857158975', '2015-05-12 17:58:07', '男', 'FW1003', '2011-09-01 00:00:00', '330122198410300919', '1', '跟单', '浙江省桐庐县横村镇杜预村8组', '浙江省桐庐县横村镇杜预村8组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '9.5', '汉', '', '', '', '6230910199008522662', '9', '1984-10-30 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('4', '2015-05-02 19:36:44', '', 'zmx', '', '张明霞', '', '15268805988', '2015-05-12 18:01:55', '女', 'FW1034', '2014-01-02 00:00:00', '330122198507110927', '1', '跟单', '浙江省桐庐县横村镇孙家村一组', '浙江省桐庐县横村镇孙家村一组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '9.5', '汉', '', '', '', '6230910199006474718', '9', '1985-07-11 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('5', '2015-05-02 19:38:23', '', 'czf', '', '陈珍芳', '', '13326134466', '2015-11-14 15:26:23', '女', 'FW1059', '2015-03-01 00:00:00', '330122198004050029', '2', '生产主任', '浙江省桐庐县横村镇龙伏村一组', '浙江省桐庐县横村镇龙伏村一组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '12', '汉', '', '', '', '6228580199015845372', '9', '1980-04-05 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('6', '2015-05-09 15:02:31', '', 'fy', '', '冯阳', '', '15906616320', '2015-08-28 12:15:52', '男', 'FW1004', '2011-02-15 00:00:00', '330122199203080938', '3', '跟单', '浙江省桐庐县横村镇孙家村8号', '浙江省桐庐县横村镇孙家村8号', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '10', '汉', '', '', '行内', '6230910199008535094', '6', '1992-03-08 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('7', '2015-05-09 15:07:59', '', 'lyl', '', '陆幼良', '', '13175136920', '2015-09-05 15:13:14', '男', 'FW1005', '2011-02-15 00:00:00', '330122196609060917', '3', '司机', '浙江省桐庐县横村镇孙家村十四组', '浙江省桐庐县横村镇孙家村十四组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '11', '汉', '', '', '', '6230910199006474544', '6', '1966-09-06 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('8', '2015-05-09 15:11:04', '', 'yjs', '', '杨建设', '', '13205714481', '2015-05-12 17:58:40', '男', 'FW1006', '2010-02-26 00:00:00', '330122195305160914', '3', '原料仓管', '浙江省桐庐县横村镇孙家村五组', '浙江省桐庐县横村镇孙家村五组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '9', '汉', '', '', '', '6230910199006454405', '6', '1953-05-16 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('9', '2015-05-09 15:13:41', '', 'lzy', '', '卢正英', '', '13429693395', '2015-11-14 15:27:31', '女', 'FW1011', '2007-10-08 00:00:00', '330122196710130924', '4', '车间主任', '浙江省桐庐县横村镇孙家村6组', '浙江省桐庐县横村镇孙家村6组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '11', '汉', '', '', '', '6230910199008528826', '6', '1967-10-13 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('10', '2015-05-09 15:17:02', '', 'zce', '', '郑彩娥', '', '', '2015-05-12 18:00:21', '女', 'FW1012', '2011-02-15 00:00:00', '330122196411073827', '4', '包装员', '浙江省桐庐县分水镇', '浙江省桐庐县分水镇', '2013-01-01 00:00:00', '2016-01-01 00:00:00', '合同工', null, null, '8.1', '汉', '', '', '', '', '6', '1964-11-07 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('11', '2015-05-09 15:19:42', '', 'cwm', '', '程五明', '', '', '2015-09-05 14:00:21', '男', 'FW1019', '2012-05-22 00:00:00', '330122196412100911', '5', '整烫工', '浙江省桐庐县横村镇孙家村6组', '浙江省桐庐县横村镇孙家村6组', '2013-01-01 00:00:00', '2015-12-31 00:00:00', '合同工', null, null, '8.1', '汉', '', '', '', '', '6', '1964-12-10 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('12', '2015-05-09 15:23:08', '', 'wsx', '', '吴生秀', '', '15990127615', '2015-11-14 15:27:39', '女', 'FW1021', '2007-02-26 00:00:00', '522628197407153020', '7', '车间主任', '贵州省锦屏县偶里乡皆阳村三组', '桐庐县横村镇孙家村6号', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '10.5', '苗', '', '', '', '6230910199006474353', '6', '1974-07-15 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('13', '2015-05-09 15:25:57', '', 'lzx', '', '陆仲霞', '', '', '2015-05-12 18:01:01', '女', 'FW1024', '2013-05-18 00:00:00', '522631197610081243', '7', '车标', '贵州省黎平县中潮镇上黄村十组', '桐庐县横村镇', '2013-05-18 00:00:00', '2016-05-17 00:00:00', '合同工', null, null, '8.1', '侗', '', '', '', '', '6', '1976-10-08 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('14', '2015-05-09 15:30:01', '', 'xxy', '', '宣秀英', '', '', '2015-05-18 17:50:49', '女', 'FW1025', '2006-02-03 00:00:00', '330122196309103727', '8', '横机主任', '浙江省桐庐县分水镇百岁坊村建设2组', '浙江省桐庐县分水镇百岁坊村建设2组', '2013-01-01 00:00:00', '2016-01-01 00:00:00', '合同工', '2015-04-03 00:00:00', null, '9.5', '汉', '', '', '', '', '6', '1963-09-10 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('15', '2015-05-09 15:34:29', '', 'whf', '', '王和法', '', '13805763810', '2015-05-12 18:01:19', '男', 'FW1026', '2006-02-03 00:00:00', '33012219630509371X', '3', '管理', '浙江省桐庐县分水镇百岁坊村建设2组', '浙江省桐庐县分水镇百岁坊村建设2组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '10', '汉', '', '', '', '6230910199000001459', '6', '1963-05-09 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('16', '2015-05-09 15:38:26', '', 'wym', '', '吴咏梅', '', '', '2015-05-18 17:50:31', '女', 'FW1027', '2012-02-02 00:00:00', '341021198406225945', '8', '横机工', '江西省贵溪市周坊镇神前村甄家组18号', '桐庐县横村镇孙家村6号', '2013-01-01 00:00:00', '2016-01-01 00:00:00', '合同工', '2015-04-03 00:00:00', null, '8.1', '汉', '', '', '', '', '6', '1984-06-22 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('17', '2015-05-09 15:40:41', '', 'wzf', '', '王真法', '', '', '2015-05-12 18:01:38', '男', 'FW1028', '2006-02-06 00:00:00', '330122195605153716', '6', '倒纱主任', '浙江省桐庐县分水镇百岁坊村建设二组', '浙江省桐庐县分水镇百岁坊村建设二组', '2013-01-01 00:00:00', '2016-01-01 00:00:00', '合同工', null, null, '9.5', '汉', '', '', '', '', '6', '1956-05-15 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('18', '2015-05-09 15:43:18', '', 'yly', '', '袁来英', '', '', '2015-05-12 18:01:47', '女', 'FW1033', '2006-02-06 00:00:00', '33012219620806372X', '6', '倒纱工', '浙江省桐庐县分水镇百岁坊村建设2组', '浙江省桐庐县分水镇百岁坊村建设2组', '2013-01-01 00:00:00', '2016-01-01 00:00:00', '合同工', null, null, '8.1', '汉', '', '', '', '', '6', '1962-08-06 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('19', '2015-05-09 15:49:23', '', 'lgx', '', '赖国香', '', '15356677007', '2015-05-12 18:02:05', '女', 'FW1035', '2014-01-02 00:00:00', '330122196402140944', '3', '人事', '浙江省桐庐县横村镇孙家村八组', '浙江省桐庐县横村镇孙家村八组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '9', '汉', '', '', '', '6230910199006454413', '6', '1964-02-14 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('20', '2015-05-09 15:51:53', '', 'cgy', '', '蔡国英', '', '', '2015-05-13 21:42:07', '女', 'FW1036', '2014-03-21 00:00:00', '330122196310052728', '4', '包装员', '浙江省桐庐县瑶琳镇琴溪村王家岭一组', '浙江省桐庐县瑶琳镇琴溪村王家岭一组', '2014-03-21 00:00:00', '2017-03-19 00:00:00', '合同工', null, null, '8.1', '汉', '', '', '', '', '6', '1963-10-05 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('21', '2015-05-09 15:55:06', '', 'lcm', '', '刘春美', '', '15988185748', '2015-05-12 18:02:27', '女', 'FW1037', '2014-01-02 00:00:00', '330127197903121828', '4', '包装员', '浙江省桐庐县分水镇塘源村3组', '浙江省桐庐县分水镇塘源村3组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '9', '汉', '', '', '', '6230910199006474692', '6', '1979-03-12 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('22', '2015-05-09 15:57:30', '', 'xym', '', '许一美', '', '', '2015-05-12 18:02:43', '女', 'FW1039', '2014-04-08 00:00:00', '330122196207232720', '4', '包装员', '浙江省桐庐县瑶琳镇琴溪村桐岭四组', '浙江省桐庐县瑶琳镇琴溪村桐岭四组', '2014-04-08 00:00:00', '2017-04-06 00:00:00', '合同工', null, null, '8.1', '汉', '', '', '', '', '6', '1962-07-23 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('23', '2015-05-09 15:58:56', '', 'zdy', '', '朱冬英', '', '', '2015-05-12 18:02:51', '女', 'FW1040', '2014-04-08 00:00:00', '330122196410082721', '4', '包装员', '浙江省桐庐县瑶琳镇琴溪村桐岭五组', '浙江省桐庐县瑶琳镇琴溪村桐岭五组', '2014-04-08 00:00:00', '2017-04-06 00:00:00', '合同工', null, null, '8.1', '汉', '', '', '', '', '6', '1964-10-08 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('24', '2015-05-09 16:00:47', '', 'yxb', '', '杨秀兵', '', '', '2015-09-05 13:59:50', '男', 'FW1042', '2014-04-18 00:00:00', '522628197302265819', '5', '整烫工', '贵州省锦屏县铜鼓镇花桥村花桥农场', '桐庐县横村镇', '2014-04-18 00:00:00', '2017-04-16 00:00:00', '合同工', null, null, '8.1', '苗', '', '', '', '', '6', '1973-02-26 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('25', '2015-05-09 16:04:47', '', 'yjq', '', '袁加强', '', '15988818074', '2015-05-12 18:03:11', '男', 'FW1046', '2014-03-03 00:00:00', '330122198608042716', '8', '电机打样', '浙江省桐庐县瑶琳镇高翔村沙潭二组', '浙江省桐庐县瑶琳镇高翔村沙潭二组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '9', '汉', '', '', '', '6228580199020617188', '6', '1986-08-04 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('26', '2015-05-09 16:06:48', '', 'jsl', '', '姜少林', '', '15314626622', '2015-06-30 16:19:01', '男', 'FW1048', '2014-03-05 00:00:00', '522628198811075671', '8', '横机工', '贵州省锦屏县敦寨镇敦寨村六组087号', '桐庐县横村镇', '2014-03-05 00:00:00', '2016-12-31 00:00:00', '合同工', null, null, '8.1', '侗', '', '', '', '', '6', '1988-11-07 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('27', '2015-05-09 16:10:02', '', 'ycq', '', '俞彩琴', '', '13567165791', '2015-05-12 18:03:33', '女', 'FW1049', '2014-02-17 00:00:00', '330122196510180927', '8', '车间主任', '浙江省桐庐县横村镇孙家村十一组', '浙江省桐庐县横村镇孙家村十一组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '9', '汉', '', '', '', '6230910199000001426', '6', '1965-10-18 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('28', '2015-05-09 16:16:11', '', 'wxl', '', '王祥兰', '', '', '2015-05-18 17:55:30', '女', 'FW1057', '2014-03-05 00:00:00', '522627198508164026', '4', '包装员', '贵州省天柱县坌处镇坌处村第一组', '桐庐县横村镇', '2014-03-05 00:00:00', '2017-03-05 00:00:00', '合同工', '2015-04-03 00:00:00', null, '9', '侗', '', '', '', '', '6', '1985-08-16 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('29', '2015-05-09 16:19:24', '', 'lhj', '', '林海军', '', '', '2015-05-09 16:19:24', '男', 'FW1058', '2013-03-01 00:00:00', '330122195804162711', '3', '管理', '浙江省桐庐县瑶琳镇琴溪村桐岭四组', '浙江省桐庐县瑶琳镇琴溪村桐岭四组', '2013-03-01 00:00:00', '2016-03-01 00:00:00', '合同工', null, null, '8.1', '汉', '', '', '', '', '6', '1958-04-16 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('30', '2015-05-09 16:28:48', '', 'wxj', '', '汪仙君', '', '15355078718', '2015-06-28 22:53:59', '女', 'FW1060', '2015-03-01 00:00:00', '330122197709181120', '9', '质量主管', '浙江省桐庐县横村镇双湖村牌凤弄8组', '浙江省桐庐县横村镇双湖村牌凤弄8组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '11', '汉', '', '', '', '6230910199008528800', '6', '1977-09-18 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('31', '2015-05-09 16:32:10', '', 'yxd', '', '闫旭东', '', '15382367338', '2015-05-09 16:32:10', '男', 'FW1063', '2015-03-01 00:00:00', '410927198706016015', '8', '横机工', '河南省台前县马楼乡西尚岭村081号', '桐庐县横村镇', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '8', '汉', '', '', '', '6230910199008242881', '6', '1987-06-01 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('32', '2015-05-09 17:28:25', '', 'lxd', '', '龙夏冬', '', '', '2015-05-09 17:30:45', '女', 'FW1064', '2015-04-01 00:00:00', '522628199107043021', '7', '车标', '贵州省锦屏县偶里乡寨霞村二组', '桐庐县横村镇', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '6', '1991-07-04 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('33', '2015-05-09 17:29:19', '', 'lmh', '', '陆孟红', '', '', '2015-05-09 17:30:36', '女', 'FW1065', '2015-04-01 00:00:00', '522631199701201246', '7', '车标', '贵州省黎平县中潮镇上黄村四组', '桐庐县横村镇', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '6', '1997-01-20 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('34', '2015-05-09 17:30:26', '', 'lqm', '', '龙秋梅', '', '', '2015-05-09 17:30:26', '女', 'FW1066', '2015-04-01 00:00:00', '522628197408276225', '7', '车标', '贵州省锦屏县铜鼓镇火冲村六组', '桐庐县横村镇', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '6', '1974-08-27 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('35', '2015-05-09 17:31:35', '', 'tmj', '', '唐梦杰', '', '', '2015-05-09 17:31:35', '女', 'FW1067', '2015-04-01 00:00:00', '431229198911020821', '7', '车标', '湖南省靖州苗族侗族自治县大堡子镇堡子村十五组433号', '桐庐县横村镇', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '6', '1989-11-02 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('36', '2015-05-09 17:32:23', '', 'yty', '', '尹条艳', '', '', '2015-05-09 17:32:23', '女', 'FW1068', '2015-04-01 00:00:00', '522628197307233023', '7', '车标', '贵州省锦屏县偶里乡皆阳村二组', '桐庐县横村镇', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '6', '1973-07-23 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('37', '2015-05-09 17:33:08', '', 'lxh', '', '龙宪浩', '', '', '2015-05-09 17:33:08', '男', 'FW1069', '2015-04-01 00:00:00', '52262819820714401X', '8', '横机工', '贵州省锦屏县启蒙镇丁达村一组', '桐庐县横村镇', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '6', '1982-07-14 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('38', '2015-05-09 17:33:55', '', 'lsx', '', '罗水香', '', '17858613005', '2015-06-30 16:19:47', '女', 'FW1070', '2015-04-01 00:00:00', '522628199002213426', '8', '横机工', '贵州省锦屏县启蒙镇丁达村一组', '桐庐县横村镇', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '6', '1990-02-21 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('39', '2015-05-09 17:34:40', '', 'jwl', '', '金文莲', '', '', '2015-05-09 17:34:40', '女', 'FW1071', '2015-04-01 00:00:00', '522636197705063824', '6', '倒纱工', '贵州省丹寨县南皋乡清江村五组23号', '桐庐县横村镇', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '6', '1977-05-06 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('40', '2015-05-09 17:35:27', '', 'wyq', '', '韦玉琴', '', '', '2015-05-09 17:35:27', '女', 'FW1072', '2015-04-01 00:00:00', '522635197009074224', '6', '倒纱工', '贵州省麻江县龙山乡改江村第九组', '桐庐县横村镇', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '6', '1970-09-07 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('41', '2015-05-09 17:36:22', '', 'jhl', '', '金化龙', '', '', '2015-05-09 17:36:22', '男', 'FW1073', '2015-04-01 00:00:00', '522635199601104014', '6', '倒纱工', '贵州省麻江县龙山乡改江村第九组', '桐庐县横村镇', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '6', '1996-01-10 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('42', '2015-05-09 17:37:02', '', 'jhc', '', '金化朝', '', '', '2015-09-05 13:46:29', '男', 'FW1074', '2015-03-18 00:00:00', '522635199209144011', '6', '倒纱工', '贵州省麻江县龙山乡改江村第九组', '桐庐县横村镇', '2015-03-18 00:00:00', '2017-03-17 00:00:00', '合同工', '2015-08-04 00:00:00', null, '8.1', '', '', '', '', '', '6', '1992-09-14 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('43', '2015-05-09 17:37:46', '', 'jwg', '', '金文高', '', '', '2015-05-25 16:24:43', '男', 'FW1075', '2015-03-18 00:00:00', '522635196706194219', '6', '倒纱工', '贵州省麻江县龙山乡改江村第九组', '桐庐县横村镇', '2015-03-18 00:00:00', '2017-03-17 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '6', '1967-06-19 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('44', '2015-05-09 17:38:37', '', 'jqj', '', '姜秋娟', '', '', '2015-05-09 17:38:37', '女', 'FW1076', '2015-04-01 00:00:00', '330122197508081123', '4', '包装员', '浙江省桐庐县横村镇上唐村唐王岭一组', '浙江省桐庐县横村镇上唐村唐王岭一组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '6', '1975-08-08 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('45', '2015-05-09 17:39:26', '', 'wxy', '', '王孝玉', '', '', '2015-09-05 13:46:52', '女', 'FW1077', '2015-04-01 00:00:00', '330122196510101141', '4', '包装员', '浙江省桐庐县横村镇城东村双湖3组', '浙江省桐庐县横村镇城东村双湖3组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', '2015-08-13 00:00:00', null, '8.1', '', '', '', '', '', '6', '1965-10-10 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('46', '2015-05-09 17:40:15', '', 'lcn', '', '林彩娜', '', '', '2015-05-11 19:16:19', '女', 'FW1078', '2015-04-01 00:00:00', '330122196612041127', '4', '包装员', '浙江省桐庐县横村镇上唐村唐王岭一组', '浙江省桐庐县横村镇上唐村唐王岭一组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '6', '1966-12-04 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('47', '2015-05-09 17:41:10', '', 'lzx', '', '陆仲先', '', '', '2015-05-09 17:41:10', '女', 'FW1079', '2015-04-01 00:00:00', '522631196608211526', '4', '包装员', '重庆市荣昌县仁义镇石梯子村1组85号', '浙江省桐庐县横村镇', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '6', '1966-08-21 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('48', '2015-05-09 17:41:59', '', 'hzx', '', '黄增仙', '', '', '2015-05-09 17:41:59', '女', 'FW1080', '2015-04-01 00:00:00', '330122195001050927', '4', '包装员', '浙江省桐庐县横村镇孙家村一组', '浙江省桐庐县横村镇孙家村一组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '6', '1950-01-05 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('49', '2015-05-09 17:42:42', '', 'lss', '', '卢水生', '', '', '2015-08-04 13:19:22', '男', 'FW1081', '2015-04-01 00:00:00', '330122195509200914', '4', '包装员', '浙江省桐庐县横村镇孙家村7组', '浙江省桐庐县横村镇孙家村7组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', '2015-07-30 00:00:00', null, '8.1', '', '', '', '', '', '6', '1955-09-20 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('50', '2015-05-09 17:43:29', '', 'yhx', '', '袁海仙', '', '', '2015-05-09 17:43:29', '女', 'FW1082', '2015-04-01 00:00:00', '330122194910040924', '4', '包装员', '浙江省桐庐县横村镇孙家村一组', '浙江省桐庐县横村镇孙家村一组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '6', '1949-10-04 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('51', '2015-05-09 17:44:14', '', 'mcl', '', '麻成龙', '', '', '2015-09-05 13:45:59', '男', 'FW1083', '2015-04-01 00:00:00', '33012219841103101X', '5', '整烫工', '浙江省桐庐县横村镇城东村双湖七组', '浙江省桐庐县横村镇城东村双湖七组', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '6', '1984-11-03 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('52', '2015-05-09 17:45:00', '', 'xg', '', '肖刚', '', '', '2015-09-05 13:45:48', '男', 'FW1084', '2015-04-01 00:00:00', '522527198601022510', '5', '整烫工', '贵州省普定县白岩镇打油村六组', '桐庐县横村镇', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', '2015-08-21 00:00:00', null, '8.1', '', '', '', '', '', '6', '1986-01-02 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('53', '2015-05-09 17:45:45', '', 'jlh', '', '蒋良海', '', '', '2015-05-09 17:45:45', '男', 'FW1085', '2015-04-01 00:00:00', '522729198408200956', '5', '整烫工', '贵州省长顺县摆所镇摆所村上组', '桐庐县横村镇', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '6', '1984-08-20 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('54', '2015-05-09 17:46:44', '', 'okj', '', '欧开军', '', '', '2015-09-05 13:45:33', '男', 'FW1086', '2015-04-01 00:00:00', '52262819811106121X', '5', '整烫工', '贵州省锦屏县大同乡兴合村一组', '桐庐县横村镇', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', '2015-08-14 00:00:00', null, '8.1', '', '', '', '', '', '6', '1981-11-06 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('55', '2015-05-09 17:47:36', '', 'zxg', '', '朱晓刚', '', '18858293082', '2015-05-09 17:47:36', '男', 'FW1087', '2015-04-01 00:00:00', '320324197802120316', '5', '整烫主任', '江苏省睢宁县睢城镇七井村90号', '方埠祥和家园2幢2单元403室', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '9', '', '', '', '', '', '6', '1978-02-12 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('57', '2015-05-09 17:49:15', '', 'zyy', '', '赵永言', '', '', '2015-05-09 17:49:15', '男', 'FW1089', '2015-04-01 00:00:00', '522631197904081214', '5', '整烫工', '贵州省黎平县中潮镇口团村十二组', '桐庐县横村镇', '2015-04-01 00:00:00', '2017-03-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '6', '1979-04-08 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('59', '2015-05-12 18:19:27', '', 'phy', '', '皮海元', '', '', '2015-05-12 18:19:48', '男', 'FW1007', '2011-11-28 00:00:00', '362223197105302015', '9', '质量主管', '江西省樟树市阁山镇韶塘村委会皮家村23号', '桐庐县横村镇孙家村6组', '2013-01-01 00:00:00', '2016-01-01 00:00:00', '合同工', '2015-02-28 00:00:00', null, '9.5', '', '', '', '', '', '13', '1971-05-30 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('60', '2015-05-12 18:21:53', '', 'zcl', '', '周朝利', '', '', '2015-05-12 18:22:09', '男', 'FW1001', '2007-02-26 00:00:00', '330127197410265014', '2', '主管', '浙江省淳安县界首乡松源村大坞底10号', '桐庐县横村镇孙家村7组', '2013-01-01 00:00:00', '2016-01-01 00:00:00', '合同工', '2015-02-28 00:00:00', null, '9', '', '', '', '', '', '13', '1974-10-26 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('61', '2015-05-12 18:26:05', '', 'yjy', '', '俞建英', '', '', '2015-05-12 18:29:27', '男', 'FW1002', '2010-07-01 00:00:00', '330122197008010927', '1', '跟单', '浙江省桐庐县横村镇柳岩村94号', '桐庐县横村镇', '2013-01-01 00:00:00', '2016-01-01 00:00:00', '合同工', '2015-02-28 00:00:00', null, '9', '', '', '', '', '', '13', '1970-08-01 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('62', '2015-05-12 18:28:27', '', 'stxy', '', '申屠香云', '', '', '2015-05-12 18:28:46', '女', 'FW1008', '2013-11-01 00:00:00', '330122196711091920', '9', '检验员', '浙江省桐庐县江南镇荻浦村八组', '浙江省桐庐县江南镇荻浦村八组', '2013-11-01 00:00:00', '2016-10-30 00:00:00', '合同工', '2013-12-05 00:00:00', null, '7.2', '', '', '', '', '', '13', '1967-11-09 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('63', '2015-05-12 18:31:33', '', 'lwj', '', '陆文杰', '', '', '2015-05-12 18:31:49', '男', 'FW1009', '2006-03-08 00:00:00', '330122198509020917', '3', '门卫', '浙江省桐庐县横村镇孙家村十组', '浙江省桐庐县横村镇孙家村十组', '2011-04-01 00:00:00', '2014-03-31 00:00:00', '合同工', '2013-12-06 00:00:00', null, '14.4', '', '', '', '', '', '13', '1985-09-02 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('64', '2015-05-12 20:06:18', '', 'hyp', '', '胡银平', '', '', '2015-05-12 20:07:34', '男', 'FW1010', '2013-04-02 00:00:00', '330122198606110914', '9', '管理', '浙江省桐庐县横村镇孙家村31号', '孙家村31号', '2013-04-02 00:00:00', '2016-04-01 00:00:00', '合同工', '2013-12-05 00:00:00', null, '14.4', '', '', '', '', '', '13', '1986-06-11 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('65', '2015-05-12 20:09:49', '', 'jxy', '', '金小燕', '', '', '2015-05-12 20:09:59', '女', 'FW1015', '2013-03-01 00:00:00', '362231197409222022', '4', '包装员', '江西省樟树市阁山镇韶塘村委会皮家村23号', '桐庐县横村镇', '2013-02-01 00:00:00', '2016-02-29 00:00:00', '合同工', '2013-12-10 00:00:00', null, '7.2', '', '', '', '', '', '13', '1974-09-22 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('66', '2015-05-12 20:11:31', '', 'wjh', '', '王加豪', '', '', '2015-05-12 20:11:44', '男', 'FW1016', '2013-05-30 00:00:00', '330122199403110919', '4', '包装员', '浙江省桐庐县横村镇孙家村十四组', '孙家村十四组', '2013-05-30 00:00:00', '2016-05-29 00:00:00', '合同工', '2013-12-06 00:00:00', null, '7.2', '', '', '', '', '', '13', '1994-03-11 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('67', '2015-05-12 20:13:20', '', 'wds', '', '王德松', '', '', '2015-05-12 20:13:31', '男', 'FW1020', '2013-03-15 00:00:00', '522628199201275814', '5', '整烫工', '贵州省锦屏县铜鼓镇花桥村太平冲组', '桐庐县横村镇', '2013-03-15 00:00:00', '2016-03-14 00:00:00', '合同工', '2013-12-17 00:00:00', null, '7.2', '', '', '', '', '', '13', '1992-01-27 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('69', '2015-05-12 20:17:12', '', 'wbg', '', '文邦国', '', '', '2015-05-12 20:17:23', '男', 'FW1030', '2012-10-05 00:00:00', '522635197407154430', '6', '倒纱工', '贵州省麻江县宣威镇罗伊村第一组', '桐庐县横村镇', '2012-10-05 00:00:00', '2015-10-05 00:00:00', '合同工', '2013-12-10 00:00:00', null, '7.2', '', '', '', '', '', '13', '1974-07-15 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('70', '2015-05-12 20:18:28', '', 'lxm', '', '刘兴梅', '', '', '2015-05-12 20:18:45', '女', 'FW1031', '2012-02-10 00:00:00', '52263519770615326X', '6', '倒纱工', '贵州省麻江县宣威镇罗伊村第一组', '桐庐县横村镇', '2012-02-10 00:00:00', '2015-02-09 00:00:00', '合同工', '2013-12-10 00:00:00', null, '7.2', '', '', '', '', '', '13', '1977-06-15 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('71', '2015-05-12 20:20:11', '', 'wbh', '', '文邦华', '', '', '2015-05-12 20:20:33', '男', 'FW1032', '2013-03-01 00:00:00', '522635196704154416', '6', '倒纱工', '贵州省麻江县宣威镇罗伊村第二组', '桐庐县横村镇', '2013-03-01 00:00:00', '2016-02-29 00:00:00', '合同工', '2013-12-06 00:00:00', null, '7.2', '', '', '', '', '', '13', '1967-04-15 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('73', '2015-05-12 20:36:18', '', 'sll', '', '沈连连', '', '', '2015-05-12 20:53:11', '女', 'FW1014', '2014-01-02 00:00:00', '330123197002281124', '4', '包装员', '浙江省桐庐县瑶琳镇琴溪村王家岭三组', '桐庐县横村镇', '2014-01-02 00:00:00', '2016-12-31 00:00:00', '合同工', '2015-02-28 00:00:00', null, '8.1', '', '', '', '', '', '13', '1970-02-28 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('74', '2015-05-12 20:37:02', '', 'lqc', '', '龙群才', '', '', '2015-05-12 20:53:17', '男', 'FW1017', '2013-04-02 00:00:00', '522628197206283013', '4', '包装员', '贵州省锦屏县偶里乡皆阳村三组', '桐庐县横村镇', '2013-04-02 00:00:00', '2016-03-31 00:00:00', '合同工', '2015-02-28 00:00:00', null, '8.1', '', '', '', '', '', '13', '1972-06-28 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('75', '2015-05-12 20:37:57', '', 'awy', '', '敖碗英', '', '', '2015-05-12 20:53:28', '女', 'FW1022', '2013-03-01 00:00:00', '362222197506201809', '7', '车标', '江西省高安市灰埠镇山背村山背自然村22号', '桐庐县横村镇', '2013-03-01 00:00:00', '2016-02-29 00:00:00', '合同工', '2015-02-28 00:00:00', null, '7.8', '', '', '', '', '', '13', '1975-06-20 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('76', '2015-05-12 20:40:36', '', 'wyy', '', '韦玉艳', '', '', '2015-05-12 20:53:38', '女', 'FW1029', '2013-03-01 00:00:00', '522635197808164426', '6', '倒纱工', '贵州省麻江县宣威镇罗伊村第一组', '桐庐县横村镇', '2013-03-01 00:00:00', '2016-02-28 00:00:00', '合同工', '2015-02-28 00:00:00', null, '8.1', '', '', '', '', '', '13', '1978-08-16 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('77', '2015-05-12 20:42:30', '', 'wmj', '', '王美君', '', '', '2015-07-10 08:53:51', '女', 'FW1038', '2015-06-01 00:00:00', '330122196912092727', '4', '包装员', '浙江省富阳市胥口镇高联村田家9号', '横村', '2015-06-01 00:00:00', '2017-05-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '13', '1969-12-09 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('78', '2015-05-12 20:43:27', '', 'srf', '', '沈荣发', '', '', '2015-05-12 20:54:04', '男', 'FW1041', '2014-03-18 00:00:00', '360621197703090531', '5', '整烫工', '江西省贵溪市上清镇渐浦村邮路组26号', '横村', '2014-03-18 00:00:00', '2017-03-16 00:00:00', '合同工', '2015-02-28 00:00:00', null, '8.1', '', '', '', '', '', '13', '1977-03-09 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('79', '2015-05-12 20:44:20', '', 'cmy', '', '陈末英', '', '', '2015-05-12 20:54:26', '女', 'FW1043', '2014-05-13 00:00:00', '362222197703262440', '7', '缝纫工', '江西省高安市灰埠镇教子路73号', '横村', '2014-05-03 00:00:00', '2017-05-01 00:00:00', '合同工', '2015-02-28 00:00:00', null, '8.1', '', '', '', '', '', '13', '1977-03-26 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('80', '2015-05-12 20:45:06', '', 'pyx', '', '彭银秀', '', '', '2015-05-12 20:54:39', '女', 'FW1044', '2014-05-03 00:00:00', '362222196907072441', '7', '缝纫工', '江西省高安市灰埠镇背村山背自然村2号', '横村', '2014-05-03 00:00:00', '2017-05-01 00:00:00', '合同工', '2015-02-28 00:00:00', null, '8.1', '', '', '', '', '', '13', '1969-07-07 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('81', '2015-05-12 20:45:52', '', 'lsx', '', '罗树香', '', '15382322949', '2015-06-30 16:19:25', '女', 'FW1045', '2014-03-05 00:00:00', '522628199211143428', '8', '横机工', '贵州省锦屏县敦寨镇敦寨村六组', '横村', '2014-03-05 00:00:00', '2016-12-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '13', '1992-11-14 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('82', '2015-05-12 20:46:38', '', 'jsx', '', '姜少学', '', '', '2015-05-12 20:56:55', '男', 'FW1047', '2014-03-05 00:00:00', '522628198709025619', '8', '横机工', '贵州省锦屏县敦寨镇敦寨村六组087号', '横村', '2014-03-05 00:00:00', '2016-12-31 00:00:00', '合同工', '2015-02-28 00:00:00', null, '8.1', '', '', '', '', '', '13', '1987-09-02 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('83', '2015-05-12 20:47:23', '', 'xfx', '', '熊方祥', '', '', '2015-05-12 20:57:09', '男', 'FW1050', '2014-03-18 00:00:00', '522635196810034418', '6', '倒纱工', '贵州省麻江县宣威镇罗伊村第二组', '横村', '2014-03-18 00:00:00', '2017-03-16 00:00:00', '合同工', '2015-02-28 00:00:00', null, '8.1', '', '', '', '', '', '13', '1968-10-03 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('84', '2015-05-12 20:48:12', '', 'way', '', '文阿英', '', '', '2015-05-12 20:57:18', '女', 'FW1051', '2014-03-12 00:00:00', '522635197604273228', '6', '倒纱工', '贵州省麻江县宣威镇罗伊村第四村', '横村', '2014-03-12 00:00:00', '2017-03-10 00:00:00', '合同工', '2015-02-28 00:00:00', null, '8.1', '', '', '', '', '', '13', '1976-04-27 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('85', '2015-05-12 20:48:53', '', 'wjg', '', '文家国', '', '', '2015-05-12 20:57:22', '男', 'FW1052', '2014-03-18 00:00:00', '522635196808174411', '6', '倒纱工', '贵州省麻江县宣威镇罗伊村第二组', '横村', '2014-03-18 00:00:00', '2017-03-16 00:00:00', '合同工', '2015-02-28 00:00:00', null, '8.1', '', '', '', '', '', '13', '1968-08-17 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('86', '2015-05-12 20:49:36', '', 'lqy', '', '刘启央', '', '', '2015-05-12 20:57:27', '女', 'FW1053', '2014-03-14 00:00:00', '52262619851223322X', '6', '倒纱工', '贵州省麻江县宣威镇罗伊村第三组', '横村', '2014-03-14 00:00:00', '2017-03-12 00:00:00', '合同工', '2015-02-28 00:00:00', null, '8.1', '', '', '', '', '', '13', '1985-12-23 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('87', '2015-05-12 20:50:28', '', 'czb', '', '曾正兵', '', '', '2015-05-12 20:57:35', '男', 'FW1054', '2014-03-18 00:00:00', '522635197904173210', '6', '倒纱工', '贵州省麻江县宣威镇罗伊村第三组', '横村', '2014-03-18 00:00:00', '2017-03-16 00:00:00', '合同工', '2015-02-28 00:00:00', null, '8.1', '', '', '', '', '', '13', '1979-04-17 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('88', '2015-05-12 20:51:16', '', 'jzy', '', '蒋佐云', '', '', '2015-05-12 20:57:43', '女', 'FW1055', '2013-09-02 00:00:00', '522631197207221226', '7', '车标', '贵州省黎平县中潮镇上黄村二组', '横村', '2013-09-02 00:00:00', '2016-08-31 00:00:00', '合同工', '2015-02-28 00:00:00', null, '8.1', '', '', '', '', '', '13', '1972-07-22 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('89', '2015-05-12 20:52:08', '', 'cgy', '', '蔡国银', '', '', '2015-05-12 20:57:53', '女', 'FW1056', '2013-09-02 00:00:00', '33012219751115272X', '4', '包装员', '浙江省桐庐县瑶琳镇琴溪村桐岭四组', '横村', '2014-09-02 00:00:00', '2016-08-31 00:00:00', '合同工', '2015-02-28 00:00:00', null, '8.1', '', '', '', '', '', '13', '1975-11-15 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('90', '2015-05-12 21:15:11', '', 'ywd', '', '叶伟东', '', '', '2015-05-12 21:15:25', '男', 'FW1018', '2006-03-29 00:00:00', '330122197609011116', '5', '整烫主任', '浙江省桐庐县桐君街道富春路131号', '桐庐县桐君街道富春路131号', '2013-01-01 00:00:00', '2016-01-01 00:00:00', '合同工', '2015-02-28 00:00:00', null, '9.5', '', '', '', '', '', '13', '1976-09-01 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('91', '2015-06-03 15:52:11', '', 'hp', '', '胡盼', '', '15068821361', '2015-06-03 15:52:11', '男', '未知', '2011-01-01 00:00:00', '333', '1', '56', '未知', '', null, null, '合同工', null, null, null, '', '', '', '', '', '6', '1991-02-02 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('92', '2015-07-08 23:16:33', '', 'lhz', '', '骆红珠', '', '', '2015-09-05 18:55:33', '女', 'FW1091', '2015-06-01 00:00:00', '330122196803011545', '10', '检验员', '浙江省桐庐县钟山乡陇西村破塘湾六组', '桐庐县横村镇', '2015-06-01 00:00:00', '2017-05-31 00:00:00', '合同工', '2015-08-04 00:00:00', null, '8.1', '', '', '', '', '', '9', '1968-03-01 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('93', '2015-07-08 23:17:40', '', 'wxh', '', '汪新花', '', '', '2015-07-11 11:13:55', '女', 'FW1092', '2015-06-01 00:00:00', '330122195805030921', '10', '检验员', '浙江省桐庐县横村镇孙家村二组', '桐庐县横村镇孙家村', '2015-06-01 00:00:00', '2017-05-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '9', '1958-05-03 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('96', '2015-07-10 08:25:27', '', 'xxd', '', '徐秀弟', '', '', '2015-07-10 08:30:23', '女', 'FW1094', '2015-06-01 00:00:00', '330122197010131146', '4', '包装员', '浙江省桐庐县横村镇孙家村四组', '桐庐县横村镇孙家村', '2015-06-01 00:00:00', '2017-05-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '9', '1970-10-13 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('97', '2015-07-11 11:13:02', '', 'cyp', '', '柴玉萍', '', '', '2015-07-11 11:13:02', '女', 'FW1095', '2015-06-01 00:00:00', '330122196305050920', '10', '检验员', '浙江省桐庐县横村镇孙家村二组', '桐庐县横村镇孙家村', '2015-06-01 00:00:00', '2017-05-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '13', '1963-05-05 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('98', '2015-07-11 14:17:06', '', 'mya', '', '毛月爱', '', '', '2015-07-11 14:17:29', '女', 'FW1096', '2015-06-01 00:00:00', '330122195612033827', '4', '包装员', '桐庐县合村乡高凉亭村872组', '横村', '2015-06-01 00:00:00', '2017-05-31 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '13', '1956-12-03 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('99', '2015-07-23 22:31:53', '', 'yxj', '', '喻孝娟', '', '', '2015-09-05 13:47:04', '女', 'FW1097', '2015-07-06 00:00:00', '330122196512032725', '4', '打样员', '浙江省桐庐县瑶琳镇后浦村大庙五组', '桐庐县瑶琳镇', '2015-07-06 00:00:00', '2017-07-05 00:00:00', '合同工', '2015-08-31 00:00:00', null, '9', '', '', '', '', '', '6', '1965-12-03 00:00:00', '', '');
+INSERT INTO `tb_employee` VALUES ('100', '2015-09-05 15:16:15', '', 'zgq', '', '邹国强', '', '', '2015-09-05 15:16:15', '男', 'FW1100', '2015-09-04 00:00:00', '36062119800124051X', '5', '整烫工', '江西省贵溪市上清镇城门村窑上组49号附1号', '横村', '2015-09-04 00:00:00', '2017-09-03 00:00:00', '合同工', null, null, '8.1', '', '', '', '', '', '13', '1980-01-24 00:00:00', '', '');
 INSERT INTO `tb_expense_income` VALUES ('1', '1', '辅料款', '191', '上海易轩干燥剂有限公司', '3', '杭州六昇服饰有限公司', null, null, '510', '', '2014-11-21', '2015-06-11', '2015-06-11', '6', '', '510');
 INSERT INTO `tb_expense_income` VALUES ('2', '1', '辅料款', '172', '上海昌全硅胶干燥剂有限公司', '3', '杭州六昇服饰有限公司', null, null, '403.24', '', '2014-12-04', '2015-06-11', '2015-06-11', '6', '', '403.24');
 INSERT INTO `tb_expense_income` VALUES ('8', '1', '辅料款', '204', '新天伦服装配料(惠州)有限公司', '3', '杭州六昇服饰有限公司', null, null, '3043.56', '', '2015-03-13', '2015-06-11', '2015-06-11', '6', '', '3043.56');
@@ -5091,6 +5431,7 @@ INSERT INTO `tb_factory` VALUES ('63', '金熙', '未知', '2015-07-18 10:55:58'
 INSERT INTO `tb_factory` VALUES ('64', '申屠丽云', '桐乡', '2015-07-21 16:07:15', 'stly', '2015-07-21 16:07:15', '7', '2');
 INSERT INTO `tb_factory` VALUES ('65', '包彬杰', '方埠', '2015-08-26 16:34:00', 'bbj', '2015-08-26 16:34:00', '7', '0');
 INSERT INTO `tb_factory` VALUES ('66', '张建华', '横村', '2015-10-13 13:18:36', 'zjh', '2015-10-13 13:18:36', '7', '0');
+INSERT INTO `tb_factory` VALUES ('67', '星火-纸箱', '未知', '2015-11-11 14:49:37', 'xhzx', '2015-11-11 14:49:37', '6', '1');
 INSERT INTO `tb_finalstoreorder` VALUES ('1', '1', '2015-03-31 21:48:39', '2015-03-31 21:48:39', '7', '6', '执行完成');
 INSERT INTO `tb_finalstoreorder` VALUES ('2', '2', '2015-04-02 22:09:03', '2015-04-02 22:09:03', '7', '0', '新建');
 INSERT INTO `tb_finalstoreorder` VALUES ('3', '3', '2015-04-02 22:32:58', '2015-04-02 22:32:58', '7', '0', '新建');
@@ -5375,6 +5716,38 @@ INSERT INTO `tb_finalstoreorder` VALUES ('281', '281', '2015-10-09 15:09:30', '2
 INSERT INTO `tb_finalstoreorder` VALUES ('282', '282', '2015-10-10 08:50:24', '2015-10-10 08:50:24', '7', '0', '新建');
 INSERT INTO `tb_finalstoreorder` VALUES ('283', '283', '2015-10-13 13:17:11', '2015-10-13 13:17:11', '7', '0', '新建');
 INSERT INTO `tb_finalstoreorder` VALUES ('284', '284', '2015-10-15 09:22:03', '2015-10-15 09:22:03', '7', '0', '新建');
+INSERT INTO `tb_fuliao` VALUES ('1', '2015-11-07 14:43:16', 'resource.fuwei.com/images/fuliao/1446878596303CC70C0E5ACC61427E59F526316C2D120.png', '测试备注', 'L码', '2015-11-07 16:51:19', '6', 'resource.fuwei.com/images/fuliao/s/1446878596303CC70C0E5ACC61427E59F526316C2D120.png', 'resource.fuwei.com/images/fuliao/ss/1446878596303CC70C0E5ACC61427E59F526316C2D120.png', '欧洲', '2', 'COM10052', '76392', '285', 'FWA20285', '5', '2', '红色');
+INSERT INTO `tb_fuliao` VALUES ('3', '2015-11-07 17:16:58', 'resource.fuwei.com/images/fuliao/1446887818776CC70C0E5ACC61427E59F526316C2D120.png', '', 'XL', null, '6', 'resource.fuwei.com/images/fuliao/s/1446887818776CC70C0E5ACC61427E59F526316C2D120.png', 'resource.fuwei.com/images/fuliao/ss/1446887818776CC70C0E5ACC61427E59F526316C2D120.png', '美国', '1', 'fdkssalf', '5002', '282', 'FWA20282', '5', '1', '黑色');
+INSERT INTO `tb_fuliao` VALUES ('4', '2015-11-10 14:54:12', 'resource.fuwei.com/images/fuliao/1447138452270车缝挡板.JPG', '', '', null, '6', 'resource.fuwei.com/images/fuliao/s/1447138452270车缝挡板.png', 'resource.fuwei.com/images/fuliao/ss/1447138452270车缝挡板.png', '', '', '15220000', '121', '285', 'FWA20285', '3', '1', '红色');
+INSERT INTO `tb_fuliao_changelocation` VALUES ('3', '更改库位为【b3】', '6', '2015-11-16 18:04:03', '4', '5');
+INSERT INTO `tb_fuliaoin` VALUES ('7', '2015-11-16 12:43:27', '6', '285', 'FWA20285', '1', '6', '执行完成', '15FR0007', '16');
+INSERT INTO `tb_fuliaoin` VALUES ('8', '2015-11-16 12:45:58', '6', '285', 'FWA20285', '1', '6', '执行完成', '15FR0008', '17');
+INSERT INTO `tb_fuliaoin` VALUES ('9', '2015-11-16 12:52:36', '6', '285', 'FWA20285', '1', '6', '执行完成', '15FR0009', '18');
+INSERT INTO `tb_fuliaoin_detail` VALUES ('8', '7', '1', '50', '4', null, 'resource.fuwei.com/images/fuliao/1446878596303CC70C0E5ACC61427E59F526316C2D120.png', 'L码', 'resource.fuwei.com/images/fuliao/s/1446878596303CC70C0E5ACC61427E59F526316C2D120.png', 'resource.fuwei.com/images/fuliao/ss/1446878596303CC70C0E5ACC61427E59F526316C2D120.png', '2', 'COM10052', '76392', '5', '红色');
+INSERT INTO `tb_fuliaoin_detail` VALUES ('9', '7', '4', '100', '1', null, 'resource.fuwei.com/images/fuliao/1447138452270车缝挡板.JPG', '', 'resource.fuwei.com/images/fuliao/s/1447138452270车缝挡板.png', 'resource.fuwei.com/images/fuliao/ss/1447138452270车缝挡板.png', '', '15220000', '121', '3', '红色');
+INSERT INTO `tb_fuliaoin_detail` VALUES ('10', '8', '1', '300', '4', null, 'resource.fuwei.com/images/fuliao/1446878596303CC70C0E5ACC61427E59F526316C2D120.png', 'L码', 'resource.fuwei.com/images/fuliao/s/1446878596303CC70C0E5ACC61427E59F526316C2D120.png', 'resource.fuwei.com/images/fuliao/ss/1446878596303CC70C0E5ACC61427E59F526316C2D120.png', '2', 'COM10052', '76392', '5', '红色');
+INSERT INTO `tb_fuliaoin_detail` VALUES ('11', '9', '4', '60', '1', null, 'resource.fuwei.com/images/fuliao/1447138452270车缝挡板.JPG', '', 'resource.fuwei.com/images/fuliao/s/1447138452270车缝挡板.png', 'resource.fuwei.com/images/fuliao/ss/1447138452270车缝挡板.png', '', '15220000', '121', '3', '红色');
+INSERT INTO `tb_fuliaoin_notice` VALUES ('16', '2015-11-16 12:42:17', '2015-11-16 12:42:17', '6', '285', 'FWA20285', '1', '6', '执行完成', '15FRT0016', null);
+INSERT INTO `tb_fuliaoin_notice` VALUES ('17', '2015-11-16 12:43:58', '2015-11-16 12:43:58', '6', '285', 'FWA20285', '1', '6', '执行完成', '15FRT0017', null);
+INSERT INTO `tb_fuliaoin_notice` VALUES ('18', '2015-11-16 12:52:22', '2015-11-16 12:52:22', '6', '285', 'FWA20285', '1', '6', '执行完成', '15FRT0018', null);
+INSERT INTO `tb_fuliaoin_notice_detail` VALUES ('31', '16', '1', '50', null, 'resource.fuwei.com/images/fuliao/1446878596303CC70C0E5ACC61427E59F526316C2D120.png', 'L码', 'resource.fuwei.com/images/fuliao/s/1446878596303CC70C0E5ACC61427E59F526316C2D120.png', 'resource.fuwei.com/images/fuliao/ss/1446878596303CC70C0E5ACC61427E59F526316C2D120.png', '2', 'COM10052', '76392', '5', '红色');
+INSERT INTO `tb_fuliaoin_notice_detail` VALUES ('32', '16', '4', '100', null, 'resource.fuwei.com/images/fuliao/1447138452270车缝挡板.JPG', '', 'resource.fuwei.com/images/fuliao/s/1447138452270车缝挡板.png', 'resource.fuwei.com/images/fuliao/ss/1447138452270车缝挡板.png', '', '15220000', '121', '3', '红色');
+INSERT INTO `tb_fuliaoin_notice_detail` VALUES ('33', '17', '1', '300', null, 'resource.fuwei.com/images/fuliao/1446878596303CC70C0E5ACC61427E59F526316C2D120.png', 'L码', 'resource.fuwei.com/images/fuliao/s/1446878596303CC70C0E5ACC61427E59F526316C2D120.png', 'resource.fuwei.com/images/fuliao/ss/1446878596303CC70C0E5ACC61427E59F526316C2D120.png', '2', 'COM10052', '76392', '5', '红色');
+INSERT INTO `tb_fuliaoin_notice_detail` VALUES ('34', '18', '4', '60', null, 'resource.fuwei.com/images/fuliao/1447138452270车缝挡板.JPG', '', 'resource.fuwei.com/images/fuliao/s/1447138452270车缝挡板.png', 'resource.fuwei.com/images/fuliao/ss/1447138452270车缝挡板.png', '', '15220000', '121', '3', '红色');
+INSERT INTO `tb_fuliaoout` VALUES ('6', '2015-11-16 12:49:41', '6', '285', 'FWA20285', '1', '6', '执行完成', '15FC0006', '9', '5');
+INSERT INTO `tb_fuliaoout` VALUES ('7', '2015-11-16 12:50:32', '6', '285', 'FWA20285', '1', '6', '执行完成', '15FC0007', '10', '9');
+INSERT INTO `tb_fuliaoout` VALUES ('8', '2015-11-16 12:51:35', '6', '285', 'FWA20285', '1', '6', '执行完成', '15FC0008', '11', '9');
+INSERT INTO `tb_fuliaoout_detail` VALUES ('4', '6', '1', '100', '4', 'resource.fuwei.com/images/fuliao/1446878596303CC70C0E5ACC61427E59F526316C2D120.png', 'L码', 'resource.fuwei.com/images/fuliao/s/1446878596303CC70C0E5ACC61427E59F526316C2D120.png', 'resource.fuwei.com/images/fuliao/ss/1446878596303CC70C0E5ACC61427E59F526316C2D120.png', '2', 'COM10052', '76392', '5', '红色');
+INSERT INTO `tb_fuliaoout_detail` VALUES ('5', '7', '1', '100', '4', 'resource.fuwei.com/images/fuliao/1446878596303CC70C0E5ACC61427E59F526316C2D120.png', 'L码', 'resource.fuwei.com/images/fuliao/s/1446878596303CC70C0E5ACC61427E59F526316C2D120.png', 'resource.fuwei.com/images/fuliao/ss/1446878596303CC70C0E5ACC61427E59F526316C2D120.png', '2', 'COM10052', '76392', '5', '红色');
+INSERT INTO `tb_fuliaoout_detail` VALUES ('6', '7', '4', '40', '1', 'resource.fuwei.com/images/fuliao/1447138452270车缝挡板.JPG', '', 'resource.fuwei.com/images/fuliao/s/1447138452270车缝挡板.png', 'resource.fuwei.com/images/fuliao/ss/1447138452270车缝挡板.png', '', '15220000', '121', '3', '红色');
+INSERT INTO `tb_fuliaoout_detail` VALUES ('7', '8', '4', '60', '1', 'resource.fuwei.com/images/fuliao/1447138452270车缝挡板.JPG', '', 'resource.fuwei.com/images/fuliao/s/1447138452270车缝挡板.png', 'resource.fuwei.com/images/fuliao/ss/1447138452270车缝挡板.png', '', '15220000', '121', '3', '红色');
+INSERT INTO `tb_fuliaoout_notice` VALUES ('9', '2015-11-16 12:42:44', '2015-11-16 12:42:44', '6', '285', 'FWA20285', '1', '6', '执行完成', '15FCT0009', null);
+INSERT INTO `tb_fuliaoout_notice` VALUES ('10', '2015-11-16 12:50:17', '2015-11-16 12:50:17', '6', '285', 'FWA20285', '1', '6', '执行完成', '15FCT0010', null);
+INSERT INTO `tb_fuliaoout_notice` VALUES ('11', '2015-11-16 12:50:58', '2015-11-16 12:51:24', '6', '285', 'FWA20285', '1', '6', '执行完成', '15FCT0011', null);
+INSERT INTO `tb_fuliaoout_notice_detail` VALUES ('20', '9', '1', '100', 'resource.fuwei.com/images/fuliao/1446878596303CC70C0E5ACC61427E59F526316C2D120.png', 'L码', 'resource.fuwei.com/images/fuliao/s/1446878596303CC70C0E5ACC61427E59F526316C2D120.png', 'resource.fuwei.com/images/fuliao/ss/1446878596303CC70C0E5ACC61427E59F526316C2D120.png', '2', 'COM10052', '76392', '5', '红色');
+INSERT INTO `tb_fuliaoout_notice_detail` VALUES ('21', '10', '1', '100', 'resource.fuwei.com/images/fuliao/1446878596303CC70C0E5ACC61427E59F526316C2D120.png', 'L码', 'resource.fuwei.com/images/fuliao/s/1446878596303CC70C0E5ACC61427E59F526316C2D120.png', 'resource.fuwei.com/images/fuliao/ss/1446878596303CC70C0E5ACC61427E59F526316C2D120.png', '2', 'COM10052', '76392', '5', '红色');
+INSERT INTO `tb_fuliaoout_notice_detail` VALUES ('22', '10', '4', '40', 'resource.fuwei.com/images/fuliao/1447138452270车缝挡板.JPG', '', 'resource.fuwei.com/images/fuliao/s/1447138452270车缝挡板.png', 'resource.fuwei.com/images/fuliao/ss/1447138452270车缝挡板.png', '', '15220000', '121', '3', '红色');
+INSERT INTO `tb_fuliaoout_notice_detail` VALUES ('24', '11', '4', '60', 'resource.fuwei.com/images/fuliao/1447138452270车缝挡板.JPG', '', 'resource.fuwei.com/images/fuliao/s/1447138452270车缝挡板.png', 'resource.fuwei.com/images/fuliao/ss/1447138452270车缝挡板.png', '', '15220000', '121', '3', '红色');
 INSERT INTO `tb_fuliaopurchaseorder` VALUES ('1', null, '2015-04-07 09:00:59', '2015-04-07 09:00:59', '7', '[{\"memo\":\"\",\"quantity\":3,\"style\":19},{\"memo\":\"\",\"quantity\":5,\"style\":19}]', '31', '0', '新建', '7', null, null, '马海毛亮丝围脖', null, null, '0', null, null, null, null, null, '15FL0001', '76346', '3');
 INSERT INTO `tb_fuliaopurchaseorder` VALUES ('2', null, '2015-04-09 18:28:23', '2015-04-09 18:28:23', '7', '[{\"memo\":\"黑色\",\"quantity\":93,\"style\":19},{\"memo\":\"桔红\",\"quantity\":84,\"style\":19},{\"memo\":\"酒红\",\"quantity\":67,\"style\":19},{\"memo\":\"绿色待定\",\"quantity\":116,\"style\":19},{\"memo\":\"米白色\",\"quantity\":10,\"style\":18}]', '25', '0', '新建', '4', null, null, '马海毛珠片纱围脖', null, null, '0', null, null, null, null, '3', '15FL0002', 'QY15-114', '3');
 INSERT INTO `tb_fuliaopurchaseorder` VALUES ('3', null, '2015-04-10 13:26:14', '2015-04-10 13:26:14', '7', '[{\"memo\":\"MH151\",\"quantity\":33,\"style\":19},{\"memo\":\"MH72\",\"quantity\":33,\"style\":19},{\"memo\":\"MH106\",\"quantity\":26,\"style\":19},{\"memo\":\"粉色\",\"quantity\":163,\"style\":19},{\"memo\":\"MH02\",\"quantity\":158,\"style\":19},{\"memo\":\"MH07\",\"quantity\":12,\"style\":19}]', '31', '0', '新建', '1', null, null, '夹亮丝三件套', null, null, '0', null, null, null, null, null, '15FL0003', '15NY-FW08', '2');
@@ -5460,6 +5833,14 @@ INSERT INTO `tb_fuliaopurchaseorder` VALUES ('82', null, '2015-10-06 12:59:08', 
 INSERT INTO `tb_fuliaopurchaseorder` VALUES ('83', null, '2015-10-08 16:22:58', '2015-10-08 16:22:58', '7', '[{\"memo\":\"\",\"quantity\":7050,\"style\":27}]', '38', '0', '新建', '3', null, null, '马海毛抽条帽子', null, null, '0', null, null, null, null, null, '15FL0083', 'OSO', '4');
 INSERT INTO `tb_fuliaopurchaseorder` VALUES ('84', null, '2015-10-10 15:15:07', '2015-10-10 15:15:07', '7', '[{\"memo\":\"银丝\",\"quantity\":29.5,\"style\":19}]', '31', '0', '新建', '3', null, null, '马海毛抽条帽子', null, null, '0', null, null, null, null, null, '15FL0084', 'OSO', '4');
 INSERT INTO `tb_fuliaopurchaseorder` VALUES ('85', null, '2015-10-15 15:31:37', '2015-10-15 15:31:37', '7', '[{\"memo\":\"粉色\",\"quantity\":55,\"style\":24},{\"memo\":\"黑色\",\"quantity\":20,\"style\":24}]', '36', '0', '新建', '3', null, null, '冰岛毛五件套', null, null, '0', null, null, null, null, null, '15FL0085', 'ZB', '4');
+INSERT INTO `tb_fuliaotype` VALUES ('1', '2015-11-04 12:14:15', '胶带', '2015-11-04 12:14:15', '6');
+INSERT INTO `tb_fuliaotype` VALUES ('2', '2015-11-04 12:14:21', '吊牌', '2015-11-04 12:14:21', '6');
+INSERT INTO `tb_fuliaotype` VALUES ('3', '2015-11-04 12:14:25', '洗标', '2015-11-04 12:14:25', '6');
+INSERT INTO `tb_fuliaotype` VALUES ('4', '2015-11-04 12:14:32', '挂牌', '2015-11-04 12:14:32', '6');
+INSERT INTO `tb_fuliaotype` VALUES ('5', '2015-11-04 12:14:36', '吊卡', '2015-11-04 12:14:36', '6');
+INSERT INTO `tb_fuliaotype` VALUES ('6', '2015-11-04 12:14:41', '胶带', '2015-11-04 12:14:41', '6');
+INSERT INTO `tb_fuliaotype` VALUES ('7', '2015-11-04 12:14:47', '纸箱', '2015-11-04 12:14:47', '6');
+INSERT INTO `tb_fuliaotype` VALUES ('8', '2015-11-04 12:14:53', '测试2', '2015-11-04 12:14:57', '6');
 INSERT INTO `tb_gongxu` VALUES ('1', '2015-03-31 21:33:40', '机织', '2015-03-31 21:33:40', '9', '');
 INSERT INTO `tb_gongxu` VALUES ('2', '2015-03-31 21:33:48', '锁口', '2015-03-31 21:33:48', '9', '');
 INSERT INTO `tb_gongxu` VALUES ('3', '2015-03-31 21:33:58', '套口', '2015-03-31 21:33:58', '9', '');
@@ -5480,15 +5861,11 @@ INSERT INTO `tb_gongxu` VALUES ('17', '2015-04-23 14:00:42', '做工', '2015-04-
 INSERT INTO `tb_gongxu` VALUES ('18', '2015-04-24 15:02:58', '裁剪', '2015-04-24 15:02:58', '9', '');
 INSERT INTO `tb_gongxu` VALUES ('19', '2015-04-27 17:00:09', '平车', '2015-04-27 17:00:09', '9', '');
 INSERT INTO `tb_gongxu` VALUES ('20', '2015-05-02 17:19:56', '手工', '2015-05-02 17:19:56', '9', '');
-INSERT INTO `tb_gongxu_producingorder` VALUES ('3', '3', '10', '2015-10-19 17:47:56', '2015-10-19 17:47:56', '6', '[{\"color\":\"QY米色\",\"planOrderDetailId\":1,\"price\":1.2,\"produce_weight\":0,\"quantity\":1200,\"size\":\"S/M 25*9cm\",\"weight\":114,\"yarn\":6},{\"color\":\"深夹花灰\",\"planOrderDetailId\":2,\"price\":1.2,\"produce_weight\":0,\"quantity\":1200,\"size\":\"25*9cm S/M\",\"weight\":114,\"yarn\":7}]', null, '2', '0', '新建', '4', 'resource.fuwei.com/images/sample/1428068026985图片1.png', '绞花包套', 'FWA30016', '25*9cm S/M', '114', '16', 'FWA20010', 'resource.fuwei.com/images/sample/s/1428068026985图片1.png', 'resource.fuwei.com/images/sample/ss/1428068026985图片1.png', '3', '3', '15GX0003', 'FWA30016', '测试用');
-INSERT INTO `tb_half_current_stock` VALUES ('233', '0', '[{\"color\":\"黑色\",\"planOrderDetailId\":1,\"produce_weight\":163,\"size\":\"30*80x2\",\"stock_quantity\":0},{\"color\":\"白色\",\"planOrderDetailId\":2,\"produce_weight\":163,\"size\":\"30*80x2\",\"stock_quantity\":0}]', '1');
-INSERT INTO `tb_half_current_stock` VALUES ('10', '3405', '[{\"color\":\"QY米色\",\"planOrderDetailId\":1,\"produce_weight\":100,\"size\":\"S/M 25*9cm\",\"stock_quantity\":2030,\"yarn\":6},{\"color\":\"深夹花灰\",\"planOrderDetailId\":2,\"produce_weight\":100,\"size\":\"25*9cm S/M\",\"stock_quantity\":1375,\"yarn\":7}]', '2');
+INSERT INTO `tb_half_current_stock` VALUES ('10', '2047', '[{\"color\":\"QY米色\",\"planOrderDetailId\":1,\"produce_weight\":100,\"size\":\"S/M 25*9cm\",\"stock_quantity\":1281,\"yarn\":6},{\"color\":\"深夹花灰\",\"planOrderDetailId\":2,\"produce_weight\":100,\"size\":\"25*9cm S/M\",\"stock_quantity\":766,\"yarn\":7}]', '3');
 INSERT INTO `tb_half_store_in_out` VALUES ('1', '2015-10-18 20:05:51', '2015-10-18 20:05:51', '6', '[{\"color\":\"黑色\",\"id\":1,\"planOrderDetailId\":1,\"quantity\":100,\"size\":\"30*80x2\",\"weight\":163},{\"color\":\"白色\",\"id\":2,\"planOrderDetailId\":2,\"quantity\":100,\"size\":\"30*80x2\",\"weight\":163}]', '0', '新建', 'FWA20233', '5', 'resource.fuwei.com/images/sample/14369512947741(07-14-13-12-11).png', '9', '马海毛亮丝围脖', 'FWA30209', '80*2*30cm', '157', '209', 'resource.fuwei.com/images/sample/s/14369512947741(07-14-13-12-11).png', 'resource.fuwei.com/images/sample/ss/14369512947741(07-14-13-12-11).png', null, 'FW15892ES', '3', '', '2015-10-18 00:00:00', '7', null, '', '15HRK0001', '233', '', '1');
-INSERT INTO `tb_half_store_in_out` VALUES ('2', '2015-10-18 20:49:22', '2015-10-18 20:49:22', '6', '[{\"color\":\"黑色\",\"id\":0,\"planOrderDetailId\":1,\"quantity\":100,\"size\":\"30*80x2\",\"weight\":163},{\"color\":\"白色\",\"id\":0,\"planOrderDetailId\":2,\"quantity\":100,\"size\":\"30*80x2\",\"weight\":163}]', '0', '新建', 'FWA20233', '5', 'resource.fuwei.com/images/sample/14369512947741(07-14-13-12-11).png', '9', '马海毛亮丝围脖', 'FWA30209', '80*2*30cm', '157', '209', 'resource.fuwei.com/images/sample/s/14369512947741(07-14-13-12-11).png', 'resource.fuwei.com/images/sample/ss/14369512947741(07-14-13-12-11).png', null, 'FW15892ES', '3', '', '2015-10-18 00:00:00', '5', null, '', '15HCK0002', '233', '', '1');
 INSERT INTO `tb_half_store_in_out` VALUES ('9', '2015-10-20 15:38:29', '2015-10-20 15:38:29', '6', '[{\"color\":\"QY米色\",\"id\":1,\"planOrderDetailId\":1,\"quantity\":1000,\"size\":\"S/M 25*9cm\",\"weight\":100,\"yarn\":6},{\"color\":\"深夹花灰\",\"id\":2,\"planOrderDetailId\":2,\"quantity\":1000,\"size\":\"25*9cm S/M\",\"weight\":100,\"yarn\":7}]', '0', '新建', 'FWA20010', '4', 'resource.fuwei.com/images/sample/1428068026985图片1.png', '6', '绞花包套', 'FWA30016', '25*9cm S/M', '114', '16', 'resource.fuwei.com/images/sample/s/1428068026985图片1.png', 'resource.fuwei.com/images/sample/ss/1428068026985图片1.png', '3', 'FWA30016', '3', '', '2015-10-20 00:00:00', '2', null, '', '15HRK0009', '10', '', '1');
-INSERT INTO `tb_half_store_in_out` VALUES ('10', '2015-10-20 15:41:23', '2015-10-20 15:41:23', '6', '[{\"color\":\"QY米色\",\"id\":0,\"planOrderDetailId\":1,\"quantity\":125,\"size\":\"S/M 25*9cm\",\"weight\":100,\"yarn\":6},{\"color\":\"深夹花灰\",\"id\":0,\"planOrderDetailId\":2,\"quantity\":300,\"size\":\"25*9cm S/M\",\"weight\":100,\"yarn\":7}]', '0', '新建', 'FWA20010', '4', 'resource.fuwei.com/images/sample/1428068026985图片1.png', '6', '绞花包套', 'FWA30016', '25*9cm S/M', '114', '16', 'resource.fuwei.com/images/sample/s/1428068026985图片1.png', 'resource.fuwei.com/images/sample/ss/1428068026985图片1.png', '3', 'FWA30016', '3', '', '2015-10-20 00:00:00', '2', null, '', '15HCK0010', '10', '', '3');
-INSERT INTO `tb_half_store_in_out` VALUES ('11', '2015-10-20 16:03:37', '2015-10-20 16:03:37', '6', '[{\"color\":\"QY米色\",\"id\":1,\"planOrderDetailId\":1,\"quantity\":875,\"size\":\"S/M 25*9cm\",\"weight\":100,\"yarn\":6},{\"color\":\"深夹花灰\",\"id\":2,\"planOrderDetailId\":2,\"quantity\":910,\"size\":\"25*9cm S/M\",\"weight\":100,\"yarn\":7}]', '0', '新建', 'FWA20010', '4', 'resource.fuwei.com/images/sample/1428068026985图片1.png', '6', '绞花包套', 'FWA30016', '25*9cm S/M', '114', '16', 'resource.fuwei.com/images/sample/s/1428068026985图片1.png', 'resource.fuwei.com/images/sample/ss/1428068026985图片1.png', '3', 'FWA30016', '3', '', '2015-10-20 00:00:00', '2', null, '', '15HRK0011', '10', '', '1');
 INSERT INTO `tb_half_store_in_out` VALUES ('14', '2015-10-28 20:11:29', '2015-10-28 20:11:29', '6', '[{\"color\":\"QY米色\",\"id\":1,\"planOrderDetailId\":1,\"quantity\":500,\"size\":\"S/M 25*9cm\",\"weight\":102,\"yarn\":6}]', '0', '新建', 'FWA20010', '4', 'resource.fuwei.com/images/sample/1428068026985图片1.png', '6', '绞花包套', 'FWA30016', '25*9cm S/M', '114', '16', 'resource.fuwei.com/images/sample/s/1428068026985图片1.png', 'resource.fuwei.com/images/sample/ss/1428068026985图片1.png', '3', 'FWA30016', '3', '', '2015-10-28 00:00:00', '2', null, '', '15HRK0014', '10', '', '3');
+INSERT INTO `tb_half_store_in_out` VALUES ('15', '2015-11-04 17:38:48', '2015-11-04 17:38:48', '6', '[{\"color\":\"QY米色\",\"id\":1,\"planOrderDetailId\":1,\"quantity\":1,\"size\":\"S/M 25*9cm\",\"weight\":102,\"yarn\":6},{\"color\":\"深夹花灰\",\"id\":2,\"planOrderDetailId\":2,\"quantity\":1,\"size\":\"25*9cm S/M\",\"weight\":100,\"yarn\":7}]', '0', '新建', 'FWA20010', '4', 'resource.fuwei.com/images/sample/1428068026985图片1.png', '6', '绞花包套', 'FWA30016', '25*9cm S/M', '114', '16', 'resource.fuwei.com/images/sample/s/1428068026985图片1.png', 'resource.fuwei.com/images/sample/ss/1428068026985图片1.png', '3', 'FWA30016', '3', '', '2015-11-04 00:00:00', '2', null, '', '15HRK0015', '10', '', '1');
 INSERT INTO `tb_half_store_return` VALUES ('1', '2015-10-20 15:39:05', '2015-10-20 15:39:05', '6', '[{\"color\":\"QY米色\",\"id\":1,\"planOrderDetailId\":1,\"quantity\":200,\"size\":\"S/M 25*9cm\",\"weight\":100,\"yarn\":6},{\"color\":\"深夹花灰\",\"id\":2,\"planOrderDetailId\":2,\"quantity\":235,\"size\":\"25*9cm S/M\",\"weight\":100,\"yarn\":7}]', '0', '新建', 'FWA20010', '4', 'resource.fuwei.com/images/sample/1428068026985图片1.png', '绞花包套', 'FWA30016', '16', 'resource.fuwei.com/images/sample/s/1428068026985图片1.png', 'resource.fuwei.com/images/sample/ss/1428068026985图片1.png', '3', 'FWA30016', '3', '2015-10-20 00:00:00', '2', null, '尺寸过大', '15HR0001', '10', '', '1');
 INSERT INTO `tb_half_store_return` VALUES ('2', '2015-10-20 17:38:11', '2015-10-20 17:38:11', '6', '[{\"color\":\"QY米色\",\"id\":1,\"planOrderDetailId\":1,\"quantity\":20,\"size\":\"S/M 25*9cm\",\"weight\":100,\"yarn\":6}]', '0', '新建', 'FWA20010', '4', 'resource.fuwei.com/images/sample/1428068026985图片1.png', '绞花包套', 'FWA30016', '16', 'resource.fuwei.com/images/sample/s/1428068026985图片1.png', 'resource.fuwei.com/images/sample/ss/1428068026985图片1.png', '3', 'FWA30016', '3', '2015-10-20 00:00:00', '2', null, '', '15HR0002', '10', '', '3');
 INSERT INTO `tb_halfcheckrecordorder` VALUES ('1', '1', '2015-03-31 21:48:39', '2015-03-31 21:48:39', '7', '[{\"color\":\"黑白色组\",\"colorsample\":\"\",\"material\":1}]', '6', '执行完成');
@@ -7119,7 +7496,12 @@ INSERT INTO `tb_ironingrecordorder` VALUES ('281', '281', '2015-10-09 15:09:30',
 INSERT INTO `tb_ironingrecordorder` VALUES ('282', '282', '2015-10-10 08:50:24', '2015-10-10 08:50:24', '7', '0', '新建');
 INSERT INTO `tb_ironingrecordorder` VALUES ('283', '283', '2015-10-13 13:17:11', '2015-10-13 13:17:11', '7', '0', '新建');
 INSERT INTO `tb_ironingrecordorder` VALUES ('284', '284', '2015-10-15 09:22:03', '2015-10-15 09:22:03', '7', '0', '新建');
-INSERT INTO `tb_material` VALUES ('1', '2015-03-31 21:23:41', '26s晴纶', '2015-06-02 10:53:08', '6');
+INSERT INTO `tb_location` VALUES ('1', 'a1', '1', 'ces', '', null, '0');
+INSERT INTO `tb_location` VALUES ('2', 'b1', '2', '', '', null, '0');
+INSERT INTO `tb_location` VALUES ('3', 'c1', '3', '', '', null, '0');
+INSERT INTO `tb_location` VALUES ('4', 'b2', '2', '', '', '1', '150');
+INSERT INTO `tb_location` VALUES ('5', 'b3', '2', '', '', '4', '60');
+INSERT INTO `tb_material` VALUES ('1', '2015-03-31 21:23:41', '26s晴纶', '2015-11-19 10:39:56', '6');
 INSERT INTO `tb_material` VALUES ('2', '2015-04-02 11:14:05', '0.85s冰岛毛', '2015-04-02 11:14:05', '9');
 INSERT INTO `tb_material` VALUES ('3', '2015-04-02 11:14:14', '1.3s冰岛毛', '2015-04-02 11:14:14', '9');
 INSERT INTO `tb_material` VALUES ('4', '2015-04-02 11:14:41', '1.5s冰岛毛', '2015-04-02 11:14:41', '9');
@@ -7179,6 +7561,7 @@ INSERT INTO `tb_material` VALUES ('57', '2015-09-25 14:50:46', '30支双股人�
 INSERT INTO `tb_material` VALUES ('58', '2015-10-13 10:51:53', '28支晴纶', '2015-10-13 10:51:53', '7');
 INSERT INTO `tb_material` VALUES ('59', '2015-10-15 13:51:02', '1.05支包心大肚纱', '2015-10-15 13:51:02', '7');
 INSERT INTO `tb_material_current_stock` VALUES ('10', '346', '[{\"color\":\"QY米色\",\"id\":0,\"in_quantity\":179,\"material\":6,\"plan_quantity\":178,\"return_quantity\":4,\"stock_quantity\":173},{\"color\":\"深夹花灰\",\"id\":0,\"in_quantity\":179,\"material\":7,\"plan_quantity\":178,\"return_quantity\":4,\"stock_quantity\":173}]', '1', null);
+INSERT INTO `tb_material_current_stock` VALUES ('91', '165', '[{\"color\":\"白色\",\"id\":0,\"in_quantity\":15,\"material\":29,\"plan_quantity\":15,\"return_quantity\":0,\"stock_quantity\":15},{\"color\":\"黑色\",\"id\":0,\"in_quantity\":130,\"material\":9,\"plan_quantity\":130,\"return_quantity\":0,\"stock_quantity\":130},{\"color\":\"黑色\",\"id\":0,\"in_quantity\":20,\"material\":29,\"plan_quantity\":28,\"return_quantity\":0,\"stock_quantity\":20}]', '2', null);
 INSERT INTO `tb_materialpurchaseorder` VALUES ('1', '2', '2015-04-02 22:21:59', '2015-04-02 22:21:59', '7', '[{\"batch_number\":\"1\",\"material\":4,\"price\":1,\"quantity\":1360,\"scale\":\"1\"},{\"batch_number\":\"1\",\"material\":8,\"price\":1,\"quantity\":3,\"scale\":\"1\"}]', '2015-04-02 00:00:00', '19', '0', '新建', '4', 'resource.fuwei.com/images/sample/1427955494579图片1.png', '4', '冰岛毛正反针挂须围巾', 'FWA30003', '190*40+2*20CM F', '285', '3', 'FWA20002', 'resource.fuwei.com/images/sample/s/1427955494579图片1.png', 'resource.fuwei.com/images/sample/ss/1427955494579图片1.png', '2', '15CG0001', 'FWA30003', '3');
 INSERT INTO `tb_materialpurchaseorder` VALUES ('2', '3', '2015-04-02 22:33:53', '2015-04-02 22:33:53', '7', '[{\"batch_number\":\"1\",\"material\":4,\"price\":1,\"quantity\":381,\"scale\":\"381\"},{\"batch_number\":\"1\",\"material\":8,\"price\":1,\"quantity\":3,\"scale\":\"1\"}]', '2015-04-02 00:00:00', '19', '0', '新建', '4', 'resource.fuwei.com/images/sample/1427955562784图片1.png', '4', '冰岛毛正反针吊球帽', 'FWA30004', '24CMH *20CM', '66', '4', 'FWA20003', 'resource.fuwei.com/images/sample/s/1427955562784图片1.png', 'resource.fuwei.com/images/sample/ss/1427955562784图片1.png', '2', '15CG0002', 'FWA30004', '3');
 INSERT INTO `tb_materialpurchaseorder` VALUES ('3', '4', '2015-04-02 22:46:02', '2015-04-02 22:46:02', '7', '[{\"batch_number\":\"1\",\"material\":4,\"price\":1,\"quantity\":56,\"scale\":\"1\"},{\"batch_number\":\"1\",\"material\":8,\"price\":1,\"quantity\":1,\"scale\":\"1\"}]', '2015-04-02 00:00:00', '19', '0', '新建', '4', 'resource.fuwei.com/images/sample/1427955633832图片1.png', '4', '冰岛正反针包套', 'FWA30005', '24CM L *10CM W ，做为S/M码', '83', '5', 'FWA20004', 'resource.fuwei.com/images/sample/s/1427955633832图片1.png', 'resource.fuwei.com/images/sample/ss/1427955633832图片1.png', '2', '15CG0003', 'FWA30005', '3');
@@ -8071,6 +8454,7 @@ INSERT INTO `tb_order_handle` VALUES ('368', '284', '创建订单', '1', '待发
 INSERT INTO `tb_order_handle` VALUES ('369', '285', '创建订单', '1', '待发货', null, '6', '2015-10-29 21:07:54');
 INSERT INTO `tb_packingorder` VALUES ('1', '2015-06-30 11:40:20', '2015-06-30 11:40:20', '9', '144', '0', '新建', 'resource.fuwei.com/excel/packing/orderId=144_2015-06-30_1435635620050.xls', 'resource.fuwei.com/pdf/packing/orderId=144_2015-06-30_1435635620050.pdf', '');
 INSERT INTO `tb_packingorder` VALUES ('2', '2015-06-30 11:41:27', '2015-06-30 11:41:27', '9', '89', '0', '新建', 'resource.fuwei.com/excel/packing/orderId=89_2015-06-30_1435635687583.xls', 'resource.fuwei.com/pdf/packing/orderId=89_2015-06-30_1435635687583.pdf', '');
+INSERT INTO `tb_packingorder` VALUES ('3', '2015-11-06 20:49:50', '2015-11-06 20:49:50', '6', '285', '0', '新建', 'resource.fuwei.com/excel/packing/orderId=285_2015-11-06_1446814190734.xls', 'resource.fuwei.com/pdf/packing/orderId=285_2015-11-06_1446814190734.pdf', '');
 INSERT INTO `tb_pantongcolor` VALUES ('11-0103', '1', '1', '1');
 INSERT INTO `tb_pantongcolor` VALUES ('11-0104', '1', '2', '2');
 INSERT INTO `tb_pantongcolor` VALUES ('11-0105', '1', '4', '2');
@@ -10290,7 +10674,7 @@ INSERT INTO `tb_producingorder` VALUES ('7', '8', '2015-04-03 16:07:15', '2015-0
 INSERT INTO `tb_producingorder` VALUES ('8', '7', '2015-04-03 16:12:01', '2015-04-03 16:12:01', '7', '[{\"color\":\"深夹花灰\",\"planOrderDetailId\":1,\"price\":0.8,\"quantity\":8530,\"size\":\"22H*22W\",\"weight\":85,\"yarn\":9},{\"color\":\"黑色\",\"planOrderDetailId\":2,\"price\":0.8,\"quantity\":80,\"size\":\"22H*22W\",\"weight\":85,\"yarn\":9}]', '[{\"color\":\"深夹花灰\",\"colorsample\":\"\",\"material\":9,\"quantity\":617},{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":9,\"quantity\":6}]', '6', '0', '新建', '4', 'resource.fuwei.com/images/sample/1427992746746图片1.png', '9', '马海毛毛球帽', 'FWA30008', '22*22', '85', '8', 'FWA20007', 'resource.fuwei.com/images/sample/s/1427992746746图片1.png', 'resource.fuwei.com/images/sample/ss/1427992746746图片1.png', '3', '3', '15SC0008', 'FWA30008');
 INSERT INTO `tb_producingorder` VALUES ('9', '6', '2015-04-03 20:49:41', '2015-04-03 20:49:41', '9', '[{\"color\":\"多色\",\"planOrderDetailId\":1,\"price\":1.8,\"quantity\":375,\"size\":\"12*300cm\",\"weight\":160,\"yarn\":15}]', '[{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":15,\"quantity\":18},{\"color\":\"藏青\",\"colorsample\":\"\",\"material\":15,\"quantity\":17},{\"color\":\"桔色\",\"colorsample\":\"\",\"material\":15,\"quantity\":6},{\"color\":\"金丝\",\"colorsample\":\"\",\"material\":15,\"quantity\":3.5}]', '9', '6', '执行完成', '1', 'resource.fuwei.com/images/sample/1427992291553图片1.jpg', '15', '人造丝窄围巾', 'FWA30006', '12*300', '160', '6', 'FWA20006', 'resource.fuwei.com/images/sample/s/1427992291553图片1.png', 'resource.fuwei.com/images/sample/ss/1427992291553图片1.png', '4', '2', '15SC0009', 'FWA30006');
 INSERT INTO `tb_producingorder` VALUES ('10', '9', '2015-04-03 21:51:45', '2015-04-03 21:51:45', '7', '[{\"color\":\"深夹花灰\",\"planOrderDetailId\":1,\"price\":0.9,\"quantity\":4595,\"size\":\"21H*20W\",\"weight\":123,\"yarn\":7},{\"color\":\"白色\",\"planOrderDetailId\":2,\"price\":0.9,\"quantity\":4595,\"size\":\"21H*20W\",\"weight\":123,\"yarn\":6}]', '[{\"color\":\"QY102米白\",\"colorsample\":\"\",\"material\":6,\"quantity\":522},{\"color\":\"深夹花灰\",\"colorsample\":\"\",\"material\":7,\"quantity\":522}]', '2', '0', '新建', '4', 'resource.fuwei.com/images/sample/1428066399895图片1.png', '6', '冰岛毛绞花毛球帽', 'FWA30014', '21*20CM', '123', '14', 'FWA20009', 'resource.fuwei.com/images/sample/s/1428066399895图片1.png', 'resource.fuwei.com/images/sample/ss/1428066399895图片1.png', '3', '3', '15SC0010', 'FWA30014');
-INSERT INTO `tb_producingorder` VALUES ('11', '10', '2015-04-03 22:03:13', '2015-10-21 11:51:53', '7', '[{\"color\":\"QY米色\",\"planOrderDetailId\":1,\"price\":1,\"produce_weight\":0,\"quantity\":1670,\"size\":\"S/M 25*9cm\",\"weight\":114,\"yarn\":6},{\"color\":\"深夹花灰\",\"planOrderDetailId\":2,\"price\":1,\"produce_weight\":0,\"quantity\":1670,\"size\":\"25*9cm S/M\",\"weight\":114,\"yarn\":7}]', '[{\"color\":\"QY米色\",\"colorsample\":\"\",\"material\":6,\"quantity\":164},{\"color\":\"深夹花灰\",\"colorsample\":\"\",\"material\":7,\"quantity\":164}]', '2', '0', '新建', '4', 'resource.fuwei.com/images/sample/1428068026985图片1.png', '6', '绞花包套', 'FWA30016', '25*9cm S/M', '0', '16', 'FWA20010', 'resource.fuwei.com/images/sample/s/1428068026985图片1.png', 'resource.fuwei.com/images/sample/ss/1428068026985图片1.png', '3', '3', '15SC0011', 'FWA30016');
+INSERT INTO `tb_producingorder` VALUES ('11', '10', '2015-04-03 22:03:13', '2015-11-04 17:45:17', '7', '[{\"color\":\"QY米色\",\"planOrderDetailId\":1,\"price\":1,\"produce_weight\":0,\"quantity\":1000,\"size\":\"S/M 25*9cm\",\"weight\":114,\"yarn\":6},{\"color\":\"深夹花灰\",\"planOrderDetailId\":2,\"price\":1,\"produce_weight\":0,\"quantity\":1670,\"size\":\"25*9cm S/M\",\"weight\":114,\"yarn\":7}]', '[{\"color\":\"QY米色\",\"colorsample\":\"\",\"material\":6,\"quantity\":164},{\"color\":\"深夹花灰\",\"colorsample\":\"\",\"material\":7,\"quantity\":164}]', '2', '0', '新建', '4', 'resource.fuwei.com/images/sample/1428068026985图片1.png', '6', '绞花包套', 'FWA30016', '25*9cm S/M', '0', '16', 'FWA20010', 'resource.fuwei.com/images/sample/s/1428068026985图片1.png', 'resource.fuwei.com/images/sample/ss/1428068026985图片1.png', '3', '3', '15SC0011', 'FWA30016');
 INSERT INTO `tb_producingorder` VALUES ('12', '11', '2015-04-03 22:15:09', '2015-04-03 22:15:09', '7', '[{\"color\":\"米色\",\"planOrderDetailId\":1,\"price\":2.5,\"quantity\":2330,\"size\":\"180*20cm\",\"weight\":338,\"yarn\":6},{\"color\":\"深夹花灰\",\"planOrderDetailId\":2,\"price\":2.5,\"quantity\":2330,\"size\":\"180*20cm\",\"weight\":338,\"yarn\":7}]', '[{\"color\":\"QY米色\",\"colorsample\":\"\",\"material\":6,\"quantity\":763},{\"color\":\"深夹花灰\",\"colorsample\":\"\",\"material\":7,\"quantity\":763}]', '2', '0', '新建', '4', 'resource.fuwei.com/images/sample/1428067891295图片1.png', '6', '绞花吊球围巾', 'FWA30015', '180*20cm', '338', '15', 'FWA20011', 'resource.fuwei.com/images/sample/s/1428067891295图片1.png', 'resource.fuwei.com/images/sample/ss/1428067891295图片1.png', '3', '3', '15SC0012', 'FWA30015');
 INSERT INTO `tb_producingorder` VALUES ('13', '12', '2015-04-03 23:19:43', '2015-04-03 23:19:43', '7', '[{\"color\":\"黑色\",\"planOrderDetailId\":1,\"price\":0.25,\"quantity\":1170,\"size\":\"21H*20W\",\"weight\":63,\"yarn\":1},{\"color\":\"深夹花灰\",\"planOrderDetailId\":2,\"price\":0.25,\"quantity\":1170,\"size\":\"21H*20W\",\"weight\":63,\"yarn\":1},{\"color\":\"暗红色\",\"planOrderDetailId\":3,\"price\":0.25,\"quantity\":760,\"size\":\"21H*20W\",\"weight\":63,\"yarn\":1}]', '[{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":1,\"quantity\":94},{\"color\":\"深夹花灰\",\"colorsample\":\"\",\"material\":1,\"quantity\":94},{\"color\":\"暗红色\",\"colorsample\":\"\",\"material\":1,\"quantity\":60}]', '22', '0', '新建', '4', 'resource.fuwei.com/images/sample/1428073896025图片1.png', '1', '抽条翻边帽', 'FWA30018', '21H*20W', '63', '18', 'FWA20012', 'resource.fuwei.com/images/sample/s/1428073896025图片1.png', 'resource.fuwei.com/images/sample/ss/1428073896025图片1.png', '3', '3', '15SC0013', 'FWA30018');
 INSERT INTO `tb_producingorder` VALUES ('14', '13', '2015-04-03 23:57:02', '2015-04-03 23:57:02', '7', '[{\"color\":\"灰色\",\"planOrderDetailId\":1,\"price\":2,\"quantity\":1020,\"size\":\"32*2*27cm\",\"weight\":200,\"yarn\":8}]', '[{\"color\":\"ICHI-灰色\",\"colorsample\":\"\",\"material\":8,\"quantity\":175},{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":16,\"quantity\":45}]', '7', '6', '执行完成', '1', 'resource.fuwei.com/images/sample/1427993082909Adoree loop SMS 8019 carbon solid.JPG', '8', '冰岛毛羽毛纱围脖', 'FWA30010', '33*2*27', '198', '10', 'FWA20013', 'resource.fuwei.com/images/sample/s/1427993082909Adoree loop SMS 8019 carbon solid.png', 'resource.fuwei.com/images/sample/ss/1427993082909Adoree loop SMS 8019 carbon solid.png', '5', '2', '15SC0014', 'FWA30010');
@@ -10489,7 +10873,7 @@ INSERT INTO `tb_producingorder` VALUES ('212', '205', '2015-06-25 20:38:20', '20
 INSERT INTO `tb_producingorder` VALUES ('213', '206', '2015-06-25 20:43:22', '2015-06-27 22:07:35', '7', '[{\"color\":\"714/藏青\",\"planOrderDetailId\":1,\"price\":1,\"produce_weight\":62,\"quantity\":918,\"size\":\"25*22\",\"weight\":66,\"yarn\":1}]', '[{\"color\":\"714\",\"colorsample\":\"\",\"material\":1,\"quantity\":36},{\"color\":\"12藏青\",\"colorsample\":\"\",\"material\":1,\"quantity\":26}]', '2', '0', '新建', '4', 'resource.fuwei.com/images/sample/1434625748111图片1.jpg', '1', '提花吊球帽', 'FWA30192', '25H*22W', '0', '192', 'FWA20206', 'resource.fuwei.com/images/sample/s/1434625748111图片1.png', 'resource.fuwei.com/images/sample/ss/1434625748111图片1.png', null, '3', '15SC0213', '12097961');
 INSERT INTO `tb_producingorder` VALUES ('214', '207', '2015-06-25 20:50:56', '2015-06-27 22:16:54', '7', '[{\"color\":\"米色/段染\",\"planOrderDetailId\":1,\"price\":0.8,\"produce_weight\":247,\"quantity\":500,\"size\":\"45*25\",\"weight\":247,\"yarn\":2}]', '[{\"color\":\"034米色\",\"colorsample\":\"\",\"material\":2,\"quantity\":107},{\"color\":\"咖啡组\",\"colorsample\":\"\",\"material\":9,\"quantity\":31}]', '30', '0', '新建', '1', 'resource.fuwei.com/images/sample/143428364858220141204163814.jpg', '2', '全晴围脖', 'FWA30183', '45*25', '0', '183', 'FWA20207', 'resource.fuwei.com/images/sample/s/143428364858220141204163814.png', 'resource.fuwei.com/images/sample/ss/143428364858220141204163814.png', null, '1', '15SC0214', 'FW1118-034');
 INSERT INTO `tb_producingorder` VALUES ('215', '208', '2015-06-25 21:01:04', '2015-06-27 22:19:57', '7', '[{\"color\":\"铁蓝色\",\"planOrderDetailId\":1,\"price\":0.25,\"produce_weight\":78,\"quantity\":4080,\"size\":\"21*23+6\",\"weight\":68,\"yarn\":1},{\"color\":\"深绿色\",\"planOrderDetailId\":2,\"price\":0.25,\"produce_weight\":78,\"quantity\":360,\"size\":\"21*23+6\",\"weight\":68,\"yarn\":1},{\"color\":\"718\",\"planOrderDetailId\":3,\"price\":0.25,\"produce_weight\":78,\"quantity\":480,\"size\":\"21*23+6\",\"weight\":68,\"yarn\":1},{\"color\":\"古铜色\",\"planOrderDetailId\":4,\"price\":0.25,\"produce_weight\":78,\"quantity\":1680,\"size\":\"21*23+6\",\"weight\":68,\"yarn\":1},{\"color\":\"红色\",\"planOrderDetailId\":5,\"price\":0.25,\"produce_weight\":78,\"quantity\":3120,\"size\":\"21*23+6\",\"weight\":68,\"yarn\":1}]', '[{\"color\":\"556铁蓝\",\"colorsample\":\"\",\"material\":1,\"quantity\":345},{\"color\":\"556深绿\",\"colorsample\":\"\",\"material\":1,\"quantity\":35},{\"color\":\"556古铜色\",\"colorsample\":\"\",\"material\":1,\"quantity\":145},{\"color\":\"556红色\",\"colorsample\":\"\",\"material\":1,\"quantity\":265},{\"color\":\"718\",\"colorsample\":\"\",\"material\":1,\"quantity\":45}]', '22', '0', '新建', '3', 'resource.fuwei.com/images/sample/1433426179372QQ截图20150604215410.jpg', '1', '男款基本款翻边帽', 'FWA30173', '21W*23H+6', '0', '173', 'FWA20208', 'resource.fuwei.com/images/sample/s/1433426179372QQ截图20150604215410.png', 'resource.fuwei.com/images/sample/ss/1433426179372QQ截图20150604215410.png', null, '4', '15SC0215', 'MB556');
-INSERT INTO `tb_producingorder` VALUES ('216', '209', '2015-06-25 21:18:26', '2015-06-27 22:14:14', '7', '[{\"color\":\"驼色组\",\"planOrderDetailId\":1,\"price\":0.7,\"produce_weight\":259,\"quantity\":600,\"size\":\"70*40\",\"weight\":259,\"yarn\":5},{\"color\":\"酒红组\",\"planOrderDetailId\":2,\"price\":0.7,\"produce_weight\":259,\"quantity\":616,\"size\":\"70*40\",\"weight\":259,\"yarn\":5},{\"color\":\"黑色组\",\"planOrderDetailId\":3,\"price\":0.7,\"produce_weight\":259,\"quantity\":600,\"size\":\"70*40\",\"weight\":259,\"yarn\":5},{\"color\":\"灰色组\",\"planOrderDetailId\":4,\"price\":0.7,\"produce_weight\":259,\"quantity\":600,\"size\":\"70*40\",\"weight\":259,\"yarn\":5}]', '[{\"color\":\"38酒红色\",\"colorsample\":\"\",\"material\":5,\"quantity\":141},{\"color\":\"38黑色\",\"colorsample\":\"\",\"material\":5,\"quantity\":137},{\"color\":\"38灰色\",\"colorsample\":\"\",\"material\":5,\"quantity\":137},{\"color\":\"38驼色\",\"colorsample\":\"\",\"material\":5,\"quantity\":137},{\"color\":\"H-177\",\"colorsample\":\"带子纱\",\"material\":19,\"quantity\":38},{\"color\":\"H-151\",\"colorsample\":\"带子纱\",\"material\":19,\"quantity\":40},{\"color\":\"银色\",\"colorsample\":\"带子纱\",\"material\":19,\"quantity\":38},{\"color\":\"H-07\",\"colorsample\":\"带子纱\",\"material\":19,\"quantity\":38}]', '9', '0', '新建', '2', 'resource.fuwei.com/images/sample/1434283404109QQ图片20150614200024.jpg', '5', '冰岛毛亮丝围脖', 'FWA30180', '70*2*40cm', '0', '180', 'FWA20209', 'resource.fuwei.com/images/sample/s/1434283404109QQ图片20150614200024.png', 'resource.fuwei.com/images/sample/ss/1434283404109QQ图片20150614200024.png', null, '3', '15SC0216', '38106');
+INSERT INTO `tb_producingorder` VALUES ('216', '209', '2015-06-25 21:18:26', '2015-11-04 17:26:26', '7', '[{\"color\":\"驼色组\",\"planOrderDetailId\":1,\"price\":0.7,\"produce_weight\":259,\"quantity\":600,\"size\":\"70*40\",\"weight\":259,\"yarn\":5},{\"color\":\"酒红组\",\"planOrderDetailId\":2,\"price\":0.7,\"produce_weight\":259,\"quantity\":616,\"size\":\"70*40\",\"weight\":259,\"yarn\":5},{\"color\":\"黑色组\",\"planOrderDetailId\":3,\"price\":0.7,\"produce_weight\":259,\"quantity\":0,\"size\":\"70*40\",\"weight\":259,\"yarn\":5},{\"color\":\"灰色组\",\"planOrderDetailId\":4,\"price\":0.7,\"produce_weight\":259,\"quantity\":0,\"size\":\"70*40\",\"weight\":259,\"yarn\":5}]', '[{\"color\":\"38酒红色\",\"colorsample\":\"\",\"material\":5,\"quantity\":141},{\"color\":\"38黑色\",\"colorsample\":\"\",\"material\":5,\"quantity\":137},{\"color\":\"38灰色\",\"colorsample\":\"\",\"material\":5,\"quantity\":137},{\"color\":\"38驼色\",\"colorsample\":\"\",\"material\":5,\"quantity\":137},{\"color\":\"H-177\",\"colorsample\":\"带子纱\",\"material\":19,\"quantity\":38},{\"color\":\"H-151\",\"colorsample\":\"带子纱\",\"material\":19,\"quantity\":40},{\"color\":\"银色\",\"colorsample\":\"带子纱\",\"material\":19,\"quantity\":38},{\"color\":\"H-07\",\"colorsample\":\"带子纱\",\"material\":19,\"quantity\":38}]', '9', '0', '新建', '2', 'resource.fuwei.com/images/sample/1434283404109QQ图片20150614200024.jpg', '5', '冰岛毛亮丝围脖', 'FWA30180', '70*2*40cm', '0', '180', 'FWA20209', 'resource.fuwei.com/images/sample/s/1434283404109QQ图片20150614200024.png', 'resource.fuwei.com/images/sample/ss/1434283404109QQ图片20150614200024.png', null, '3', '15SC0216', '38106');
 INSERT INTO `tb_producingorder` VALUES ('217', '210', '2015-06-25 21:29:06', '2015-06-28 21:58:54', '7', '[{\"color\":\"浅灰色\",\"planOrderDetailId\":1,\"price\":1,\"produce_weight\":147,\"quantity\":6720,\"size\":\"80X2*40\",\"weight\":150,\"yarn\":1}]', '[{\"color\":\"黑/白AB纱\",\"colorsample\":\"\",\"material\":1,\"quantity\":1087}]', '9', '0', '新建', '3', 'resource.fuwei.com/images/sample/1433425999416Catch9E22(06-04-21-51-07).jpg', '1', '男款基本款围脖', 'FWA30171', '80W*2*40H', '0', '171', 'FWA20210', 'resource.fuwei.com/images/sample/s/1433425999416Catch9E22(06-04-21-51-07).png', 'resource.fuwei.com/images/sample/ss/1433425999416Catch9E22(06-04-21-51-07).png', null, '4', '15SC0217', 'MB453');
 INSERT INTO `tb_producingorder` VALUES ('218', '211', '2015-06-29 13:22:45', '2015-06-29 13:22:45', '7', '[{\"color\":\"深灰色\",\"planOrderDetailId\":1,\"price\":0,\"produce_weight\":60,\"quantity\":2370,\"size\":\"M\",\"weight\":55,\"yarn\":1},{\"color\":\"深灰色\",\"planOrderDetailId\":2,\"price\":0,\"produce_weight\":60,\"quantity\":2660,\"size\":\"L\",\"weight\":55,\"yarn\":1}]', '[{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":1,\"quantity\":44},{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":10,\"quantity\":77},{\"color\":\"黑色/K974\",\"colorsample\":\"26支晴+9支马海毛合股纱\",\"material\":10,\"quantity\":213}]', '32', '0', '新建', '3', 'resource.fuwei.com/images/sample/1435547771401Catch95AE(06-29-11-12-59).jpg', '1', '男款衬里五指手套', 'FWA30199', '0', '55', '199', 'FWA20211', 'resource.fuwei.com/images/sample/s/1435547771401Catch95AE(06-29-11-12-59).png', 'resource.fuwei.com/images/sample/ss/1435547771401Catch95AE(06-29-11-12-59).png', null, '4', '15SC0218', 'MC 951');
 INSERT INTO `tb_producingorder` VALUES ('220', '212', '2015-06-29 13:42:21', '2015-06-30 11:26:57', '7', '[{\"color\":\"粉色组\",\"planOrderDetailId\":1,\"price\":0.7,\"produce_weight\":204,\"quantity\":3500,\"size\":\"145*33\",\"weight\":205,\"yarn\":9},{\"color\":\"灰色组\",\"planOrderDetailId\":2,\"price\":0.7,\"produce_weight\":204,\"quantity\":2500,\"size\":\"145*33\",\"weight\":205,\"yarn\":9}]', '[{\"color\":\"粉色\",\"colorsample\":\"\",\"material\":9,\"quantity\":174},{\"color\":\"白色\",\"colorsample\":\"\",\"material\":9,\"quantity\":299},{\"color\":\"灰色\",\"colorsample\":\"\",\"material\":9,\"quantity\":125},{\"color\":\"银丝\",\"colorsample\":\"\",\"material\":19,\"quantity\":6}]', '2', '0', '新建', '3', 'resource.fuwei.com/images/sample/1435547931935DH22297 (1).JPG', '9', '马海毛抽条吊球帽', 'FWA30201', '22H*21+10', '0', '201', 'FWA20212', 'resource.fuwei.com/images/sample/s/1435547931935DH22297 (1).png', 'resource.fuwei.com/images/sample/ss/1435547931935DH22297 (1).png', null, '1', '15SC0220', '948029');
@@ -10574,6 +10958,9 @@ INSERT INTO `tb_producingorder` VALUES ('303', '280', '2015-10-09 15:05:46', '20
 INSERT INTO `tb_producingorder` VALUES ('304', '281', '2015-10-09 15:10:07', '2015-10-09 15:10:07', '7', '[{\"color\":\"粉色\",\"planOrderDetailId\":1,\"price\":0,\"produce_weight\":171,\"quantity\":400,\"size\":\"34*2*40\",\"weight\":173,\"yarn\":4}]', '[{\"color\":\"ZB粉色\",\"colorsample\":\"\",\"material\":4,\"quantity\":75}]', '27', '0', '新建', '3', 'resource.fuwei.com/images/sample/1430274225667DSCN8187.JPG', '4', '冰岛毛鱼鳞针围脖', 'FWA30102', '34*2*40', '171', '102', 'FWA20281', 'resource.fuwei.com/images/sample/s/1430274225667DSCN8187.png', 'resource.fuwei.com/images/sample/ss/1430274225667DSCN8187.png', null, '4', '15SC0304', 'G7165');
 INSERT INTO `tb_producingorder` VALUES ('306', '283', '2015-10-13 13:19:38', '2015-10-13 13:19:38', '7', '[{\"color\":\"灰色\",\"planOrderDetailId\":1,\"price\":0,\"produce_weight\":0,\"quantity\":15,\"size\":\"0\",\"weight\":0,\"yarn\":1},{\"color\":\"驼色\",\"planOrderDetailId\":2,\"price\":0,\"produce_weight\":0,\"quantity\":15,\"size\":\"0\",\"weight\":0,\"yarn\":1},{\"color\":\"黑色\",\"planOrderDetailId\":3,\"price\":0,\"produce_weight\":0,\"quantity\":15,\"size\":\"0\",\"weight\":0,\"yarn\":1}]', '[{\"color\":\"灰色\",\"colorsample\":\"\",\"material\":1,\"quantity\":3},{\"color\":\"驼色\",\"colorsample\":\"\",\"material\":1,\"quantity\":3},{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":1,\"quantity\":3}]', '66', '0', '新建', '2', 'resource.fuwei.com/images/sample/1442900302600176C830B1F76198293E05870096A9F2B.png', '1', '毛皮+针织围脖', 'FWA30238', '毛皮：25cm*16  针  总：27*21', '224', '238', 'FWA20283', 'resource.fuwei.com/images/sample/s/1442900302600176C830B1F76198293E05870096A9F2B.png', 'resource.fuwei.com/images/sample/ss/1442900302600176C830B1F76198293E05870096A9F2B.png', null, '3', '15SC0306', 'FWA30238');
 INSERT INTO `tb_producingorder` VALUES ('307', '284', '2015-10-15 09:23:26', '2015-10-15 09:23:26', '7', '[{\"color\":\"灰色组\",\"planOrderDetailId\":1,\"price\":0,\"produce_weight\":93,\"quantity\":3000,\"size\":\"22H*21+10\",\"weight\":93,\"yarn\":9},{\"color\":\"粉色组\",\"planOrderDetailId\":2,\"price\":0,\"produce_weight\":93,\"quantity\":4000,\"size\":\"22H*21+10\",\"weight\":93,\"yarn\":9}]', '[{\"color\":\"灰色\",\"colorsample\":\"\",\"material\":9,\"quantity\":149},{\"color\":\"粉色\",\"colorsample\":\"\",\"material\":9,\"quantity\":198},{\"color\":\"白色\",\"colorsample\":\"\",\"material\":9,\"quantity\":347}]', '2', '0', '新建', '3', 'resource.fuwei.com/images/sample/1435547931935DH22297 (1).JPG', '9', '马海毛抽条吊球帽', 'FWA30201', '22H*21+10', '102', '201', 'FWA20284', 'resource.fuwei.com/images/sample/s/1435547931935DH22297 (1).png', 'resource.fuwei.com/images/sample/ss/1435547931935DH22297 (1).png', null, '1', '15SC0307', '956004');
+INSERT INTO `tb_producingorder` VALUES ('310', '209', '2015-11-04 17:26:56', '2015-11-04 17:26:56', '6', '[{\"color\":\"驼色组\",\"planOrderDetailId\":1,\"price\":0,\"produce_weight\":259,\"quantity\":0,\"size\":\"70*40\",\"weight\":259,\"yarn\":5},{\"color\":\"酒红组\",\"planOrderDetailId\":2,\"price\":0,\"produce_weight\":259,\"quantity\":0,\"size\":\"70*40\",\"weight\":259,\"yarn\":5},{\"color\":\"黑色组\",\"planOrderDetailId\":3,\"price\":0,\"produce_weight\":259,\"quantity\":615,\"size\":\"70*40\",\"weight\":259,\"yarn\":5},{\"color\":\"灰色组\",\"planOrderDetailId\":4,\"price\":0,\"produce_weight\":259,\"quantity\":615,\"size\":\"70*40\",\"weight\":259,\"yarn\":5}]', '[{\"color\":\"黑色\",\"colorsample\":\"\",\"material\":2,\"quantity\":10}]', '7', '0', '新建', '2', 'resource.fuwei.com/images/sample/1434283404109QQ图片20150614200024.jpg', '5', '冰岛毛亮丝围脖', 'FWA30180', '70*2*40cm', '259', '180', 'FWA20209', 'resource.fuwei.com/images/sample/s/1434283404109QQ图片20150614200024.png', 'resource.fuwei.com/images/sample/ss/1434283404109QQ图片20150614200024.png', null, '3', '15SC0310', '38106');
+INSERT INTO `tb_producingorder` VALUES ('311', '285', '2015-11-04 17:32:48', '2015-11-04 17:32:48', '6', '[{\"color\":\"红色\",\"planOrderDetailId\":1,\"price\":0,\"produce_weight\":90,\"quantity\":550,\"size\":\"未知\",\"weight\":110,\"yarn\":5}]', '[{\"color\":\"15份\",\"colorsample\":\"\",\"material\":2,\"quantity\":11}]', '2', '0', '新建', '6', 'resource.fuwei.com/images/sample/1445083676763ETOFH.jpg', '1', '测试', 'FWA30242', '发放', '12', '242', 'FWA20285', 'resource.fuwei.com/images/sample/s/1445083676763ETOFH.png', 'resource.fuwei.com/images/sample/ss/1445083676763ETOFH.png', null, '1', '15SC0311', 'FWA30242');
+INSERT INTO `tb_producingorder` VALUES ('312', '10', '2015-11-04 17:35:12', '2015-11-04 17:35:12', '6', '[{\"color\":\"QY米色\",\"planOrderDetailId\":1,\"price\":0,\"produce_weight\":102,\"quantity\":670,\"size\":\"S/M 25*9cm\",\"weight\":114,\"yarn\":6},{\"color\":\"深夹花灰\",\"planOrderDetailId\":2,\"price\":0,\"produce_weight\":100,\"quantity\":0,\"size\":\"25*9cm S/M\",\"weight\":114,\"yarn\":7}]', '[{\"color\":\"齐备\",\"colorsample\":\"\",\"material\":1,\"quantity\":12}]', '9', '0', '新建', '4', 'resource.fuwei.com/images/sample/1428068026985图片1.png', '6', '绞花包套', 'FWA30016', '25*9cm S/M', '114', '16', 'FWA20010', 'resource.fuwei.com/images/sample/s/1428068026985图片1.png', 'resource.fuwei.com/images/sample/ss/1428068026985图片1.png', '3', '3', '15SC0312', 'FWA30016');
 INSERT INTO `tb_productionscheduleorder` VALUES ('1', '1', '2015-03-31 21:48:39', '2015-03-31 21:48:39', '7', '6', '执行完成');
 INSERT INTO `tb_productionscheduleorder` VALUES ('2', '2', '2015-04-02 22:09:02', '2015-04-02 22:09:02', '7', '0', '新建');
 INSERT INTO `tb_productionscheduleorder` VALUES ('3', '3', '2015-04-02 22:32:58', '2015-04-02 22:32:58', '7', '0', '新建');
@@ -12000,6 +12387,8 @@ INSERT INTO `tb_shoprecordorder` VALUES ('284', '284', '2015-10-15 09:22:03', '2
 INSERT INTO `tb_store_in_out` VALUES ('1', '9', '2015-10-18 20:50:47', '2015-10-28 18:56:03', '6', '[{\"color\":\"QY米色\",\"id\":1,\"lot_no\":\"loytgrd\",\"material\":6,\"packages\":3,\"quantity\":125},{\"color\":\"深夹花灰\",\"id\":2,\"lot_no\":\"loy332\",\"material\":7,\"packages\":5,\"quantity\":135}]', '0', '新建', 'FWA20010', '4', 'resource.fuwei.com/images/sample/1428068026985图片1.png', '6', '绞花包套', 'FWA30016', '25*9cm S/M', '114', '16', 'resource.fuwei.com/images/sample/s/1428068026985图片1.png', 'resource.fuwei.com/images/sample/ss/1428068026985图片1.png', '3', 'FWA30016', '3', '', '2015-10-18 00:00:00', '13', null, '', '15SRK0001', '10', '', '');
 INSERT INTO `tb_store_in_out` VALUES ('2', '9', '2015-10-18 20:51:39', '2015-10-18 20:51:39', '6', '[{\"color\":\"QY米色\",\"id\":0,\"lot_no\":\"loytgrd\",\"material\":6,\"packages\":1,\"quantity\":2},{\"color\":\"深夹花灰\",\"id\":0,\"lot_no\":\"loy332\",\"material\":7,\"packages\":1,\"quantity\":2}]', '0', '新建', 'FWA20010', '4', 'resource.fuwei.com/images/sample/1428068026985图片1.png', '6', '绞花包套', 'FWA30016', '25*9cm S/M', '114', '16', 'resource.fuwei.com/images/sample/s/1428068026985图片1.png', 'resource.fuwei.com/images/sample/ss/1428068026985图片1.png', '3', 'FWA30016', '3', '', '2015-10-18 00:00:00', '4', null, '', '15SCK0002', '10', '', '');
 INSERT INTO `tb_store_in_out` VALUES ('3', '9', '2015-10-28 18:57:00', '2015-10-28 18:57:00', '6', '[{\"color\":\"QY米色\",\"id\":1,\"lot_no\":\"lot111\",\"material\":6,\"packages\":1,\"quantity\":54},{\"color\":\"深夹花灰\",\"id\":2,\"lot_no\":\"lot222\",\"material\":7,\"packages\":1,\"quantity\":44}]', '0', '新建', 'FWA20010', '4', 'resource.fuwei.com/images/sample/1428068026985图片1.png', '6', '绞花包套', 'FWA30016', '25*9cm S/M', '114', '16', 'resource.fuwei.com/images/sample/s/1428068026985图片1.png', 'resource.fuwei.com/images/sample/ss/1428068026985图片1.png', '3', 'FWA30016', '3', '', '2015-10-28 00:00:00', '3', null, '纱线超出1kg', '15SRK0003', '10', '', '');
+INSERT INTO `tb_store_in_out` VALUES ('4', '80', '2015-10-29 21:48:33', '2015-10-29 21:48:33', '6', '[{\"color\":\"白色\",\"id\":1,\"lot_no\":\"lot333\",\"material\":29,\"packages\":1,\"quantity\":10},{\"color\":\"黑色\",\"id\":2,\"lot_no\":\"324r4r\",\"material\":9,\"packages\":1,\"quantity\":50}]', '0', '新建', 'FWA20091', '1', 'resource.fuwei.com/images/sample/1430554256869图片1.jpg', '9', '马海毛珠片纱吊球帽', 'FWA30109', '23*23cm', '80', '109', 'resource.fuwei.com/images/sample/s/1430554256869图片1.png', 'resource.fuwei.com/images/sample/ss/1430554256869图片1.png', null, '72505', '1', '', '2015-10-29 00:00:00', '3', null, '', '15SRK0004', '91', '', '');
+INSERT INTO `tb_store_in_out` VALUES ('5', '80', '2015-10-29 21:49:01', '2015-10-29 21:49:01', '6', '[{\"color\":\"白色\",\"id\":1,\"lot_no\":\"65443f\",\"material\":29,\"packages\":1,\"quantity\":5},{\"color\":\"黑色\",\"id\":2,\"lot_no\":\"terr442\",\"material\":9,\"packages\":1,\"quantity\":80},{\"color\":\"黑色\",\"id\":3,\"lot_no\":\"fg4343\",\"material\":29,\"packages\":1,\"quantity\":20}]', '0', '新建', 'FWA20091', '1', 'resource.fuwei.com/images/sample/1430554256869图片1.jpg', '9', '马海毛珠片纱吊球帽', 'FWA30109', '23*23cm', '80', '109', 'resource.fuwei.com/images/sample/s/1430554256869图片1.png', 'resource.fuwei.com/images/sample/ss/1430554256869图片1.png', null, '72505', '1', '', '2015-10-29 00:00:00', '14', null, '', '15SRK0005', '91', '', '');
 INSERT INTO `tb_store_return` VALUES ('1', '2015-10-28 19:18:44', '2015-10-28 19:18:44', '6', '[{\"color\":\"QY米色\",\"id\":1,\"lot_no\":\"lot111\",\"material\":6,\"packages\":1,\"quantity\":4},{\"color\":\"深夹花灰\",\"id\":2,\"lot_no\":\"lot222\",\"material\":7,\"packages\":1,\"quantity\":4}]', '0', '新建', 'FWA20010', '4', 'resource.fuwei.com/images/sample/1428068026985图片1.png', '绞花包套', 'FWA30016', '16', 'resource.fuwei.com/images/sample/s/1428068026985图片1.png', 'resource.fuwei.com/images/sample/ss/1428068026985图片1.png', '3', 'FWA30016', '3', '2015-10-28 00:00:00', '3', null, '', '15HR0001', '10', '', '9');
 INSERT INTO `tb_storeorder` VALUES ('1', '1', '2015-04-01 20:52:06', '2015-04-01 20:52:06', '7', '[{\"color\":\"白色\",\"factoryId\":1,\"material\":1,\"quantity\":145,\"yarn\":\"\"},{\"color\":\"黑色\",\"factoryId\":1,\"material\":1,\"quantity\":162,\"yarn\":\"\"},{\"color\":\"黑色\",\"factoryId\":4,\"material\":1,\"quantity\":2,\"yarn\":\"\"},{\"color\":\"黑色\",\"factoryId\":5,\"material\":1,\"quantity\":15,\"yarn\":\"\"}]', null, '6', '执行完成', 'FWA20001', '1', 'resource.fuwei.com/images/sample/1427808371841QQ图片20150331211900.jpg', '1', '全晴格子披肩', 'FWA30001', '126*126 + 10*2', '471', '1', 'resource.fuwei.com/images/sample/s/1427808371841QQ图片20150331211900.png', 'resource.fuwei.com/images/sample/ss/1427808371841QQ图片20150331211900.png', '1', 'FWA30001', '2');
 INSERT INTO `tb_storeorder` VALUES ('2', '2', '2015-04-02 22:23:51', '2015-04-02 22:28:03', '7', '[{\"color\":\"米色\",\"factoryId\":2,\"material\":4,\"quantity\":680,\"yarn\":\"\"},{\"color\":\"米色\",\"factoryId\":5,\"material\":4,\"quantity\":93,\"yarn\":\"\"},{\"color\":\"米色\",\"factoryId\":4,\"material\":8,\"quantity\":2,\"yarn\":\"\"},{\"color\":\"藏青\",\"factoryId\":2,\"material\":4,\"quantity\":680,\"yarn\":\"\"},{\"color\":\"藏青\",\"factoryId\":5,\"material\":4,\"quantity\":93,\"yarn\":\"\"},{\"color\":\"藏青\",\"factoryId\":4,\"material\":8,\"quantity\":2,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20002', '4', 'resource.fuwei.com/images/sample/1427955494579图片1.png', '4', '冰岛毛正反针挂须围巾', 'FWA30003', '190*40+2*20CM F', '285', '3', 'resource.fuwei.com/images/sample/s/1427955494579图片1.png', 'resource.fuwei.com/images/sample/ss/1427955494579图片1.png', '2', 'FWA30003', '3');
