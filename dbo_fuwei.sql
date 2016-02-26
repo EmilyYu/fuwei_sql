@@ -4,7 +4,7 @@ Source Host: localhost
 Source Database: dbo_fuwei
 Target Host: localhost
 Target Database: dbo_fuwei
-Date: 2016-02-04 20:16:31
+Date: 2016-02-26 17:23:05
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,7 +20,7 @@ CREATE TABLE `tb_authority` (
   PRIMARY KEY (`id`),
   KEY `FKPID323` (`pid`),
   CONSTRAINT `FKPID323` FOREIGN KEY (`pid`) REFERENCES `tb_authority` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=293 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=298 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_bank
@@ -126,7 +126,7 @@ CREATE TABLE `tb_coloringorder` (
   CONSTRAINT `tb_coloringorder_ibfk_7` FOREIGN KEY (`customerId`) REFERENCES `tb_customer` (`id`),
   CONSTRAINT `tb_coloringorder_ibfk_8` FOREIGN KEY (`materialId`) REFERENCES `tb_material` (`id`),
   CONSTRAINT `tb_coloringorder_ibfk_9` FOREIGN KEY (`charge_employee`) REFERENCES `tb_employee` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=672 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=671 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_coloringprocessorder
@@ -1025,7 +1025,7 @@ CREATE TABLE `tb_material` (
   PRIMARY KEY (`id`),
   KEY `created_user` (`created_user`),
   CONSTRAINT `tb_material_ibfk_1` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_material_current_stock
@@ -1037,12 +1037,15 @@ CREATE TABLE `tb_material_current_stock` (
   `detail_json` text,
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `store_order_id` int(11) unsigned DEFAULT NULL,
+  `coloring_order_id` int(11) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `orderId` (`orderId`),
   KEY `store_order_id` (`store_order_id`),
+  KEY `coloring_order_id` (`coloring_order_id`),
   CONSTRAINT `tb_material_current_stock_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
-  CONSTRAINT `tb_material_current_stock_ibfk_2` FOREIGN KEY (`store_order_id`) REFERENCES `tb_storeorder` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  CONSTRAINT `tb_material_current_stock_ibfk_2` FOREIGN KEY (`store_order_id`) REFERENCES `tb_storeorder` (`id`),
+  CONSTRAINT `tb_material_current_stock_ibfk_3` FOREIGN KEY (`coloring_order_id`) REFERENCES `tb_coloringorder` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_materialpurchaseorder
@@ -1262,6 +1265,21 @@ CREATE TABLE `tb_order_produce_status` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Table structure for tb_pack_property
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_pack_property`;
+CREATE TABLE `tb_pack_property` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `created_at` datetime DEFAULT NULL,
+  `created_user` int(11) DEFAULT NULL,
+  `name` varchar(64) DEFAULT NULL,
+  `english_name` varchar(64) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `created_user` (`created_user`),
+  CONSTRAINT `tb_pack_property_ibfk_1` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
 -- Table structure for tb_packingorder
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_packingorder`;
@@ -1276,12 +1294,65 @@ CREATE TABLE `tb_packingorder` (
   `filepath` varchar(255) DEFAULT NULL,
   `pdfpath` varchar(255) DEFAULT NULL,
   `memo` varchar(255) DEFAULT NULL,
+  `orderNumber` varchar(64) DEFAULT NULL,
+  `companyId` int(11) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `company_productNumber` varchar(255) DEFAULT NULL,
+  `charge_employee` int(11) DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
+  `cartons` int(11) DEFAULT NULL,
+  `capacity` double DEFAULT NULL,
+  `col1_id` int(11) DEFAULT NULL,
+  `col2_id` int(11) DEFAULT NULL,
+  `col3_id` int(11) DEFAULT NULL,
+  `col4_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `orderId` (`orderId`),
   KEY `created_user` (`created_user`),
+  KEY `companyId` (`companyId`),
+  KEY `charge_employee` (`charge_employee`),
+  KEY `col4_id` (`col4_id`),
+  KEY `col1_id` (`col1_id`),
+  KEY `col2_id` (`col2_id`),
+  KEY `col3_id` (`col3_id`),
   CONSTRAINT `tb_packingorder_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
-  CONSTRAINT `tb_packingorder_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+  CONSTRAINT `tb_packingorder_ibfk_2` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`),
+  CONSTRAINT `tb_packingorder_ibfk_3` FOREIGN KEY (`companyId`) REFERENCES `tb_company` (`id`),
+  CONSTRAINT `tb_packingorder_ibfk_4` FOREIGN KEY (`charge_employee`) REFERENCES `tb_employee` (`id`),
+  CONSTRAINT `tb_packingorder_ibfk_5` FOREIGN KEY (`col4_id`) REFERENCES `tb_pack_property` (`id`),
+  CONSTRAINT `tb_packingorder_ibfk_6` FOREIGN KEY (`col1_id`) REFERENCES `tb_pack_property` (`id`),
+  CONSTRAINT `tb_packingorder_ibfk_7` FOREIGN KEY (`col2_id`) REFERENCES `tb_pack_property` (`id`),
+  CONSTRAINT `tb_packingorder_ibfk_8` FOREIGN KEY (`col3_id`) REFERENCES `tb_pack_property` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for tb_packingorder_detail
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_packingorder_detail`;
+CREATE TABLE `tb_packingorder_detail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `packingOrderId` int(11) DEFAULT NULL,
+  `color` varchar(64) DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
+  `per_carton_quantity` int(11) DEFAULT NULL,
+  `box_L` double DEFAULT NULL,
+  `box_W` double DEFAULT NULL,
+  `box_H` double DEFAULT NULL,
+  `gross_weight` double DEFAULT NULL,
+  `net_weight` double DEFAULT NULL,
+  `cartons` int(11) DEFAULT NULL,
+  `box_number_start` int(11) DEFAULT NULL,
+  `box_number_end` int(11) DEFAULT NULL,
+  `per_pack_quantity` int(11) DEFAULT NULL,
+  `capacity` double DEFAULT NULL,
+  `col1_value` varchar(64) DEFAULT NULL,
+  `col2_value` varchar(64) DEFAULT NULL,
+  `col3_value` varchar(64) DEFAULT NULL,
+  `col4_value` varchar(64) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `packingOrderId` (`packingOrderId`),
+  CONSTRAINT `tb_packingorder_detail_ibfk_1` FOREIGN KEY (`packingOrderId`) REFERENCES `tb_packingorder` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_pantongcolor
@@ -1752,6 +1823,8 @@ CREATE TABLE `tb_store_in_out` (
   `orderId` int(11) DEFAULT NULL,
   `has_print` bit(1) DEFAULT NULL,
   `has_tagprint` bit(1) DEFAULT NULL,
+  `coloring_order_id` int(11) unsigned DEFAULT NULL,
+  `coloring_order_number` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `created_user` (`created_user`),
   KEY `companyId` (`companyId`),
@@ -1762,7 +1835,9 @@ CREATE TABLE `tb_store_in_out` (
   KEY `factoryId` (`factoryId`),
   KEY `orderId` (`orderId`),
   KEY `tb_store_in_out_ibfk_9` (`store_order_id`),
+  KEY `coloring_order_id` (`coloring_order_id`),
   CONSTRAINT `tb_store_in_out_ibfk_1` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`),
+  CONSTRAINT `tb_store_in_out_ibfk_10` FOREIGN KEY (`coloring_order_id`) REFERENCES `tb_coloringorder` (`id`),
   CONSTRAINT `tb_store_in_out_ibfk_2` FOREIGN KEY (`companyId`) REFERENCES `tb_company` (`id`),
   CONSTRAINT `tb_store_in_out_ibfk_3` FOREIGN KEY (`sampleId`) REFERENCES `tb_sample` (`id`),
   CONSTRAINT `tb_store_in_out_ibfk_4` FOREIGN KEY (`customerId`) REFERENCES `tb_customer` (`id`),
@@ -1771,7 +1846,7 @@ CREATE TABLE `tb_store_in_out` (
   CONSTRAINT `tb_store_in_out_ibfk_7` FOREIGN KEY (`factoryId`) REFERENCES `tb_factory` (`id`),
   CONSTRAINT `tb_store_in_out_ibfk_8` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
   CONSTRAINT `tb_store_in_out_ibfk_9` FOREIGN KEY (`store_order_id`) REFERENCES `tb_storeorder` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_store_return
@@ -1804,6 +1879,8 @@ CREATE TABLE `tb_store_return` (
   `orderId` int(11) DEFAULT NULL,
   `has_print` bit(1) DEFAULT NULL,
   `store_order_id` int(11) unsigned DEFAULT NULL,
+  `coloring_order_id` int(11) unsigned DEFAULT NULL,
+  `coloring_order_number` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `created_user` (`created_user`),
   KEY `companyId` (`companyId`),
@@ -1813,6 +1890,7 @@ CREATE TABLE `tb_store_return` (
   KEY `factoryId` (`factoryId`),
   KEY `orderId` (`orderId`),
   KEY `store_order_id` (`store_order_id`),
+  KEY `coloring_order_id` (`coloring_order_id`),
   CONSTRAINT `tb_store_return_ibfk_1` FOREIGN KEY (`created_user`) REFERENCES `tb_user` (`id`),
   CONSTRAINT `tb_store_return_ibfk_2` FOREIGN KEY (`companyId`) REFERENCES `tb_company` (`id`),
   CONSTRAINT `tb_store_return_ibfk_3` FOREIGN KEY (`sampleId`) REFERENCES `tb_sample` (`id`),
@@ -1820,7 +1898,8 @@ CREATE TABLE `tb_store_return` (
   CONSTRAINT `tb_store_return_ibfk_5` FOREIGN KEY (`charge_employee`) REFERENCES `tb_employee` (`id`),
   CONSTRAINT `tb_store_return_ibfk_6` FOREIGN KEY (`factoryId`) REFERENCES `tb_factory` (`id`),
   CONSTRAINT `tb_store_return_ibfk_7` FOREIGN KEY (`orderId`) REFERENCES `tb_order` (`id`),
-  CONSTRAINT `tb_store_return_ibfk_8` FOREIGN KEY (`store_order_id`) REFERENCES `tb_storeorder` (`id`)
+  CONSTRAINT `tb_store_return_ibfk_8` FOREIGN KEY (`store_order_id`) REFERENCES `tb_storeorder` (`id`),
+  CONSTRAINT `tb_store_return_ibfk_9` FOREIGN KEY (`coloring_order_id`) REFERENCES `tb_coloringorder` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -2130,7 +2209,7 @@ INSERT INTO `tb_authority` VALUES ('205', '202', '详情', 'producing_order/deta
 INSERT INTO `tb_authority` VALUES ('206', '52', '修改订单备注', 'order/edit/memo');
 INSERT INTO `tb_authority` VALUES ('207', '201', '装箱单', 'packing_order');
 INSERT INTO `tb_authority` VALUES ('208', '207', '装箱单列表', 'packing_order/index');
-INSERT INTO `tb_authority` VALUES ('209', '207', '上传', 'packing_order/add');
+INSERT INTO `tb_authority` VALUES ('209', '207', '添加', 'packing_order/add');
 INSERT INTO `tb_authority` VALUES ('210', '207', '修改', 'packing_order/edit');
 INSERT INTO `tb_authority` VALUES ('211', '207', '删除', 'packing_order/delete');
 INSERT INTO `tb_authority` VALUES ('212', '207', '详情', 'packing_order/detail');
@@ -2214,6 +2293,11 @@ INSERT INTO `tb_authority` VALUES ('289', '287', '编辑', 'producebill/edit');
 INSERT INTO `tb_authority` VALUES ('290', '287', '删除', 'producebill/delete');
 INSERT INTO `tb_authority` VALUES ('291', '287', '列表', 'producebill/index');
 INSERT INTO `tb_authority` VALUES ('292', '287', '导出', 'producebill/export');
+INSERT INTO `tb_authority` VALUES ('293', '4', '装箱单列属性', 'packproperty');
+INSERT INTO `tb_authority` VALUES ('294', '293', '添加', 'packproperty/add');
+INSERT INTO `tb_authority` VALUES ('295', '293', '编辑', 'packproperty/edit');
+INSERT INTO `tb_authority` VALUES ('296', '293', '列表', 'packproperty/index');
+INSERT INTO `tb_authority` VALUES ('297', '293', '删除', 'packproperty/delete');
 INSERT INTO `tb_bank` VALUES ('107', null, '2015-06-11 20:00:50', '2015-06-11 20:00:50', '6', '柴中柱', null, '', '行内', '101000351173237');
 INSERT INTO `tb_bank` VALUES ('108', null, '2015-06-11 20:00:50', '2015-06-11 20:00:50', '6', '何红梅', null, '', '行内', '6228580199068256196');
 INSERT INTO `tb_bank` VALUES ('109', null, '2015-06-11 20:00:50', '2015-06-11 20:00:50', '6', '胡盼', null, '', '行内', '6228580199060897070');
@@ -3757,7 +3841,6 @@ INSERT INTO `tb_coloringorder` VALUES ('667', null, '2015-10-15 08:46:48', '2015
 INSERT INTO `tb_coloringorder` VALUES ('668', null, '2015-10-15 13:40:46', '2015-10-15 13:40:46', '7', '[{\"color\":\"浅紫\",\"material\":41,\"quantity\":8,\"standardyarn\":\"\"},{\"color\":\"酒红\",\"material\":41,\"quantity\":4,\"standardyarn\":\"\"},{\"color\":\"孔雀蓝\",\"material\":41,\"quantity\":4,\"standardyarn\":\"\"}]', '50', '0', '新建', '3', null, null, 'AB 纱帽子/围脖', null, null, '0', null, null, null, null, null, '浅紫+酒红/浅紫+孔雀蓝', '15RS0668', 'BH 28816', '4');
 INSERT INTO `tb_coloringorder` VALUES ('669', null, '2015-10-15 13:52:21', '2015-10-15 13:52:21', '7', '[{\"color\":\"浅绿\",\"material\":59,\"quantity\":5,\"standardyarn\":\"\"}]', '13', '0', '新建', '3', null, null, '围脖/帽子', null, null, '0', null, null, null, null, null, '', '15RS0669', 'BH28820', '4');
 INSERT INTO `tb_coloringorder` VALUES ('670', null, '2015-10-15 15:09:21', '2015-10-15 15:09:21', '7', '[{\"color\":\"NX1004 藏青\",\"material\":39,\"quantity\":3,\"standardyarn\":\"\"},{\"color\":\"ＮＸ３７８７红色\",\"material\":39,\"quantity\":3,\"standardyarn\":\"\"},{\"color\":\"NX1416黄色\",\"material\":39,\"quantity\":3,\"standardyarn\":\"\"},{\"color\":\"NX1004藏青\",\"material\":1,\"quantity\":5,\"standardyarn\":\"\"}]', '13', '0', '新建', '1', null, null, '帽子', null, null, '0', null, null, null, null, null, '', '15RS0670', 'NEXT0047', '3');
-INSERT INTO `tb_coloringorder` VALUES ('671', null, '2015-10-15 16:52:26', '2015-10-15 16:52:26', '7', '[{\"color\":\"002深灰\",\"material\":1,\"quantity\":40,\"standardyarn\":\"\"},{\"color\":\"002浅灰\",\"material\":1,\"quantity\":80,\"standardyarn\":\"\"},{\"color\":\"002姜黄\",\"material\":1,\"quantity\":80,\"standardyarn\":\"\"},{\"color\":\"002黑色\",\"material\":1,\"quantity\":40,\"standardyarn\":\"\"},{\"color\":\"002深棕\",\"material\":1,\"quantity\":80,\"standardyarn\":\"\"}]', '15', '0', '新建', '2', null, null, '烫金披肩', null, null, '0', null, null, null, null, null, '', '15RS0671', 'EY 150511002', '3');
 INSERT INTO `tb_coloringprocessorder` VALUES ('1', '1', '2015-03-31 21:48:39', '2015-03-31 21:48:39', '7', '6', '执行完成');
 INSERT INTO `tb_coloringprocessorder` VALUES ('2', '2', '2015-04-02 22:09:03', '2015-04-02 22:09:03', '7', '0', '新建');
 INSERT INTO `tb_coloringprocessorder` VALUES ('3', '3', '2015-04-02 22:32:58', '2015-04-02 22:32:58', '7', '0', '新建');
@@ -7774,8 +7857,10 @@ INSERT INTO `tb_material` VALUES ('56', '2015-09-22 14:13:44', '2s空心带子�
 INSERT INTO `tb_material` VALUES ('57', '2015-09-25 14:50:46', '30支双股人棉', '2015-09-25 14:50:46', '7');
 INSERT INTO `tb_material` VALUES ('58', '2015-10-13 10:51:53', '28支晴纶', '2015-10-13 10:51:53', '7');
 INSERT INTO `tb_material` VALUES ('59', '2015-10-15 13:51:02', '1.05支包心大肚纱', '2015-10-15 13:51:02', '7');
-INSERT INTO `tb_material_current_stock` VALUES ('10', '346', '[{\"color\":\"QY米色\",\"id\":0,\"in_quantity\":179,\"material\":6,\"plan_quantity\":178,\"return_quantity\":4,\"stock_quantity\":173},{\"color\":\"深夹花灰\",\"id\":0,\"in_quantity\":179,\"material\":7,\"plan_quantity\":178,\"return_quantity\":4,\"stock_quantity\":173}]', '1', null);
-INSERT INTO `tb_material_current_stock` VALUES ('91', '165', '[{\"color\":\"白色\",\"id\":0,\"in_quantity\":15,\"material\":29,\"plan_quantity\":15,\"return_quantity\":0,\"stock_quantity\":15},{\"color\":\"黑色\",\"id\":0,\"in_quantity\":130,\"material\":9,\"plan_quantity\":130,\"return_quantity\":0,\"stock_quantity\":130},{\"color\":\"黑色\",\"id\":0,\"in_quantity\":20,\"material\":29,\"plan_quantity\":28,\"return_quantity\":0,\"stock_quantity\":20}]', '2', null);
+INSERT INTO `tb_material` VALUES ('60', '2016-02-24 11:12:00', '5.5s1090马海毛', '2016-02-24 11:12:00', '6');
+INSERT INTO `tb_material_current_stock` VALUES ('10', '188', '[{\"color\":\"QY米色\",\"id\":0,\"in_quantity\":185,\"material\":6,\"plan_quantity\":178,\"return_quantity\":4,\"stock_quantity\":15},{\"color\":\"深夹花灰\",\"id\":0,\"in_quantity\":179,\"material\":7,\"plan_quantity\":178,\"return_quantity\":4,\"stock_quantity\":173}]', '1', null, null);
+INSERT INTO `tb_material_current_stock` VALUES ('91', '165', '[{\"color\":\"白色\",\"id\":0,\"in_quantity\":15,\"material\":29,\"plan_quantity\":15,\"return_quantity\":0,\"stock_quantity\":15},{\"color\":\"黑色\",\"id\":0,\"in_quantity\":130,\"material\":9,\"plan_quantity\":130,\"return_quantity\":0,\"stock_quantity\":130},{\"color\":\"黑色\",\"id\":0,\"in_quantity\":20,\"material\":29,\"plan_quantity\":28,\"return_quantity\":0,\"stock_quantity\":20}]', '2', null, null);
+INSERT INTO `tb_material_current_stock` VALUES (null, '3', '[{\"color\":\"灰驼段染\",\"id\":0,\"in_quantity\":13,\"material\":9,\"plan_quantity\":10,\"return_quantity\":0,\"stock_quantity\":3}]', '3', null, '521');
 INSERT INTO `tb_materialpurchaseorder` VALUES ('1', '2', '2015-04-02 22:21:59', '2015-04-02 22:21:59', '7', '[{\"batch_number\":\"1\",\"material\":4,\"price\":1,\"quantity\":1360,\"scale\":\"1\"},{\"batch_number\":\"1\",\"material\":8,\"price\":1,\"quantity\":3,\"scale\":\"1\"}]', '2015-04-02 00:00:00', '19', '0', '新建', '4', 'resource.fuwei.com/images/sample/1427955494579图片1.png', '4', '冰岛毛正反针挂须围巾', 'FWA30003', '190*40+2*20CM F', '285', '3', 'FWA20002', 'resource.fuwei.com/images/sample/s/1427955494579图片1.png', 'resource.fuwei.com/images/sample/ss/1427955494579图片1.png', '2', '15CG0001', 'FWA30003', '3');
 INSERT INTO `tb_materialpurchaseorder` VALUES ('2', '3', '2015-04-02 22:33:53', '2015-04-02 22:33:53', '7', '[{\"batch_number\":\"1\",\"material\":4,\"price\":1,\"quantity\":381,\"scale\":\"381\"},{\"batch_number\":\"1\",\"material\":8,\"price\":1,\"quantity\":3,\"scale\":\"1\"}]', '2015-04-02 00:00:00', '19', '0', '新建', '4', 'resource.fuwei.com/images/sample/1427955562784图片1.png', '4', '冰岛毛正反针吊球帽', 'FWA30004', '24CMH *20CM', '66', '4', 'FWA20003', 'resource.fuwei.com/images/sample/s/1427955562784图片1.png', 'resource.fuwei.com/images/sample/ss/1427955562784图片1.png', '2', '15CG0002', 'FWA30004', '3');
 INSERT INTO `tb_materialpurchaseorder` VALUES ('3', '4', '2015-04-02 22:46:02', '2015-04-02 22:46:02', '7', '[{\"batch_number\":\"1\",\"material\":4,\"price\":1,\"quantity\":56,\"scale\":\"1\"},{\"batch_number\":\"1\",\"material\":8,\"price\":1,\"quantity\":1,\"scale\":\"1\"}]', '2015-04-02 00:00:00', '19', '0', '新建', '4', 'resource.fuwei.com/images/sample/1427955633832图片1.png', '4', '冰岛正反针包套', 'FWA30005', '24CM L *10CM W ，做为S/M码', '83', '5', 'FWA20004', 'resource.fuwei.com/images/sample/s/1427955633832图片1.png', 'resource.fuwei.com/images/sample/ss/1427955633832图片1.png', '2', '15CG0003', 'FWA30005', '3');
@@ -8668,9 +8753,15 @@ INSERT INTO `tb_order_handle` VALUES ('366', '282', '创建订单', '1', '待发
 INSERT INTO `tb_order_handle` VALUES ('367', '283', '创建订单', '1', '待发货', null, '7', '2015-10-13 13:17:10');
 INSERT INTO `tb_order_handle` VALUES ('368', '284', '创建订单', '1', '待发货', null, '7', '2015-10-15 09:22:03');
 INSERT INTO `tb_order_handle` VALUES ('369', '285', '创建订单', '1', '待发货', null, '6', '2015-10-29 21:07:54');
-INSERT INTO `tb_packingorder` VALUES ('1', '2015-06-30 11:40:20', '2015-06-30 11:40:20', '9', '144', '0', '新建', 'resource.fuwei.com/excel/packing/orderId=144_2015-06-30_1435635620050.xls', 'resource.fuwei.com/pdf/packing/orderId=144_2015-06-30_1435635620050.pdf', '');
-INSERT INTO `tb_packingorder` VALUES ('2', '2015-06-30 11:41:27', '2015-06-30 11:41:27', '9', '89', '0', '新建', 'resource.fuwei.com/excel/packing/orderId=89_2015-06-30_1435635687583.xls', 'resource.fuwei.com/pdf/packing/orderId=89_2015-06-30_1435635687583.pdf', '');
-INSERT INTO `tb_packingorder` VALUES ('3', '2015-11-06 20:49:50', '2015-11-06 20:49:50', '6', '285', '0', '新建', 'resource.fuwei.com/excel/packing/orderId=285_2015-11-06_1446814190734.xls', 'resource.fuwei.com/pdf/packing/orderId=285_2015-11-06_1446814190734.pdf', '');
+INSERT INTO `tb_pack_property` VALUES ('1', '2016-02-25 13:30:41', '6', '国家', 'country');
+INSERT INTO `tb_pack_property` VALUES ('2', '2016-02-25 13:31:03', '6', '订单号', 'ORDER NO.');
+INSERT INTO `tb_pack_property` VALUES ('3', '2016-02-25 13:31:16', '6', 'keycode', 'keycode');
+INSERT INTO `tb_pack_property` VALUES ('4', '2016-02-25 13:32:14', '6', '款号', 'ref.');
+INSERT INTO `tb_packingorder` VALUES ('10', '2016-02-26 14:53:31', '2016-02-26 16:19:54', '6', '285', '0', '新建', null, null, '测试装箱单备注', 'FWA20285', '6', '测试', 'FWA30242', '1', '760', '64', '0.85', '2', null, null, null);
+INSERT INTO `tb_packingorder` VALUES ('11', '2016-02-26 16:27:44', '2016-02-26 16:44:32', '6', '285', '0', '新建', null, null, '', 'FWA20285', '6', '测试', 'FWA30242', '1', '50', '3', '0.04', null, null, null, null);
+INSERT INTO `tb_packingorder_detail` VALUES ('5', '10', '黑色', '400', '12', '25', '22', '24', '1.5', '1.1', '34', '1', '345', '12', '0.45', '15384680K', '', '', '');
+INSERT INTO `tb_packingorder_detail` VALUES ('6', '10', '藏青', '360', '12', '25', '22', '24', '1.5', '1.1', '30', '1', '30', '12', '0.4', '15384681K', '', '', '');
+INSERT INTO `tb_packingorder_detail` VALUES ('8', '11', '黑色', '50', '20', '25', '22', '24', '1.5', '1.1', '3', '1', '50', '12', '0.04', '', '', '', '');
 INSERT INTO `tb_pantongcolor` VALUES ('11-0103', '1', '1', '1');
 INSERT INTO `tb_pantongcolor` VALUES ('11-0104', '1', '2', '2');
 INSERT INTO `tb_pantongcolor` VALUES ('11-0105', '1', '4', '2');
@@ -10877,7 +10968,7 @@ INSERT INTO `tb_planorder` VALUES ('278', '278', '2015-10-09 14:36:54', '2015-10
 INSERT INTO `tb_planorder` VALUES ('279', '279', '2015-10-09 14:58:38', '2015-10-09 14:58:38', '7', '[{\"color\":\"本白\",\"id\":1,\"price\":0,\"produce_weight\":83,\"quantity\":400,\"size\":\"22W*23H+9\",\"weight\":100,\"yarn\":6},{\"color\":\"粉色\",\"id\":2,\"price\":0,\"produce_weight\":83,\"quantity\":600,\"size\":\"22W*23H+9\",\"weight\":100,\"yarn\":6}]', '0', '新建');
 INSERT INTO `tb_planorder` VALUES ('280', '280', '2015-10-09 15:05:02', '2015-10-09 15:05:02', '7', '[{\"color\":\"本白\",\"id\":1,\"price\":0,\"produce_weight\":240,\"quantity\":400,\"size\":\"20*180+20*2\",\"weight\":262,\"yarn\":6},{\"color\":\"粉色\",\"id\":2,\"price\":0,\"produce_weight\":240,\"quantity\":600,\"size\":\"20*180+20*2\",\"weight\":262,\"yarn\":6}]', '0', '新建');
 INSERT INTO `tb_planorder` VALUES ('281', '281', '2015-10-09 15:09:30', '2015-10-09 15:09:30', '7', '[{\"color\":\"粉色\",\"id\":1,\"price\":0,\"produce_weight\":171,\"quantity\":400,\"size\":\"34*2*40\",\"weight\":173,\"yarn\":4}]', '0', '新建');
-INSERT INTO `tb_planorder` VALUES ('282', '282', '2015-10-10 08:50:23', '2015-10-10 08:50:23', '7', '[{\"color\":\"红棕色\",\"id\":1,\"price\":0,\"produce_weight\":180,\"quantity\":100,\"size\":\"40*75*2\",\"weight\":163,\"yarn\":13}]', '0', '新建');
+INSERT INTO `tb_planorder` VALUES ('282', '282', '2015-10-10 08:50:23', '2016-02-25 16:08:20', '7', '[{\"color\":\"红棕色\",\"id\":1,\"price\":0,\"produce_weight\":180,\"quantity\":115,\"size\":\"40*75*2\",\"weight\":163,\"yarn\":13}]', '0', '新建');
 INSERT INTO `tb_planorder` VALUES ('283', '283', '2015-10-13 13:17:11', '2015-10-13 13:17:11', '7', '[{\"color\":\"灰色\",\"id\":1,\"price\":0,\"produce_weight\":0,\"quantity\":15,\"size\":\"0\",\"weight\":0,\"yarn\":1},{\"color\":\"驼色\",\"id\":2,\"price\":0,\"produce_weight\":0,\"quantity\":15,\"size\":\"0\",\"weight\":0,\"yarn\":1},{\"color\":\"黑色\",\"id\":3,\"price\":0,\"produce_weight\":0,\"quantity\":15,\"size\":\"0\",\"weight\":0,\"yarn\":1}]', '0', '新建');
 INSERT INTO `tb_planorder` VALUES ('284', '284', '2015-10-15 09:22:03', '2015-10-15 09:22:03', '7', '[{\"color\":\"灰色组\",\"id\":1,\"price\":0,\"produce_weight\":93,\"quantity\":3000,\"size\":\"22H*21+10\",\"weight\":93,\"yarn\":9},{\"color\":\"粉色组\",\"id\":2,\"price\":0,\"produce_weight\":93,\"quantity\":4000,\"size\":\"22H*21+10\",\"weight\":93,\"yarn\":9}]', '0', '新建');
 INSERT INTO `tb_planorder` VALUES ('285', '285', '2015-10-29 21:07:54', '2016-01-09 22:44:43', '6', '[{\"color\":\"红色\",\"id\":1,\"price\":10,\"produce_weight\":90,\"quantity\":1015,\"size\":\"未知\",\"weight\":110,\"yarn\":5}]', '0', '新建');
@@ -12666,12 +12757,17 @@ INSERT INTO `tb_shoprecordorder` VALUES ('281', '281', '2015-10-09 15:09:30', '2
 INSERT INTO `tb_shoprecordorder` VALUES ('282', '282', '2015-10-10 08:50:24', '2015-10-10 08:50:24', '7', '0', '新建');
 INSERT INTO `tb_shoprecordorder` VALUES ('283', '283', '2015-10-13 13:17:11', '2015-10-13 13:17:11', '7', '0', '新建');
 INSERT INTO `tb_shoprecordorder` VALUES ('284', '284', '2015-10-15 09:22:03', '2015-10-15 09:22:03', '7', '0', '新建');
-INSERT INTO `tb_store_in_out` VALUES ('1', '9', '2015-10-18 20:50:47', '2015-10-28 18:56:03', '6', '[{\"color\":\"QY米色\",\"id\":1,\"lot_no\":\"loytgrd\",\"material\":6,\"packages\":3,\"quantity\":125},{\"color\":\"深夹花灰\",\"id\":2,\"lot_no\":\"loy332\",\"material\":7,\"packages\":5,\"quantity\":135}]', '0', '新建', 'FWA20010', '4', 'resource.fuwei.com/images/sample/1428068026985图片1.png', '6', '绞花包套', 'FWA30016', '25*9cm S/M', '114', '16', 'resource.fuwei.com/images/sample/s/1428068026985图片1.png', 'resource.fuwei.com/images/sample/ss/1428068026985图片1.png', '3', 'FWA30016', '3', '', '2015-10-18 00:00:00', '13', null, '', '15SRK0001', '10', '', '');
-INSERT INTO `tb_store_in_out` VALUES ('2', '9', '2015-10-18 20:51:39', '2015-10-18 20:51:39', '6', '[{\"color\":\"QY米色\",\"id\":0,\"lot_no\":\"loytgrd\",\"material\":6,\"packages\":1,\"quantity\":2},{\"color\":\"深夹花灰\",\"id\":0,\"lot_no\":\"loy332\",\"material\":7,\"packages\":1,\"quantity\":2}]', '0', '新建', 'FWA20010', '4', 'resource.fuwei.com/images/sample/1428068026985图片1.png', '6', '绞花包套', 'FWA30016', '25*9cm S/M', '114', '16', 'resource.fuwei.com/images/sample/s/1428068026985图片1.png', 'resource.fuwei.com/images/sample/ss/1428068026985图片1.png', '3', 'FWA30016', '3', '', '2015-10-18 00:00:00', '4', null, '', '15SCK0002', '10', '', '');
-INSERT INTO `tb_store_in_out` VALUES ('3', '9', '2015-10-28 18:57:00', '2015-10-28 18:57:00', '6', '[{\"color\":\"QY米色\",\"id\":1,\"lot_no\":\"lot111\",\"material\":6,\"packages\":1,\"quantity\":54},{\"color\":\"深夹花灰\",\"id\":2,\"lot_no\":\"lot222\",\"material\":7,\"packages\":1,\"quantity\":44}]', '0', '新建', 'FWA20010', '4', 'resource.fuwei.com/images/sample/1428068026985图片1.png', '6', '绞花包套', 'FWA30016', '25*9cm S/M', '114', '16', 'resource.fuwei.com/images/sample/s/1428068026985图片1.png', 'resource.fuwei.com/images/sample/ss/1428068026985图片1.png', '3', 'FWA30016', '3', '', '2015-10-28 00:00:00', '3', null, '纱线超出1kg', '15SRK0003', '10', '', '');
-INSERT INTO `tb_store_in_out` VALUES ('4', '80', '2015-10-29 21:48:33', '2015-10-29 21:48:33', '6', '[{\"color\":\"白色\",\"id\":1,\"lot_no\":\"lot333\",\"material\":29,\"packages\":1,\"quantity\":10},{\"color\":\"黑色\",\"id\":2,\"lot_no\":\"324r4r\",\"material\":9,\"packages\":1,\"quantity\":50}]', '0', '新建', 'FWA20091', '1', 'resource.fuwei.com/images/sample/1430554256869图片1.jpg', '9', '马海毛珠片纱吊球帽', 'FWA30109', '23*23cm', '80', '109', 'resource.fuwei.com/images/sample/s/1430554256869图片1.png', 'resource.fuwei.com/images/sample/ss/1430554256869图片1.png', null, '72505', '1', '', '2015-10-29 00:00:00', '3', null, '', '15SRK0004', '91', '', '');
-INSERT INTO `tb_store_in_out` VALUES ('5', '80', '2015-10-29 21:49:01', '2015-10-29 21:49:01', '6', '[{\"color\":\"白色\",\"id\":1,\"lot_no\":\"65443f\",\"material\":29,\"packages\":1,\"quantity\":5},{\"color\":\"黑色\",\"id\":2,\"lot_no\":\"terr442\",\"material\":9,\"packages\":1,\"quantity\":80},{\"color\":\"黑色\",\"id\":3,\"lot_no\":\"fg4343\",\"material\":29,\"packages\":1,\"quantity\":20}]', '0', '新建', 'FWA20091', '1', 'resource.fuwei.com/images/sample/1430554256869图片1.jpg', '9', '马海毛珠片纱吊球帽', 'FWA30109', '23*23cm', '80', '109', 'resource.fuwei.com/images/sample/s/1430554256869图片1.png', 'resource.fuwei.com/images/sample/ss/1430554256869图片1.png', null, '72505', '1', '', '2015-10-29 00:00:00', '14', null, '', '15SRK0005', '91', '', '');
-INSERT INTO `tb_store_return` VALUES ('1', '2015-10-28 19:18:44', '2015-10-28 19:18:44', '6', '[{\"color\":\"QY米色\",\"id\":1,\"lot_no\":\"lot111\",\"material\":6,\"packages\":1,\"quantity\":4},{\"color\":\"深夹花灰\",\"id\":2,\"lot_no\":\"lot222\",\"material\":7,\"packages\":1,\"quantity\":4}]', '0', '新建', 'FWA20010', '4', 'resource.fuwei.com/images/sample/1428068026985图片1.png', '绞花包套', 'FWA30016', '16', 'resource.fuwei.com/images/sample/s/1428068026985图片1.png', 'resource.fuwei.com/images/sample/ss/1428068026985图片1.png', '3', 'FWA30016', '3', '2015-10-28 00:00:00', '3', null, '', '15HR0001', '10', '', '9');
+INSERT INTO `tb_store_in_out` VALUES ('1', '9', '2015-10-18 20:50:47', '2015-10-28 18:56:03', '6', '[{\"color\":\"QY米色\",\"id\":1,\"lot_no\":\"loytgrd\",\"material\":6,\"packages\":3,\"quantity\":125},{\"color\":\"深夹花灰\",\"id\":2,\"lot_no\":\"loy332\",\"material\":7,\"packages\":5,\"quantity\":135}]', '0', '新建', 'FWA20010', '4', 'resource.fuwei.com/images/sample/1428068026985图片1.png', '6', '绞花包套', 'FWA30016', '25*9cm S/M', '114', '16', 'resource.fuwei.com/images/sample/s/1428068026985图片1.png', 'resource.fuwei.com/images/sample/ss/1428068026985图片1.png', '3', 'FWA30016', '3', '', '2015-10-18 00:00:00', '13', null, '', '15SRK0001', '10', '', '', null, null);
+INSERT INTO `tb_store_in_out` VALUES ('2', '9', '2015-10-18 20:51:39', '2016-02-23 17:58:35', '6', '[{\"color\":\"QY米色\",\"id\":0,\"lot_no\":\"loytgrd\",\"material\":6,\"packages\":1,\"quantity\":2},{\"color\":\"深夹花灰\",\"id\":0,\"lot_no\":\"loy332\",\"material\":7,\"packages\":1,\"quantity\":2}]', '0', '新建', 'FWA20010', '4', 'resource.fuwei.com/images/sample/1428068026985图片1.png', '6', '绞花包套', 'FWA30016', '25*9cm S/M', '114', '16', 'resource.fuwei.com/images/sample/s/1428068026985图片1.png', 'resource.fuwei.com/images/sample/ss/1428068026985图片1.png', '3', 'FWA30016', '3', '', '2015-10-18 00:00:00', '4', null, 'bred', '15SCK0002', '10', '', '', null, null);
+INSERT INTO `tb_store_in_out` VALUES ('3', '9', '2015-10-28 18:57:00', '2015-10-28 18:57:00', '6', '[{\"color\":\"QY米色\",\"id\":1,\"lot_no\":\"lot111\",\"material\":6,\"packages\":1,\"quantity\":54},{\"color\":\"深夹花灰\",\"id\":2,\"lot_no\":\"lot222\",\"material\":7,\"packages\":1,\"quantity\":44}]', '0', '新建', 'FWA20010', '4', 'resource.fuwei.com/images/sample/1428068026985图片1.png', '6', '绞花包套', 'FWA30016', '25*9cm S/M', '114', '16', 'resource.fuwei.com/images/sample/s/1428068026985图片1.png', 'resource.fuwei.com/images/sample/ss/1428068026985图片1.png', '3', 'FWA30016', '3', '', '2015-10-28 00:00:00', '3', null, '纱线超出1kg', '15SRK0003', '10', '', '', null, null);
+INSERT INTO `tb_store_in_out` VALUES ('4', '80', '2015-10-29 21:48:33', '2015-10-29 21:48:33', '6', '[{\"color\":\"白色\",\"id\":1,\"lot_no\":\"lot333\",\"material\":29,\"packages\":1,\"quantity\":10},{\"color\":\"黑色\",\"id\":2,\"lot_no\":\"324r4r\",\"material\":9,\"packages\":1,\"quantity\":50}]', '0', '新建', 'FWA20091', '1', 'resource.fuwei.com/images/sample/1430554256869图片1.jpg', '9', '马海毛珠片纱吊球帽', 'FWA30109', '23*23cm', '80', '109', 'resource.fuwei.com/images/sample/s/1430554256869图片1.png', 'resource.fuwei.com/images/sample/ss/1430554256869图片1.png', null, '72505', '1', '', '2015-10-29 00:00:00', '3', null, '', '15SRK0004', '91', '', '', null, null);
+INSERT INTO `tb_store_in_out` VALUES ('5', '80', '2015-10-29 21:49:01', '2016-02-23 17:18:24', '6', '[{\"color\":\"白色\",\"id\":1,\"lot_no\":\"65443f\",\"material\":29,\"packages\":1,\"quantity\":5},{\"color\":\"黑色\",\"id\":2,\"lot_no\":\"terr442\",\"material\":9,\"packages\":3,\"quantity\":80},{\"color\":\"黑色\",\"id\":3,\"lot_no\":\"fg4343\",\"material\":29,\"packages\":1,\"quantity\":20}]', '0', '新建', 'FWA20091', '1', 'resource.fuwei.com/images/sample/1430554256869图片1.jpg', '9', '马海毛珠片纱吊球帽', 'FWA30109', '23*23cm', '80', '109', 'resource.fuwei.com/images/sample/s/1430554256869图片1.png', 'resource.fuwei.com/images/sample/ss/1430554256869图片1.png', null, '72505', '1', '', '2015-10-29 00:00:00', '14', null, '', '15SRK0005', '91', '', '', null, null);
+INSERT INTO `tb_store_in_out` VALUES ('6', null, '2016-02-21 14:23:44', '2016-02-23 17:44:03', '6', '[{\"color\":\"灰驼段染\",\"id\":1,\"lot_no\":\"15W0222\",\"material\":9,\"packages\":1,\"quantity\":10}]', '0', '新建', null, '2', null, null, '段染纱围脖', null, null, '0', null, null, null, null, 'EY15-124', '3', '', '2016-02-21 00:00:00', '14', null, '', '16SRK0006', null, '', '', '521', '15RS0521');
+INSERT INTO `tb_store_in_out` VALUES ('8', null, '2016-02-23 16:14:59', '2016-02-23 18:00:16', '6', '[{\"color\":\"灰驼段染\",\"id\":0,\"lot_no\":\"15W0222\",\"material\":9,\"packages\":1,\"quantity\":10}]', '0', '新建', null, '2', null, null, '段染纱围脖', null, null, '0', null, null, null, null, 'EY15-124', '3', '', '2016-02-23 00:00:00', null, null, 'ces', '16SCK0008', null, '', '', '521', '15RS0521');
+INSERT INTO `tb_store_in_out` VALUES ('9', null, '2016-02-25 16:23:36', '2016-02-25 16:23:36', '6', '[{\"color\":\"灰驼段染\",\"id\":1,\"lot_no\":\"lot111\",\"material\":9,\"packages\":1,\"quantity\":3}]', '0', '新建', null, '2', null, null, '段染纱围脖', null, null, '0', null, null, null, null, 'EY15-124', '3', '', '2016-02-25 00:00:00', '14', null, '', '16SRK0009', null, '', '', '521', '15RS0521');
+INSERT INTO `tb_store_in_out` VALUES ('10', '9', '2016-02-25 16:24:40', '2016-02-25 16:24:40', '6', '[{\"color\":\"QY米色\",\"id\":1,\"lot_no\":\"45678879\",\"material\":6,\"packages\":1,\"quantity\":6}]', '0', '新建', 'FWA20010', '4', 'resource.fuwei.com/images/sample/1428068026985图片1.png', '6', '绞花包套', 'FWA30016', '25*9cm S/M', '114', '16', 'resource.fuwei.com/images/sample/s/1428068026985图片1.png', 'resource.fuwei.com/images/sample/ss/1428068026985图片1.png', '3', 'FWA30016', '3', '', '2016-02-25 00:00:00', '13', null, '', '16SRK0010', '10', '', '', null, null);
+INSERT INTO `tb_store_in_out` VALUES ('16', '9', '2016-02-25 16:45:31', '2016-02-25 16:45:31', '6', '[{\"color\":\"QY米色\",\"id\":0,\"lot_no\":\"loytgrd\",\"material\":6,\"packages\":1,\"quantity\":123},{\"color\":\"QY米色\",\"id\":0,\"lot_no\":\"lot111\",\"material\":6,\"packages\":1,\"quantity\":41}]', '0', '新建', 'FWA20010', '4', 'resource.fuwei.com/images/sample/1428068026985图片1.png', '6', '绞花包套', 'FWA30016', '25*9cm S/M', '114', '16', 'resource.fuwei.com/images/sample/s/1428068026985图片1.png', 'resource.fuwei.com/images/sample/ss/1428068026985图片1.png', '3', 'FWA30016', '3', '', '2016-02-25 00:00:00', '2', null, '', '16SCK0016', '10', '', '', null, null);
+INSERT INTO `tb_store_return` VALUES ('1', '2015-10-28 19:18:44', '2015-10-28 19:18:44', '6', '[{\"color\":\"QY米色\",\"id\":1,\"lot_no\":\"lot111\",\"material\":6,\"packages\":1,\"quantity\":4},{\"color\":\"深夹花灰\",\"id\":2,\"lot_no\":\"lot222\",\"material\":7,\"packages\":1,\"quantity\":4}]', '0', '新建', 'FWA20010', '4', 'resource.fuwei.com/images/sample/1428068026985图片1.png', '绞花包套', 'FWA30016', '16', 'resource.fuwei.com/images/sample/s/1428068026985图片1.png', 'resource.fuwei.com/images/sample/ss/1428068026985图片1.png', '3', 'FWA30016', '3', '2015-10-28 00:00:00', '3', null, '', '15HR0001', '10', '', '9', null, null);
 INSERT INTO `tb_storeorder` VALUES ('1', '1', '2015-04-01 20:52:06', '2015-04-01 20:52:06', '7', '[{\"color\":\"白色\",\"factoryId\":1,\"material\":1,\"quantity\":145,\"yarn\":\"\"},{\"color\":\"黑色\",\"factoryId\":1,\"material\":1,\"quantity\":162,\"yarn\":\"\"},{\"color\":\"黑色\",\"factoryId\":4,\"material\":1,\"quantity\":2,\"yarn\":\"\"},{\"color\":\"黑色\",\"factoryId\":5,\"material\":1,\"quantity\":15,\"yarn\":\"\"}]', null, '6', '执行完成', 'FWA20001', '1', 'resource.fuwei.com/images/sample/1427808371841QQ图片20150331211900.jpg', '1', '全晴格子披肩', 'FWA30001', '126*126 + 10*2', '471', '1', 'resource.fuwei.com/images/sample/s/1427808371841QQ图片20150331211900.png', 'resource.fuwei.com/images/sample/ss/1427808371841QQ图片20150331211900.png', '1', 'FWA30001', '2');
 INSERT INTO `tb_storeorder` VALUES ('2', '2', '2015-04-02 22:23:51', '2015-04-02 22:28:03', '7', '[{\"color\":\"米色\",\"factoryId\":2,\"material\":4,\"quantity\":680,\"yarn\":\"\"},{\"color\":\"米色\",\"factoryId\":5,\"material\":4,\"quantity\":93,\"yarn\":\"\"},{\"color\":\"米色\",\"factoryId\":4,\"material\":8,\"quantity\":2,\"yarn\":\"\"},{\"color\":\"藏青\",\"factoryId\":2,\"material\":4,\"quantity\":680,\"yarn\":\"\"},{\"color\":\"藏青\",\"factoryId\":5,\"material\":4,\"quantity\":93,\"yarn\":\"\"},{\"color\":\"藏青\",\"factoryId\":4,\"material\":8,\"quantity\":2,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20002', '4', 'resource.fuwei.com/images/sample/1427955494579图片1.png', '4', '冰岛毛正反针挂须围巾', 'FWA30003', '190*40+2*20CM F', '285', '3', 'resource.fuwei.com/images/sample/s/1427955494579图片1.png', 'resource.fuwei.com/images/sample/ss/1427955494579图片1.png', '2', 'FWA30003', '3');
 INSERT INTO `tb_storeorder` VALUES ('3', '3', '2015-04-02 22:38:27', '2015-04-02 22:39:01', '7', '[{\"color\":\"QY034-米色\",\"factoryId\":2,\"material\":4,\"quantity\":166,\"yarn\":\"\"},{\"color\":\"QY034-藏青\",\"factoryId\":2,\"material\":4,\"quantity\":166,\"yarn\":\"\"},{\"color\":\"QY034-米色\",\"factoryId\":20,\"material\":4,\"quantity\":24,\"yarn\":\"\"},{\"color\":\"QY034-藏青\",\"factoryId\":20,\"material\":4,\"quantity\":24,\"yarn\":\"\"},{\"color\":\"QY034-米色\",\"factoryId\":4,\"material\":8,\"quantity\":1,\"yarn\":\"\"},{\"color\":\"QY034-藏青\",\"factoryId\":4,\"material\":8,\"quantity\":1,\"yarn\":\"\"}]', null, '0', '新建', 'FWA20003', '4', 'resource.fuwei.com/images/sample/1427955562784图片1.png', '4', '冰岛毛正反针吊球帽', 'FWA30004', '24CMH *20CM', '66', '4', 'resource.fuwei.com/images/sample/s/1427955562784图片1.png', 'resource.fuwei.com/images/sample/ss/1427955562784图片1.png', '2', 'FWA30004', '3');
